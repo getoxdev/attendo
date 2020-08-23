@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.menu.FragmentAbout"
+    android:background="#fff">
+
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_marginTop="?attr/actionBarSize"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="500dp"
+          android:orientation="vertical">
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+               <androidx.cardview.widget.CardView
+                android:id="@+id/profile_photo"
+                app:cardElevation="1dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:cardCornerRadius="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp">
+
+               <ImageView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/mentor"
+                   android:scaleType="centerCrop"/>
+
+
+
+               </androidx.cardview.widget.CardView>
+
+               <androidx.cardview.widget.CardView
+                   android:id="@+id/mentor_card"
+                   android:layout_width="match_parent"
+                   android:layout_height="150dp"
+                   android:layout_centerHorizontal="true"
+                   app:cardElevation="0dp"
+                   android:layout_marginTop="50dp"
+                   app:cardCornerRadius="20dp"
+                   app:cardBackgroundColor="#CBF3EB"
+                   android:layout_marginLeft="20dp"
+                   android:clickable="true"
+                   android:foreground="?android:attr/selectableItemBackground">
+
+                  <RelativeLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent">
+
+                     <TextView
+                         android:id="@+id/name_about_page"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="Rishiraj Paul Choudhary"
+                         android:textColor="#000"
+                         android:fontFamily="@font/comfortaa"
+                         android:layout_centerVertical="true"
+                         android:layout_centerHorizontal="true"/>
+
+                     <TextView
+                         android:id="@+id/skills_done"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="Android Developer | SIH 2020 Finalist"
+                         android:layout_below="@id/name_about_page"
+                         android:layout_centerHorizontal="true"/>
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="NIT Silchar | ECE"
+                         android:layout_below="@id/skills_done"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="12dp"/>
+
+
+
+
+
+
+                  </RelativeLayout>
+
+
+
+
+
+
+
+
+               </androidx.cardview.widget.CardView>
+
+
+               <!-- First Card Learner 1 -->
+
+               <androidx.cardview.widget.CardView
+                android:id="@+id/learner1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/mentor_card"
+                app:cardBackgroundColor="#F6F0E1"
+                app:cardCornerRadius="20dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                app:cardElevation="0dp"
+                   android:clickable="true"
+                   android:foreground="?android:attr/selectableItemBackground">
+
+                  <RelativeLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent">
+
+                     <TextView
+                         android:id="@+id/name_learner_1"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="Raj Kishan"
+                         android:layout_marginStart="70dp"
+                         android:layout_marginTop="14dp"
+                         android:fontFamily="@font/comfortaa"
+                         android:textColor="@color/black"/>
+
+                     <TextView
+                         android:id="@+id/designation_learner_1"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_below="@id/name_learner_1"
+                         android:layout_marginStart="70dp"
+                         android:text="Desgination"/>
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_below="@id/designation_learner_1"
+                         android:layout_marginStart="70dp"
+                         android:text="NIT Silchar | ECE"/>
+
+
+
+
+
+
+                  </RelativeLayout>
+
+
+
+
+               </androidx.cardview.widget.CardView>
+
+
+               <androidx.cardview.widget.CardView
+                   app:cardElevation="1dp"
+                   android:layout_width="100dp"
+                   android:layout_height="100dp"
+                   app:cardCornerRadius="50dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginTop="8dp"
+                   android:layout_alignBottom="@id/learner1"
+                   android:layout_alignParentStart="true"
+                   android:layout_marginStart="10dp">
+
+
+
+
+                  <ImageView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:src="@drawable/raj"
+                      android:scaleType="centerCrop"/>
+
+               </androidx.cardview.widget.CardView>
+
+               <!-- First Card Learner 2 -->
+
+               <androidx.cardview.widget.CardView
+                   android:id="@+id/learner2"
+                   android:layout_width="match_parent"
+                   android:layout_height="100dp"
+                   android:layout_below="@id/learner1"
+                   app:cardBackgroundColor="#F6F0E1"
+                   app:cardCornerRadius="20dp"
+                   android:layout_marginLeft="20dp"
+                   android:layout_marginRight="50dp"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginBottom="5dp"
+                   app:cardElevation="0dp"
+                   android:clickable="true"
+                   android:foreground="?android:attr/selectableItemBackground">
+
+                  <RelativeLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent">
+
+                     <TextView
+                         android:id="@+id/name_learner_2"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="Aman Aryan"
+                         android:layout_marginEnd="70dp"
+                         android:layout_marginTop="14dp"
+                         android:fontFamily="@font/comfortaa"
+                         android:textColor="@color/black"
+                         android:layout_alignParentEnd="true"/>
+
+                     <TextView
+                         android:id="@+id/designation_learner_2"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_below="@id/name_learner_2"
+                         android:layout_marginEnd="70dp"
+                         android:text="Desgination"
+                         android:layout_alignParentEnd="true"/>
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_below="@id/designation_learner_2"
+                         android:layout_marginEnd="70dp"
+                         android:text="NIT Silchar | ECE"
+                         android:layout_alignParentEnd="true"/>
+
+
+
+
+
+
+                  </RelativeLayout>
+
+
+               </androidx.cardview.widget.CardView>
+
+
+               <androidx.cardview.widget.CardView
+                   app:cardElevation="1dp"
+                   android:layout_width="100dp"
+                   android:layout_height="100dp"
+                   app:cardCornerRadius="50dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginTop="8dp"
+                   android:layout_alignBottom="@id/learner2"
+                   android:layout_alignParentEnd="true"
+                   android:layout_marginEnd="10dp">
+
+
+
+
+                  <ImageView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:src="@drawable/aman"
+                      android:scaleType="centerCrop"/>
+
+               </androidx.cardview.widget.CardView>
+
+               <!-- First Card Learner 3 -->
+
+
+               <androidx.cardview.widget.CardView
+                   android:id="@+id/learner3"
+                   android:layout_width="match_parent"
+                   android:layout_height="100dp"
+                   android:layout_below="@id/learner2"
+                   app:cardBackgroundColor="#F6F0E1"
+                   app:cardCornerRadius="20dp"
+                   android:layout_marginLeft="50dp"
+                   android:layout_marginRight="20dp"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginBottom="5dp"
+                   app:cardElevation="0dp"
+                   android:clickable="true"
+                   android:foreground="?android:attr/selectableItemBackground">
+
+                  <RelativeLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent">
+
+                     <TextView
+                         android:id="@+id/name_learner_3"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="Shristi Sarma"
+                         android:layout_marginStart="70dp"
+                         android:layout_marginTop="14dp"
+                         android:fontFamily="@font/comfortaa"
+                         android:textColor="@color/black"/>
+
+                     <TextView
+                         android:id="@+id/designation_learner_3"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_below="@id/name_learner_3"
+                         android:layout_marginStart="70dp"
+                         android:text="Android Developer"/>
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_below="@id/designation_learner_3"
+                         android:layout_marginStart="70dp"
+                         android:text="NIT Silchar | ECE"/>
+
+
+
+
+
+
+                  </RelativeLayout>
+
+
+
+               </androidx.cardview.widget.CardView>
+
+
+               <androidx.cardview.widget.CardView
+                   app:cardElevation="1dp"
+                   android:layout_width="100dp"
+                   android:layout_height="100dp"
+                   app:cardCornerRadius="50dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginTop="8dp"
+                   android:layout_alignBottom="@id/learner3"
+                   android:layout_alignParentStart="true"
+                   android:layout_marginStart="10dp">
+
+
+
+
+                  <ImageView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:src="@drawable/shristi"
+                      android:scaleType="centerCrop"/>
+
+               </androidx.cardview.widget.CardView>
+
+
+
+               <!-- First Card Learner 4 -->
+
+
+               <androidx.cardview.widget.CardView
+                   android:id="@+id/learner4"
+                   android:layout_width="match_parent"
+                   android:layout_height="100dp"
+                   android:layout_below="@id/learner3"
+                   app:cardBackgroundColor="#F6F0E1"
+                   app:cardCornerRadius="20dp"
+                   android:layout_marginLeft="20dp"
+                   android:layout_marginRight="50dp"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginBottom="5dp"
+                   app:cardElevation="0dp"
+                   android:clickable="true"
+                   android:foreground="?android:attr/selectableItemBackground">
+
+                  <RelativeLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent">
+
+                     <TextView
+                         android:id="@+id/name_learner_4"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="Jyotimoy Kashyap"
+                         android:layout_marginEnd="70dp"
+                         android:layout_marginTop="14dp"
+                         android:fontFamily="@font/comfortaa"
+                         android:textColor="@color/black"
+                         android:layout_alignParentEnd="true"/>
+
+                     <TextView
+                         android:id="@+id/designation_learner_4"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_below="@id/name_learner_4"
+                         android:layout_marginEnd="70dp"
+                         android:text="UX/ UI Designer | Android Developer "
+                         android:layout_alignParentEnd="true"/>
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_below="@id/designation_learner_4"
+                         android:layout_marginEnd="70dp"
+                         android:text="NIT Silchar | CSE "
+                         android:layout_alignParentEnd="true"/>
+
+
+
+
+
+
+                  </RelativeLayout>
+
+
+
+               </androidx.cardview.widget.CardView>
+
+
+               <androidx.cardview.widget.CardView
+                   app:cardElevation="1dp"
+                   android:layout_width="100dp"
+                   android:layout_height="100dp"
+                   app:cardCornerRadius="50dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginTop="8dp"
+                   android:layout_alignBottom="@id/learner4"
+                   android:layout_alignParentEnd="true"
+                   android:layout_marginEnd="10dp">
+
+
+
+
+                  <ImageView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:src="@drawable/jyotimoy"
+                      android:scaleType="centerCrop"/>
+
+               </androidx.cardview.widget.CardView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </RelativeLayout>
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentBottom="true"
+             android:text="Click on the cards to connect"
+             android:layout_marginTop="10dp"
+             android:layout_marginBottom="20dp"
+             android:textSize="16dp"
+             android:layout_gravity="center|bottom"/>
+
+
+
+
+
+
+
+
+
+
+
+      </LinearLayout>
+
+
+   </ScrollView>
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

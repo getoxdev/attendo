@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/share"
+        android:orderInCategory="100"
+        android:title="Share"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/about"
+        android:orderInCategory="200"
+        android:title="About"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/exit"
+        android:orderInCategory="300"
+        android:title="Logout"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/ic_settings_black"
+        android:title="Setting"
+        app:showAsAction="always" />
+</menu>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frag_info"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_info"
+    tools:context=".ui.main.drawers.FragmentInfo">
+
+    <TextView
+        android:id="@+id/a"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attendo"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:layout_marginLeft="130dp"
+        android:layout_marginTop="270dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Version 1.0"
+        android:textColor="#C0C0C0"
+        android:textSize="20dp"
+        android:layout_below="@+id/a"
+        android:layout_marginLeft="135dp"/>
+
+
+
+    <ImageView
+        android:id="@+id/i"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/foreground_header_icon"
+        android:layout_centerInParent="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="\u00A9 2020 - Developers"
+        android:textColor="#C0C0C0"
+        android:textSize="20dp"
+        android:layout_below="@+id/i"
+        android:layout_marginLeft="110dp"/>
+
+
+</RelativeLayout>

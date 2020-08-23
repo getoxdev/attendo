@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_login_signup"
+    tools:context=".ui.main.drawers.account.FragmentProfile">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/image_cardview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="50dp"
+        app:cardCornerRadius="50dp">
+
+        <ImageView
+            android:id="@+id/user_image"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/account_icon"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/image_cardview"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/login_btn_bcg"
+        android:elevation="10dp"
+        android:ems="10"
+        android:hint="Username"
+        android:textAlignment="center"
+        android:inputType="textPersonName"
+        />
+
+    <EditText
+        android:id="@+id/user_school"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/user_name"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/login_btn_bcg"
+        android:elevation="10dp"
+        android:ems="10"
+        android:hint="institution"
+        android:textAlignment="center"
+        android:inputType="textPersonName"
+        />
+
+    <EditText
+        android:id="@+id/user_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/user_school"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/login_btn_bcg"
+        android:elevation="10dp"
+        android:ems="10"
+        android:hint="City"
+        android:textAlignment="center"
+        android:inputType="textPersonName"
+        />
+
+    <EditText
+        android:id="@+id/user_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/user_city"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/login_btn_bcg"
+        android:elevation="10dp"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:textAlignment="center"
+        android:inputType="phone"
+        />
+
+    <ProgressBar
+        android:id="@+id/user_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/user_phone"
+        android:layout_marginTop="15dp"/>
+
+    <Button
+        android:id="@+id/save_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_below="@+id/user_phone"
+        android:textSize="18dp"
+        android:text="update"
+        android:textColor="#fff"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bcg_login_signup"/>
+
+
+</RelativeLayout>

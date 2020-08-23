@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.main.MainActivity"
+    android:id="@+id/parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:outlineAmbientShadowColor="#000"
+        android:textAlignment="center"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/subName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:text="Subject"
+                android:textColor="#000000"
+                android:textSize="22dp"
+
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/attendance"
+                android:layout_width="89dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subName"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="-9dp"
+                android:hint="Attendance:"
+                android:textColor="@color/colorAccent"
+                android:textSize="15dp" />
+
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subName"
+                android:layout_alignBaseline="@id/attendance"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="14dp"
+                android:layout_toRightOf="@id/attendance"
+                android:text="0"
+                android:textColor="@color/colorAccent"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/subName"
+                android:layout_alignBaseline="@id/attendance"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/tv1"
+                android:hint="out of"
+                android:textColor="#000"
+                android:textSize="15dp" />
+
+
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/subName"
+                android:layout_alignBaseline="@id/attendance"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@id/tv2"
+                android:text="0"
+                android:textColor="#000"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/subName"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30dp"
+                android:text="75%"
+                android:textColor="#000"
+                android:textSize="22dp" />
+
+
+
+            <TextView
+                android:id="@+id/question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/total"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="Have you attended today's class ? " />
+
+
+
+
+
+
+
+            <Button
+                android:id="@+id/bPresent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/yes_button"
+                android:text="Yes"
+                android:textColor="@color/white" />
+
+
+            <Button
+                android:id="@+id/bAbsent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question"
+                android:layout_alignBaseline="@id/bPresent"
+                android:layout_toRightOf="@id/bPresent"
+                android:background="@drawable/no_button"
+                android:text="No"
+                android:textColor="@color/white" />
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

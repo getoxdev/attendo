@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet_container"
+    android:background="@drawable/bottom_sheet_background"
+    android:layout_gravity="bottom">
+
+
+    <TextView
+        android:id="@+id/connect_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connect"
+        android:textSize="21dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:fontFamily="@font/comfortaa"/>
+
+    <View
+        android:id="@+id/divider_sheet_bottom"
+        android:layout_width="match_parent"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/connect_text"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/grey_400"/>
+
+    <ImageView
+        android:id="@+id/github_icon"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/github"
+        app:layout_constraintTop_toBottomOf="@id/divider_sheet_bottom"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:padding="10dp" />
+
+    <ImageView
+        android:id="@+id/linked_icon"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginLeft="8dp"
+        android:padding="10dp"
+        android:src="@drawable/linkedin"
+        app:layout_constraintLeft_toRightOf="@id/github_icon"
+        app:layout_constraintTop_toBottomOf="@id/divider_sheet_bottom" />
+
+    <ImageView
+        android:id="@+id/instagram_icon"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginLeft="8dp"
+        android:padding="10dp"
+        android:src="@drawable/instagram"
+        app:layout_constraintLeft_toRightOf="@id/linked_icon"
+        app:layout_constraintTop_toBottomOf="@id/divider_sheet_bottom" />
+
+    <ImageView
+        android:id="@+id/facebook_icon"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:padding="10dp"
+        android:src="@drawable/facebook"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toRightOf="@id/instagram_icon"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_sheet_bottom" />
+
+    <View
+        android:id="@+id/divider2_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        app:layout_constraintTop_toBottomOf="@id/instagram_icon"
+        android:background="@color/grey_400"
+        android:padding="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        app:layout_constraintTop_toBottomOf="@id/divider2_bottom_sheet"
+        android:text="Support the developers"
+        android:gravity="center"
+        android:fontFamily="@font/comfortaa"
+        android:padding="10dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
