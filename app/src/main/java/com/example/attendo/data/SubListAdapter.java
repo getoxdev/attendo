@@ -15,22 +15,22 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.attendo.ui.sub.SubActivity;
-import com.example.attendo.ui.sub.Activity_edit;
+import com.example.attendo.ui.sub.SubjectActivity;
+import com.example.attendo.ui.sub.Activity_Edit_Subject;
 import com.example.attendo.R;
 
 import java.util.List;
 
 
-public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.NoteViewHolder>  {
+public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewHolder>  {
 
     private final LayoutInflater layoutInflater;
     private Context mContext;
-    private List<SubEntity> mNotes;
+    private List<SubEntity> mSubjects;
 
     private List<SubEntity> mDataList;
 
-    public SubListAdapter(Context context, SubActivity listener) {
+    public SubListAdapter(Context context, SubjectActivity listener) {
         layoutInflater = LayoutInflater.from(context);
         mContext = context;
 
@@ -38,35 +38,35 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.NoteView
 
     @NonNull
     @Override
-    public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = layoutInflater.inflate(R.layout.sub_info, parent, false);
-        NoteViewHolder viewHolder = new NoteViewHolder(itemView);
+        SubViewHolder viewHolder = new SubViewHolder(itemView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SubViewHolder holder, int position) {
 
         //animation
         Animation cardanim = AnimationUtils.loadAnimation(mContext,R.anim.fade_card);
         holder.card.setAnimation(cardanim);
 
 
-        if (mNotes != null) {
-            SubEntity note = mNotes.get(position);
-            holder.setData(note.getNote(), position);
+        if (mSubjects != null) {
+            SubEntity SUBJECT = mSubjects.get(position);
+            holder.setData(SUBJECT.getSubject(), position);
 
         } else {
             // Covers the case of data not being ready yet.
-            holder.noteItemView.setText("No Subject");
+            holder.subItemView.setText("No Subject");
         }
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                                    Intent intent = new Intent(mContext, Activity_edit.class);
-                    intent.putExtra("note_id", mNotes.get(position).getId());
-                    ((Activity)mContext).startActivityForResult(intent, SubActivity.UPDATE_NOTE_ACTIVITY_REQUEST_CODE);
+                                    Intent intent = new Intent(mContext, Activity_Edit_Subject.class);
+                    intent.putExtra("note_id", mSubjects.get(position).getId());
+                    ((Activity)mContext).startActivityForResult(intent, SubjectActivity.UPDATE_SUBJECT_ACTIVITY_REQUEST_CODE);
 
             }
         });
@@ -107,33 +107,33 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.NoteView
 
     @Override
     public int getItemCount() {
-        if (mNotes != null)
-            return mNotes.size();
+        if (mSubjects != null)
+            return mSubjects.size();
         else return 0;
     }
 
-    public void setNotes(List<SubEntity> notes) {
-        mNotes = notes;
+    public void setmSubjects(List<SubEntity> subjects) {
+        mSubjects = subjects;
         notifyDataSetChanged();
     }
 
     public SubEntity getNoteAt(int position)
     {
-        return mNotes.get(position);
+        return mSubjects.get(position);
     }
 
-    public class NoteViewHolder extends RecyclerView.ViewHolder  {
+    public class SubViewHolder extends RecyclerView.ViewHolder  {
 
-        private TextView noteItemView,total,tv1,percent;
+        private TextView subItemView,total,tv1,percent;
         private int mPosition;
         private Button imgDelete, imgEdit;
         private CardView card;
-        NoteViewHolder noteViewHolder;
+        SubViewHolder subViewHolder;
 
 
-        public NoteViewHolder(View itemView) {
+        public SubViewHolder(View itemView) {
             super(itemView);
-            noteItemView = itemView.findViewById(R.id.subName);
+            subItemView = itemView.findViewById(R.id.subName);
             imgDelete 	 = itemView.findViewById(R.id.bAbsent);
             imgEdit 	 = itemView.findViewById(R.id.bPresent);
             card = itemView.findViewById(R.id.card1);
@@ -145,7 +145,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.NoteView
         }
 
         public void setData(String note, int position) {
-            noteItemView.setText(note);
+            subItemView.setText(note);
             mPosition = position;
 
 

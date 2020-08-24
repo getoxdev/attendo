@@ -10,11 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.example.attendo.ui.sub.SubActivity;
+import com.example.attendo.ui.sub.SubjectActivity;
 import com.example.attendo.R;
 import com.example.attendo.ui.calendar.FragmentCalender;
-
-import butterknife.BindView;
 
 public class FragmentHome extends Fragment {
 
@@ -36,7 +34,7 @@ public class FragmentHome extends Fragment {
         subjectCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SubActivity.class);
+                Intent intent = new Intent(getActivity(), SubjectActivity.class);
                 startActivity(intent);
             }
         });

@@ -12,46 +12,46 @@ import android.widget.EditText;
 
 import com.example.attendo.R;
 import com.example.attendo.data.SubEntity;
-import com.example.attendo.viewmodel.EditNoteViewModel;
+import com.example.attendo.viewmodel.EditSubjectViewModel;
 
-public class Activity_edit extends AppCompatActivity {
+public class Activity_Edit_Subject extends AppCompatActivity {
 
-    public static final String NOTE_ID = "sub_id";
-    static final String UPDATED_NOTE = "sub_text";
-    private EditText etNote;
+    public static final String SUBJECT_ID = "sub_id";
+    static final String UPDATED_SUBJECT = "sub_text";
+    private EditText etSubject;
     private Bundle bundle;
-    private String noteId;
-    private LiveData<SubEntity> note;
+    private String subId;
+    private LiveData<SubEntity> SUBJECT;
 
-    EditNoteViewModel noteModel;
+    EditSubjectViewModel subModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-        etNote = findViewById(R.id.etNote);
+        etSubject = findViewById(R.id.etNote);
 
         bundle = getIntent().getExtras();
 
         if (bundle != null) {
-            noteId = bundle.getString("note_id");
+            subId = bundle.getString("note_id");
         }
 
        // noteModel = new  ViewModelProvider(this).get(EditNoteViewModel.class);
-        note = noteModel.getNote(noteId);
-        note.observe(this, new Observer<SubEntity>() {
+        SUBJECT = subModel.getNote(subId);
+        SUBJECT.observe(this, new Observer<SubEntity>() {
             @Override
-            public void onChanged(@Nullable SubEntity note) {
-                etNote.setText(note.getNote());
+            public void onChanged(@Nullable SubEntity SUBJECT) {
+                etSubject.setText(SUBJECT.getSubject());
             }
         });
     }
 
     public void updateNote(View view) {
-        String updatedNote = etNote.getText().toString();
+        String updatedSubject = etSubject.getText().toString();
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(NOTE_ID, noteId);
-        resultIntent.putExtra(UPDATED_NOTE, updatedNote);
+        resultIntent.putExtra(SUBJECT_ID, subId);
+        resultIntent.putExtra(UPDATED_SUBJECT, updatedSubject);
         setResult(RESULT_OK, resultIntent);
         finish();
     }

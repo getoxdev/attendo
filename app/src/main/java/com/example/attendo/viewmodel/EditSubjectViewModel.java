@@ -12,20 +12,20 @@ import com.example.attendo.data.SubDao;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.data.database.SubDatabase;
 
-public class EditNoteViewModel extends AndroidViewModel {
+public class EditSubjectViewModel extends AndroidViewModel {
 
     private String TAG = this.getClass().getSimpleName();
-    private SubDao noteDao;
+    private SubDao SubDao;
     private SubDatabase db;
 
-    public EditNoteViewModel(@NonNull Application application) {
+    public EditSubjectViewModel(@NonNull Application application) {
         super(application);
         Log.i(TAG, "Edit ViewModel");
         db = SubDatabase.getDatabase(application);
-        noteDao = db.noteDao();
+        SubDao = db.SubDao();
     }
 
-    public LiveData<SubEntity> getNote(String noteId) {
-        return noteDao.getNote(noteId);
+    public LiveData<SubEntity> getNote(String subId) {
+        return SubDao.getSUBJECT(subId);
     }
 }

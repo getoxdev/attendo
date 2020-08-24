@@ -13,25 +13,24 @@ import java.util.List;
 public interface SubDao {
 
     @Insert
-    void insert(SubEntity note);
+    void insert(SubEntity SUBJECT);
 
-    @Query("SELECT * FROM notes")
-    LiveData<List<SubEntity>> getAllNotes();
+    @Query("SELECT * FROM SubjectName")
+    LiveData<List<SubEntity>> getAllSubjects();
 
-    @Query("SELECT * FROM notes WHERE id=:noteId")
-    LiveData<SubEntity> getNote(String noteId);
+    @Query("SELECT * FROM SubjectName WHERE id=:subId")
+    LiveData<SubEntity> getSUBJECT(String subId);
 
     @Update
-    void update(SubEntity note);
+    void update(SubEntity SUBJECT);
 
     @Delete
-    int delete(SubEntity note);
+    int delete(SubEntity SUBJECT);
 
-    @Query("UPDATE notes SET present = :present+1 WHERE note = :subject")
+    @Query("UPDATE SubjectName SET present = :present+1 WHERE subject = :subject")
     void updatePresent(int present, String subject);
 
-    @Query("UPDATE notes SET absent= :absent+1 WHERE note = :subject")
+    @Query("UPDATE SubjectName SET absent= :absent+1 WHERE subject = :subject")
     void updateAbsent(int absent, String subject);
-
 
 }

@@ -12,11 +12,11 @@ import android.widget.Toolbar;
 
 import com.example.attendo.R;
 
-public class Activity_new extends AppCompatActivity {
+public class Activity_Add_Subject extends AppCompatActivity {
 
-    public static final String NOTE_ADDED = "Subject Added";
+    public static final String SUBJECT_ADDED = "Subject Added";
 
-    private EditText etNewNote;
+    private EditText etNewSub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class Activity_new extends AppCompatActivity {
         setContentView(R.layout.activity_new);
 
 
-        etNewNote = findViewById(R.id.etNewNote);
+        etNewSub = findViewById(R.id.etNewNote);
 
         Button button = findViewById(R.id.bAdd);
         button.setOnClickListener(new View.OnClickListener() {
@@ -33,17 +33,16 @@ public class Activity_new extends AppCompatActivity {
 
                 Intent resultIntent = new Intent();
 
-                if (TextUtils.isEmpty(etNewNote.getText())) {
+                if (TextUtils.isEmpty(etNewSub.getText())) {
                     setResult(RESULT_CANCELED, resultIntent);
                 } else {
-                    String note = etNewNote.getText().toString();
-                    resultIntent.putExtra(NOTE_ADDED, note);
+                    String ADD = etNewSub.getText().toString();
+                    resultIntent.putExtra(SUBJECT_ADDED, ADD);
                     setResult(RESULT_OK, resultIntent);
                 }
 
                 finish();
             }
         });
-
     }
 }

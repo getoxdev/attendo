@@ -14,36 +14,36 @@ import com.example.attendo.data.database.SubDatabase;
 
 import java.util.List;
 
-public class NoteViewModel extends AndroidViewModel {
+public class SubjectViewModel extends AndroidViewModel {
 
     private String TAG = this.getClass().getSimpleName();
-    private SubDao noteDao;
-    private SubDatabase noteDB;
-    private LiveData<List<SubEntity>> mAllNotes;
-    private SubEntity note;
+    private SubDao subDao;
+    private SubDatabase subDB;
+    private LiveData<List<SubEntity>> mAllSubjects;
+    private SubEntity sub;
 
-    public NoteViewModel(Application application) {
+    public SubjectViewModel(Application application) {
         super(application);
 
-        noteDB = SubDatabase.getDatabase(application);
-        noteDao = noteDB.noteDao();
-        mAllNotes = noteDao.getAllNotes();
+        subDB = SubDatabase.getDatabase(application);
+        subDao = subDB.SubDao();
+        mAllSubjects = subDao.getAllSubjects();
     }
 
-    public void insert(SubEntity note) {
-        new InsertAsyncTask(noteDao).execute(note);
+    public void insert(SubEntity SUBJECT) {
+        new InsertAsyncTask(subDao).execute(SUBJECT);
     }
 
-    public LiveData<List<SubEntity>> getAllNotes() {
-        return mAllNotes;
+    public LiveData<List<SubEntity>> getAllSubjects() {
+        return mAllSubjects;
     }
 
-    public void update(SubEntity note) {
-        new UpdateAsyncTask(noteDao).execute(note);
+    public void update(SubEntity SUBJECT) {
+        new UpdateAsyncTask(subDao).execute(SUBJECT);
     }
 
-    public void delete(SubEntity note) {
-        new DeleteAsyncTask(noteDao).execute(note);
+    public void delete(SubEntity SUBJECT) {
+        new DeleteAsyncTask(subDao).execute(SUBJECT);
     }
 
 
@@ -79,46 +79,46 @@ public class NoteViewModel extends AndroidViewModel {
         }
 
         @Override
-        protected Void doInBackground(SubEntity... notes) {
+        protected Void doInBackground(SubEntity... subjects) {
             return null;
         }
     }
 
     private class InsertAsyncTask extends OperationsAsyncTask {
 
-        InsertAsyncTask(SubDao mNoteDao) {
-            super(mNoteDao);
+        InsertAsyncTask(SubDao msubDao) {
+            super(msubDao);
         }
 
         @Override
-        protected Void doInBackground(SubEntity... notes) {
-            mAsyncTaskDao.insert(notes[0]);
+        protected Void doInBackground(SubEntity... subjects) {
+            mAsyncTaskDao.insert(subjects[0]);
             return null;
         }
     }
 
     private class UpdateAsyncTask extends OperationsAsyncTask {
 
-        UpdateAsyncTask(SubDao noteDao) {
-            super(noteDao);
+        UpdateAsyncTask(SubDao subDao) {
+            super(subDao);
         }
 
         @Override
-        protected Void doInBackground(SubEntity... notes) {
-            mAsyncTaskDao.update(notes[0]);
+        protected Void doInBackground(SubEntity... subjects) {
+            mAsyncTaskDao.update(subjects[0]);
             return null;
         }
     }
 
     private class DeleteAsyncTask extends OperationsAsyncTask {
 
-        public DeleteAsyncTask(SubDao noteDao) {
-            super(noteDao);
+        public DeleteAsyncTask(SubDao subDao) {
+            super(subDao);
         }
 
         @Override
-        protected Void doInBackground(SubEntity... notes) {
-            mAsyncTaskDao.delete(notes[0]);
+        protected Void doInBackground(SubEntity... subjects) {
+            mAsyncTaskDao.delete(subjects[0]);
             return null;
         }
     }

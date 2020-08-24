@@ -14,9 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.sub.Activity_edit"></activity>
-        <activity android:name=".ui.sub.Activity_new" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".ui.sub.SubActivity"
+        <activity android:name=".ui.sub.Activity_Edit_Subject"></activity>
+        <activity android:name=".ui.sub.Activity_Add_Subject" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".ui.sub.SubjectActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".ui.main.MainActivity"/>
         <activity android:name=".ui.auth.AuthenticationActivity" />
