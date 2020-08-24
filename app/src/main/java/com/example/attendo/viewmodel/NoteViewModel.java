@@ -34,7 +34,7 @@ public class NoteViewModel extends AndroidViewModel {
         new InsertAsyncTask(noteDao).execute(note);
     }
 
-    LiveData<List<SubEntity>> getAllNotes() {
+    public LiveData<List<SubEntity>> getAllNotes() {
         return mAllNotes;
     }
 

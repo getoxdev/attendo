@@ -48,6 +48,7 @@ public class SubEntity {
         this.present = present;
     }
 
+    @ColumnInfo(name = "present")
     private int present;
 
     public int getAbsent() {
@@ -58,6 +59,7 @@ public class SubEntity {
         this.absent = absent;
     }
 
+    @ColumnInfo(name = "absent")
     private int absent;
     //private int percent;
 

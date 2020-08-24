@@ -20,7 +20,7 @@ public class FragmentHome extends Fragment {
 
     private FragmentCalender fragmentCalender;
 
-    @BindView(R.id.subjectcardview)
+    //@BindView(R.id.subjectcardview)
     CardView subjectCV;
 
     @Override
@@ -31,6 +31,7 @@ public class FragmentHome extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        subjectCV = view.findViewById(R.id.subjectcardview);
 
         subjectCV.setOnClickListener(new View.OnClickListener() {
             @Override
