@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.attendo.R;
@@ -36,6 +37,7 @@ import static android.app.Activity.RESULT_OK;
 public class FragmentProfile extends Fragment {
 
     Button btn;
+    TextView SkipAccountCreation;
     EditText name,college,city,Contact;
     private FragmentUserProfile fragment_user_profile;
     ImageView profileimage;
@@ -95,7 +97,11 @@ public class FragmentProfile extends Fragment {
                 String City = city.getText().toString();
                 String contact = Contact.getText().toString();
                 if(Name.isEmpty() || College.isEmpty() || City.isEmpty() || contact.isEmpty() || filepath==null) {
-                    Toast.makeText(getContext(), "Please enter all fields", Toast.LENGTH_SHORT).show();
+                    if(Name.isEmpty() || College.isEmpty() || City.isEmpty() || contact.isEmpty())
+                        Toast.makeText(getContext(), "Please enter all fields", Toast.LENGTH_SHORT).show();
+                    if(filepath==null) {
+                        Toast.makeText(getContext(), "Please select your Profile image", Toast.LENGTH_SHORT).show();
+                    }
                  }
                 else{
                     //for generating unique id everytime which may not require
@@ -136,6 +142,19 @@ public class FragmentProfile extends Fragment {
                 startActivityForResult(Intent.createChooser(intent,"Select Profile Image"),1);
             }
         });
+
+        //SKIP ACCOUNT CREATION CODE
+
+        SkipAccountCreation = view.findViewById(R.id.skip_account_creation);
+        SkipAccountCreation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"Your Account Not Created!",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 

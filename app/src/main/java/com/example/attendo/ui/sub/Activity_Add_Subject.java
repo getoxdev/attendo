@@ -36,7 +36,7 @@ public class Activity_Add_Subject extends AppCompatActivity {
                 if (TextUtils.isEmpty(etNewSub.getText())) {
                     setResult(RESULT_CANCELED, resultIntent);
                 } else {
-                    String ADD = etNewSub.getText().toString();
+                    String ADD = etNewSub.getText().toString().trim();
                     resultIntent.putExtra(SUBJECT_ADDED, ADD);
                     setResult(RESULT_OK, resultIntent);
                 }

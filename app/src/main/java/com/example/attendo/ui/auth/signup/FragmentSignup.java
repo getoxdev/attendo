@@ -121,7 +121,7 @@ public class FragmentSignup extends Fragment implements signupinterface.View {
     @Override
     public void onSignup() {
         progress.setVisibility(View.INVISIBLE);
-        Toast.makeText(getActivity(),"Signup Successful by "+ email.getText().toString().trim(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),"Signup Successful",Toast.LENGTH_SHORT).show();
         setFragment(fragment_profile);
         }
 

@@ -117,7 +117,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         notifyDataSetChanged();
     }
 
-    public SubEntity getNoteAt(int position)
+    public SubEntity getSubjectAt(int position)
     {
         return mSubjects.get(position);
     }
@@ -144,8 +144,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
         }
 
-        public void setData(String note, int position) {
-            subItemView.setText(note);
+        public void setData(String subject, int position) {
+            subItemView.setText(subject);
             mPosition = position;
 
 

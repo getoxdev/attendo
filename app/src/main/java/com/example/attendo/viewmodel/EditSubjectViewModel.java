@@ -25,7 +25,7 @@ public class EditSubjectViewModel extends AndroidViewModel {
         SubDao = db.SubDao();
     }
 
-    public LiveData<SubEntity> getNote(String subId) {
+    public LiveData<SubEntity> getSubject(String subId) {
         return SubDao.getSUBJECT(subId);
     }
 }

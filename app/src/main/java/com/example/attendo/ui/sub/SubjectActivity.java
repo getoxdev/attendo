@@ -83,7 +83,7 @@ public class SubjectActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                subViewModel.delete(subListAdapter.getNoteAt(viewHolder.getAdapterPosition()));     //here check
+                subViewModel.delete(subListAdapter.getSubjectAt(viewHolder.getAdapterPosition()));     //here check
                 Toast.makeText(SubjectActivity.this,"subject deleted",Toast.LENGTH_SHORT).show();
 
             }

@@ -38,7 +38,7 @@ public class Activity_Edit_Subject extends AppCompatActivity {
         }
 
        // noteModel = new  ViewModelProvider(this).get(EditNoteViewModel.class);
-        SUBJECT = subModel.getNote(subId);
+        SUBJECT = subModel.getSubject(subId);
         SUBJECT.observe(this, new Observer<SubEntity>() {
             @Override
             public void onChanged(@Nullable SubEntity SUBJECT) {

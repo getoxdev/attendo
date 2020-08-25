@@ -27,6 +27,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <RelativeLayout
+        android:id="@+id/main_block_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -158,8 +159,6 @@
             android:layout_marginTop="18dp" />
 
 
-    </RelativeLayout>
-
     <Button
         android:id="@+id/edit_profile"
         android:layout_width="260dp"
@@ -167,13 +166,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="56dp"
         android:background="@drawable/bcg_login_signup"
-        android:text="edit profile"
-        android:textColor="#fff"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/progressbar"
+        android:textSize="18dp"
+        android:textColor="#ffffff"
+        android:text="Edit Profile"
         app:layout_constraintStart_toStartOf="parent" />
+
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

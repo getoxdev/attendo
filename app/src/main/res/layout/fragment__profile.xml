@@ -109,5 +109,15 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/bcg_login_signup"/>
 
+    <TextView
+        android:id="@+id/skip_account_creation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Skip Account Creation"
+        android:layout_marginTop="15dp"
+        android:textSize="14dp"
+        android:textColor="@color/cardview_dark_background"
+        android:layout_below="@+id/save_profile"/>
 
 </RelativeLayout>

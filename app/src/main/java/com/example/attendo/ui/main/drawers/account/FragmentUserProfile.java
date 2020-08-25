@@ -15,8 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.attendo.R;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -67,18 +69,32 @@ public class FragmentUserProfile extends Fragment {
             @Override
             public void onSuccess(Uri uri)
             {
+
                 Picasso.with(getContext()).load(uri).into(profile);
                 pgb.setVisibility(View.INVISIBLE);
             }
-        });
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
+                        pgb.setVisibility(View.INVISIBLE);
+                    }
+                });
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                name.setText(snapshot.child(user_id).child("username").getValue(String.class));
-                college.setText(snapshot.child(user_id).child("college").getValue(String.class));
-                city.setText(snapshot.child(user_id).child("city").getValue(String.class));
-                contact.setText(snapshot.child(user_id).child("contact").getValue(String.class));
+                if(snapshot.exists()) {
+                    name.setText(snapshot.child(user_id).child("username").getValue(String.class));
+                    college.setText(snapshot.child(user_id).child("college").getValue(String.class));
+                    city.setText(snapshot.child(user_id).child("city").getValue(String.class));
+                    contact.setText(snapshot.child(user_id).child("contact").getValue(String.class));
+                }
+                else{
+                    Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
+                    pgb.setVisibility(View.INVISIBLE);
+                }
 
             }
 
