@@ -11,7 +11,7 @@
         android:id="@+id/IMAGE_CARDVIEW"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="80dp"
         app:cardCornerRadius="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -29,10 +29,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65">
 
         <TextView
             android:id="@+id/name"
@@ -46,107 +47,107 @@
         <TextView
             android:id="@+id/USER_NAME"
             android:layout_width="match_parent"
-            android:text=""
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:textAlignment="inherit"
-            android:textSize="20dp"
-            android:background="@drawable/login_btn_bcg"
-            android:layout_below="@id/name"
-            android:textColor="@color/colorAccent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/name"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:paddingTop="7dp"
             android:layout_marginTop="7dp"
-            android:paddingLeft="10dp"/>
+            android:layout_marginRight="50dp"
+            android:background="@drawable/login_btn_bcg"
+            android:paddingLeft="10dp"
+            android:paddingTop="7dp"
+            android:text=""
+            android:textAlignment="inherit"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/institute_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Institute Name"
-            android:textSize="13dp"
-            android:layout_marginTop="10dp"
             android:layout_below="@id/USER_NAME"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:text="Institute Name"
             android:textColor="#6c6c6c"
-            android:layout_marginLeft="50dp" />
+            android:textSize="13dp" />
 
         <TextView
             android:id="@+id/USER_COLLEGE"
             android:layout_width="match_parent"
-            android:text=""
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:textSize="20dp"
-            android:textAlignment="inherit"
-            android:background="@drawable/login_btn_bcg"
-            android:layout_below="@id/institute_name"
-            android:textColor="@color/colorAccent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/institute_name"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:paddingTop="7dp"
             android:layout_marginTop="7dp"
-            android:paddingLeft="10dp"/>
+            android:layout_marginRight="50dp"
+            android:background="@drawable/login_btn_bcg"
+            android:paddingLeft="10dp"
+            android:paddingTop="7dp"
+            android:text=""
+            android:textAlignment="inherit"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/town"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Town"
-            android:textSize="10dp"
-            android:layout_marginTop="10dp"
             android:layout_below="@id/USER_COLLEGE"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:text="Town"
             android:textColor="#6c6c6c"
-            android:layout_marginLeft="50dp" />
+            android:textSize="10dp" />
 
         <TextView
             android:id="@+id/USER_CITY"
             android:layout_width="match_parent"
-            android:text=""
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:textSize="20dp"
-            android:textAlignment="inherit"
-            android:textColor="@color/colorAccent"
             android:layout_height="wrap_content"
             android:layout_below="@id/town"
-            android:background="@drawable/login_btn_bcg"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:paddingTop="7dp"
             android:layout_marginTop="7dp"
-            android:paddingLeft="10dp"/>
+            android:layout_marginRight="50dp"
+            android:background="@drawable/login_btn_bcg"
+            android:paddingLeft="10dp"
+            android:paddingTop="7dp"
+            android:text=""
+            android:textAlignment="inherit"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Contact Number"
-            android:textSize="10dp"
-            android:layout_marginTop="10dp"
             android:layout_below="@id/USER_CITY"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:text="Contact Number"
             android:textColor="#6c6c6c"
-            android:layout_marginLeft="50dp" />
+            android:textSize="10dp" />
 
         <TextView
             android:id="@+id/USER_PHONE"
             android:layout_width="match_parent"
-            android:text=""
-            android:textStyle="bold"
-            android:textAllCaps="true"
-            android:textSize="20dp"
-            android:textAlignment="inherit"
-            android:layout_below="@id/phone"
-            android:textColor="@color/colorAccent"
             android:layout_height="wrap_content"
-            android:background="@drawable/login_btn_bcg"
+            android:layout_below="@id/phone"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:paddingTop="7dp"
             android:layout_marginTop="7dp"
-            android:paddingLeft="10dp"/>
+            android:layout_marginRight="50dp"
+            android:background="@drawable/login_btn_bcg"
+            android:paddingLeft="10dp"
+            android:paddingTop="7dp"
+            android:text=""
+            android:textAlignment="inherit"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -154,12 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/USER_PHONE"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp"/>
-
-
-
-
-
+            android:layout_marginTop="18dp" />
 
 
     </RelativeLayout>
