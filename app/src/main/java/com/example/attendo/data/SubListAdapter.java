@@ -19,6 +19,7 @@ import com.example.attendo.ui.sub.SubjectActivity;
 import com.example.attendo.ui.sub.Activity_Edit_Subject;
 import com.example.attendo.R;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 
@@ -83,6 +84,9 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 holder.tv1.setText(r1);
                 holder.total.setText(r2);
 
+                //To set the percentage using the getPercentage method
+                holder.percent.setText(getPercentage(pre1,total1)  + " %");
+
 
             }
         });
@@ -91,11 +95,15 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             public void onClick(View v) {
                 int total1 = Integer.parseInt((String) holder.total.getText());
                 //int ab = 0;
-                // pre1 = Integer.parseInt((String) holder.tv1.getText());
+                int pre1 = Integer.parseInt((String) holder.tv1.getText());
                 total1++;
                 String r3 = String.valueOf(total1);
                // ab++;
                 holder.total.setText(r3);
+
+
+                //To set the percentage using the getPercentage method
+                holder.percent.setText(getPercentage(pre1, total1) + " %");
 
 
             }
@@ -139,7 +147,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             card = itemView.findViewById(R.id.card1);
             total=itemView.findViewById(R.id.total);
             tv1 = itemView.findViewById(R.id.tv1);
-            percent = itemView.findViewById(R.id.percent);
+            percent = itemView.findViewById(R.id.percentage);
 
 
         }
@@ -157,6 +165,21 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
     }
 
+    // Method to get percentage of attendance from the present and total data provided
+    //--------------------------------------------------------------------------------------
+
+    private String  getPercentage(int present, int total){
+        double presentdouble , totaldouble;
+        presentdouble = Double.valueOf(present);
+        totaldouble  = Double.valueOf(total);
+        DecimalFormat df = new DecimalFormat("#.##");
+        double percentage = (presentdouble/totaldouble)*100;
+        return df.format(percentage);
+
+
+    }
+
+    //----------------------------------------------------------------------------------------
 
 }
 
