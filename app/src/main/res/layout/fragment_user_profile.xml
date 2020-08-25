@@ -11,7 +11,7 @@
         android:id="@+id/IMAGE_CARDVIEW"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         app:cardCornerRadius="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -39,9 +39,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:text="NAME"
+            android:text="Name"
             android:textColor="#6c6c6c"
-            android:textSize="10dp" />
+            android:textSize="13dp" />
 
         <TextView
             android:id="@+id/USER_NAME"
@@ -49,18 +49,24 @@
             android:text=""
             android:textStyle="bold"
             android:textAllCaps="true"
+            android:textAlignment="inherit"
             android:textSize="20dp"
+            android:background="@drawable/login_btn_bcg"
             android:layout_below="@id/name"
             android:textColor="@color/colorAccent"
-            android:layout_height="25dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"/>
+            android:layout_marginRight="50dp"
+            android:paddingTop="7dp"
+            android:layout_marginTop="7dp"
+            android:paddingLeft="10dp"/>
 
         <TextView
+            android:id="@+id/institute_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="INSTITUTION NAME"
-            android:textSize="10dp"
+            android:text="Institute Name"
+            android:textSize="13dp"
             android:layout_marginTop="10dp"
             android:layout_below="@id/USER_NAME"
             android:textColor="#6c6c6c"
@@ -73,16 +79,22 @@
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textSize="20dp"
-            android:layout_marginTop="50dp"
+            android:textAlignment="inherit"
+            android:background="@drawable/login_btn_bcg"
+            android:layout_below="@id/institute_name"
             android:textColor="@color/colorAccent"
-            android:layout_height="25dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"/>
+            android:layout_marginRight="50dp"
+            android:paddingTop="7dp"
+            android:layout_marginTop="7dp"
+            android:paddingLeft="10dp"/>
 
         <TextView
+            android:id="@+id/town"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TOWN"
+            android:text="Town"
             android:textSize="10dp"
             android:layout_marginTop="10dp"
             android:layout_below="@id/USER_COLLEGE"
@@ -96,14 +108,19 @@
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textSize="20dp"
+            android:textAlignment="inherit"
             android:textColor="@color/colorAccent"
-            android:layout_height="25dp"
-
-            android:layout_marginTop="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/town"
+            android:background="@drawable/login_btn_bcg"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"/>
+            android:layout_marginRight="50dp"
+            android:paddingTop="7dp"
+            android:layout_marginTop="7dp"
+            android:paddingLeft="10dp"/>
 
         <TextView
+            android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Contact Number"
@@ -120,11 +137,16 @@
             android:textStyle="bold"
             android:textAllCaps="true"
             android:textSize="20dp"
+            android:textAlignment="inherit"
+            android:layout_below="@id/phone"
             android:textColor="@color/colorAccent"
-            android:layout_height="25dp"
-            android:layout_marginTop="150dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_btn_bcg"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"/>
+            android:layout_marginRight="50dp"
+            android:paddingTop="7dp"
+            android:layout_marginTop="7dp"
+            android:paddingLeft="10dp"/>
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -146,16 +168,16 @@
         android:id="@+id/edit_profile"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
-
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="56dp"
         android:background="@drawable/bcg_login_signup"
         android:text="edit profile"
         android:textColor="#fff"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
