@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-               <androidx.cardview.widget.CardView
+               <com.google.android.material.card.MaterialCardView
                 android:id="@+id/profile_photo"
                 app:cardElevation="1dp"
                 android:layout_width="100dp"
@@ -44,9 +44,9 @@
 
 
 
-               </androidx.cardview.widget.CardView>
+               </com.google.android.material.card.MaterialCardView>
 
-               <androidx.cardview.widget.CardView
+               <com.google.android.material.card.MaterialCardView
                    android:id="@+id/mentor_card"
                    android:layout_width="match_parent"
                    android:layout_height="150dp"
@@ -103,12 +103,12 @@
 
 
 
-               </androidx.cardview.widget.CardView>
+               </com.google.android.material.card.MaterialCardView>
 
 
                <!-- First Card Learner 1 -->
 
-               <androidx.cardview.widget.CardView
+               <com.google.android.material.card.MaterialCardView
                 android:id="@+id/learner1"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -162,10 +162,10 @@
 
 
 
-               </androidx.cardview.widget.CardView>
+               </com.google.android.material.card.MaterialCardView>
 
 
-               <androidx.cardview.widget.CardView
+               <com.google.android.material.card.MaterialCardView
                    app:cardElevation="1dp"
                    android:layout_width="100dp"
                    android:layout_height="100dp"
@@ -185,11 +185,11 @@
                       android:src="@drawable/raj"
                       android:scaleType="centerCrop"/>
 
-               </androidx.cardview.widget.CardView>
+               </com.google.android.material.card.MaterialCardView>
 
                <!-- First Card Learner 2 -->
 
-               <androidx.cardview.widget.CardView
+               <com.google.android.material.card.MaterialCardView
                    android:id="@+id/learner2"
                    android:layout_width="match_parent"
                    android:layout_height="100dp"
@@ -244,10 +244,10 @@
                   </RelativeLayout>
 
 
-               </androidx.cardview.widget.CardView>
+               </com.google.android.material.card.MaterialCardView>
 
 
-               <androidx.cardview.widget.CardView
+               <com.google.android.material.card.MaterialCardView
                    app:cardElevation="1dp"
                    android:layout_width="100dp"
                    android:layout_height="100dp"
@@ -267,12 +267,12 @@
                       android:src="@drawable/aman"
                       android:scaleType="centerCrop"/>
 
-               </androidx.cardview.widget.CardView>
+               </com.google.android.material.card.MaterialCardView>
 
                <!-- First Card Learner 3 -->
 
 
-               <androidx.cardview.widget.CardView
+               <com.google.android.material.card.MaterialCardView
                    android:id="@+id/learner3"
                    android:layout_width="match_parent"
                    android:layout_height="100dp"
@@ -325,10 +325,10 @@
 
 
 
-               </androidx.cardview.widget.CardView>
+               </com.google.android.material.card.MaterialCardView>
 
 
-               <androidx.cardview.widget.CardView
+               <com.google.android.material.card.MaterialCardView
                    app:cardElevation="1dp"
                    android:layout_width="100dp"
                    android:layout_height="100dp"
@@ -348,14 +348,14 @@
                       android:src="@drawable/shristi"
                       android:scaleType="centerCrop"/>
 
-               </androidx.cardview.widget.CardView>
+               </com.google.android.material.card.MaterialCardView>
 
 
 
                <!-- First Card Learner 4 -->
 
 
-               <androidx.cardview.widget.CardView
+               <com.google.android.material.card.MaterialCardView
                    android:id="@+id/learner4"
                    android:layout_width="match_parent"
                    android:layout_height="100dp"
@@ -411,10 +411,10 @@
 
 
 
-               </androidx.cardview.widget.CardView>
+               </com.google.android.material.card.MaterialCardView>
 
 
-               <androidx.cardview.widget.CardView
+               <com.google.android.material.card.MaterialCardView
                    app:cardElevation="1dp"
                    android:layout_width="100dp"
                    android:layout_height="100dp"
@@ -434,7 +434,7 @@
                       android:src="@drawable/jyotimoy"
                       android:scaleType="centerCrop"/>
 
-               </androidx.cardview.widget.CardView>
+               </com.google.android.material.card.MaterialCardView>
 
 
 

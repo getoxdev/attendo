@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.sub.SubjectActivity"
-    android:id="@+id/drawer_layout_2">
+    android:id="@+id/drawer_layout_2"
+    android:background="@color/white">
 
 
 

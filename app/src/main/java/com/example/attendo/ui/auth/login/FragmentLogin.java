@@ -86,6 +86,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
             @Override
             public void onClick(View v) {
                 progress.setVisibility(View.VISIBLE);
+                loginbtn.setVisibility(View.INVISIBLE);
                 handleLogin();
             }
         });
