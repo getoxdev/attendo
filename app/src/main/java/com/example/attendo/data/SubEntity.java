@@ -10,12 +10,12 @@ import androidx.room.PrimaryKey;
 public class SubEntity {
 
 
-    @NonNull
     public int getId() {
         return id;
     }
 
-    public void setId(@NonNull int id) {
+
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,7 +39,7 @@ public class SubEntity {
 
 
 
-    public SubEntity(@NonNull String subject, int present, int absent) {
+    public SubEntity( @NonNull String subject, int present, int absent) {
 
         this.subject= subject;
         this.present = present;

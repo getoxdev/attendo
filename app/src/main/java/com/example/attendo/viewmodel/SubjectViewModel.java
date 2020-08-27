@@ -52,7 +52,7 @@ public class SubjectViewModel extends AndroidViewModel {
     }
 
 
-    public void updatePresent(int p,String sub )
+    public void updatePresent(int p,int id )
     {
        mExecutor.execute(new Runnable() {
            @Override
@@ -61,13 +61,13 @@ public class SubjectViewModel extends AndroidViewModel {
 //               String sub = subEntity.getSubject();
 //               int p = 1;
 //               String sub = "default";
-               subDao.updatePresent(p,sub);
+               subDao.updatePresent(p,id);
 
            }
        });
     }
 
-    public void updateAbsent( int a, String sub)
+    public void updateAbsent( int a, int id)
     {
         mExecutor.execute(new Runnable() {
             @Override
@@ -76,7 +76,7 @@ public class SubjectViewModel extends AndroidViewModel {
 //                String sub = subEntity.getSubject();
 //                int a= 1;
 //                String sub = "default";
-                subDao.updateAbsent(a,sub);
+                subDao.updateAbsent(a,id);
             }
         });
 

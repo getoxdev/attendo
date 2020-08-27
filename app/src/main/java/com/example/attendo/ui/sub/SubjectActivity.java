@@ -107,7 +107,7 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
         if (requestCode == NEW_SUBJECT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
 
             // Code to insert note
-            //final String sub_id = UUID.randomUUID().toString();
+           // final String sub_id = UUID.randomUUID().toString();
             SubEntity Subject = new SubEntity(data.getStringExtra(Activity_Add_Subject.SUBJECT_ADDED), 0,0);
             subViewModel.insert(Subject);
 
@@ -143,7 +143,7 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
 
 
     @Override
-    public void present(View v, int position, String id) {
+    public void present(View v, int position, int id) {
         TextView present = (TextView)findViewById(R.id.tv1);
         TextView subname = (TextView)findViewById(R.id.subName);
 
@@ -157,7 +157,7 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
     }
 
     @Override
-    public void absent(View v, int position, String id) {
+    public void absent(View v, int position, int id) {
         TextView total = (TextView)findViewById(R.id.total);
         int total1 = Integer.parseInt((String)total.getText());
         subViewModel.updateAbsent(total1,id);

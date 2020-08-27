@@ -28,9 +28,9 @@ public interface SubDao {
     int delete(SubEntity SUBJECT);
 
     @Query("UPDATE SubjectName SET present = :present+1 WHERE id = :id")
-    void updatePresent(int present, String id);
+    void updatePresent(int present, int id);
 
     @Query("UPDATE SubjectName SET absent= :absent+1 WHERE id = :id")
-    void updateAbsent(int absent, String id);
+    void updateAbsent(int absent, int id);
 
 }
