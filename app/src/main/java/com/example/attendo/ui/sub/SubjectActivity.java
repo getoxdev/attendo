@@ -29,7 +29,7 @@ import java.util.UUID;
 
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-public class SubjectActivity extends AppCompatActivity implements SubListAdapter.onclick{
+public class SubjectActivity extends AppCompatActivity  {
 
     private static final int NEW_SUBJECT_ACTIVITY_REQUEST_CODE = 1;
     public static final int UPDATE_SUBJECT_ACTIVITY_REQUEST_CODE = 2;
@@ -51,12 +51,12 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Subjects");
         //TextView total = (TextView)findViewById(R.id.total);
-        TextView present = (TextView)findViewById(R.id.tv1);
-        TextView subname = (TextView)findViewById(R.id.subName);
+        TextView present = (TextView) findViewById(R.id.tv1);
+        TextView subname = (TextView) findViewById(R.id.subName);
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        subListAdapter = new SubListAdapter(this,this,mOnclick);
+        subListAdapter = new SubListAdapter(this, this, mOnclick);
         recyclerView.setAdapter(subListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -72,7 +72,7 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
             }
         });
 
-       subViewModel = new ViewModelProvider(this).get(SubjectViewModel.class);
+        subViewModel = new ViewModelProvider(this).get(SubjectViewModel.class);
 
 
         subViewModel.getAllSubjects().observe(this, new Observer<List<SubEntity>>() {
@@ -82,7 +82,7 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
             }
         });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -91,11 +91,10 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 subViewModel.delete(subListAdapter.getSubjectAt(viewHolder.getAdapterPosition()));     //here check
-                Toast.makeText(SubjectActivity.this,"subject deleted",Toast.LENGTH_SHORT).show();
+                Toast.makeText(SubjectActivity.this, "subject deleted", Toast.LENGTH_SHORT).show();
 
             }
         }).attachToRecyclerView(recyclerView);
-
 
 
     }
@@ -107,8 +106,8 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
         if (requestCode == NEW_SUBJECT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
 
             // Code to insert note
-           // final String sub_id = UUID.randomUUID().toString();
-            SubEntity Subject = new SubEntity(data.getStringExtra(Activity_Add_Subject.SUBJECT_ADDED), 0,0);
+            // final String sub_id = UUID.randomUUID().toString();
+            SubEntity Subject = new SubEntity(data.getStringExtra(Activity_Add_Subject.SUBJECT_ADDED), 0, 0);
             subViewModel.insert(Subject);
 
             Toast.makeText(
@@ -125,7 +124,6 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
 //            subViewModel.update(subEntity);
 
 
-
             Toast.makeText(
                     getApplicationContext(),
                     "Subject Updated",
@@ -139,34 +137,39 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
         }
     }
 
+}
 
 
 
-    @Override
+
+    /*@Override
     public void present(View v, int position, int id) {
+        SubEntity subject = mSubjects.get(position);
         TextView present = (TextView)findViewById(R.id.tv1);
         TextView subname = (TextView)findViewById(R.id.subName);
 
-        int pre = Integer.parseInt((String)present .getText());
+        int pre = Integer.parseInt((String)present.getText());
 
         subViewModel.updatePresent(pre, id);
-        subEntity.setPresent(pre);
-
+        subject.setPresent(pre);
 
 
     }
 
     @Override
     public void absent(View v, int position, int id) {
+        SubEntity subject = mSubjects.get(position);
         TextView total = (TextView)findViewById(R.id.total);
         int total1 = Integer.parseInt((String)total.getText());
         subViewModel.updateAbsent(total1,id);
-        subEntity.setAbsent(total1);
+        subject.setAbsent(total1);
 
 
-    }
+    }*/
 
-    }
+
+
+
 
 
 

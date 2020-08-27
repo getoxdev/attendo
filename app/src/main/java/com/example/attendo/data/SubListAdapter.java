@@ -3,6 +3,7 @@ package com.example.attendo.data;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.attendo.ui.sub.Activity_Edit_Subject;
 import com.example.attendo.R;
 import com.example.attendo.viewmodel.SubjectViewModel;
 
+import java.lang.ref.SoftReference;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     private SubEntity subEntity;
     private SubjectViewModel subjectViewModel;
     private onclick monclick;
+    private SubDao subDao;
 
 
 
@@ -90,15 +93,23 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 String r1 = String.valueOf(pre1);
                 String r2 = String.valueOf(total1);
 
-                holder.total.setText(r2);
-               int id = subEntity.getId();
+
+                int id = mSubjects.get(position).getId();
+                mSubjects.get(position).setPresent(pre1);
+                mSubjects.get(position).setAbsent(total1);
+
+                subDao.updatePresent(pre1, id);
+
+
 
 
 
                 //To set the percentage using the getPercentage method
                 holder.percent.setText(getPercentage(pre1,total1)  + " %");
-                monclick.present(v,position,id);
-                holder.tv1.setText(subEntity.getPresent());
+               // monclick.present(v,position,id);
+                Log.d("GETPRESENT","UPDATED " + mSubjects.get(position).getPresent());
+                holder.tv1.setText(String.valueOf(mSubjects.get(position).getPresent()));
+                holder.total.setText(String.valueOf(mSubjects.get(position).getAbsent()));
 
 
 
@@ -119,17 +130,20 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 String r3 = String.valueOf(total1);
 
                 ab++;
-                holder.total.setText(r3);
+
                 String r4 = String.valueOf(ab);
                 String sub = String.valueOf(holder.subItemView.getText());
-               int id = subEntity.getId();
+                int id = mSubjects.get(position).getId();
+                mSubjects.get(position).setAbsent(total1);
+                subDao.updateAbsent(total1, id);
 
 
 
 
                 //To set the percentage using the getPercentage meth
                 holder.percent.setText(getPercentage(pre1, total1) + " %");
-               monclick.absent(v,position,id);
+                //monclick.absent(v,position,id);
+                holder.total.setText(String.valueOf(mSubjects.get(position).getAbsent()));
 
 
 
