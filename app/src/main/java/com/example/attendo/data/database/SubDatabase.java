@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.data.SubDao;
 
-@Database(entities = SubEntity.class, version = 1)
+@Database(entities = SubEntity.class, version = 2)
 public abstract class SubDatabase extends RoomDatabase {
 
     public abstract SubDao SubDao();

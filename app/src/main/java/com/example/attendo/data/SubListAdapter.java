@@ -91,7 +91,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 String r2 = String.valueOf(total1);
                 holder.tv1.setText(r1);
                 holder.total.setText(r2);
-                String id = String.valueOf(subEntity.getId());
+               int id = subEntity.getId();
 
 
 
@@ -121,7 +121,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 holder.total.setText(r3);
                 String r4 = String.valueOf(ab);
                 String sub = String.valueOf(holder.subItemView.getText());
-                String id = String.valueOf(subEntity.getId());
+               int id = subEntity.getId();
 
 
 
@@ -211,8 +211,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
     public interface onclick
     {
-        void present(View v,int position,String id );
-        void absent(View v,int position ,String id);
+        void present(View v,int position,int id );
+        void absent(View v,int position ,int id);
     }
 
 

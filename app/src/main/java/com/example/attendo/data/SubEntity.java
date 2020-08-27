@@ -10,18 +10,18 @@ import androidx.room.PrimaryKey;
 public class SubEntity {
 
 
-    @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+
+    public void setId(int id) {
         this.id = id;
     }
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
-    private String id;
+    private int id;
 
 
     @NonNull
@@ -39,7 +39,7 @@ public class SubEntity {
 
 
 
-    public SubEntity(@NonNull String id, @NonNull String subject, int present, int absent) {
+    public SubEntity( @NonNull String subject, int present, int absent) {
 
         this.subject= subject;
         this.present = present;
