@@ -86,7 +86,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
             @Override
             public void onClick(View v) {
                 progress.setVisibility(View.VISIBLE);
-                loginbtn.setVisibility(View.INVISIBLE);
+                //loginbtn.setVisibility(View.INVISIBLE);
                 handleLogin();
             }
         });
@@ -118,7 +118,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
             progress.setVisibility(View.INVISIBLE);
             Toast.makeText(getActivity(),"please enter a valid email",Toast.LENGTH_SHORT).show();
             email.setError("InValid email");
-
         }
         else if(!isValidPassword()){
             progress.setVisibility(View.INVISIBLE);
