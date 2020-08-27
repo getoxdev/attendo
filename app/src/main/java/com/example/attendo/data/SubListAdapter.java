@@ -32,6 +32,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     private SubEntity subEntity;
     private SubjectViewModel subjectViewModel;
     private onclick monclick;
+    private SubViewHolder subViewHolder;
 
 
 
@@ -91,14 +92,15 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 String r2 = String.valueOf(total1);
                 holder.tv1.setText(r1);
                 holder.total.setText(r2);
-               int id = subEntity.getId();
+               int id = mSubjects.get(position).getId();
+               mSubjects.get(position).setPresent(pre1);
 
 
 
                 //To set the percentage using the getPercentage method
                 holder.percent.setText(getPercentage(pre1,total1)  + " %");
+                //subjectViewModel.updatePresent(pre1,id);
                 monclick.present(v,position,id);
-
 
 
 
@@ -121,7 +123,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 holder.total.setText(r3);
                 String r4 = String.valueOf(ab);
                 String sub = String.valueOf(holder.subItemView.getText());
-               int id = subEntity.getId();
+               int id = mSubjects.get(position).getId();
+               mSubjects.get(position).setTotal(total1);
 
 
 
@@ -129,6 +132,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 //To set the percentage using the getPercentage meth
                 holder.percent.setText(getPercentage(pre1, total1) + " %");
                monclick.absent(v,position,id);
+               // subjectViewModel.updateAbsent(total1,id);
 
 
 
@@ -152,6 +156,9 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         mSubjects = subjects;
         notifyDataSetChanged();
     }
+
+
+
 
     public SubEntity getSubjectAt(int position)
     {

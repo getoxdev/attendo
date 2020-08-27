@@ -39,11 +39,11 @@ public class SubEntity {
 
 
 
-    public SubEntity( @NonNull String subject, int present, int absent) {
+    public SubEntity( @NonNull String subject, int present, int total) {
 
         this.subject= subject;
         this.present = present;
-        this.absent = absent;
+        this.total = total;
     }
 
 
@@ -55,20 +55,22 @@ public class SubEntity {
         this.present = present;
     }
 
-    public int getAbsent() {
-        return absent;
-    }
 
-    public void setAbsent(int absent) {
-        this.absent = absent;
-    }
 
     @ColumnInfo(name = "present")
     private int present;
 
 
-    @ColumnInfo(name = "absent")
-    private int absent;
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    @ColumnInfo(name = "total")
+    private int total;
     //private int percent;
 
 

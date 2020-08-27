@@ -27,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 import java.util.UUID;
 
+import butterknife.BindView;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class SubjectActivity extends AppCompatActivity implements SubListAdapter.onclick{
@@ -39,6 +40,8 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
     private List<SubEntity> mSubjects;
     private SubEntity subEntity;
     SubListAdapter.onclick mOnclick;
+    @BindView(R.id.tv1) TextView present;
+    @BindView(R.id.total) TextView total;
 
 
     @Override
@@ -50,9 +53,6 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Subjects");
-        //TextView total = (TextView)findViewById(R.id.total);
-        TextView present = (TextView)findViewById(R.id.tv1);
-        TextView subname = (TextView)findViewById(R.id.subName);
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -79,8 +79,11 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
             @Override
             public void onChanged(@Nullable List<SubEntity> subjects) {
                 subListAdapter.setmSubjects(subjects);
+
+
             }
         });
+
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -144,13 +147,10 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
 
     @Override
     public void present(View v, int position, int id) {
-        TextView present = (TextView)findViewById(R.id.tv1);
-        TextView subname = (TextView)findViewById(R.id.subName);
 
         int pre = Integer.parseInt((String)present .getText());
-
         subViewModel.updatePresent(pre, id);
-        subEntity.setPresent(pre);
+
 
 
 
@@ -158,10 +158,10 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
 
     @Override
     public void absent(View v, int position, int id) {
-        TextView total = (TextView)findViewById(R.id.total);
+
         int total1 = Integer.parseInt((String)total.getText());
-        subViewModel.updateAbsent(total1,id);
-        subEntity.setAbsent(total1);
+        subViewModel.updateTotal(total1,id);
+
 
 
     }

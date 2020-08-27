@@ -22,7 +22,8 @@ public class SubjectViewModel extends AndroidViewModel {
     private SubDao subDao;
     private SubDatabase subDB;
     private LiveData<List<SubEntity>> mAllSubjects;
-    private SubEntity subEntity;
+    private  List<SubEntity> mDataList;
+     private SubEntity subEntity;
     private Executor mExecutor = Executors.newSingleThreadExecutor();
 
 
@@ -52,31 +53,31 @@ public class SubjectViewModel extends AndroidViewModel {
     }
 
 
-    public void updatePresent(int p,int id )
+    public void updatePresent(  int p, int id )
     {
        mExecutor.execute(new Runnable() {
            @Override
            public void run() {
-//               int p = subEntity.getPresent();
-//               String sub = subEntity.getSubject();
-//               int p = 1;
-//               String sub = "default";
+//               p = subEntity.getPresent();
+//               id = subEntity.getId();
+
                subDao.updatePresent(p,id);
 
            }
        });
     }
 
-    public void updateAbsent( int a, int id)
+    public void updateTotal( int total,  int id)
     {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
-//                int a = subEntity.getAbsent();
-//                String sub = subEntity.getSubject();
-//                int a= 1;
-//                String sub = "default";
-                subDao.updateAbsent(a,id);
+//                total = subEntity.getTotal();
+//                id = subEntity.getId();
+
+
+
+                subDao.updateTotal(total,id);
             }
         });
 
