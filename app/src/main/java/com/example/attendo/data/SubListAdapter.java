@@ -84,12 +84,12 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             @Override
             public void onClick(View v) {
                 int pre1 = Integer.parseInt((String) holder.tv1.getText());
-               int total1 = Integer.parseInt((String) holder.total.getText());
+                int total1 = Integer.parseInt((String) holder.total.getText());
                 pre1++;
                 total1++;
                 String r1 = String.valueOf(pre1);
                 String r2 = String.valueOf(total1);
-                holder.tv1.setText(r1);
+
                 holder.total.setText(r2);
                 String id = String.valueOf(subEntity.getId());
 
@@ -98,6 +98,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 //To set the percentage using the getPercentage method
                 holder.percent.setText(getPercentage(pre1,total1)  + " %");
                 monclick.present(v,position,id);
+                holder.tv1.setText(subEntity.getPresent());
 
 
 

@@ -107,8 +107,8 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
         if (requestCode == NEW_SUBJECT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
 
             // Code to insert note
-            final String sub_id = UUID.randomUUID().toString();
-            SubEntity Subject = new SubEntity(sub_id,data.getStringExtra(Activity_Add_Subject.SUBJECT_ADDED), 0,0);
+            //final String sub_id = UUID.randomUUID().toString();
+            SubEntity Subject = new SubEntity(data.getStringExtra(Activity_Add_Subject.SUBJECT_ADDED), 0,0);
             subViewModel.insert(Subject);
 
             Toast.makeText(
