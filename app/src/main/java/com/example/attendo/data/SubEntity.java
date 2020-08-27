@@ -10,17 +10,18 @@ import androidx.room.PrimaryKey;
 public class SubEntity {
 
 
-    public int getId() {
+    @NonNull
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @NonNull
-    private int id;
+    private String id;
 
 
     @NonNull

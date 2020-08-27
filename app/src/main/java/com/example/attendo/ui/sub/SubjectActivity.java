@@ -158,7 +158,12 @@ public class SubjectActivity extends AppCompatActivity implements SubListAdapter
 
     @Override
     public void absent(View v, int position, String id) {
-        //pending
+        TextView total = (TextView)findViewById(R.id.total);
+        int total1 = Integer.parseInt((String)total.getText());
+        subViewModel.updateAbsent(total1,id);
+        subEntity.setAbsent(total1);
+
+
     }
 
     }
