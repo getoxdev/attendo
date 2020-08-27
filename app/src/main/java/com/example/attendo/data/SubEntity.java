@@ -9,18 +9,18 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "SubjectName")
 public class SubEntity {
 
-    public SubEntity(){
 
-    }
-
-    @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    @PrimaryKey
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @PrimaryKey(autoGenerate = true)
     @NonNull
-    private String id;
+    private int id;
 
 
     @NonNull
@@ -36,17 +36,15 @@ public class SubEntity {
     @ColumnInfo(name = "subject")
     private String subject;
 
-//    public Note(@NonNull String id, @NonNull String subName) {
-//        this.id = id;
-//        this.subName = subName;
-//    }
+
 
     public SubEntity(@NonNull String id, @NonNull String subject, int present, int absent) {
-        this.id = id;
+
         this.subject= subject;
         this.present = present;
         this.absent = absent;
     }
+
 
     public int getPresent() {
         return present;
@@ -56,9 +54,6 @@ public class SubEntity {
         this.present = present;
     }
 
-    @ColumnInfo(name = "present")
-    private int present;
-
     public int getAbsent() {
         return absent;
     }
@@ -67,11 +62,13 @@ public class SubEntity {
         this.absent = absent;
     }
 
+    @ColumnInfo(name = "present")
+    private int present;
+
+
     @ColumnInfo(name = "absent")
     private int absent;
     //private int percent;
 
-    public void setId(@NonNull String id) {
-        this.id = id;
-    }
+
 }

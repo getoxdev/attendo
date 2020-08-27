@@ -65,7 +65,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="14dp"
                 android:layout_toRightOf="@id/attendance"
-                android:text="0"
+                android:text="1"
                 android:textColor="@color/colorAccent"
                 android:textSize="15dp"
                 android:textStyle="bold" />
@@ -93,7 +93,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@id/tv2"
-                android:text="0"
+                android:text="2"
                 android:textColor="#000"
                 android:textSize="15dp" />
 

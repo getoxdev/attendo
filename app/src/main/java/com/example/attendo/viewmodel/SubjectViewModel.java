@@ -13,6 +13,8 @@ import com.example.attendo.data.SubEntity;
 import com.example.attendo.data.database.SubDatabase;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class SubjectViewModel extends AndroidViewModel {
 
@@ -20,7 +22,10 @@ public class SubjectViewModel extends AndroidViewModel {
     private SubDao subDao;
     private SubDatabase subDB;
     private LiveData<List<SubEntity>> mAllSubjects;
-    private SubEntity sub;
+    private SubEntity subEntity;
+    private Executor mExecutor = Executors.newSingleThreadExecutor();
+
+
 
     public SubjectViewModel(Application application) {
         super(application);
@@ -47,21 +52,37 @@ public class SubjectViewModel extends AndroidViewModel {
     }
 
 
-//    public void updatepresent(int p,String sub )
-//    {
-//        p= note.getPresent();
-//        sub = note.getNote();
-//        noteDao.updatePresent(p,sub);
-//    }
-//
-//    public void updateAbsent(int a, String sub)
-//    {
-//        a = note.getAbsent();
-//        sub = note.getNote();
-//        noteDao.updateAbsent(a,sub);
-//    }
-//
-//
+    public void updatePresent(int p,String sub )
+    {
+       mExecutor.execute(new Runnable() {
+           @Override
+           public void run() {
+//               int p = subEntity.getPresent();
+//               String sub = subEntity.getSubject();
+//               int p = 1;
+//               String sub = "default";
+               subDao.updatePresent(p,sub);
+
+           }
+       });
+    }
+
+    public void updateAbsent( int a, String sub)
+    {
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+//                int a = subEntity.getAbsent();
+//                String sub = subEntity.getSubject();
+//                int a= 1;
+//                String sub = "default";
+                subDao.updateAbsent(a,sub);
+            }
+        });
+
+    }
+
+
 
 
     @Override

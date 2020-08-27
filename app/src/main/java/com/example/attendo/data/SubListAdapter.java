@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.attendo.ui.sub.SubjectActivity;
 import com.example.attendo.ui.sub.Activity_Edit_Subject;
 import com.example.attendo.R;
+import com.example.attendo.viewmodel.SubjectViewModel;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -28,12 +29,19 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     private final LayoutInflater layoutInflater;
     private Context mContext;
     private List<SubEntity> mSubjects;
+    private SubEntity subEntity;
+    private SubjectViewModel subjectViewModel;
+    private onclick monclick;
 
-    private List<SubEntity> mDataList;
 
-    public SubListAdapter(Context context, SubjectActivity listener) {
+
+
+    public SubListAdapter(Context context, SubjectActivity listener,onclick monclick) {
         layoutInflater = LayoutInflater.from(context);
         mContext = context;
+        this.monclick = monclick;
+
+
 
     }
 
@@ -83,27 +91,45 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 String r2 = String.valueOf(total1);
                 holder.tv1.setText(r1);
                 holder.total.setText(r2);
+                String id = String.valueOf(subEntity.getId());
+
+
 
                 //To set the percentage using the getPercentage method
                 holder.percent.setText(getPercentage(pre1,total1)  + " %");
+                monclick.present(v,holder.getLayoutPosition(),id);
+
+
+
+
+
 
 
             }
         });
+
         holder.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int total1 = Integer.parseInt((String) holder.total.getText());
-                //int ab = 0;
+                int ab = 0;
                 int pre1 = Integer.parseInt((String) holder.tv1.getText());
                 total1++;
                 String r3 = String.valueOf(total1);
-               // ab++;
+
+                ab++;
                 holder.total.setText(r3);
+                String r4 = String.valueOf(ab);
+                String sub = String.valueOf(holder.subItemView.getText());
 
 
-                //To set the percentage using the getPercentage method
+
+                //To set the percentage using the getPercentage meth
                 holder.percent.setText(getPercentage(pre1, total1) + " %");
+               // monclick.absent(position,sub,ab);
+
+
+
 
 
             }
@@ -180,6 +206,16 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     }
 
     //----------------------------------------------------------------------------------------
+
+    public interface onclick
+    {
+        void present(View v,int position,String id );
+        void absent(View v,int position ,String id);
+    }
+
+
+
+
 
 }
 
