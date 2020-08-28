@@ -77,7 +77,7 @@ public class FragmentBug extends Fragment {
                 Firebase child_msg = firebase.child("Report_Bug");
                 child_msg.setValue(msg);
                 if (msg.isEmpty()) {
-                    msgdata.setError("this is an required field");
+                    msgdata.setError("this is a required field");
                     send.setEnabled(false);
                 } else {
                     msgdata.setError(null);
@@ -89,7 +89,7 @@ public class FragmentBug extends Fragment {
                     public void onClick(View v) {
 
                         new AlertDialog.Builder(getContext())
-                                .setTitle("sent Details :")
+                                .setTitle("Sent Details :")
                                 .setMessage("" + msg).show();
 
                     }

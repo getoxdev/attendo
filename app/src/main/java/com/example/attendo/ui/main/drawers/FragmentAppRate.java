@@ -86,7 +86,7 @@ public class FragmentAppRate extends Fragment {
                 Firebase child_msg = firebase.child("FeedBack");
                 child_msg.setValue(msg);
                 if (msg.isEmpty()) {
-                    feedback.setError("this is an required field");
+                    feedback.setError("this is a required field");
                     btnFeedback.setEnabled(false);
                 } else {
                     feedback.setError(null);
