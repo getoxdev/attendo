@@ -1,13 +1,10 @@
 package com.example.attendo.ui.sub;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +14,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.attendo.ui.main.MainActivity;
 import com.example.attendo.viewmodel.SubjectViewModel;
 import com.example.attendo.R;
 import com.example.attendo.data.SubEntity;
@@ -36,7 +32,6 @@ public class SubjectActivity extends AppCompatActivity{
     private SubjectViewModel subViewModel;
     private SubListAdapter subListAdapter;
     private List<SubEntity> mSubjects=new ArrayList<>();
-    SubListAdapter.onclick mOnclick;
 
     @BindView(R.id.tvPres)
     TextView present;

@@ -1,8 +1,7 @@
 package com.example.attendo.ui.sub;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.attendo.data.SubEntity;
@@ -28,11 +29,12 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     private Context mContext;
     private List<SubEntity> mSubjects;
     private SubjectViewModel subjectViewModel;
-    private onclick monclick;
+
 
     public SubListAdapter(Context mContext, List<SubEntity> mSubjects) {
         this.mContext = mContext;
         this.mSubjects = mSubjects;
+
 
         subjectViewModel = new ViewModelProvider((SubjectActivity)mContext).get(SubjectViewModel.class);
     }
@@ -48,8 +50,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     public void onBindViewHolder(@NonNull SubViewHolder holder, int position) {
 
         //animation
-        Animation cardanim = AnimationUtils.loadAnimation(mContext,R.anim.fade_card);
-        holder.card.setAnimation(cardanim);
+//        Animation cardanim = AnimationUtils.loadAnimation(mContext,R.anim.fade_card);
+//        holder.card.setAnimation(cardanim);
 
         final SubEntity subEntity = mSubjects.get(position);
         holder.subItemView.setText(subEntity.getSubject());
@@ -58,15 +60,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         holder.percent.setText(getPercentage(subEntity.getPresent(),subEntity.getTotal())+"%");
 
 
-        /*holder.card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    Intent intent = new Intent(mContext, Activity_Edit_Subject.class);
-                    intent.putExtra("note_id", mSubjects.get(position).getId());
-                    ((Activity)mContext).startActivityForResult(intent, SubjectActivity.UPDATE_SUBJECT_ACTIVITY_REQUEST_CODE);
 
-            }
-        });*/
 
         holder.btnPres.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +92,30 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 subjectViewModel.updateTotal(total,id);
             }
         });
+
+
+        holder.card.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                //dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("Delete Subject");
+                builder.setMessage("Are you sure you permanently want to delete the subject?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        subjectViewModel.deleteSubject(subEntity);
+
+
+                    }
+                }).setNegativeButton("No",null);
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+                return false;
+            }
+        });
+
     }
 
     @Override
@@ -110,6 +128,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     public void setSubjects(List<SubEntity> subjects) {
         mSubjects = subjects;
         notifyDataSetChanged();
+
     }
 
     public SubEntity getSubjectAt(int position)
@@ -153,11 +172,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
     //----------------------------------------------------------------------------------------
 
-    public interface onclick
-    {
-        void present(View v,int position,int id );
-        void absent(View v,int position ,int id);
-    }
 
 }
 

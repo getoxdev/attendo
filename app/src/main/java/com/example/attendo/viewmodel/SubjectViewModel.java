@@ -2,7 +2,6 @@ package com.example.attendo.viewmodel;
 
 
 import android.app.Application;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
@@ -40,6 +39,17 @@ public class SubjectViewModel extends AndroidViewModel {
                 subDB.SubDao().insert(subject);
             }
         });
+    }
+
+    public void deleteSubject(SubEntity subEntity)
+    {
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                subDB.SubDao().delete(subEntity);
+            }
+        });
+
     }
 
     public LiveData<List<SubEntity>> getAllSubjects() {
