@@ -1,19 +1,6 @@
 package com.example.attendo.ui.sub;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import com.example.attendo.R;
-import com.example.attendo.data.SubEntity;
 
 public class Activity_Edit_Subject extends AppCompatActivity {
 /*
