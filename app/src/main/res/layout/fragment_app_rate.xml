@@ -33,7 +33,7 @@
         app:lottie_loop="true"/>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/feedback"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginLeft="40dp"
@@ -51,7 +51,7 @@
         app:layout_constraintVertical_bias="0.842" />
 
     <Button
-        android:id="@+id/submit_feedback"
+        android:id="@+id/btnFeedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/yes_button"
@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/feedback"
         app:layout_constraintVertical_bias="0.304"
         android:textColor="@color/white"
         android:clickable="true"
