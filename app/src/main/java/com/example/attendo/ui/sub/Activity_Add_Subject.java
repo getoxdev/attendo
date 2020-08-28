@@ -16,11 +16,6 @@ import com.example.attendo.R;
 public class Activity_Add_Subject extends AppCompatActivity {
 
     public static final String SUBJECT_ADDED = "Subject Added";
-    public static final String Present = "p added";
-    public static final String Absent = "a added";
-    TextView absent,present;
-
-
     private EditText etNewSub;
 
     @Override
@@ -28,10 +23,7 @@ public class Activity_Add_Subject extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
 
-
         etNewSub = findViewById(R.id.etNewNote);
-        absent 	 = findViewById(R.id.bAbsent);
-        present	 = findViewById(R.id.bPresent);
 
         Button button = findViewById(R.id.bAdd);
         button.setOnClickListener(new View.OnClickListener() {
@@ -44,11 +36,7 @@ public class Activity_Add_Subject extends AppCompatActivity {
                     setResult(RESULT_CANCELED, resultIntent);
                 } else {
                     String ADD = etNewSub.getText().toString().trim();
-//                    String p = present.getText().toString();
-//                    String a = absent.getText().toString();
                     resultIntent.putExtra(SUBJECT_ADDED, ADD);
-//                    resultIntent.putExtra(Present, p);
-//                    resultIntent.putExtra(Absent, a);
                     setResult(RESULT_OK, resultIntent);
                 }
 

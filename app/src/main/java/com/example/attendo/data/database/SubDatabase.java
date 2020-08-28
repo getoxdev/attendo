@@ -10,23 +10,26 @@ import androidx.room.RoomDatabase;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.data.SubDao;
 
-@Database(entities = SubEntity.class, version = 2)
+@Database(entities = {SubEntity.class}, version = 3)
 public abstract class SubDatabase extends RoomDatabase {
 
+    public static final String DATABASE_NAME = "Subject.db";
+    public static volatile SubDatabase instance;
+    private static final Object object = new Object();
     public abstract SubDao SubDao();
 
-    private static volatile SubDatabase SubRoomInstance;
-
-    public static SubDatabase getDatabase(final Context context) {
-        if (SubRoomInstance == null) {
-            synchronized (SubDatabase.class) {
-                if (SubRoomInstance == null) {
-                    SubRoomInstance = Room.databaseBuilder(context.getApplicationContext(),
-                            SubDatabase.class, "subject_database")
-                            .fallbackToDestructiveMigration().build();
+    public static SubDatabase getInstance(Context context)
+    {
+        if(instance==null)
+        {
+            synchronized (object)
+            {
+                if(instance==null)
+                {
+                    instance = Room.databaseBuilder(context.getApplicationContext(),SubDatabase.class,DATABASE_NAME).fallbackToDestructiveMigration().build();
                 }
             }
         }
-        return SubRoomInstance;
+        return instance;
     }
 }

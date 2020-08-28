@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,30 +17,35 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.attendo.data.SubDao;
-import com.example.attendo.data.database.SubDatabase;
+import com.example.attendo.ui.main.MainActivity;
 import com.example.attendo.viewmodel.SubjectViewModel;
 import com.example.attendo.R;
 import com.example.attendo.data.SubEntity;
-import com.example.attendo.data.SubListAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
+import butterknife.BindView;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-public class SubjectActivity extends AppCompatActivity  {
+public class SubjectActivity extends AppCompatActivity{
 
     private static final int NEW_SUBJECT_ACTIVITY_REQUEST_CODE = 1;
     public static final int UPDATE_SUBJECT_ACTIVITY_REQUEST_CODE = 2;
-    private String TAG = this.getClass().getSimpleName();
     private SubjectViewModel subViewModel;
     private SubListAdapter subListAdapter;
-    private List<SubEntity> mSubjects;
-    private SubEntity subEntity;
+    private List<SubEntity> mSubjects=new ArrayList<>();
     SubListAdapter.onclick mOnclick;
 
+    @BindView(R.id.tvPres)
+    TextView present;
+
+    @BindView(R.id.tvTotal)
+    TextView total;
+
+    @BindView(R.id.recyclerview)
+    RecyclerView subRView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +56,6 @@ public class SubjectActivity extends AppCompatActivity  {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Subjects");
-        //TextView total = (TextView)findViewById(R.id.total);
-        TextView present = (TextView) findViewById(R.id.tv1);
-        TextView subname = (TextView) findViewById(R.id.subName);
-
-
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        subListAdapter = new SubListAdapter(this, this, mOnclick);
-        recyclerView.setAdapter(subListAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        //over scroll animation
-        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -72,31 +66,50 @@ public class SubjectActivity extends AppCompatActivity  {
             }
         });
 
+        subListAdapter = new SubListAdapter(this,mSubjects);
         subViewModel = new ViewModelProvider(this).get(SubjectViewModel.class);
-
-
         subViewModel.getAllSubjects().observe(this, new Observer<List<SubEntity>>() {
             @Override
             public void onChanged(@Nullable List<SubEntity> subjects) {
-                subListAdapter.setmSubjects(subjects);
+                subListAdapter.setSubjects(subjects);
             }
         });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setAdapter(subListAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //over scroll animation
+        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
+    }
+
+    private void initViewModel()
+    {
+        /*Observer<List<SubEntity>> subObserver = new Observer<List<SubEntity>>() {
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
+            public void onChanged(List<SubEntity> subEntities) {
+                mSubjects.clear();
+                mSubjects.addAll(subEntities);
+
+                if(subListAdapter == null)
+                {
+                    subListAdapter = new SubListAdapter(SubjectActivity.this,mSubjects);
+                    subRView.setAdapter(subListAdapter);
+                    if(subListAdapter.getItemCount()==0)
+                    {
+                        emptyText.setVisibility(View.VISIBLE);
+                    }
+                }
+                else
+                {
+                    mNotesAdapter.notifyDataSetChanged();
+                }
             }
+        };
 
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                subViewModel.delete(subListAdapter.getSubjectAt(viewHolder.getAdapterPosition()));     //here check
-                Toast.makeText(SubjectActivity.this, "subject deleted", Toast.LENGTH_SHORT).show();
+        subViewModel = ViewModelProviders.of(this).get(SubjectViewModel.class);
 
-            }
-        }).attachToRecyclerView(recyclerView);
-
-
+        listViewModel.mNotesList.observe(MainActivity.this,notesObserver);*/
     }
 
     @Override
@@ -106,14 +119,14 @@ public class SubjectActivity extends AppCompatActivity  {
         if (requestCode == NEW_SUBJECT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
 
             // Code to insert note
-            // final String sub_id = UUID.randomUUID().toString();
-            SubEntity Subject = new SubEntity(data.getStringExtra(Activity_Add_Subject.SUBJECT_ADDED), 0, 0);
-            subViewModel.insert(Subject);
+           // final String sub_id = UUID.randomUUID().toString();
+            SubEntity subject = new SubEntity(data.getStringExtra(Activity_Add_Subject.SUBJECT_ADDED), 0,0,0);
+            subViewModel.insertSubject(subject);
 
             Toast.makeText(
                     getApplicationContext(),
-                    "Subject added",
-                    Toast.LENGTH_LONG).show();
+                    "Subject Added",
+                    Toast.LENGTH_SHORT).show();
         } else if (requestCode == UPDATE_SUBJECT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
 
             // Code to update the note
@@ -132,44 +145,11 @@ public class SubjectActivity extends AppCompatActivity  {
         } else {
             Toast.makeText(
                     getApplicationContext(),
-                    "Subject not added",
-                    Toast.LENGTH_LONG).show();
+                    "Subject Not Added",
+                    Toast.LENGTH_SHORT).show();
         }
     }
-
 }
-
-
-
-
-    /*@Override
-    public void present(View v, int position, int id) {
-        SubEntity subject = mSubjects.get(position);
-        TextView present = (TextView)findViewById(R.id.tv1);
-        TextView subname = (TextView)findViewById(R.id.subName);
-
-        int pre = Integer.parseInt((String)present.getText());
-
-        subViewModel.updatePresent(pre, id);
-        subject.setPresent(pre);
-
-
-    }
-
-    @Override
-    public void absent(View v, int position, int id) {
-        SubEntity subject = mSubjects.get(position);
-        TextView total = (TextView)findViewById(R.id.total);
-        int total1 = Integer.parseInt((String)total.getText());
-        subViewModel.updateAbsent(total1,id);
-        subject.setAbsent(total1);
-
-
-    }*/
-
-
-
-
 
 
 

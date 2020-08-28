@@ -8,17 +8,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.attendo.R;
 import com.example.attendo.data.SubEntity;
-import com.example.attendo.viewmodel.EditSubjectViewModel;
 
 public class Activity_Edit_Subject extends AppCompatActivity {
-
+/*
     public static final String SUBJECT_ID = "sub_id";
     static final String UPDATED_SUBJECT = "sub_text";
     static final String UPDATED_PRESENT = "present";
@@ -29,7 +27,6 @@ public class Activity_Edit_Subject extends AppCompatActivity {
     private String subId;
     private LiveData<SubEntity> SUBJECT;
 
-    EditSubjectViewModel subModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,5 +72,5 @@ public class Activity_Edit_Subject extends AppCompatActivity {
     public void cancelUpdate(View view) {
         finish();
     }
-
+*/
 }
