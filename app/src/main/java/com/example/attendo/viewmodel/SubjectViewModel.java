@@ -21,128 +21,65 @@ public class SubjectViewModel extends AndroidViewModel {
     private String TAG = this.getClass().getSimpleName();
     private SubDao subDao;
     private SubDatabase subDB;
-    private LiveData<List<SubEntity>> mAllSubjects;
-    private  List<SubEntity> mDataList;
-     private SubEntity subEntity;
+    public LiveData<List<SubEntity>> mAllSubjects;
     private Executor mExecutor = Executors.newSingleThreadExecutor();
-
-
 
     public SubjectViewModel(Application application) {
         super(application);
 
-        subDB = SubDatabase.getDatabase(application);
+        subDB = SubDatabase.getInstance(getApplication());
         subDao = subDB.SubDao();
         mAllSubjects = subDao.getAllSubjects();
     }
 
-    public void insert(SubEntity SUBJECT) {
-        new InsertAsyncTask(subDao).execute(SUBJECT);
+    public void insertSubject(SubEntity subject)
+    {
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                subDB.SubDao().insert(subject);
+            }
+        });
     }
 
     public LiveData<List<SubEntity>> getAllSubjects() {
         return mAllSubjects;
     }
 
-    public void update(SubEntity SUBJECT) {
-        new UpdateAsyncTask(subDao).execute(SUBJECT);
-    }
-
-    public void delete(SubEntity SUBJECT) {
-        new DeleteAsyncTask(subDao).execute(SUBJECT);
-    }
-
-
-    public void updatePresent(  int p, int id )
+    public void updatePresent( int p, int id )
     {
        mExecutor.execute(new Runnable() {
            @Override
            public void run() {
-//               p = subEntity.getPresent();
-//               id = subEntity.getId();
-
                subDao.updatePresent(p,id);
-
            }
        });
     }
 
-    public void updateTotal( int total,  int id)
+    public void updateAbsent( int a,  int id)
     {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
-//                total = subEntity.getTotal();
-//                id = subEntity.getId();
-
-
-
-                subDao.updateTotal(total,id);
+                subDao.updateTotal(a,id);
             }
         });
-
     }
 
-
-
+    public void updateTotal( int tot,  int id)
+    {
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                subDao.updateTotal(tot,id);
+            }
+        });
+    }
 
     @Override
     protected void onCleared() {
         super.onCleared();
         Log.i(TAG, "ViewModel Destroyed");
-    }
-
-    private class OperationsAsyncTask extends AsyncTask<SubEntity, Void, Void> {
-
-        SubDao mAsyncTaskDao;
-
-        OperationsAsyncTask(SubDao dao) {
-            this.mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(SubEntity... subjects) {
-            return null;
-        }
-    }
-
-    private class InsertAsyncTask extends OperationsAsyncTask {
-
-        InsertAsyncTask(SubDao msubDao) {
-            super(msubDao);
-        }
-
-        @Override
-        protected Void doInBackground(SubEntity... subjects) {
-            mAsyncTaskDao.insert(subjects[0]);
-            return null;
-        }
-    }
-
-    private class UpdateAsyncTask extends OperationsAsyncTask {
-
-        UpdateAsyncTask(SubDao subDao) {
-            super(subDao);
-        }
-
-        @Override
-        protected Void doInBackground(SubEntity... subjects) {
-            mAsyncTaskDao.update(subjects[0]);
-            return null;
-        }
-    }
-
-    private class DeleteAsyncTask extends OperationsAsyncTask {
-
-        public DeleteAsyncTask(SubDao subDao) {
-            super(subDao);
-        }
-
-        @Override
-        protected Void doInBackground(SubEntity... subjects) {
-            mAsyncTaskDao.delete(subjects[0]);
-            return null;
-        }
     }
 }
 

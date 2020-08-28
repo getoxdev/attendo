@@ -9,20 +9,29 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "SubjectName")
 public class SubEntity {
 
-
-    public int getId() {
-        return id;
-    }
-
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;
 
+    @NonNull
+    @ColumnInfo(name = "subject")
+    private String subject;
+
+    @ColumnInfo(name = "present")
+    private int present;
+
+    @ColumnInfo(name="absent")
+    private int absent;
+
+    @ColumnInfo(name = "total")
+    private int total;
+
+    public SubEntity( @NonNull String subject, int present,int absent, int total) {
+        this.subject= subject;
+        this.present = present;
+        this.total = total;
+        this.absent = absent;
+    }
 
     @NonNull
     public String getSubject() {
@@ -33,19 +42,13 @@ public class SubEntity {
         this.subject = subject;
     }
 
-    @NonNull
-    @ColumnInfo(name = "subject")
-    private String subject;
-
-
-
-    public SubEntity( @NonNull String subject, int present, int total) {
-
-        this.subject= subject;
-        this.present = present;
-        this.total = total;
+    public int getId() {
+        return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getPresent() {
         return present;
@@ -55,11 +58,13 @@ public class SubEntity {
         this.present = present;
     }
 
+    public int getAbsent() {
+        return absent;
+    }
 
-
-    @ColumnInfo(name = "present")
-    private int present;
-
+    public void setAbsent(int absent) {
+        this.absent = absent;
+    }
 
     public int getTotal() {
         return total;
@@ -68,10 +73,4 @@ public class SubEntity {
     public void setTotal(int total) {
         this.total = total;
     }
-
-    @ColumnInfo(name = "total")
-    private int total;
-    //private int percent;
-
-
 }

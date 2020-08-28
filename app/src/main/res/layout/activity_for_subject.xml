@@ -10,11 +10,6 @@
     android:background="@color/white">
 
 
-
-
-
-
-
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar_layout"
             android:layout_width="match_parent"
@@ -51,9 +46,6 @@
                     app:layout_collapseMode="pin"
                     android:title="Subjects"
                     android:elevation="0dp"/>
-
-
-
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 

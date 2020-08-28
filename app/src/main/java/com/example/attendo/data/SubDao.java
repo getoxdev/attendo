@@ -19,7 +19,7 @@ public interface SubDao {
     LiveData<List<SubEntity>> getAllSubjects();
 
     @Query("SELECT * FROM SubjectName WHERE id=:subId")
-    LiveData<SubEntity> getSUBJECT(String subId);
+    LiveData<SubEntity> getSubject(String subId);
 
     @Update
     void update(SubEntity SUBJECT);
@@ -27,10 +27,13 @@ public interface SubDao {
     @Delete
     int delete(SubEntity SUBJECT);
 
-    @Query("UPDATE SubjectName SET present = :present+1 WHERE id = :id")
+    @Query("UPDATE SubjectName SET present = :present WHERE id = :id")
     void updatePresent(int present, int id);
 
-    @Query("UPDATE SubjectName SET total= :total+1 WHERE id = :id")
+    @Query("UPDATE SubjectName SET absent = :absent WHERE id = :id")
+    void updateAbsent(int absent, int id);
+
+    @Query("UPDATE SubjectName SET total= :total WHERE id = :id")
     void updateTotal(int total, int id);
 
 }
