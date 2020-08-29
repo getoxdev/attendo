@@ -44,7 +44,6 @@ public class FragmentSignup extends Fragment implements signupinterface.View {
             @Override
             public void onClick(View v) {
                 progress.setVisibility(View.VISIBLE);
-                SignUp.setVisibility(View.INVISIBLE);
                 handleSignup();
             }
         });

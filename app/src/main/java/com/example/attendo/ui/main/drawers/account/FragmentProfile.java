@@ -112,6 +112,7 @@ public class FragmentProfile extends Fragment {
                     databaseReference.child(id).setValue(prf);
                     UploadImage();
 
+
                 }
             }
 
@@ -126,6 +127,7 @@ public class FragmentProfile extends Fragment {
                                   Toast.makeText(getContext(),"Account Updated "+name.getText().toString(),Toast.LENGTH_SHORT).show();
                                   Intent intent=new Intent(getActivity(), MainActivity.class);
                                   startActivity(intent);
+                                  getActivity().finish();
                               }
                           });
                 }
@@ -152,6 +154,7 @@ public class FragmentProfile extends Fragment {
                 Toast.makeText(getContext(),"Your Account Not Created!",Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
