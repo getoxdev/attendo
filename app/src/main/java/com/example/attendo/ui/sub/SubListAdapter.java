@@ -2,6 +2,7 @@ package com.example.attendo.ui.sub;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     private SubjectViewModel subjectViewModel;
 
 
+
+
     public SubListAdapter(Context mContext, List<SubEntity> mSubjects) {
         this.mContext = mContext;
         this.mSubjects = mSubjects;
@@ -43,6 +46,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     @Override
     public SubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.sub_info,parent,false);
+
         return new SubViewHolder(view);
     }
 
@@ -58,6 +62,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         holder.tvPres.setText(String.valueOf(subEntity.getPresent()));
         holder.tvTotal.setText(String.valueOf(subEntity.getTotal()));
         holder.percent.setText(getPercentage(subEntity.getPresent(),subEntity.getTotal())+"%");
+
+        final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
 
 
 
@@ -97,6 +103,9 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         holder.card.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+
+                //vibrator
+                vibrator.vibrate(100);
                 //dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle("Delete Subject");

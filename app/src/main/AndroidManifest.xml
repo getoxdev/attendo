@@ -42,5 +42,6 @@
         </activity>
         <receiver android:name=".ui.main.drawers.AlarmReminder"/>
     </application>
+    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 
 </manifest>
