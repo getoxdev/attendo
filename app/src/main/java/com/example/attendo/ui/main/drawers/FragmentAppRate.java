@@ -84,15 +84,17 @@ public class FragmentAppRate extends Fragment {
             public void onClick(View v) {
                 final String msg = feedback.getText().toString().trim();
                 Firebase child_msg = firebase.child("FeedBack");
-                child_msg.setValue(msg);
+
                 if (msg.isEmpty()) {
                     feedback.setError("this is a required field");
                     btnFeedback.setEnabled(false);
                 } else {
                     feedback.setError(null);
                     btnFeedback.setEnabled(true);
+                    child_msg.setValue(msg);
+                    Toast.makeText(getContext(), "Thank You", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(getContext(), "Thank You", Toast.LENGTH_SHORT).show();
+
 
 
             }
