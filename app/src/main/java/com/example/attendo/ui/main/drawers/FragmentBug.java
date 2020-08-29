@@ -83,7 +83,6 @@ public class FragmentBug extends Fragment {
                     send.setEnabled(true);
                     child_msg.setValue(msg);
                     Toast.makeText(getContext(), "Your data is sent to server", Toast.LENGTH_SHORT).show();
-
                 }
 
                 details.setOnClickListener(new View.OnClickListener() {
