@@ -109,6 +109,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                     }
                 }).setNegativeButton("No",null);
+                builder.setCancelable(false);
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
 

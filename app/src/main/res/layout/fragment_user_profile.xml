@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.drawers.account.FragmentUserProfile">
 
 
@@ -13,6 +13,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="75dp"
         app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/main_block_account"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,11 +31,10 @@
         android:id="@+id/main_block_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edit_profile"
+        app:layout_constraintTop_toBottomOf="@id/IMAGE_CARDVIEW"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65">
+        app:layout_constraintLeft_toLeftOf="parent">
 
         <TextView
             android:id="@+id/name"
@@ -159,21 +159,22 @@
             android:layout_marginTop="18dp" />
 
 
+    </RelativeLayout>
+
     <Button
         android:id="@+id/edit_profile"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp"
         android:background="@drawable/bcg_login_signup"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/progressbar"
-        android:textSize="18dp"
-        android:textColor="#ffffff"
         android:text="Edit Profile"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    </RelativeLayout>
+        android:textColor="#ffffff"
+        android:textSize="18dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_block_account" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
