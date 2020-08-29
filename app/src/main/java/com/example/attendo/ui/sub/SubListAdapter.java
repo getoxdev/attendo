@@ -103,6 +103,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             @Override
             public boolean onLongClick(View v) {
 
+
                 //vibrator
                 vibrator.vibrate(100);
                 //dialog

@@ -72,7 +72,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         auth = FirebaseAuth.getInstance();
 
-        setFragment(fragmentHome);
+        //setFragment(fragmentHome);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_frame,fragmentHome);
+        transaction.commit();
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
