@@ -46,7 +46,7 @@
 
                </com.google.android.material.card.MaterialCardView>
 
-               <com.google.android.material.card.MaterialCardView
+               <androidx.cardview.widget.CardView
                    android:id="@+id/mentor_card"
                    android:layout_width="match_parent"
                    android:layout_height="150dp"
@@ -103,12 +103,12 @@
 
 
 
-               </com.google.android.material.card.MaterialCardView>
+               </androidx.cardview.widget.CardView>
 
 
                <!-- First Card Learner 1 -->
 
-               <com.google.android.material.card.MaterialCardView
+               <androidx.cardview.widget.CardView
                 android:id="@+id/learner1"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -162,7 +162,7 @@
 
 
 
-               </com.google.android.material.card.MaterialCardView>
+               </androidx.cardview.widget.CardView>
 
 
                <com.google.android.material.card.MaterialCardView
@@ -189,7 +189,7 @@
 
                <!-- First Card Learner 2 -->
 
-               <com.google.android.material.card.MaterialCardView
+               <androidx.cardview.widget.CardView
                    android:id="@+id/learner2"
                    android:layout_width="match_parent"
                    android:layout_height="100dp"
@@ -244,7 +244,7 @@
                   </RelativeLayout>
 
 
-               </com.google.android.material.card.MaterialCardView>
+               </androidx.cardview.widget.CardView>
 
 
                <com.google.android.material.card.MaterialCardView
@@ -272,7 +272,7 @@
                <!-- First Card Learner 3 -->
 
 
-               <com.google.android.material.card.MaterialCardView
+               <androidx.cardview.widget.CardView
                    android:id="@+id/learner3"
                    android:layout_width="match_parent"
                    android:layout_height="100dp"
@@ -325,7 +325,7 @@
 
 
 
-               </com.google.android.material.card.MaterialCardView>
+               </androidx.cardview.widget.CardView>
 
 
                <com.google.android.material.card.MaterialCardView
@@ -355,7 +355,7 @@
                <!-- First Card Learner 4 -->
 
 
-               <com.google.android.material.card.MaterialCardView
+               <androidx.cardview.widget.CardView
                    android:id="@+id/learner4"
                    android:layout_width="match_parent"
                    android:layout_height="100dp"
@@ -411,7 +411,7 @@
 
 
 
-               </com.google.android.material.card.MaterialCardView>
+               </androidx.cardview.widget.CardView>
 
 
                <com.google.android.material.card.MaterialCardView

@@ -103,6 +103,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             @Override
             public boolean onLongClick(View v) {
 
+                holder.card.setCardElevation(25);
+
 
                 //vibrator
                 vibrator.vibrate(100);
@@ -115,7 +117,12 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                     public void onClick(DialogInterface dialog, int which) {
                         subjectViewModel.deleteSubject(subEntity);
                     }
-                }).setNegativeButton("No",null);
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        holder.card.setElevation(2);
+                    }
+                });
                 builder.setCancelable(false);
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
