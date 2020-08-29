@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.drawers.FragmentBug">
 
-    <EditText
+    <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:background="@color/white"
+        android:background="@android:color/transparent"
         android:fontFamily="@font/comfortaa"
         android:text="What problem did you face?"
+        android:textSize="17dp"
         android:textColor="@color/grey_500"
         app:layout_constraintBottom_toTopOf="@+id/msgData"
         app:layout_constraintEnd_toEndOf="parent"
