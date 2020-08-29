@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            String body = "https://github.com/getoxdev/attendo";
+            String body = "PLAYSTORE ADDRESS SHOULD BE ADDED SOON";
             String subject = "Attendo_App";
             intent.putExtra(Intent.EXTRA_TEXT,body);
             intent.putExtra(Intent.EXTRA_SUBJECT,subject);
@@ -174,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                             public void run() {
                                                 setFragment(fragmentAppRate);
                                                 ratingDialog.dismiss();
-
                                             }
                                         },1000);
 

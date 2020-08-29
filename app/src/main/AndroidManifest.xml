@@ -23,7 +23,8 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -39,6 +40,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name=".ui.main.drawers.AlarmReminder"/>
     </application>
 
 </manifest>

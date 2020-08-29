@@ -11,7 +11,7 @@
         android:id="@+id/IMAGE_CARDVIEW"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="50dp"
         app:cardCornerRadius="50dp"
         app:layout_constraintBottom_toTopOf="@+id/main_block_account"
         app:layout_constraintLeft_toLeftOf="parent"

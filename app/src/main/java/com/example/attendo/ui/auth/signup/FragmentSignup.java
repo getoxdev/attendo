@@ -44,6 +44,7 @@ public class FragmentSignup extends Fragment implements signupinterface.View {
             @Override
             public void onClick(View v) {
                 progress.setVisibility(View.VISIBLE);
+                SignUp.setVisibility(View.INVISIBLE);
                 handleSignup();
             }
         });
@@ -79,7 +80,7 @@ public class FragmentSignup extends Fragment implements signupinterface.View {
         }
         else if(!isValidPassword()){
             progress.setVisibility(View.INVISIBLE);
-            Toast.makeText(getActivity(),"please enter a valid password",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Password length must be greater than 5",Toast.LENGTH_SHORT).show();
         }
         else if(!isValidConfPassword()){
             progress.setVisibility(View.INVISIBLE);

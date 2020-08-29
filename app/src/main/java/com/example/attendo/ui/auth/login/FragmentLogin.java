@@ -44,7 +44,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_login, container, false);
 
-
         email = view.findViewById(R.id.editTextTextPersonName);
         password = view.findViewById(R.id.editTextTextPassword);
         loginbtn = view.findViewById(R.id.button);
@@ -86,7 +85,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
             @Override
             public void onClick(View v) {
                 progress.setVisibility(View.VISIBLE);
-                //loginbtn.setVisibility(View.INVISIBLE);
                 handleLogin();
             }
         });

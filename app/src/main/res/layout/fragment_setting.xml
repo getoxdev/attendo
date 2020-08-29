@@ -6,11 +6,21 @@
     tools:context=".ui.main.menu.FragmentSettings">
 
    <TextView
+       android:id="@+id/text1"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:textSize="30dp"
-       android:text="Setting section"
+       android:layout_centerHorizontal="true"
        android:layout_centerVertical="true"
-       android:layout_centerHorizontal="true"/>
+       android:text="Setting will be added soon"
+       android:textSize="20dp"/>
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/text1"
+       android:layout_centerHorizontal="true"
+       android:layout_centerVertical="true"
+       android:text="in next Version"
+       android:textSize="20dp"/>
 
 </RelativeLayout>

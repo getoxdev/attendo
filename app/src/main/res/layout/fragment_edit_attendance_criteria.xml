@@ -6,11 +6,21 @@
     tools:context=".ui.main.drawers.FragmentEditAttendanceCriteria">
 
    <TextView
+       android:id="@+id/text1"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:text="edit attendance criteria code"
        android:layout_centerHorizontal="true"
        android:layout_centerVertical="true"
-       android:textSize="30dp"/>
+       android:text="Edit Attendance Criteria will be added"
+       android:textSize="20dp"/>
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/text1"
+       android:layout_centerHorizontal="true"
+       android:layout_centerVertical="true"
+       android:text="soon in next Version"
+       android:textSize="20dp"/>
 
 </RelativeLayout>

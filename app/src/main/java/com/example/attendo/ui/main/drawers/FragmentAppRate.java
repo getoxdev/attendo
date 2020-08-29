@@ -82,7 +82,7 @@ public class FragmentAppRate extends Fragment {
         btnFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String msg = feedback.getText().toString();
+                final String msg = feedback.getText().toString().trim();
                 Firebase child_msg = firebase.child("FeedBack");
                 child_msg.setValue(msg);
                 if (msg.isEmpty()) {
@@ -97,10 +97,6 @@ public class FragmentAppRate extends Fragment {
 
             }
         });
-
-
-
-
 
 
         return  view;

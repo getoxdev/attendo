@@ -72,8 +72,7 @@ public class FragmentBug extends Fragment {
                 details.setEnabled(true);
 
 
-                final String msg = msgdata.getText().toString();
-
+                final String msg = msgdata.getText().toString().trim();
                 Firebase child_msg = firebase.child("Report_Bug");
                 child_msg.setValue(msg);
                 if (msg.isEmpty()) {
@@ -96,11 +95,6 @@ public class FragmentBug extends Fragment {
                 });
             }
         });
-
-
-
-
-
         return view;
     }
 }

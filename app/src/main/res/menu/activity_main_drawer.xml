@@ -24,7 +24,7 @@
         <item
             android:id="@+id/nav_erem"
             android:icon="@drawable/erem"
-            android:title="Exam Reminder" />
+            android:title="Class Reminder" />
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/help"

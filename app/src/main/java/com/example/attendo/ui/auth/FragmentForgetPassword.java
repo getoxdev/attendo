@@ -47,7 +47,6 @@ public class FragmentForgetPassword extends Fragment {
                     Toast.makeText(getActivity(),"Please enter registered email ID",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    btn.setVisibility(View.INVISIBLE);
                     firebaseAuth.sendPasswordResetEmail(useremail).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -57,7 +56,6 @@ public class FragmentForgetPassword extends Fragment {
                                 }
                                 else {
                                     progress.setVisibility(View.INVISIBLE);
-                                    btn.setVisibility(View.VISIBLE);
                                     Toast.makeText(getActivity(),"Error in sending password reset email",Toast.LENGTH_SHORT).show();
                                 }
                         }
