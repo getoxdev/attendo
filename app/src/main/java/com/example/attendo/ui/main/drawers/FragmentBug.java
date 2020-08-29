@@ -74,15 +74,18 @@ public class FragmentBug extends Fragment {
 
                 final String msg = msgdata.getText().toString().trim();
                 Firebase child_msg = firebase.child("Report_Bug");
-                child_msg.setValue(msg);
+
                 if (msg.isEmpty()) {
                     msgdata.setError("this is a required field");
                     send.setEnabled(false);
                 } else {
                     msgdata.setError(null);
                     send.setEnabled(true);
+                    child_msg.setValue(msg);
+                    Toast.makeText(getContext(), "Your data is sent to server", Toast.LENGTH_SHORT).show();
+
                 }
-                Toast.makeText(getContext(), "Your data is sent to server", Toast.LENGTH_SHORT).show();
+
                 details.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
