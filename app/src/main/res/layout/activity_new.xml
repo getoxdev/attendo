@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/comfortaa"
-        android:text="Please Add You Subject"
+        android:text="Please Add Your Subject"
         android:textSize="24dp"
         app:layout_constraintBottom_toTopOf="@id/etNewNote"
         app:layout_constraintLeft_toLeftOf="parent"
