@@ -38,7 +38,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         this.mContext = mContext;
         this.mSubjects = mSubjects;
 
-
         subjectViewModel = new ViewModelProvider((SubjectActivity)mContext).get(SubjectViewModel.class);
     }
 
@@ -109,13 +108,11 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 //dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle("Delete Subject");
-                builder.setMessage("Are you sure you permanently want to delete the subject?")
+                builder.setMessage("Do you want to permanently delete the subject?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         subjectViewModel.deleteSubject(subEntity);
-
-
                     }
                 }).setNegativeButton("No",null);
                 builder.setCancelable(false);

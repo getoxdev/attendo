@@ -16,7 +16,7 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/login_btn_bcg"
         android:drawableStart="@drawable/ic_baseline_access_alarm_24"
-        android:hint="Enter Class reminder Title"
+        android:hint=" Enter Class Reminder Title"
         android:padding="10dp"
         android:layout_marginRight="17dp"
         android:layout_marginLeft="17dp"
