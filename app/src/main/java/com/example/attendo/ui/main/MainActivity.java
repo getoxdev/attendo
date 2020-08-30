@@ -123,11 +123,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            String body = "PLAYSTORE ADDRESS SHOULD BE ADDED SOON";
-            String subject = "Attendo_App";
+            String body = "http://bit.ly/attendoshare";
+            String subject = "AttendoURL";
             intent.putExtra(Intent.EXTRA_TEXT,body);
             intent.putExtra(Intent.EXTRA_SUBJECT,subject);
-            startActivity(Intent.createChooser(intent,"Share Using"));
+            startActivity(Intent.createChooser(intent,"Share App Using"));
         }
         else if(id==R.id.about)
         {
