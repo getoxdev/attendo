@@ -220,5 +220,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null).commit();
     }
 
-
 }

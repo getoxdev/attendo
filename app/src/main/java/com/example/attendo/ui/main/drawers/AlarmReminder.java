@@ -34,7 +34,6 @@ public class AlarmReminder extends BroadcastReceiver {
                 .setPriority(Notification.PRIORITY_MAX)
                 .setDefaults(Notification.DEFAULT_ALL);
 
-
         //notify
         NM.notify(notificationId,builder.build());
 
