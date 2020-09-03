@@ -19,7 +19,7 @@
         <activity android:name=".ui.sub.SubjectActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".ui.main.MainActivity"/>
-        <activity android:name=".ui.auth.AuthenticationActivity" />
+        <activity android:name=".ui.auth.AuthenticationActivity" android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/title_activity_main"
@@ -33,7 +33,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".ui.splash.IntroActivity">
+        <activity android:name=".ui.splash.IntroActivity" android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
