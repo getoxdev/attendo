@@ -64,7 +64,7 @@ dependencies {
     implementation 'com.codemybrainsout.rating:ratingdialog:1.0.8'
 
     //overscroll method
-    compile 'me.everything:overscroll-decor-android:1.1.0'
+    implementation 'me.everything:overscroll-decor-android:1.1.0'
 
 
 
