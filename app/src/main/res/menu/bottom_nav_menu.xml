@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/subjects"
+        android:title="Subjects"
+        android:icon="@drawable/ic_baseline_book_bottom_nav"/>
+    <item
+        android:id="@+id/calendar"
+        android:title="Calendar"
+        android:icon="@drawable/ic_baseline_calendar_today_bottom_nav"/>
+    <item
+        android:id="@+id/Reminder"
+        android:title="Reminder"
+        android:icon="@drawable/ic_baseline_access_alarm_24"/>
+    <item
+        android:id="@+id/account"
+        android:icon="@drawable/account_icon"
+        android:title="Account"/>
+
+</menu>

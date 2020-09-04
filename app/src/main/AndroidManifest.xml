@@ -7,6 +7,8 @@
 
     <dist:module dist:instant="true" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,17 +16,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.sub.Activity_Edit_Subject"></activity>
-        <activity android:name=".ui.sub.Activity_Add_Subject" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".ui.sub.SubjectActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:parentActivityName=".ui.main.MainActivity"/>
-        <activity android:name=".ui.auth.AuthenticationActivity" android:theme="@style/AppTheme" />
+        <activity android:name=".ui.main.BottomNavMainActivity"></activity>
+        <activity android:name=".ui.sub.Activity_Edit_Subject" />
+        <activity
+            android:name=".ui.sub.Activity_Add_Subject"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ui.sub.SubjectActivity"
+            android:parentActivityName=".ui.main.MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ui.auth.AuthenticationActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -33,15 +40,17 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name=".ui.splash.IntroActivity" android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.splash.IntroActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".ui.main.drawers.AlarmReminder"/>
+
+        <receiver android:name=".ui.main.drawers.AlarmReminder" />
     </application>
-    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 
 </manifest>
