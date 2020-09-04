@@ -11,15 +11,15 @@
         android:id="@+id/card1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:outlineAmbientShadowColor="#000"
-        android:textAlignment="center"
-        app:cardBackgroundColor="@color/white"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:outlineAmbientShadowColor="#673AB7"
+        app:cardBackgroundColor="#6A55CA"
         app:cardCornerRadius="15dp"
-        app:cardElevation="2dp"
+        app:cardElevation="0dp"
+        android:stateListAnimator="@animator/card_pressed_animator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -40,7 +40,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="15dp"
                 android:text="Subject"
-                android:textColor="#000000"
+                android:textColor="#EFEFEF"
                 android:textSize="22dp"
                 android:textStyle="bold" />
 
@@ -52,8 +52,8 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="14dp"
                 android:layout_marginRight="-9dp"
-                android:hint="Attendance:"
-                android:textColor="@color/colorAccent"
+                android:text="Attendance: "
+                android:textColor="#FFF"
                 android:textSize="15dp" />
 
 
@@ -67,7 +67,7 @@
                 android:layout_marginTop="14dp"
                 android:layout_toRightOf="@id/attendance"
                 android:text="1"
-                android:textColor="@color/colorAccent"
+                android:textColor="#E3DFDF"
                 android:textSize="15dp"/>
 
             <TextView
@@ -79,8 +79,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/tvPres"
-                android:hint="out of"
-                android:textColor="#000"
+               android:text="out of"
+                android:textColor="#D8D5D5"
                 android:textSize="15dp" />
 
 
@@ -94,7 +94,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@id/tv1"
                 android:text="2"
-                android:textColor="#000"
+                android:textColor="#E1DFDF"
                 android:textSize="15dp" />
 
             <TextView
@@ -105,7 +105,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="30dp"
                 android:text="75%"
-                android:textColor="#000"
+                android:textColor="#E3E2E2"
                 android:textSize="22dp" />
 
 
@@ -117,7 +117,8 @@
                 android:layout_below="@id/tvTotal"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
-                android:text="Have you attended today's class ? " />
+                android:text="Have you attended today's class ? "
+                android:textColor="#FFF"/>
 
 
             <Button
@@ -129,6 +130,7 @@
                 android:layout_marginTop="7dp"
                 android:background="@drawable/yes_button"
                 android:text="Yes"
+                android:stateListAnimator="@animator/card_pressed_animator"
                 android:textColor="@color/white" />
 
 
@@ -141,6 +143,7 @@
                 android:layout_toRightOf="@id/bPresent"
                 android:background="@drawable/no_button"
                 android:text="No"
+                android:stateListAnimator="@animator/card_pressed_animator"
                 android:textColor="@color/white" />
 
 

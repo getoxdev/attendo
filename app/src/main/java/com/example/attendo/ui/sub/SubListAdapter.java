@@ -52,9 +52,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     @Override
     public void onBindViewHolder(@NonNull SubViewHolder holder, int position) {
 
-        //animation
-//        Animation cardanim = AnimationUtils.loadAnimation(mContext,R.anim.fade_card);
-//        holder.card.setAnimation(cardanim);
+
 
         final SubEntity subEntity = mSubjects.get(position);
         holder.subItemView.setText(subEntity.getSubject());
@@ -103,7 +101,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             @Override
             public boolean onLongClick(View v) {
 
-                holder.card.setCardElevation(25);
 
 
                 //vibrator
@@ -120,7 +117,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        holder.card.setElevation(2);
+                        holder.card.setElevation(0);
                     }
                 });
                 builder.setCancelable(false);

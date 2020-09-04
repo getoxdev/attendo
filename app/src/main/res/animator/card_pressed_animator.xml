@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <objectAnimator
+            android:duration="100"
+            android:propertyName="elevation"
+            android:valueType="floatType"
+            android:valueTo="14dp"
+            android:interpolator="@android:interpolator/anticipate_overshoot"/>
+
+        <set>
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:duration="200"
+                android:valueType="floatType"
+                android:valueTo="0.95"
+                android:interpolator="@android:interpolator/anticipate_overshoot"/>
+
+            <objectAnimator
+                android:propertyName="scaleY"
+                android:duration="200"
+                android:valueType="floatType"
+                android:valueTo="0.95"
+                android:interpolator="@android:interpolator/anticipate_overshoot"/>
+
+
+
+        </set>
+
+    </item>
+
+    <item android:state_pressed="false">
+        <objectAnimator
+            android:duration="100"
+            android:propertyName="Elevation"
+            android:valueType="floatType"
+            android:valueTo="0dp"
+            android:interpolator="@android:interpolator/anticipate_overshoot"/>
+
+        <set>
+            <objectAnimator
+                android:propertyName="scaleX"
+                android:duration="200"
+                android:valueType="floatType"
+                android:valueTo="1.0"
+                android:interpolator="@android:interpolator/anticipate_overshoot"/>
+
+            <objectAnimator
+                android:propertyName="scaleY"
+                android:duration="200"
+                android:valueType="floatType"
+                android:valueTo="1.0"
+                android:interpolator="@android:interpolator/anticipate_overshoot"/>
+
+
+
+        </set>
+
+    </item>
+
+    <item android:state_selected="true">
+        <set>
+            <objectAnimator
+                android:duration="200"
+                android:propertyXName="scaleX"
+                android:propertyYName="scaleY"
+                android:valueTo="0.9"/>
+
+        </set>
+    </item>
+
+    <item android:state_selected="false">
+        <set>
+            <objectAnimator
+                android:duration="200"
+                android:propertyXName="scaleX"
+                android:propertyYName="scaleY"
+                android:valueTo="1.1"/>
+
+        </set>
+    </item>
+
+
+
+
+</selector>

@@ -55,7 +55,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_anchor="@id/appbar_layout"
         app:layout_anchorGravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -77,7 +77,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/fabi_icon_add_drawable"
             android:layout_gravity="end|bottom"
-            app:backgroundTint="#AB42ED"/>
+            app:backgroundTint="#9657F1"/>
 
 
 

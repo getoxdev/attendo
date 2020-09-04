@@ -78,8 +78,6 @@ public class SubjectActivity extends AppCompatActivity{
         recyclerView.setAdapter(subListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //over scroll animation
-        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
     }
 
     private void initViewModel()
