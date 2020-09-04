@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background_login_signup"
     tools:context=".ui.main.drawers.account.FragmentProfile">
 
     <androidx.cardview.widget.CardView
@@ -25,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/account_icon" />
+            app:srcCompat="@drawable/ic_baseline_profile_image_24" />
 
     </androidx.cardview.widget.CardView>
 
