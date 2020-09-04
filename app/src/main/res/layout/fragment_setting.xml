@@ -5,22 +5,36 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.menu.FragmentSettings">
 
-   <TextView
-       android:id="@+id/text1"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_centerHorizontal="true"
-       android:layout_centerVertical="true"
-       android:text="Setting will be added soon"
-       android:textSize="20dp"/>
+    <ProgressBar
+        android:id="@+id/progressbar_delete_account"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="450dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:layout_height="wrap_content"/>
 
-   <TextView
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_below="@+id/text1"
-       android:layout_centerHorizontal="true"
-       android:layout_centerVertical="true"
-       android:text="in next Version"
-       android:textSize="20dp"/>
+  <androidx.cardview.widget.CardView
+      android:layout_alignParentBottom="true"
+      android:layout_width="match_parent"
+      android:layout_margin="8dp"
+      android:layout_height="60dp">
+     <ImageView
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+         android:layout_margin="10dp"
+         android:src="@drawable/log_in"/>
+
+     <TextView
+         android:id="@+id/delete_account"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+         android:text="DELETE ACCOUNT"
+         android:textColor="#000000"
+         android:textStyle="bold"
+         android:textSize="16dp"
+         android:layout_marginTop="20dp"/>
+
+  </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
