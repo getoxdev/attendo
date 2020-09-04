@@ -70,7 +70,6 @@ public class FragmentUserProfile extends Fragment {
             @Override
             public void onSuccess(Uri uri)
             {
-
                 Picasso.with(getContext()).load(uri).into(profile);
                 pgb.setVisibility(View.INVISIBLE);
             }
@@ -78,7 +77,7 @@ public class FragmentUserProfile extends Fragment {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
                         pgb.setVisibility(View.INVISIBLE);
                     }
                 });

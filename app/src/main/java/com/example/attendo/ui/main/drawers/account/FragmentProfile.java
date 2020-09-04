@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.attendo.R;
 import com.example.attendo.ui.main.MainActivity;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -92,15 +94,15 @@ public class FragmentProfile extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pB.setVisibility(View.VISIBLE);
                 String Name = name.getText().toString().trim();
                 String College =college.getText().toString();
                 String City = city.getText().toString();
                 String contact = Contact.getText().toString();
-                if(Name.isEmpty() || College.isEmpty() || City.isEmpty() || contact.isEmpty() || filepath==null) {
-                    if(Name.isEmpty() || College.isEmpty() || City.isEmpty() || contact.isEmpty())
+                if(Name.isEmpty() || College.isEmpty() || City.isEmpty() || contact.isEmpty()) {
+                    if(Name.isEmpty() || College.isEmpty() || City.isEmpty() || contact.isEmpty()) {
+                        pB.setVisibility(View.INVISIBLE);
                         Toast.makeText(getContext(), "Please enter all fields", Toast.LENGTH_SHORT).show();
-                    if(filepath==null) {
-                        Toast.makeText(getContext(), "Please select your Profile image", Toast.LENGTH_SHORT).show();
                     }
                  }
                 else{
@@ -110,12 +112,35 @@ public class FragmentProfile extends Fragment {
                     String id = user_id;
                     ProfileData prf = new ProfileData(id, name.getText().toString().trim(), college.getText().toString(), city.getText().toString().trim(), Contact.getText().toString().trim());
                     databaseReference.child(id).setValue(prf);
-                    UploadImage();
 
-
+                    //Profile imgae is optional...
+                    if(filepath!=null) {
+                        UploadImage();
+                    }
+                    else{
+                        pB.setVisibility(View.INVISIBLE);
+                        storageReference = storage.getReference();
+                        storageReference.child("images/" + user_id.toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                databaseReference.child("images/" + user_id.toString()).removeValue();
+                                Toast.makeText(getContext(),"Account Updated "+name.getText().toString(),Toast.LENGTH_SHORT).show();
+                                Intent intent=new Intent(getActivity(), MainActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getContext(),"Account Updated "+name.getText().toString(),Toast.LENGTH_SHORT).show();
+                                Intent intent=new Intent(getActivity(), MainActivity.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        });
+                    }
                 }
             }
-
             private void UploadImage() {
                 if(filepath !=null){
                   StorageReference reference = storageReference.child("images/" + user_id.toString());
@@ -151,7 +176,7 @@ public class FragmentProfile extends Fragment {
         SkipAccountCreation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Your Account Not Created!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Your Account Not Updated!",Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
