@@ -7,10 +7,13 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.attendo.data.CalendarDao;
+import com.example.attendo.data.CalendarEntity;
 import com.example.attendo.data.SubDao;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.data.database.SubDatabase;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -19,6 +22,7 @@ public class SubjectViewModel extends AndroidViewModel {
 
     private String TAG = this.getClass().getSimpleName();
     private SubDao subDao;
+    private CalendarDao calendarDao;
     private SubDatabase subDB;
     public LiveData<List<SubEntity>> mAllSubjects;
     private Executor mExecutor = Executors.newSingleThreadExecutor();
@@ -28,6 +32,7 @@ public class SubjectViewModel extends AndroidViewModel {
 
         subDB = SubDatabase.getInstance(getApplication());
         subDao = subDB.SubDao();
+        calendarDao = subDB.calendarDao();
         mAllSubjects = subDao.getAllSubjects();
     }
 
@@ -54,6 +59,10 @@ public class SubjectViewModel extends AndroidViewModel {
 
     public LiveData<List<SubEntity>> getAllSubjects() {
         return mAllSubjects;
+    }
+
+    public LiveData<List<CalendarEntity>> getSubjectbyDate(final Date date){
+        return calendarDao.getSubjectByDate(date);
     }
 
     public void updatePresent( int p, int id )

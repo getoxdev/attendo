@@ -6,17 +6,23 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
+import com.example.attendo.data.CalendarDao;
+import com.example.attendo.data.CalendarEntity;
+import com.example.attendo.data.DataConverter;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.data.SubDao;
 
-@Database(entities = {SubEntity.class}, version = 3)
+@Database(entities = {SubEntity.class, CalendarEntity.class}, version = 4)
+@TypeConverters(DataConverter.class)
 public abstract class SubDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "Subject.db";
     public static volatile SubDatabase instance;
     private static final Object object = new Object();
     public abstract SubDao SubDao();
+    public abstract CalendarDao calendarDao();
 
     public static SubDatabase getInstance(Context context)
     {
