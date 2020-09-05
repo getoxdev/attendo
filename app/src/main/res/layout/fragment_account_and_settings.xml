@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.drawers.account.FragmentAccountAndSettings">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/view_account"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:stateListAnimator="@animator/card_pressed_animator"
+                app:cardBackgroundColor="#6A55CA"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="user_name"
+                    android:textColor="#FFF"
+                    android:fontFamily="@font/comfortaa"
+                    android:textSize="20dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity="top"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="institute_name"
+                    android:textColor="#FFF"
+                    android:fontFamily="@font/comfortaa"
+                    android:textSize="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="15dp"/>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/edit_attendance_criterion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Edit Attendance Criterion"
+                android:background="@drawable/list_card_small"
+                android:textAlignment="textStart"
+                android:paddingTop="10dp"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/attctr"
+                app:layout_constraintTop_toBottomOf="@id/view_account"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="15dp"
+                android:paddingBottom="10dp"
+                android:backgroundTint="#E3E1E1"
+                android:fontFamily="@font/comfortaa"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/edit_attendance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Edit Attendance"
+                android:background="@drawable/list_card_small"
+                android:textAlignment="textStart"
+                android:paddingTop="10dp"
+                android:drawableLeft="@drawable/att"
+                android:drawablePadding="10dp"
+                app:layout_constraintTop_toBottomOf="@id/edit_attendance_criterion"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="15dp"
+                android:paddingBottom="10dp"
+                android:backgroundTint="#E3E1E1"
+                android:fontFamily="@font/comfortaa"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/rate_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/list_card_small"
+                android:backgroundTint="#E3E1E1"
+                android:clickable="true"
+                android:drawableLeft="@drawable/rate"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/comfortaa"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Rate App"
+                android:layout_marginStart="15dp"
+                android:textAlignment="textStart"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_attendance" />
+
+            <TextView
+                android:id="@+id/help_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Help"
+                android:background="@drawable/list_card_small"
+                android:textAlignment="textStart"
+                android:paddingTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/rate_app"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="15dp"
+                android:drawableLeft="@drawable/help"
+                android:drawablePadding="10dp"
+                android:paddingBottom="10dp"
+                android:backgroundTint="#E3E1E1"
+                android:fontFamily="@font/comfortaa"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/report_bug"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Report Bug"
+                android:drawableLeft="@drawable/bug"
+                android:background="@drawable/list_card_small"
+                android:textAlignment="textStart"
+                android:paddingTop="10dp"
+                android:drawablePadding="10dp"
+                app:layout_constraintTop_toBottomOf="@id/help_settings"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="15dp"
+                android:paddingBottom="10dp"
+                android:backgroundTint="#E3E1E1"
+                android:fontFamily="@font/comfortaa"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/share_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Share"
+                android:drawableLeft="@drawable/ic_menu_share"
+                android:drawableTint="#757474"
+                android:background="@drawable/list_card_small"
+                android:textAlignment="textStart"
+                android:paddingTop="10dp"
+                android:drawablePadding="10dp"
+                app:layout_constraintTop_toBottomOf="@id/report_bug"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="15dp"
+                android:paddingBottom="10dp"
+                android:backgroundTint="#E3E1E1"
+                android:fontFamily="@font/comfortaa"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/logout_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Logout"
+                android:drawableLeft="@drawable/ic_baseline_logout"
+                android:drawableTint="#757474"
+                android:background="@drawable/list_card_small"
+                android:textAlignment="textStart"
+                android:paddingTop="10dp"
+                android:drawablePadding="10dp"
+                app:layout_constraintTop_toBottomOf="@id/share_settings"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="15dp"
+                android:paddingBottom="10dp"
+                android:backgroundTint="#E3E1E1"
+                android:fontFamily="@font/comfortaa"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"/>
+
+
+            <TextView
+                android:id="@+id/delete_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Delete account"
+                android:drawableLeft="@drawable/ic_baseline_delete_24"
+                android:drawableTint="#757474"
+                android:background="@drawable/list_card_small"
+                android:textAlignment="textStart"
+                android:paddingTop="10dp"
+                android:drawablePadding="10dp"
+                app:layout_constraintTop_toBottomOf="@id/logout_settings"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="15dp"
+                android:paddingBottom="10dp"
+                android:backgroundTint="#E3E1E1"
+                android:fontFamily="@font/comfortaa"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"/>
+
+            <TextView
+                android:id="@+id/about_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="About"
+                android:drawableLeft="@drawable/ic_baseline_about_24"
+                android:drawableTint="#757474"
+                android:background="@drawable/list_card_small"
+                android:textAlignment="textStart"
+                android:paddingTop="10dp"
+                android:drawablePadding="10dp"
+                app:layout_constraintTop_toBottomOf="@id/delete_settings"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="15dp"
+                android:paddingBottom="10dp"
+                android:backgroundTint="#E3E1E1"
+                android:fontFamily="@font/comfortaa"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"/>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

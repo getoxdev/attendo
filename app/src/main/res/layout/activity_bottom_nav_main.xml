@@ -9,7 +9,9 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -21,7 +23,8 @@
                 android:id="@+id/toolbar_bottom_nav"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="AppBar"/>
+                app:title="AppBar"
+                android:elevation="0dp"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 

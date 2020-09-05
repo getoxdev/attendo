@@ -7,7 +7,7 @@
     tools:context=".ui.main.drawers.account.FragmentUserProfile">
 
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/IMAGE_CARDVIEW"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -25,7 +25,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_baseline_profile_image_24"/>
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
     <RelativeLayout
         android:id="@+id/main_block_account"
