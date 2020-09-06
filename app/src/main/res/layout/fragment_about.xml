@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-               <com.google.android.material.card.MaterialCardView
+               <androidx.cardview.widget.CardView
                 android:id="@+id/profile_photo"
                 app:cardElevation="1dp"
                 android:layout_width="100dp"
@@ -44,7 +44,7 @@
 
 
 
-               </com.google.android.material.card.MaterialCardView>
+               </androidx.cardview.widget.CardView>
 
                <androidx.cardview.widget.CardView
                    android:id="@+id/mentor_card"
@@ -165,7 +165,7 @@
                </androidx.cardview.widget.CardView>
 
 
-               <com.google.android.material.card.MaterialCardView
+               <androidx.cardview.widget.CardView
                    app:cardElevation="1dp"
                    android:layout_width="100dp"
                    android:layout_height="100dp"
@@ -185,7 +185,7 @@
                       android:src="@drawable/raj"
                       android:scaleType="centerCrop"/>
 
-               </com.google.android.material.card.MaterialCardView>
+               </androidx.cardview.widget.CardView>
 
                <!-- First Card Learner 2 -->
 
@@ -247,7 +247,7 @@
                </androidx.cardview.widget.CardView>
 
 
-               <com.google.android.material.card.MaterialCardView
+               <androidx.cardview.widget.CardView
                    app:cardElevation="1dp"
                    android:layout_width="100dp"
                    android:layout_height="100dp"
@@ -267,7 +267,7 @@
                       android:src="@drawable/aman"
                       android:scaleType="centerCrop"/>
 
-               </com.google.android.material.card.MaterialCardView>
+               </androidx.cardview.widget.CardView>
 
                <!-- First Card Learner 3 -->
 
@@ -328,7 +328,7 @@
                </androidx.cardview.widget.CardView>
 
 
-               <com.google.android.material.card.MaterialCardView
+               <androidx.cardview.widget.CardView
                    app:cardElevation="1dp"
                    android:layout_width="100dp"
                    android:layout_height="100dp"
@@ -348,7 +348,7 @@
                       android:src="@drawable/shristi"
                       android:scaleType="centerCrop"/>
 
-               </com.google.android.material.card.MaterialCardView>
+               </androidx.cardview.widget.CardView>
 
 
 
@@ -414,7 +414,7 @@
                </androidx.cardview.widget.CardView>
 
 
-               <com.google.android.material.card.MaterialCardView
+               <androidx.cardview.widget.CardView
                    app:cardElevation="1dp"
                    android:layout_width="100dp"
                    android:layout_height="100dp"
@@ -434,7 +434,7 @@
                       android:src="@drawable/jyotimoy"
                       android:scaleType="centerCrop"/>
 
-               </com.google.android.material.card.MaterialCardView>
+               </androidx.cardview.widget.CardView>
 
 
 
