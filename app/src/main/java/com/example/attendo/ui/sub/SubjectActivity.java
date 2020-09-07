@@ -80,34 +80,7 @@ public class SubjectActivity extends AppCompatActivity{
 
     }
 
-    private void initViewModel()
-    {
-        /*Observer<List<SubEntity>> subObserver = new Observer<List<SubEntity>>() {
-            @Override
-            public void onChanged(List<SubEntity> subEntities) {
-                mSubjects.clear();
-                mSubjects.addAll(subEntities);
 
-                if(subListAdapter == null)
-                {
-                    subListAdapter = new SubListAdapter(SubjectActivity.this,mSubjects);
-                    subRView.setAdapter(subListAdapter);
-                    if(subListAdapter.getItemCount()==0)
-                    {
-                        emptyText.setVisibility(View.VISIBLE);
-                    }
-                }
-                else
-                {
-                    mNotesAdapter.notifyDataSetChanged();
-                }
-            }
-        };
-
-        subViewModel = ViewModelProviders.of(this).get(SubjectViewModel.class);
-
-        listViewModel.mNotesList.observe(MainActivity.this,notesObserver);*/
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

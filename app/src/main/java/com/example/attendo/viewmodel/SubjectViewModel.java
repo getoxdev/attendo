@@ -46,6 +46,16 @@ public class SubjectViewModel extends AndroidViewModel {
         });
     }
 
+    public void insertDate(CalendarEntity calendarEntity)
+    {
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                calendarDao.insertDate(calendarEntity);
+            }
+        });
+    }
+
     public void deleteSubject(SubEntity subEntity)
     {
         mExecutor.execute(new Runnable() {

@@ -18,11 +18,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.attendo.data.CalendarEntity;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.R;
 import com.example.attendo.viewmodel.SubjectViewModel;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -30,6 +34,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     private Context mContext;
     private List<SubEntity> mSubjects;
     private SubjectViewModel subjectViewModel;
+    private List<CalendarEntity> mCalendar;
 
 
 
@@ -55,6 +60,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
 
         final SubEntity subEntity = mSubjects.get(position);
+
         holder.subItemView.setText(subEntity.getSubject());
         holder.tvPres.setText(String.valueOf(subEntity.getPresent()));
         holder.tvTotal.setText(String.valueOf(subEntity.getTotal()));
@@ -70,13 +76,20 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             public void onClick(View v) {
                 int id = mSubjects.get(position).getId();
 
+                Date date = Calendar.getInstance().getTime();
+                String sub = String.valueOf(holder.subItemView.getText());
+                CalendarEntity calendarEntity = new CalendarEntity(date,sub);
+                subjectViewModel.insertDate(calendarEntity);
+
+
+
                 int pre = Integer.parseInt((String) holder.tvPres.getText());
                 int total = Integer.parseInt((String) holder.tvTotal.getText());
                 pre++;
                 total++;
-
                 subjectViewModel.updatePresent(pre,id);
                 subjectViewModel.updateTotal(total,id);
+
             }
         });
 
@@ -87,6 +100,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                 int total = Integer.parseInt((String) holder.tvTotal.getText());
                 int pre = Integer.parseInt((String) holder.tvPres.getText());
+
                 int ab=total-pre;
                 ab++;
                 total++;

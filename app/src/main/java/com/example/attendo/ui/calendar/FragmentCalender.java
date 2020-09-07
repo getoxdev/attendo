@@ -20,5 +20,6 @@ public class FragmentCalender extends Fragment {
         View view= inflater.inflate(R.layout.fragment_calender, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Calendar");
         return view;
+
     }
 }
