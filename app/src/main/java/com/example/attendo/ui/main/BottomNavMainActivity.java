@@ -4,13 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.FrameLayout;
 
 import com.example.attendo.R;
 import com.example.attendo.ui.calendar.FragmentCalender;
+import com.example.attendo.ui.main.drawers.AlarmReminder;
+import com.example.attendo.ui.main.drawers.FragmentExamReminder;
+import com.example.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -56,17 +64,37 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.reminder_bottom_nav:
-                    //inflate the fragment
+                    Fragment reminder = new FragmentExamReminder();
+                    selectedFragment = reminder;
+                    getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
+                            .replace(R.id.container_frame, reminder, "reminder_fragment")
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            .addToBackStack(null)
+                            .commit();
                     break;
 
                 case R.id.calendar_bottom_nav:
                     Fragment calendar = new FragmentCalender();
                     selectedFragment = calendar;
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container_frame, calendar, "calendar_fragment");
+                    getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
+                            .replace(R.id.container_frame, calendar, "calendar_fragment")
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            .addToBackStack(null)
+                            .commit();
                     break;
 
                 case R.id.account_bottom_nav:
-                    //inflate the fragment
+                    Fragment account = new FragmentAccountAndSettings();
+                    selectedFragment = account;
+                    getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
+                            .replace(R.id.container_frame, account, "account_fragment")
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            .addToBackStack(null)
+                            .commit();
+
                     break;
 
             }
@@ -79,12 +107,31 @@ public class BottomNavMainActivity extends AppCompatActivity {
     @OnClick(R.id.floating_action_button)
     void add(){
 
+        PropertyValuesHolder holderYhide = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0f);
+        PropertyValuesHolder holderXhide = PropertyValuesHolder.ofFloat(View.SCALE_X, 0f);
+
+
+        ObjectAnimator animatorhide = ObjectAnimator.ofPropertyValuesHolder(floatingActionButton, holderXhide, holderYhide);
+        animatorhide.setDuration(300);
+        animatorhide.setInterpolator(new AnticipateOvershootInterpolator());
+
 
         switch (selectedFragment.getTag()){
+            case "subject_fragment":
+                animatorhide.start();
+                floatingActionButton.hide();
+                break;
 
             case "calendar_fragment":
-                //code goes here
+                animatorhide.start();
+                floatingActionButton.hide();
                 break;
+
+            case "reminder_fragment":
+                animatorhide.start();
+                floatingActionButton.hide();
+                break;
+
 
 
 
