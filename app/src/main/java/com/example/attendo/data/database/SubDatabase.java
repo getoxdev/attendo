@@ -10,12 +10,12 @@ import androidx.room.TypeConverters;
 
 import com.example.attendo.data.CalendarDao;
 import com.example.attendo.data.CalendarEntity;
-import com.example.attendo.data.DataConverter;
+import com.example.attendo.data.DateConverter;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.data.SubDao;
 
 @Database(entities = {SubEntity.class, CalendarEntity.class}, version = 4)
-@TypeConverters(DataConverter.class)
+@TypeConverters(DateConverter.class)
 public abstract class SubDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "Subject.db";
