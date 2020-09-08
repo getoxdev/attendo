@@ -90,7 +90,7 @@ public class SubjectViewModel extends AndroidViewModel {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                subDao.updateTotal(a,id);
+                subDao.updateAbsent(a,id);
             }
         });
     }
@@ -103,6 +103,15 @@ public class SubjectViewModel extends AndroidViewModel {
                 subDao.updateTotal(tot,id);
             }
         });
+    }
+    public void updateSubject(String sub,int id)
+    {
+        mExecutor.execute((new Runnable() {
+            @Override
+            public void run() {
+                subDao.updateSubject(sub,id);
+            }
+        }));
     }
 
     @Override

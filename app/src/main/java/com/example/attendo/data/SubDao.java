@@ -33,7 +33,11 @@ public interface SubDao {
     @Query("UPDATE SubjectName SET absent = :absent WHERE id = :id")
     void updateAbsent(int absent, int id);
 
+
     @Query("UPDATE SubjectName SET total= :total WHERE id = :id")
     void updateTotal(int total, int id);
+
+    @Query("UPDATE SubjectName SET subject = :subject WHERE id = :id")
+    void updateSubject(String subject,int id);
 
 }
