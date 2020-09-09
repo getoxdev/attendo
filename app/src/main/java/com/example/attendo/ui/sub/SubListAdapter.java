@@ -18,12 +18,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.attendo.data.CalendarEntity;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.R;
 import com.example.attendo.ui.main.MainActivity;
+import com.example.attendo.viewmodel.CalViewModel;
 import com.example.attendo.viewmodel.SubjectViewModel;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -31,6 +35,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     private Context mContext;
     private List<SubEntity> mSubjects;
     private SubjectViewModel subjectViewModel;
+    private CalViewModel calViewModel;
 
 
 
@@ -40,6 +45,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         this.mSubjects = mSubjects;
 
         subjectViewModel = new ViewModelProvider((MainActivity)mContext).get(SubjectViewModel.class);
+        calViewModel = new ViewModelProvider((MainActivity)mContext).get(CalViewModel.class);
+
     }
 
     @NonNull
@@ -75,6 +82,12 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 int total = Integer.parseInt((String) holder.tvTotal.getText());
                 pre++;
                 total++;
+
+                Date date = Calendar.getInstance().getTime();
+                String subject = String.valueOf(holder.subItemView.getText());
+                CalendarEntity calendarEntity = new CalendarEntity(date,subject);
+                calViewModel.insertDate(calendarEntity);
+
 
                 subjectViewModel.updatePresent(pre,id);
                 subjectViewModel.updateTotal(total,id);

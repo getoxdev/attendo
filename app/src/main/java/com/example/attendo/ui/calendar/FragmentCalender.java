@@ -51,8 +51,6 @@ public class FragmentCalender extends Fragment {
     private CalAdapter calAdapter;
     private CalViewModel calViewModel;
     List<CalendarEntity> mDataList;
-    private MainActivity mainActivity;
-
     private Context mcontext;
 
     @Override
@@ -62,18 +60,19 @@ public class FragmentCalender extends Fragment {
         View view= inflater.inflate(R.layout.fragment_calender, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Calendar");
         ButterKnife.bind(this,view);
-//        calAdapter = new CalAdapter(mcontext,mDataList);
-//        calViewModel = new ViewModelProvider((MainActivity)mcontext).get(CalViewModel.class);
-//        Date date = Calendar.getInstance().getTime();
-//        calViewModel.getSubjectbyDate(date).observe(getViewLifecycleOwner(), new Observer<List<CalendarEntity>>() {
-//            @Override
-//            public void onChanged(List<CalendarEntity> calendarEntities) {
-//                calAdapter.set(calendarEntities);
-//
-//            }
-//        });
-//        recyclerView.setAdapter(calAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Date date = Calendar.getInstance().getTime();
+        calAdapter = new CalAdapter(mcontext,mDataList);
+        calViewModel = new ViewModelProvider((MainActivity)mcontext).get(CalViewModel.class);
+
+        calViewModel.getSubjectbyDate(date).observe(getActivity(), new Observer<List<CalendarEntity>>() {
+            @Override
+            public void onChanged(List<CalendarEntity> calendarEntities) {
+                calAdapter.set(calendarEntities);
+
+            }
+        });
+        recyclerView.setAdapter(calAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
 

@@ -14,7 +14,6 @@ import com.example.attendo.R;
 import com.example.attendo.data.CalendarEntity;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.ui.main.MainActivity;
-import com.example.attendo.ui.sub.SubjectActivity;
 import com.example.attendo.viewmodel.CalViewModel;
 import com.example.attendo.viewmodel.SubjectViewModel;
 

@@ -1,4 +1,4 @@
-package com.example.attendo;
+package com.example.attendo.ui.sub;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,9 +18,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.attendo.R;
 import com.example.attendo.data.SubEntity;
-import com.example.attendo.ui.sub.Fragment_AddSubject;
-import com.example.attendo.ui.sub.SubListAdapter;
 import com.example.attendo.viewmodel.SubjectViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
