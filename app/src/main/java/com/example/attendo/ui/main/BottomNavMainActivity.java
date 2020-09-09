@@ -36,9 +36,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
     @BindView(R.id.container_frame)
     FrameLayout frameLayout;
 
-    @BindView(R.id.floating_action_button)
-    FloatingActionButton floatingActionButton;
-
     @BindView(R.id.toolbar_bottom_nav)
     Toolbar toolbar;
 
@@ -106,37 +103,4 @@ public class BottomNavMainActivity extends AppCompatActivity {
         }
     };
 
-    @OnClick(R.id.floating_action_button)
-    void add(){
-
-        PropertyValuesHolder holderYhide = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0f);
-        PropertyValuesHolder holderXhide = PropertyValuesHolder.ofFloat(View.SCALE_X, 0f);
-
-
-        ObjectAnimator animatorhide = ObjectAnimator.ofPropertyValuesHolder(floatingActionButton, holderXhide, holderYhide);
-        animatorhide.setDuration(300);
-        animatorhide.setInterpolator(new AnticipateOvershootInterpolator());
-
-
-        switch (selectedFragment.getTag()){
-            case "subject_fragment":
-                animatorhide.reverse();
-                floatingActionButton.show();
-                break;
-
-            case "calendar_fragment":
-                animatorhide.start();
-                floatingActionButton.hide();
-                break;
-
-            case "reminder_fragment":
-                animatorhide.start();
-                floatingActionButton.hide();
-                break;
-
-
-
-
-        }
-    }
 }

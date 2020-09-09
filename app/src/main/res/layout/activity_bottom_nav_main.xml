@@ -35,16 +35,7 @@
 
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_action_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:fabSize="normal"
-        android:src="@drawable/fabi_icon_add_drawable"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_anchor="@id/bottom_nav_bar"
-        app:elevation="10dp"
-        app:layout_anchorGravity="center_horizontal"/>
+
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -56,6 +47,9 @@
         android:background="#FFFCFC"
         android:animateLayoutChanges="true"
         android:fitsSystemWindows="true"
+        app:itemIconTint="#9059E8"
+        app:itemTextColor="#9059E8"
+        app:itemRippleColor="#AF8AEA"
         app:elevation="6dp"
         android:padding="5dp"/>
 
