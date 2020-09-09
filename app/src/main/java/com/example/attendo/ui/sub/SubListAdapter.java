@@ -22,8 +22,13 @@ import com.example.attendo.data.SubEntity;
 import com.example.attendo.R;
 import com.example.attendo.viewmodel.SubjectViewModel;
 
+import java.sql.Time;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewHolder>  {
@@ -52,7 +57,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     @Override
     public void onBindViewHolder(@NonNull SubViewHolder holder, int position) {
 
-
+        Date currentTime = Calendar.getInstance().getTime();
+        String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(currentTime);
 
         final SubEntity subEntity = mSubjects.get(position);
         holder.subItemView.setText(subEntity.getSubject());
@@ -61,6 +67,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         holder.percent.setText(getPercentage(subEntity.getPresent(),subEntity.getTotal())+"%");
 
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+
+
 
 
 
@@ -77,6 +85,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                 subjectViewModel.updatePresent(pre,id);
                 subjectViewModel.updateTotal(total,id);
+
             }
         });
 
@@ -93,6 +102,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                 subjectViewModel.updateAbsent(ab,id);
                 subjectViewModel.updateTotal(total,id);
+
             }
         });
 

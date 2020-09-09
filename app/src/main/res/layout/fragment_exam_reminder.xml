@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".ui.main.drawers.FragmentExamReminder">
+    tools:context=".ui.main.drawers.FragmentExamReminder"
+    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
 
     <EditText
@@ -42,7 +43,8 @@
         app:layout_constraintBottom_toTopOf="@+id/Time_Title"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
     <Button
         android:id="@+id/Set_Time"

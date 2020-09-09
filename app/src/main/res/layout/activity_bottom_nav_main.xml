@@ -6,35 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.BottomNavMainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_bottom_nav"
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_bottom_nav"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="0dp">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#FFF"
-            app:expandedTitleMarginStart="20dp">
+        android:layout_height="75dp"
+        app:title="AppBar"
+        app:titleTextAppearance="@style/AppBarTitleTextAppearance"
+        android:elevation="0dp"/>
 
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar_bottom_nav"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="AppBar"
-                android:elevation="0dp"/>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/container_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_anchor="@id/appbar_bottom_nav"
+        android:layout_marginTop="75dp"
+        app:layout_anchor="@id/toolbar_bottom_nav"
         app:layout_anchorGravity="bottom"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_marginBottom="70dp">

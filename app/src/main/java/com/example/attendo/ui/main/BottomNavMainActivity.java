@@ -2,6 +2,7 @@ package com.example.attendo.ui.main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -32,14 +33,14 @@ public class BottomNavMainActivity extends AppCompatActivity {
     @BindView(R.id.bottom_nav_bar)
     BottomNavigationView bottomNavigationView;
 
-    @BindView(R.id.appbar_bottom_nav)
-    AppBarLayout appBarLayout;
-
     @BindView(R.id.container_frame)
     FrameLayout frameLayout;
 
     @BindView(R.id.floating_action_button)
     FloatingActionButton floatingActionButton;
+
+    @BindView(R.id.toolbar_bottom_nav)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
+        setSupportActionBar(toolbar);
 
 
     }
@@ -118,8 +120,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
         switch (selectedFragment.getTag()){
             case "subject_fragment":
-                animatorhide.start();
-                floatingActionButton.hide();
+                animatorhide.reverse();
+                floatingActionButton.show();
                 break;
 
             case "calendar_fragment":
