@@ -14,7 +14,7 @@ import com.example.attendo.data.DateConverter;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.data.SubDao;
 
-@Database(entities = {SubEntity.class, CalendarEntity.class}, version = 5)
+@Database(entities = {SubEntity.class, CalendarEntity.class}, version = 6)
 @TypeConverters(DateConverter.class)
 public abstract class SubDatabase extends RoomDatabase {
 

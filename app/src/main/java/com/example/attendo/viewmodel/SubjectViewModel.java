@@ -22,7 +22,7 @@ public class SubjectViewModel extends AndroidViewModel {
 
     private String TAG = this.getClass().getSimpleName();
     private SubDao subDao;
-    private CalendarDao calendarDao;
+
     private SubDatabase subDB;
     public LiveData<List<SubEntity>> mAllSubjects;
     private Executor mExecutor = Executors.newSingleThreadExecutor();
@@ -32,7 +32,7 @@ public class SubjectViewModel extends AndroidViewModel {
 
         subDB = SubDatabase.getInstance(getApplication());
         subDao = subDB.SubDao();
-        calendarDao = subDB.calendarDao();
+
         mAllSubjects = subDao.getAllSubjects();
     }
 
@@ -46,15 +46,6 @@ public class SubjectViewModel extends AndroidViewModel {
         });
     }
 
-    public void insertDate(CalendarEntity calendarEntity)
-    {
-        mExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                calendarDao.insertDate(calendarEntity);
-            }
-        });
-    }
 
     public void deleteSubject(SubEntity subEntity)
     {
@@ -71,9 +62,6 @@ public class SubjectViewModel extends AndroidViewModel {
         return mAllSubjects;
     }
 
-    public LiveData<List<CalendarEntity>> getSubjectbyDate(final Date date){
-        return calendarDao.getSubjectByDate(date);
-    }
 
     public void updatePresent( int p, int id )
     {

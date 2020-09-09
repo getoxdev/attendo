@@ -17,6 +17,9 @@ public interface CalendarDao {
     @Insert
     void insertDate(CalendarEntity calendarEntity);
 
+    @Query("SELECT subject from calendar where date=:date")
+    String getsubject(Date date);
+
 
 
 

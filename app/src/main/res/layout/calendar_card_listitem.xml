@@ -13,6 +13,7 @@
         app:layout_constraintLeft_toLeftOf="parent">
 
         <TextView
+            android:id="@+id/cal_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="subject_name_attended"

@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.attendo.data.CalendarEntity;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.R;
+import com.example.attendo.ui.main.MainActivity;
+import com.example.attendo.viewmodel.CalViewModel;
 import com.example.attendo.viewmodel.SubjectViewModel;
 
 import java.text.DecimalFormat;
@@ -34,6 +36,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     private Context mContext;
     private List<SubEntity> mSubjects;
     private SubjectViewModel subjectViewModel;
+    private CalViewModel calViewModel;
     private List<CalendarEntity> mCalendar;
 
 
@@ -44,6 +47,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         this.mSubjects = mSubjects;
 
         subjectViewModel = new ViewModelProvider((SubjectActivity)mContext).get(SubjectViewModel.class);
+        //calViewModel = new ViewModelProvider((MainActivity)mContext).get(CalViewModel.class);
     }
 
     @NonNull
@@ -76,10 +80,11 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             public void onClick(View v) {
                 int id = mSubjects.get(position).getId();
 
-                Date date = Calendar.getInstance().getTime();
-                String sub = String.valueOf(holder.subItemView.getText());
-                CalendarEntity calendarEntity = new CalendarEntity(date,sub);
-                subjectViewModel.insertDate(calendarEntity);
+//                Date date = Calendar.getInstance().getTime();
+//                String sub = String.valueOf(holder.subItemView.getText());
+//                CalendarEntity calendarEntity = new CalendarEntity(date,sub);
+//                calViewModel.insertDate(calendarEntity);
+
 
 
 

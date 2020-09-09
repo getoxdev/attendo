@@ -50,6 +50,7 @@
             app:layout_constraintLeft_toLeftOf="@id/selected_date"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/CalRecyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/selected_date"
