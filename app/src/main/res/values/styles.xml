@@ -4,8 +4,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#919191</item>
-        <item name="colorAccent">@color/darkgray</item>
+        <item name="colorPrimaryDark">#FFFFFF</item>
+        <item name="colorAccent">#744AD6</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
@@ -14,7 +14,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="colorPrimaryDark">#C8C6C6</item>
+        <item name="colorPrimaryDark">#FFFFFF</item>
         <item name="colorAccent">@color/darkgray</item>
 
     </style>
@@ -39,6 +39,7 @@
 
 
     </style>
+    
 
     
 

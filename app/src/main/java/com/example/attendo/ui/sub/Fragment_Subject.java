@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import com.example.attendo.R;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.viewmodel.SubjectViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -81,6 +84,8 @@ public class Fragment_Subject extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment__subject, container, false);
 
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Subjects");
+
         final Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         fragment_addSubject = new Fragment_AddSubject();
@@ -92,7 +97,13 @@ public class Fragment_Subject extends Fragment {
                 /*Intent intent = new Intent(SubjectActivity.this, Activity_Add_Subject.class);
                 startActivityForResult(intent, NEW_SUBJECT_ACTIVITY_REQUEST_CODE);
                 */
-                 setFragment(fragment_addSubject);
+                 //setFragment(fragment_addSubject);
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
+                View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet_add_subject,
+                        (ConstraintLayout) view.findViewById(R.id.bottom_sheet_add_subject_container));
+                bottomSheetDialog.setContentView(bottomSheet);
+                bottomSheetDialog.show();
+
                  }
 
         });

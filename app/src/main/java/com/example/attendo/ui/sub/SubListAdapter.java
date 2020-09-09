@@ -18,24 +18,25 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.attendo.data.CalendarEntity;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.R;
+import com.example.attendo.ui.main.BottomNavMainActivity;
 import com.example.attendo.ui.main.MainActivity;
-import com.example.attendo.viewmodel.CalViewModel;
 import com.example.attendo.viewmodel.SubjectViewModel;
 
+import java.sql.Time;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewHolder>  {
     private Context mContext;
     private List<SubEntity> mSubjects;
     private SubjectViewModel subjectViewModel;
-    private CalViewModel calViewModel;
 
 
 
@@ -44,9 +45,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         this.mContext = mContext;
         this.mSubjects = mSubjects;
 
-        subjectViewModel = new ViewModelProvider((MainActivity)mContext).get(SubjectViewModel.class);
-        calViewModel = new ViewModelProvider((MainActivity)mContext).get(CalViewModel.class);
-
+        subjectViewModel = new ViewModelProvider((BottomNavMainActivity)mContext).get(SubjectViewModel.class);
     }
 
     @NonNull
@@ -60,7 +59,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     @Override
     public void onBindViewHolder(@NonNull SubViewHolder holder, int position) {
 
-
+        Date currentTime = Calendar.getInstance().getTime();
+        String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(currentTime);
 
         final SubEntity subEntity = mSubjects.get(position);
         holder.subItemView.setText(subEntity.getSubject());
@@ -69,6 +69,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         holder.percent.setText(getPercentage(subEntity.getPresent(),subEntity.getTotal())+"%");
 
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+
+
 
 
 
@@ -83,14 +85,9 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 pre++;
                 total++;
 
-                Date date = Calendar.getInstance().getTime();
-                String subject = String.valueOf(holder.subItemView.getText());
-                CalendarEntity calendarEntity = new CalendarEntity(date,subject);
-                calViewModel.insertDate(calendarEntity);
-
-
                 subjectViewModel.updatePresent(pre,id);
                 subjectViewModel.updateTotal(total,id);
+
             }
         });
 
@@ -107,6 +104,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                 subjectViewModel.updateAbsent(ab,id);
                 subjectViewModel.updateTotal(total,id);
+
             }
         });
 
