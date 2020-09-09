@@ -37,7 +37,12 @@
         app:layout_anchor="@id/appbar_bottom_nav"
         app:layout_anchorGravity="bottom"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        android:layout_marginBottom="70dp"/>
+        android:layout_marginBottom="70dp">
+
+
+
+
+    </FrameLayout>
 
 
 

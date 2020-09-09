@@ -16,7 +16,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
         android:outlineAmbientShadowColor="#673AB7"
-        app:cardBackgroundColor="#6A55CA"
+        app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
         android:stateListAnimator="@animator/card_pressed_animator"
@@ -40,7 +40,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="15dp"
                 android:text="Subject"
-                android:textColor="#EFEFEF"
+                android:textColor="#3A3A3A"
                 android:textSize="22dp"
                 android:textStyle="bold" />
 
@@ -53,7 +53,7 @@
                 android:layout_marginTop="14dp"
                 android:layout_marginRight="-9dp"
                 android:text="Attendance: "
-                android:textColor="#FFF"
+                android:textColor="#434343"
                 android:textSize="15dp" />
 
 
@@ -67,7 +67,7 @@
                 android:layout_marginTop="14dp"
                 android:layout_toRightOf="@id/attendance"
                 android:text="1"
-                android:textColor="#E3DFDF"
+                android:textColor="#0E0E0E"
                 android:textSize="15dp"/>
 
             <TextView
@@ -80,7 +80,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/tvPres"
                android:text="out of"
-                android:textColor="#D8D5D5"
+                android:textColor="#787878"
                 android:textSize="15dp" />
 
 
@@ -94,7 +94,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@id/tv1"
                 android:text="2"
-                android:textColor="#E1DFDF"
+                android:textColor="#171717"
                 android:textSize="15dp" />
 
             <TextView
@@ -105,7 +105,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="30dp"
                 android:text="75%"
-                android:textColor="#E3E2E2"
+                android:textColor="#3A3A3A"
                 android:textSize="22dp" />
 
 
@@ -118,33 +118,42 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:text="Have you attended today's class ? "
-                android:textColor="#FFF"/>
+                android:textColor="#9A9A9A"/>
 
 
             <Button
                 android:id="@+id/bPresent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
                 android:layout_below="@id/question"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="7dp"
-                android:background="@drawable/yes_button"
+                android:background="@drawable/edittext_field_background"
                 android:text="Yes"
+                android:clickable="true"
+                android:textAllCaps="false"
+                android:backgroundTint="#F4F4F4"
                 android:stateListAnimator="@animator/card_pressed_animator"
-                android:textColor="@color/white" />
+                android:textColor="#1914F5" />
 
 
             <Button
                 android:id="@+id/bAbsent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
                 android:layout_below="@id/question"
-                android:layout_alignBaseline="@id/bPresent"
-                android:layout_toRightOf="@id/bPresent"
-                android:background="@drawable/no_button"
+                android:background="@drawable/edittext_field_background"
                 android:text="No"
+                android:backgroundTint="#F4F4F4"
+                android:layout_marginLeft="10dp"
+                android:textAllCaps="false"
+                android:clickable="true"
+                android:layout_marginTop="7dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="15dp"
                 android:stateListAnimator="@animator/card_pressed_animator"
-                android:textColor="@color/white" />
+                android:textColor="#FB5050" />
 
 
         </RelativeLayout>

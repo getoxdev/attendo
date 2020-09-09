@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="bottom"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    android:background="@drawable/bottom_sheet_background"
+    android:backgroundTint="#F6F5F5">
+
+    <TextView
+        android:id="@+id/add_subject_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:fontFamily="@font/roboto_bold"
+        android:padding="10dp"
+        android:text="Add Subject"
+        android:textSize="22dp"
+        android:textColor="#7D7777"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.106" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext_field_background"
+        android:drawableStart="@drawable/ic_baseline_book_bottom_nav"
+        android:drawablePadding="10dp"
+        android:hint="Type subject name"
+        android:padding="12dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_subject_id" />
+
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/edittext_field_background"
+        android:elevation="0dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Cancel"
+        android:clickable="true"
+        android:textAllCaps="false"
+        android:textColor="#FB5050"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintVertical_bias="0.508" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="52dp"
+        android:background="@drawable/edittext_field_background"
+        android:elevation="0dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Add"
+        android:clickable="true"
+        android:textAllCaps="false"
+        android:textColor="#1914F5"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintVertical_bias="0.508" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

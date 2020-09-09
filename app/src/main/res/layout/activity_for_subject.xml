@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.sub.SubjectActivity"
     android:id="@+id/drawer_layout_2"
-    android:background="@color/white">
+    android:background="#EDEBEB">
 
 
         <com.google.android.material.appbar.AppBarLayout
@@ -25,19 +25,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                android:background="#fff"
+                android:background="#EFEDED"
                 app:title="Subjects"
-                app:titleTextColor="#000"
+                app:titleTextColor="#686868"
+                app:expandedTitleMarginStart="25dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                 app:expandedTitleGravity="bottom"
                 app:titleTextAppearance="@style/AppBarTitleTextAppearance"
                 android:elevation="0dp">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/collapsingtoolbar"
-                    android:scaleType="centerCrop"/>
+
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar2"
@@ -45,6 +42,7 @@
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
                     android:title="Subjects"
+                    app:titleTextColor="#575656"
                     android:elevation="0dp"/>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -63,7 +61,7 @@
         tools:listitem="@layout/sub_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#fff"
+        android:background="#EFEDED"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
