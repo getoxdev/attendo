@@ -17,14 +17,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.main.BottomNavMainActivity"></activity>
-        <activity android:name=".ui.sub.Activity_Edit_Subject" />
-        <activity
-            android:name=".ui.sub.Activity_Add_Subject"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".ui.sub.SubjectActivity"
-            android:parentActivityName=".ui.main.MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ui.auth.AuthenticationActivity"
             android:theme="@style/AppTheme" />

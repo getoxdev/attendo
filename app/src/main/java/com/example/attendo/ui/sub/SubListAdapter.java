@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.R;
+import com.example.attendo.ui.main.MainActivity;
 import com.example.attendo.viewmodel.SubjectViewModel;
 
 import java.sql.Time;
@@ -43,7 +44,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         this.mContext = mContext;
         this.mSubjects = mSubjects;
 
-        subjectViewModel = new ViewModelProvider((SubjectActivity)mContext).get(SubjectViewModel.class);
+        subjectViewModel = new ViewModelProvider((MainActivity)mContext).get(SubjectViewModel.class);
     }
 
     @NonNull
