@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.attendo.Fragment_Subject;
 import com.example.attendo.R;
 
 public class Fragment_AddSubject extends Fragment {

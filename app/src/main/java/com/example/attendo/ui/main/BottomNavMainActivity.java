@@ -20,6 +20,7 @@ import com.example.attendo.ui.calendar.FragmentCalender;
 import com.example.attendo.ui.main.drawers.AlarmReminder;
 import com.example.attendo.ui.main.drawers.FragmentExamReminder;
 import com.example.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
+import com.example.attendo.ui.sub.Fragment_Subject;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -59,7 +60,17 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.subjects_bottom_nav:
-                    //inflate the fragment
+                    Fragment subject = new Fragment_Subject();
+                    selectedFragment = subject;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("key","");
+                    subject.setArguments(bundle);
+                    getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
+                            .replace(R.id.container_frame, subject, "reminder_fragment")
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            .addToBackStack(null)
+                            .commit();
                     break;
 
                 case R.id.reminder_bottom_nav:
