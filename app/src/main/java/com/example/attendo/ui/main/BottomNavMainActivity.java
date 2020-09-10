@@ -47,7 +47,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
-      //  setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_frame, new Fragment_Subject()).commit();
 
     }
     private Fragment selectedFragment = null;
