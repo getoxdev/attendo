@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.drawers.account.FragmentProfile">
 
+
     <androidx.cardview.widget.CardView
         android:id="@+id/image_cardview"
         android:layout_width="100dp"
