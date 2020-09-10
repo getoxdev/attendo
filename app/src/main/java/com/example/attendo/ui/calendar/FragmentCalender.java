@@ -71,8 +71,6 @@ public class FragmentCalender extends Fragment {
         calAdapter = new CalAdapter(getContext(),mDataList);
         calViewModel = new ViewModelProvider((BottomNavMainActivity)getContext()).get(CalViewModel.class);
 
-
-
         calViewModel.getitem().observe(getActivity(), new Observer<List<CalendarEntity>>() {
             @Override
             public void onChanged(List<CalendarEntity> calendarEntities) {
