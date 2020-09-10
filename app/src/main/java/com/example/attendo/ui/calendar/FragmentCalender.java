@@ -28,6 +28,7 @@ import com.example.attendo.ui.sub.SubListAdapter;
 import com.example.attendo.viewmodel.CalViewModel;
 import com.example.attendo.viewmodel.SubjectViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -61,11 +62,18 @@ public class FragmentCalender extends Fragment {
         View view= inflater.inflate(R.layout.fragment_calender, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Calendar");
         ButterKnife.bind(this,view);
-        Date date = Calendar.getInstance().getTime();
+        //Date date = Calendar.getInstance().getTime();
+        Calendar calendar=Calendar.getInstance();
+        SimpleDateFormat sdf=new SimpleDateFormat(" HH:mm:ss dd MMMM yyyy");
+        String currentdate=sdf.format(calendar.getTime());
+        selected_date.setText(currentdate);
+
         calAdapter = new CalAdapter(getContext(),mDataList);
         calViewModel = new ViewModelProvider((BottomNavMainActivity)getContext()).get(CalViewModel.class);
 
-        calViewModel.getSubjectbyDate(date).observe(getActivity(), new Observer<List<CalendarEntity>>() {
+
+
+        calViewModel.getitem().observe(getActivity(), new Observer<List<CalendarEntity>>() {
             @Override
             public void onChanged(List<CalendarEntity> calendarEntities) {
                 calAdapter.set(calendarEntities);

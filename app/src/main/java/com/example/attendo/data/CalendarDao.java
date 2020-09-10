@@ -11,14 +11,17 @@ import java.util.List;
 @Dao
 public interface CalendarDao {
 
-    @Query("SELECT * FROM calendar where date=:date")
-    LiveData<List<CalendarEntity>> getSubjectByDate(Date date);
+    @Query("SELECT * FROM calendar")
+    LiveData<List<CalendarEntity>> getSubjectByDate();
 
     @Insert
     void insertDate(CalendarEntity calendarEntity);
 
-    @Query("SELECT subject from calendar where date=:date")
-    String getsubject(Date date);
+
+    @Query("SELECT DISTINCT subject from calendar")
+    LiveData<List<CalendarEntity>> getitem();
+
+
 
 
 

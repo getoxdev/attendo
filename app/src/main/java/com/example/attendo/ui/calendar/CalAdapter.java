@@ -48,11 +48,12 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CalViewHolder holder, int position) {
-//        final CalendarEntity calendarEntity = mDatalist.get(position);
-//
-//        Date date = Calendar.getInstance().getTime();
-//        String sub = calViewModel.getSub(date);
-//        holder.caltextView.setText(sub);
+        final CalendarEntity calendarEntity = mDatalist.get(position);
+
+        Date date = Calendar.getInstance().getTime();
+        //String sub = calViewModel.getSub(date);
+        //holder.caltextView.setText(sub);
+        holder.caltextView.setText(calendarEntity.getSubject());
 
 
 
@@ -60,7 +61,9 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        if (mDatalist != null)
+            return mDatalist.size();
+        else return 0;
     }
 
     public void set(List<CalendarEntity> itemlist) {

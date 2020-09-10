@@ -2,6 +2,7 @@ package com.example.attendo.data;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
@@ -10,9 +11,11 @@ import java.util.Date;
 public class CalendarEntity {
 
     @PrimaryKey(autoGenerate = true)
+    @Ignore
     private int Id;
 
     @ColumnInfo(name = "date")
+    @PrimaryKey
     private Date date;
 
     @ColumnInfo(name = "subject")
