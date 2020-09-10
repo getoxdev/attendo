@@ -181,7 +181,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     public void onLogin() {
         progress.setVisibility(View.INVISIBLE);
         Toast.makeText(getActivity(),"Login Successful by " + email.getText().toString().trim(),Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
+        Intent intent=new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();
     }
