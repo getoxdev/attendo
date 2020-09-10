@@ -10,73 +10,104 @@
     tools:context=".ui.main.drawers.FragmentExamReminder"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-
-    <EditText
-        android:id="@+id/Time_Title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/edittext_field_background"
-        android:drawableStart="@drawable/ic_baseline_access_alarm_24"
-        android:hint=" Enter Class Reminder Title"
-        android:padding="10dp"
-        android:layout_marginRight="17dp"
-        android:layout_marginLeft="17dp"
-        android:textAlignment="inherit"
-        app:layout_constraintBottom_toTopOf="@+id/Set_Time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TimePicker
-        android:id="@+id/Time_Picker"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:animateLayoutChanges="true"
-        android:headerBackground="#6748F3"
-        android:numbersBackgroundColor="#DCD7F6"
-        android:numbersInnerTextColor="@color/white"
-        android:numbersSelectorColor="#724EF1"
-        android:numbersTextColor="#272727"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        app:layout_constraintBottom_toTopOf="@+id/Time_Title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/Set_Time"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/edittext_field_background"
-        android:text="Add"
-        android:textSize="17dp"
-        android:clickable="true"
-        android:textColor="#1914F5"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Cancel_Time"
-        app:layout_constraintStart_toStartOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/Cancel_Time"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="28dp"
-        android:background="@drawable/edittext_field_background"
-        android:clickable="true"
-        android:text="Cancel"
-        android:textAllCaps="false"
-        android:textColor="#FB5050"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+
+
+            <TimePicker
+                android:id="@+id/Time_Picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:animateLayoutChanges="true"
+                android:headerBackground="#6748F3"
+                android:numbersBackgroundColor="#DCD7F6"
+                android:numbersInnerTextColor="@color/white"
+                android:numbersSelectorColor="#724EF1"
+                android:numbersTextColor="#272727"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                app:layout_constraintBottom_toTopOf="@+id/Time_Title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <EditText
+                android:id="@+id/Time_Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edittext_field_background"
+                android:drawableStart="@drawable/ic_baseline_access_alarm_24"
+                android:hint=" Enter Class Reminder Title"
+                android:padding="10dp"
+                android:layout_marginRight="17dp"
+                android:layout_marginLeft="17dp"
+                android:textAlignment="inherit"
+                app:layout_constraintBottom_toTopOf="@+id/Set_Time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.238"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/Set_Time"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/edittext_field_background"
+                    android:text="Add"
+                    android:textSize="17dp"
+                    android:clickable="true"
+                    android:textColor="#1914F5"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/Cancel_Time"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/Cancel_Time"
+                    android:layout_width="150dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="28dp"
+                    android:background="@drawable/edittext_field_background"
+                    android:clickable="true"
+                    android:text="Cancel"
+                    android:textAllCaps="false"
+                    android:textColor="#FB5050"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+            </RelativeLayout>
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
