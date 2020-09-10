@@ -47,11 +47,11 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CalViewHolder holder, int position) {
-        final CalendarEntity calendarEntity = mDatalist.get(position);
-
-        Date date = Calendar.getInstance().getTime();
-        String sub = calViewModel.getSub(date);
-        holder.caltextView.setText(sub);
+//        final CalendarEntity calendarEntity = mDatalist.get(position);
+//
+//        Date date = Calendar.getInstance().getTime();
+//        String sub = calViewModel.getSub(date);
+//        holder.caltextView.setText(sub);
 
 
 
