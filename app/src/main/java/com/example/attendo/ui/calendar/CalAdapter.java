@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.attendo.R;
 import com.example.attendo.data.CalendarEntity;
 import com.example.attendo.data.SubEntity;
+import com.example.attendo.ui.main.BottomNavMainActivity;
 import com.example.attendo.ui.main.MainActivity;
 import com.example.attendo.viewmodel.CalViewModel;
 import com.example.attendo.viewmodel.SubjectViewModel;
@@ -33,7 +34,7 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder> {
     public CalAdapter(Context mContext, List<CalendarEntity> mDatalist) {
         this.mContext = mContext;
         this.mDatalist = mDatalist;
-        calViewModel = new ViewModelProvider((MainActivity)mContext).get(CalViewModel.class);
+        calViewModel = new ViewModelProvider((BottomNavMainActivity)mContext).get(CalViewModel.class);
     }
 
     @NonNull

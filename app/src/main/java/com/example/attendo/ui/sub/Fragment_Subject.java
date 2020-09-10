@@ -121,6 +121,9 @@ public class Fragment_Subject extends Fragment {
                             subViewModel.insertSubject(subEntity);
                             bottomSheetDialog.dismiss();
                         }
+                        else{
+                            Toast.makeText(getContext(), "Please enter the subject name", Toast.LENGTH_SHORT).show();
+                        }
 
 
                     }

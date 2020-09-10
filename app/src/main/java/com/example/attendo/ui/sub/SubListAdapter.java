@@ -50,8 +50,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         this.mContext = mContext;
         this.mSubjects = mSubjects;
 
-        subjectViewModel = new ViewModelProvider((MainActivity)mContext).get(SubjectViewModel.class);
-        calViewModel = new ViewModelProvider((MainActivity)mContext).get(CalViewModel.class);
+        subjectViewModel = new ViewModelProvider((BottomNavMainActivity)mContext).get(SubjectViewModel.class);
+        calViewModel = new ViewModelProvider((BottomNavMainActivity)mContext).get(CalViewModel.class);
 
     }
 

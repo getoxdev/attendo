@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.attendo.R;
 import com.example.attendo.data.CalendarEntity;
 import com.example.attendo.data.SubEntity;
+import com.example.attendo.ui.main.BottomNavMainActivity;
 import com.example.attendo.ui.main.MainActivity;
 import com.example.attendo.ui.sub.SubListAdapter;
 import com.example.attendo.viewmodel.CalViewModel;
@@ -61,8 +62,8 @@ public class FragmentCalender extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Calendar");
         ButterKnife.bind(this,view);
         Date date = Calendar.getInstance().getTime();
-        calAdapter = new CalAdapter(mcontext,mDataList);
-        calViewModel = new ViewModelProvider((MainActivity)mcontext).get(CalViewModel.class);
+        calAdapter = new CalAdapter(getContext(),mDataList);
+        calViewModel = new ViewModelProvider((BottomNavMainActivity)getContext()).get(CalViewModel.class);
 
         calViewModel.getSubjectbyDate(date).observe(getActivity(), new Observer<List<CalendarEntity>>() {
             @Override
