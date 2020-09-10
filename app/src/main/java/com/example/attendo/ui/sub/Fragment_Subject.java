@@ -17,6 +17,8 @@ import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.security.auth.Subject;
 
 import butterknife.BindView;
 
@@ -104,6 +108,31 @@ public class Fragment_Subject extends Fragment {
                 bottomSheetDialog.setContentView(bottomSheet);
                 bottomSheetDialog.show();
 
+                EditText subjectName = bottomSheetDialog.findViewById(R.id.add_subject_bottomsheet);
+                Button addButton = bottomSheetDialog.findViewById(R.id.add_subject_btn);
+                Button cancelButton = bottomSheetDialog.findViewById(R.id.cancel_subject_button);
+
+                addButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(subjectName.getText() != null){
+                            SubEntity subEntity = new SubEntity(subjectName.getText().toString().trim(), 0, 0, 0);
+                            subViewModel.insertSubject(subEntity);
+                            bottomSheetDialog.dismiss();
+                        }
+
+
+                    }
+                });
+
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetDialog.dismiss();
+                    }
+                });
+
                  }
 
         });
@@ -121,15 +150,15 @@ public class Fragment_Subject extends Fragment {
         recyclerView.setAdapter(subListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        Bundle bundle = getArguments();
-        String data = bundle.getString("key");
-        if(!data.isEmpty()){
-            SubEntity subject = new SubEntity(data, 0,0,0);
-            data= "";
-            subViewModel.insertSubject(subject);
-            Toast.makeText(getActivity(), "  Subject is Added ",
-                    Toast.LENGTH_SHORT).show();
-        }
+//        Bundle bundle = getArguments();
+//        String data = bundle.getString("key");
+//        if(!data.isEmpty()){
+//            SubEntity subject = new SubEntity(data, 0,0,0);
+//            data= "";
+//            subViewModel.insertSubject(subject);
+//            Toast.makeText(getActivity(), "  Subject is Added ",
+//                    Toast.LENGTH_SHORT).show();
+//        }
      return  view;
     }
 
