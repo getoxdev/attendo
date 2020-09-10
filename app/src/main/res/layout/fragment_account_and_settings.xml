@@ -77,6 +77,7 @@
                     app:lottie_rawRes="@raw/account_anim"
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="20dp"/>
+
             </androidx.cardview.widget.CardView>
 
             <TextView

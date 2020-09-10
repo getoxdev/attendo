@@ -70,7 +70,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
                             .replace(R.id.container_frame, subject, "subject_fragment")
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .addToBackStack(null)
                             .commit();
                     break;
 
@@ -81,7 +80,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
                             .replace(R.id.container_frame, reminder, "reminder_fragment")
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .addToBackStack(null)
                             .commit();
                     break;
 
@@ -92,7 +90,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
                             .replace(R.id.container_frame, calendar, "calendar_fragment")
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .addToBackStack(null)
                             .commit();
                     break;
 
@@ -103,7 +100,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
                             .replace(R.id.container_frame, account, "account_fragment")
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .addToBackStack(null)
                             .commit();
 
                     break;
