@@ -170,6 +170,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                                 deleteanim.pauseAnimation();
                                 deleteanim.setAnimation(R.raw.done_animation);
                                 deleteanim.playAnimation();
+                                deleteanim.setSpeed(2f);
 
                                 subjectViewModel.deleteSubject(subEntity);
                                 Handler mhandler = new Handler();
@@ -179,7 +180,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                                         deletebottomsheet.dismiss();
 
                                     }
-                                }, 2000);
+                                }, 1000);
 
                             }
                         });
