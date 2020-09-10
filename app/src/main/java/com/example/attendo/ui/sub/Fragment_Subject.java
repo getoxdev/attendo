@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.attendo.R;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.viewmodel.SubjectViewModel;
@@ -111,15 +113,30 @@ public class Fragment_Subject extends Fragment {
                 EditText subjectName = bottomSheetDialog.findViewById(R.id.add_subject_bottomsheet);
                 Button addButton = bottomSheetDialog.findViewById(R.id.add_subject_btn);
                 Button cancelButton = bottomSheetDialog.findViewById(R.id.cancel_subject_button);
+                TextView update = bottomSheetDialog.findViewById(R.id.add_subject_id);
+                LottieAnimationView celebration = bottomSheetDialog.findViewById(R.id.lottie_animation_add_subject);
+                celebration.setVisibility(View.INVISIBLE);
+
+                update.setText("Add Subject");
 
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        if(subjectName.getText() != null){
+                        celebration.setVisibility(View.VISIBLE);
+                        celebration.playAnimation();
+
+                        if(subjectName.getText().toString() != null){
                             SubEntity subEntity = new SubEntity(subjectName.getText().toString().trim(), 0, 0, 0);
                             subViewModel.insertSubject(subEntity);
-                            bottomSheetDialog.dismiss();
+                            Handler mhandler = new Handler();
+                            mhandler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    bottomSheetDialog.dismiss();
+                                }
+                            },600);
+
                         }
                         else{
                             Toast.makeText(getContext(), "Please enter the subject name", Toast.LENGTH_SHORT).show();

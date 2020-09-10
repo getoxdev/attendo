@@ -13,7 +13,9 @@
         android:layout_height="75dp"
         app:title="AppBar"
         app:titleTextAppearance="@style/AppBarTitleTextAppearance"
-        android:elevation="0dp"/>
+        android:elevation="0dp"
+        android:backgroundTint="#F6F5F5"
+        android:background="#F6F5F5"/>
 
 
 

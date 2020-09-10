@@ -17,7 +17,7 @@
         tools:listitem="@layout/sub_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#EAE8E8"
+        android:background="#F6F5F5"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,6 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/fabi_icon_add_drawable"
         android:layout_gravity="end|bottom"
+        app:fabCustomSize="60dp"
         app:backgroundTint="#9657F1"/>
 
 
