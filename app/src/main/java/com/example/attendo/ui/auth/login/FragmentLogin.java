@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.attendo.ui.auth.FragmentForgetPassword;
 import com.example.attendo.R;
 import com.example.attendo.ui.auth.signup.FragmentSignup;
+import com.example.attendo.ui.main.BottomNavMainActivity;
 import com.example.attendo.ui.main.MainActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -90,7 +91,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // User is signed in
-            Intent i = new Intent(getActivity(), MainActivity.class);
+            Intent i = new Intent(getActivity(), BottomNavMainActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         } else {
@@ -180,7 +181,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     public void onLogin() {
         progress.setVisibility(View.INVISIBLE);
         Toast.makeText(getActivity(),"Login Successful by " + email.getText().toString().trim(),Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent(getActivity(),MainActivity.class);
+        Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
         startActivity(intent);
         getActivity().finish();
     }

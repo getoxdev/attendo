@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.attendo.R;
+import com.example.attendo.ui.main.BottomNavMainActivity;
 import com.example.attendo.ui.main.MainActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -125,7 +126,7 @@ public class FragmentProfile extends Fragment {
                             public void onSuccess(Void aVoid) {
                                 databaseReference.child("images/" + user_id.toString()).removeValue();
                                 Toast.makeText(getContext(),"Account Updated "+name.getText().toString(),Toast.LENGTH_SHORT).show();
-                                Intent intent=new Intent(getActivity(), MainActivity.class);
+                                Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
                                 startActivity(intent);
                                 getActivity().finish();
                             }

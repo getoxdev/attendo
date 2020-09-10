@@ -49,7 +49,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
         setSupportActionBar(toolbar);
 
-
     }
     private Fragment selectedFragment = null;
 
@@ -67,7 +66,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     subject.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
-                            .replace(R.id.container_frame, subject, "reminder_fragment")
+                            .replace(R.id.container_frame, subject, "subject_fragment")
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .addToBackStack(null)
                             .commit();
@@ -113,5 +112,4 @@ public class BottomNavMainActivity extends AppCompatActivity {
             return true;
         }
     };
-
 }
