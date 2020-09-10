@@ -50,7 +50,7 @@ public class FragmentHelp extends Fragment {
 
     private void helpFragment1(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame, fragment);
+        fragmentTransaction.replace(R.id.container_frame, fragment);
         fragmentTransaction.addToBackStack(null).commit();
     }
 }

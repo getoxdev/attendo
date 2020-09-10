@@ -7,6 +7,16 @@
     tools:context=".ui.main.drawers.account.FragmentUserProfile">
 
 
+    <ImageView
+        android:id="@+id/Delete_Account"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_baseline_delete_24"
+        app:layout_constraintBottom_toTopOf="@+id/main_block_account"
+        app:layout_constraintEnd_toStartOf="@+id/IMAGE_CARDVIEW"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/IMAGE_CARDVIEW"
         android:layout_width="100dp"
