@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/add_subject_bottomsheet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
@@ -44,6 +44,7 @@
         app:layout_constraintTop_toBottomOf="@id/add_subject_id" />
 
     <Button
+        android:id="@+id/cancel_subject_button"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -59,14 +60,14 @@
         android:textColor="#FB5050"
         android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintEnd_toStartOf="@+id/add_subject_btn"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/add_subject_bottomsheet"
         app:layout_constraintVertical_bias="0.289" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/add_subject_btn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -82,7 +83,7 @@
         android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/add_subject_bottomsheet"
         app:layout_constraintVertical_bias="0.289" />
 
 
