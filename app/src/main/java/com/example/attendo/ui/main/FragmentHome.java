@@ -1,25 +1,24 @@
 package com.example.attendo.ui.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.attendo.ui.sub.SubjectActivity;
+import com.example.attendo.Fragment_Subject;
 import com.example.attendo.R;
 import com.example.attendo.ui.calendar.FragmentCalender;
-
-import java.util.Calendar;
 
 public class FragmentHome extends Fragment {
 
     private FragmentCalender fragmentCalender;
+    private Fragment_Subject fragment_subject;
 
     //@BindView(R.id.subjectcardview)
     CardView subjectCV,CalenderCv;
@@ -29,6 +28,7 @@ public class FragmentHome extends Fragment {
                              Bundle savedInstanceState) {
 
         fragmentCalender = new FragmentCalender();
+        fragment_subject = new Fragment_Subject();
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
@@ -38,8 +38,12 @@ public class FragmentHome extends Fragment {
         subjectCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SubjectActivity.class);
-                startActivity(intent);
+               Bundle bundle = new Bundle();
+               bundle.putString("key","");
+               fragment_subject.setArguments(bundle);
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_frame,fragment_subject);
+                fragmentTransaction.commit();
             }
         });
 
@@ -48,6 +52,7 @@ public class FragmentHome extends Fragment {
         CalenderCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 setFragment(fragmentCalender);
             }
         });
@@ -66,7 +71,4 @@ public class FragmentHome extends Fragment {
         fragmentTransaction.replace(R.id.main_frame,fragment);
         fragmentTransaction.commit();
     }
-
-
-
 }
