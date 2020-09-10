@@ -1,6 +1,7 @@
 package com.example.attendo.ui.calendar;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;

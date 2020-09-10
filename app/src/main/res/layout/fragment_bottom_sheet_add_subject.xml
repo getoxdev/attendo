@@ -4,18 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_sheet_add_subject_container"
     android:layout_width="match_parent"
-    android:layout_height="270dp"
+    android:layout_height="470dp"
     android:layout_gravity="bottom"
     android:background="@drawable/bottom_sheet_background"
     android:backgroundTint="#F6F5F5"
     app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/add_subject_bottomsheet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_subject_id"
+        app:layout_constraintVertical_bias="0.264"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/subject_new" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_animation_add_subject"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:elevation="3dp"
+        app:lottie_rawRes="@raw/celebration"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/add_subject_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_bold"
         android:padding="10dp"
         android:text="Add Subject"
@@ -31,17 +55,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="204dp"
         android:layout_marginRight="24dp"
         android:background="@drawable/edittext_field_background"
         android:drawableStart="@drawable/ic_baseline_book_bottom_nav"
         android:drawablePadding="10dp"
         android:hint="Type subject name"
         android:padding="12dp"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:elevation="0dp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_subject_id" />
+        app:layout_constraintTop_toBottomOf="@+id/add_subject_id" />
 
     <Button
         android:id="@+id/cancel_subject_button"
@@ -59,6 +84,7 @@
         android:textAllCaps="false"
         android:textColor="#FB5050"
         android:textSize="17dp"
+        android:stateListAnimator="@animator/card_pressed_animator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/add_subject_btn"
         app:layout_constraintHorizontal_bias="0.0"
@@ -81,6 +107,7 @@
         android:textAllCaps="false"
         android:textColor="#1914F5"
         android:textSize="17dp"
+        android:stateListAnimator="@animator/card_pressed_animator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_subject_bottomsheet"

@@ -2,6 +2,7 @@ package com.example.attendo.ui.sub;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +11,19 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.attendo.data.CalendarEntity;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.R;
@@ -27,6 +32,7 @@ import com.example.attendo.ui.main.BottomNavMainActivity;
 import com.example.attendo.ui.main.MainActivity;
 import com.example.attendo.viewmodel.CalViewModel;
 import com.example.attendo.viewmodel.SubjectViewModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.sql.Time;
 import java.text.DecimalFormat;
@@ -66,8 +72,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     @Override
     public void onBindViewHolder(@NonNull SubViewHolder holder, int position) {
 
-        Date currentTime = Calendar.getInstance().getTime();
-        String time = new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(currentTime);
 
         final SubEntity subEntity = mSubjects.get(position);
         holder.subItemView.setText(subEntity.getSubject());
@@ -127,32 +131,114 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         holder.card.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
-
-
                 //vibrator
                 vibrator.vibrate(100);
-                //dialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("Delete Subject");
-                builder.setMessage("Do you want to permanently delete the subject?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
+                View bottomsheet = LayoutInflater.from(mContext).inflate(R.layout.bottom_sheet_options_menu,
+                        (ConstraintLayout) holder.itemView.findViewById(R.id.bottom_sheet_options));
+
+                bottomSheetDialog.setContentView(bottomsheet);
+                bottomSheetDialog.show();
+
+                TextView editSub = bottomsheet.findViewById(R.id.edit_subject_bottom_sheet);
+                TextView deleteSub = bottomsheet.findViewById(R.id.delete_subject_bottom_sheet);
+                bottomSheetDialog.findViewById(editSub.getId());
+                bottomSheetDialog.findViewById(deleteSub.getId());
+
+                deleteSub.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        subjectViewModel.deleteSubject(subEntity);
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        holder.card.setElevation(0);
+                    public void onClick(View v) {
+
+                        BottomSheetDialog deletebottomsheet = new BottomSheetDialog(mContext,R.style.BottomSheetDialog);
+                        View deletesheet = LayoutInflater.from(mContext).inflate(R.layout.delete_bottom_sheet,
+                                (ConstraintLayout) holder.itemView.findViewById(R.id.delete_bottom_sheet_container));
+
+                        bottomSheetDialog.dismiss();
+
+                        deletebottomsheet.setContentView(deletesheet);
+                        deletebottomsheet.show();
+
+                        Button delete = deletebottomsheet.findViewById(R.id.delete_button_delete_bottom_sheet);
+                        Button donotdelete = deletebottomsheet.findViewById(R.id.donot_delete_button);
+                        LottieAnimationView deleteanim = deletebottomsheet.findViewById(R.id.lottieAnimationView);
+
+                        deleteanim.setAnimation(R.raw.delete_animation);
+
+                        delete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                deleteanim.pauseAnimation();
+                                deleteanim.setAnimation(R.raw.done_animation);
+                                deleteanim.playAnimation();
+
+                                subjectViewModel.deleteSubject(subEntity);
+                                Handler mhandler = new Handler();
+                                mhandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        deletebottomsheet.dismiss();
+
+                                    }
+                                }, 2000);
+
+                            }
+                        });
+
+                        donotdelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                deletebottomsheet.dismiss();
+                            }
+                        });
                     }
                 });
-                builder.setCancelable(false);
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-                alertDialog.setCanceledOnTouchOutside(false);
 
+                editSub.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        BottomSheetDialog bottomSheetDialogedit = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
+                        View bottomsheet = LayoutInflater.from(mContext).inflate(R.layout.fragment_bottom_sheet_add_subject,
+                                (ConstraintLayout) holder.itemView.findViewById(R.id.bottom_sheet_add_subject_container));
+
+                        bottomSheetDialogedit.setContentView(bottomsheet);
+                        bottomSheetDialogedit.show();
+
+                        bottomSheetDialog.dismiss();
+
+                        EditText subjectName = bottomSheetDialogedit.findViewById(R.id.add_subject_bottomsheet);
+                        Button addButton = bottomSheetDialogedit.findViewById(R.id.add_subject_btn);
+                        Button cancelButton = bottomSheetDialogedit.findViewById(R.id.cancel_subject_button);
+                        TextView update = bottomSheetDialogedit.findViewById(R.id.add_subject_id);
+
+                        update.setText("Update Subject");
+
+                        subjectName.setText(subEntity.getSubject().toString().trim());
+
+                        addButton.setText("Update");
+
+                        addButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                subjectViewModel.updateSubject(subjectName.getText().toString().trim(), subEntity.getId());
+                                bottomSheetDialogedit.dismiss();
+                            }
+                        });
+
+                        cancelButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                bottomSheetDialog.dismiss();
+                                bottomSheetDialogedit.dismiss();
+                            }
+                        });
+                    }
+                });
                 return false;
+
+
+
+
             }
         });
 
