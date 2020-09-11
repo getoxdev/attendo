@@ -17,8 +17,13 @@ public interface CalendarDao {
     @Insert
     void insertDate(CalendarEntity calendarEntity);
 
-    @Query("SELECT subject from calendar where date=:date")
-    String getsubject(Date date);
+
+    @Query("SELECT DISTINCT subject,date,id from calendar")
+    LiveData<List<CalendarEntity>> getitem();
+
+
+
+
 
 
 
