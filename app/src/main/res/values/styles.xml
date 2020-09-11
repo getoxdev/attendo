@@ -7,7 +7,7 @@
         <item name="colorPrimaryDark">#888686</item>
         <item name="colorAccent">#744AD6</item>
         <item name="android:windowContentTransitions">true</item>
-        <item name="android:statusBarColor">#888787</item>
+        <item name="android:statusBarColor">#FFFFFF</item>
     </style>
 
     <style name="AppThemeCustom" parent="Theme.AppCompat.Light.NoActionBar">
