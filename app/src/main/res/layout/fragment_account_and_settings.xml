@@ -37,10 +37,11 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
+                android:transitionName="card_expand_to_fit_screen"
                 android:stateListAnimator="@animator/card_pressed_animator"
                 app:cardBackgroundColor="#6A55CA"
                 app:cardCornerRadius="15dp"
-                app:cardElevation="0dp"
+                app:cardElevation="7dp"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -70,10 +71,12 @@
                     android:layout_marginBottom="15dp"/>
 
                 <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottieanimationprofile"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
+                    android:transitionName="profileExpand"
                     app:lottie_rawRes="@raw/account_anim"
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="20dp"/>

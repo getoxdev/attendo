@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F6F5F5"
+    android:backgroundTint="#F6F5F5"
+    android:transitionName="card_expand_to_fit_screen"
     tools:context=".ui.main.drawers.account.FragmentUserProfile">
 
 
@@ -23,6 +26,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="50dp"
         app:cardCornerRadius="50dp"
+        android:transitionName="profileExpand"
         app:layout_constraintBottom_toTopOf="@+id/main_block_account"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -67,11 +71,10 @@
             android:paddingLeft="10dp"
             android:paddingTop="7dp"
             android:text=""
+            android:fontFamily="@font/roboto_light"
             android:textAlignment="inherit"
-            android:textAllCaps="true"
             android:textColor="@color/colorAccent"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/institute_name"
@@ -97,10 +100,9 @@
             android:paddingTop="7dp"
             android:text=""
             android:textAlignment="inherit"
-            android:textAllCaps="true"
+            android:fontFamily="@font/roboto_light"
             android:textColor="@color/colorAccent"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/town"
@@ -126,10 +128,9 @@
             android:paddingTop="7dp"
             android:text=""
             android:textAlignment="inherit"
-            android:textAllCaps="true"
             android:textColor="@color/colorAccent"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textSize="16dp"
+            android:fontFamily="@font/roboto_light"/>
 
         <TextView
             android:id="@+id/phone"
@@ -155,10 +156,9 @@
             android:paddingTop="7dp"
             android:text=""
             android:textAlignment="inherit"
-            android:textAllCaps="true"
+            android:fontFamily="@font/roboto_light"
             android:textColor="@color/colorAccent"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textSize="16dp" />
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -176,10 +176,12 @@
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/bcg_login_signup"
+        android:background="@drawable/edittext_field_background"
         android:text="Edit Profile"
-        android:textColor="#ffffff"
-        android:textSize="18dp"
+        android:textColor="#4F28A8"
+        android:textSize="17dp"
+        android:textAllCaps="false"
+        android:elevation="0dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

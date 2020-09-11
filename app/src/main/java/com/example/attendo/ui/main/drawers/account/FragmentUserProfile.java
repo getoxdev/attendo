@@ -69,6 +69,8 @@ public class FragmentUserProfile extends Fragment {
         profile = view.findViewById(R.id.USER_IMAGE);
         delete = view.findViewById(R.id.Delete_Account);
 
+
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
