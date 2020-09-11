@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#F6F5F5"
+    android:background="#F6F5F5"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.calendar.FragmentCalender"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
 
     <CalendarView
         android:id="@+id/calendar_fragment"
@@ -25,14 +28,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/bottom_sheet_background"
         android:backgroundTint="#FDFCFC"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calendar_fragment"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:behavior_peekHeight="300dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
             android:id="@+id/selected_date"
@@ -41,7 +41,9 @@
             android:layout_marginStart="12dp"
             android:padding="14dp"
             android:text="date_selected"
-            android:textSize="17dp"
+            android:textSize="22dp"
+            android:fontFamily="@font/roboto_bold"
+            android:layout_marginTop="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
@@ -62,7 +64,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/sepatator"
             android:layout_centerHorizontal="true"
-            android:padding="5dp"/>
+            android:padding="10dp"/>
 
 
 
@@ -72,4 +74,4 @@
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
