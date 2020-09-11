@@ -111,11 +111,11 @@ public class FragmentAccountAndSettings extends Fragment {
                     college.setText(snapshot.child(user_id).child("college").getValue(String.class));
                 }
                 else{
-                    Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
+                    name.setText("user_name");
+                    college.setText("institute_name");
                 }
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

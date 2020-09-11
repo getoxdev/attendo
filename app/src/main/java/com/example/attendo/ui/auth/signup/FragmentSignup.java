@@ -102,7 +102,6 @@ public class FragmentSignup extends Fragment implements signupinterface.View {
     @Override
     public boolean isValidPassword() {
         if(TextUtils.isEmpty(password.getText().toString()) || password.getText().toString().length()<6){
-            Toast.makeText(getActivity(),"please enter a valid password",Toast.LENGTH_SHORT).show();
             password.setError("Invalid data");
             return false;
         }
