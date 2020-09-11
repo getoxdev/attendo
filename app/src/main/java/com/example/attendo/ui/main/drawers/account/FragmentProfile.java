@@ -178,7 +178,7 @@ public class FragmentProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(),"Your Account Not Updated!",Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(getActivity(), MainActivity.class);
+                Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }

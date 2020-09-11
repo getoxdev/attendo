@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.example.attendo.R;
 import com.example.attendo.ui.main.FragmentHome;
 
 import java.sql.Time;
+import java.text.DateFormat;
 import java.util.Calendar;
 
 
@@ -32,6 +34,7 @@ public class FragmentExamReminder extends Fragment {
   TimePicker time;
   private int notificationId = 1;
   private FragmentHome fragmentHome;
+    TextView textView;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -77,6 +80,7 @@ public class FragmentExamReminder extends Fragment {
         time = view.findViewById(R.id.Time_Picker);
         update = view.findViewById(R.id.Set_Time);
         Cancel = view.findViewById(R.id.Cancel_Time);
+        textView=view.findViewById(R.id.textView);
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +102,7 @@ public class FragmentExamReminder extends Fragment {
                 startTime.set(Calendar.HOUR_OF_DAY,hour);
                 startTime.set(Calendar.MINUTE,minute);
                 startTime.set(Calendar.SECOND,0);
+                updateTimeText(startTime);
                 long alarmStartTime = startTime.getTimeInMillis();
 
 
@@ -111,7 +116,7 @@ public class FragmentExamReminder extends Fragment {
                 alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime,alarmIntent);
 
                 Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG).show();
-                setFragment(fragmentHome);
+               // setFragment(fragmentHome);
             }
         });
 
@@ -121,7 +126,7 @@ public class FragmentExamReminder extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(),"Reminder Not Added",Toast.LENGTH_LONG).show();
-                setFragment(fragmentHome);
+                //setFragment(fragmentHome);
             }
         });
 
@@ -129,10 +134,16 @@ public class FragmentExamReminder extends Fragment {
         return  view;
     }
 
-    private void setFragment(Fragment fragment) {
+   /* private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame,fragment);
         fragmentTransaction.commit();
-    }
+    }*/
+   private void updateTimeText(Calendar c) {
+       String timeText = title.getText().toString()+" : Alarm set for : ";
+       timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
+
+       textView.setText(timeText);
+   }
 
 }
