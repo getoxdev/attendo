@@ -90,6 +90,7 @@
                     android:background="@drawable/edittext_field_background"
                     android:clickable="true"
                     android:text="Cancel"
+                    android:textSize="17dp"
                     android:textAllCaps="false"
                     android:textColor="#FB5050"
                     app:layout_constraintBottom_toBottomOf="parent"
