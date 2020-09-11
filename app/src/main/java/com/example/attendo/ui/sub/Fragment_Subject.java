@@ -108,6 +108,7 @@ public class Fragment_Subject extends Fragment {
                 View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet_add_subject,
                         (ConstraintLayout) view.findViewById(R.id.bottom_sheet_add_subject_container));
                 bottomSheetDialog.setContentView(bottomSheet);
+                bottomSheetDialog.setDismissWithAnimation(true);
                 bottomSheetDialog.show();
 
                 EditText subjectName = bottomSheetDialog.findViewById(R.id.add_subject_bottomsheet);
@@ -149,6 +150,7 @@ public class Fragment_Subject extends Fragment {
                 cancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        bottomSheetDialog.setDismissWithAnimation(true);
                         bottomSheetDialog.dismiss();
                     }
                 });

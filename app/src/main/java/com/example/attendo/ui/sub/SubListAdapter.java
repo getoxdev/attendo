@@ -138,6 +138,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                         (ConstraintLayout) holder.itemView.findViewById(R.id.bottom_sheet_options));
 
                 bottomSheetDialog.setContentView(bottomsheet);
+                bottomSheetDialog.setDismissWithAnimation(true);
                 bottomSheetDialog.show();
 
                 TextView editSub = bottomsheet.findViewById(R.id.edit_subject_bottom_sheet);
@@ -156,6 +157,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                         bottomSheetDialog.dismiss();
 
                         deletebottomsheet.setContentView(deletesheet);
+                        deletebottomsheet.setDismissWithAnimation(true);
                         deletebottomsheet.show();
 
                         Button delete = deletebottomsheet.findViewById(R.id.delete_button_delete_bottom_sheet);
@@ -203,6 +205,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                                 (ConstraintLayout) holder.itemView.findViewById(R.id.bottom_sheet_add_subject_container));
 
                         bottomSheetDialogedit.setContentView(bottomsheet);
+                        bottomSheetDialogedit.setDismissWithAnimation(true);
                         bottomSheetDialogedit.show();
 
                         bottomSheetDialog.dismiss();

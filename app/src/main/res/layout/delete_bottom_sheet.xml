@@ -8,6 +8,16 @@
     android:layout_gravity="bottom"
     android:id="@+id/delete_bottom_sheet_container">
 
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/sepatator"/>
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
         android:layout_width="100dp"
@@ -51,6 +61,8 @@
         android:textAllCaps="false"
         android:textColor="#1914F5"
         android:textSize="17dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         android:stateListAnimator="@animator/card_pressed_animator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,9 +78,11 @@
         android:layout_marginBottom="40dp"
         android:background="@drawable/edittext_field_background"
         android:text="Delete"
+        android:clickable="true"
         android:textAllCaps="false"
         android:textColor="#FB5050"
         android:textSize="17dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:elevation="0dp"
         android:stateListAnimator="@animator/card_pressed_animator"
         app:layout_constraintBottom_toBottomOf="parent"
