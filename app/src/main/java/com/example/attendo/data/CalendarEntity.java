@@ -11,11 +11,9 @@ import java.util.Date;
 public class CalendarEntity {
 
     @PrimaryKey(autoGenerate = true)
-    @Ignore
     private int Id;
 
     @ColumnInfo(name = "date")
-    @PrimaryKey
     private Date date;
 
     @ColumnInfo(name = "subject")

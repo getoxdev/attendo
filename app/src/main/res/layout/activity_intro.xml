@@ -9,18 +9,18 @@
 
     <ImageView
         android:id="@+id/splash_screen_app_icon"
-        android:layout_width="170dp"
-        android:layout_height="130dp"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/foreground_app_icon"
+        android:background="@mipmap/ic_launcher"
         android:elevation="30dp"
         android:outlineAmbientShadowColor="#000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.39" />
+        app:layout_constraintVertical_bias="0.429" />
 
     <TextView
         android:id="@+id/textView"

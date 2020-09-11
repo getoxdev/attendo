@@ -63,7 +63,7 @@ public class FragmentCalender extends Fragment {
         View view= inflater.inflate(R.layout.fragment_calender, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Calendar");
         ButterKnife.bind(this,view);
-        //Date date = Calendar.getInstance().getTime();
+        Date date = Calendar.getInstance().getTime();
         Calendar calendar=Calendar.getInstance();
         SimpleDateFormat sdf=new SimpleDateFormat(" HH:mm:ss dd MMMM yyyy");
         String currentdate=sdf.format(calendar.getTime());

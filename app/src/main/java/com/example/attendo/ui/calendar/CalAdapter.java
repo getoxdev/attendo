@@ -51,8 +51,6 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder> {
         final CalendarEntity calendarEntity = mDatalist.get(position);
 
         Date date = Calendar.getInstance().getTime();
-        //String sub = calViewModel.getSub(date);
-        //holder.caltextView.setText(sub);
         holder.caltextView.setText(calendarEntity.getSubject());
 
 

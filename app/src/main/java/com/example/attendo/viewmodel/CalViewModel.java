@@ -30,14 +30,15 @@ public class CalViewModel extends AndroidViewModel {
         calendarDao = subDB.calendarDao();
     }
 
-    public LiveData<List<CalendarEntity>> getSubjectbyDate(){
-        return calendarDao.getSubjectByDate();
+    public LiveData<List<CalendarEntity>> getSubjectbyDate(Date date){
+        return calendarDao.getSubjectByDate(date);
     }
 
     public LiveData<List<CalendarEntity>> getitem()
     {
         return calendarDao.getitem();
     }
+
 
 
 
