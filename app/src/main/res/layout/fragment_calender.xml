@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_sheet_background"
         android:backgroundTint="#FDFCFC"
-        app:behavior_peekHeight="300dp"
+        app:behavior_peekHeight="266dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
