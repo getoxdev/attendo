@@ -9,10 +9,10 @@
 
     <ImageView
         android:id="@+id/splash_screen_app_icon"
-        android:layout_width="100dp"
-        android:layout_height="110dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:layout_alignParentBottom="true"
-        android:background="@mipmap/ic_launcher"
+        android:background="@mipmap/ic_launcher_round"
         android:elevation="30dp"
         android:outlineAmbientShadowColor="#000"
         app:layout_constraintBottom_toBottomOf="parent"
