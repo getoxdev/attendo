@@ -32,6 +32,7 @@ import com.example.attendo.ui.main.drawers.FragmentEditAttendance;
 import com.example.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.example.attendo.ui.main.drawers.FragmentHelp;
 import com.example.attendo.ui.main.menu.FragmentAbout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -52,6 +53,7 @@ public class FragmentAccountAndSettings extends Fragment {
     private FragmentEditAttendance fragmentEditAttendance;
     TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college;
     CardView Profile;
+    BottomNavigationView bottomNavigationView;
 
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
@@ -106,6 +108,9 @@ public class FragmentAccountAndSettings extends Fragment {
         name = view.findViewById(R.id.profile_name);
         college = view.findViewById(R.id.profile_college);
         profileLottie = view.findViewById(R.id.lottieanimationprofile);
+        bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+
+        bottomNavigationView.setVisibility(View.VISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
@@ -160,8 +165,7 @@ public class FragmentAccountAndSettings extends Fragment {
         exit.setInterpolator(new AccelerateDecelerateInterpolator());
         exit.setDuration(400);
 
-//        fragmentUserProfile.setExitTransition(fade);
-//        fragmentUserProfile.setEnterTransition(explode);
+
         fragmentAppRate.setEnterTransition(enter);
         fragmentAppRate.setExitTransition(exit);
 
@@ -184,6 +188,7 @@ public class FragmentAccountAndSettings extends Fragment {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentAppRate);
+                bottomNavigationView.setVisibility(View.GONE);
             }
         });
 
@@ -191,6 +196,7 @@ public class FragmentAccountAndSettings extends Fragment {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentBug);
+                bottomNavigationView.setVisibility(View.GONE);
             }
         });
 
@@ -198,6 +204,7 @@ public class FragmentAccountAndSettings extends Fragment {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentEditAttendance);
+                bottomNavigationView.setVisibility(View.GONE);
             }
         });
 
@@ -211,6 +218,8 @@ public class FragmentAccountAndSettings extends Fragment {
                         .addToBackStack(null)
                         .commit();
 
+                bottomNavigationView.setVisibility(View.GONE);
+
                 fragmentUserProfile.setSharedElementEnterTransition(transition);
             }
         });
@@ -219,6 +228,7 @@ public class FragmentAccountAndSettings extends Fragment {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentEditAttendanceCriteria);
+                bottomNavigationView.setVisibility(View.GONE);
             }
         });
 
@@ -226,6 +236,7 @@ public class FragmentAccountAndSettings extends Fragment {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentHelp);
+                bottomNavigationView.setVisibility(View.GONE);
             }
         });
 

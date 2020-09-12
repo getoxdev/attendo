@@ -62,6 +62,7 @@ public class FragmentUserProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Account Profile");
 
+
         name = view.findViewById(R.id.USER_NAME);
         college = view.findViewById(R.id.USER_COLLEGE);
         city = view.findViewById(R.id.USER_CITY);
