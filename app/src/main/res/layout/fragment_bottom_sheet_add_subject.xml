@@ -8,6 +8,7 @@
     android:layout_gravity="bottom"
     android:background="@drawable/bottom_sheet_background"
     android:backgroundTint="#F6F5F5"
+    android:transitionName="add_subject_transition"
     app:layout_behavior="@string/bottom_sheet_behavior"
     app:layout_scrollInterpolator="@android:anim/accelerate_decelerate_interpolator">
 

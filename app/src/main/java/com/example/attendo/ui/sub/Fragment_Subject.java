@@ -1,6 +1,7 @@
 package com.example.attendo.ui.sub;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,9 +13,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.TransitionManager;
 
 import android.os.Handler;
 import android.os.Vibrator;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +33,8 @@ import com.example.attendo.data.SubEntity;
 import com.example.attendo.viewmodel.SubjectViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.transition.MaterialArcMotion;
+import com.google.android.material.transition.MaterialContainerTransform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,20 +102,39 @@ public class Fragment_Subject extends Fragment {
 
         fragment_addSubject = new Fragment_AddSubject();
 
+        Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.card_transition);
+
+
         FloatingActionButton fab = view.findViewById(R.id.fab);
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
+
+        View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet_add_subject,
+                (ConstraintLayout) view.findViewById(R.id.bottom_sheet_add_subject_container));
+
+
+
+
+
+
+
+
+
+
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /*Intent intent = new Intent(SubjectActivity.this, Activity_Add_Subject.class);
                 startActivityForResult(intent, NEW_SUBJECT_ACTIVITY_REQUEST_CODE);
                 */
-                 //setFragment(fragment_addSubject);
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
-                View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet_add_subject,
-                        (ConstraintLayout) view.findViewById(R.id.bottom_sheet_add_subject_container));
+
+
                 bottomSheetDialog.setContentView(bottomSheet);
                 bottomSheetDialog.setDismissWithAnimation(true);
                 bottomSheetDialog.show();
+
 
                 EditText subjectName = bottomSheetDialog.findViewById(R.id.add_subject_bottomsheet);
                 Button addButton = bottomSheetDialog.findViewById(R.id.add_subject_btn);
