@@ -17,55 +17,24 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class CalViewModel extends AndroidViewModel {
-
-    private String TAG = this.getClass().getSimpleName();
+public class CalViewModel extends AndroidViewModel
+{
     private CalendarDao calendarDao;
     private SubDatabase subDB;
     private Executor mExecutor = Executors.newSingleThreadExecutor();
+    public LiveData<List<String>> strings;
 
-
-    public CalViewModel(@NonNull Application application) {
+    public CalViewModel(@NonNull Application application)
+    {
         super(application);
         subDB = SubDatabase.getInstance(getApplication());
         calendarDao = subDB.calendarDao();
     }
 
-    public LiveData<List<CalendarEntity>> getSubjectbyDate(Date date){
-        return calendarDao.getSubjectByDate(date);
-    }
-
-    public LiveData<List<String>> getitem()
+    public LiveData<List<String>> getSub(String subDate)
     {
-        return calendarDao.getitem();
-
-
-
+        return calendarDao.getsub(subDate);
     }
-
-    public List<String> getSub() {
-         List<String> strings = new  ArrayList<String>();
-
-        mExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                List<String> subject = calendarDao.getsub();
-                strings.addAll(subject);
-
-                Log.e("info78", String.valueOf(strings));
-
-            }
-        });
-        Log.e("info", String.valueOf(strings));
-        return strings;
-
-
-
-    }
-
-
-
-
 
     public void insertDate(CalendarEntity calendarEntity)
     {
@@ -76,11 +45,4 @@ public class CalViewModel extends AndroidViewModel {
             }
         });
     }
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        Log.i(TAG, "ViewModel Destroyed");
-    }
-
 }

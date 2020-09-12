@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.attendo.data.CalendarEntity;
+import com.example.attendo.data.DateConverter;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.R;
 import com.example.attendo.ui.calendar.CalAdapter;
@@ -36,6 +38,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.sql.Time;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,9 +51,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     private List<SubEntity> mSubjects;
     private SubjectViewModel subjectViewModel;
     private CalViewModel calViewModel;
-
-
-
+    private DateConverter dateConverter;
 
     public SubListAdapter(Context mContext, List<SubEntity> mSubjects) {
         this.mContext = mContext;
@@ -58,20 +59,19 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
         subjectViewModel = new ViewModelProvider((BottomNavMainActivity)mContext).get(SubjectViewModel.class);
         calViewModel = new ViewModelProvider((BottomNavMainActivity)mContext).get(CalViewModel.class);
-
     }
 
     @NonNull
     @Override
     public SubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.sub_info,parent,false);
+        dateConverter = new DateConverter();
 
         return new SubViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SubViewHolder holder, int position) {
-
 
         final SubEntity subEntity = mSubjects.get(position);
         holder.subItemView.setText(subEntity.getSubject());
@@ -80,11 +80,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         holder.percent.setText(getPercentage(subEntity.getPresent(),subEntity.getTotal())+"%");
 
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
-
-
-
-
-
 
         holder.btnPres.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,15 +91,14 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 pre++;
                 total++;
 
-                Date date = Calendar.getInstance().getTime();
+                Date date = new Date();
+                String subDate = formatter(dateConverter.fromTimestamp(date.getTime()));
                 String subject = String.valueOf(holder.subItemView.getText());
-                CalendarEntity calendarEntity = new CalendarEntity(date,subject);
+                CalendarEntity calendarEntity = new CalendarEntity(subDate,subject);
                 calViewModel.insertDate(calendarEntity);
-
 
                 subjectViewModel.updatePresent(pre,id);
                 subjectViewModel.updateTotal(total,id);
-
             }
         });
 
@@ -126,7 +120,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
             }
         });
-
 
         holder.card.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -240,9 +233,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 });
                 return false;
 
-
-
-
             }
         });
 
@@ -258,12 +248,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     public void setSubjects(List<SubEntity> subjects) {
         mSubjects = subjects;
         notifyDataSetChanged();
-
-    }
-
-    public SubEntity getSubjectAt(int position)
-    {
-        return mSubjects.get(position);
     }
 
     public class SubViewHolder extends RecyclerView.ViewHolder  {
@@ -302,6 +286,13 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
     //----------------------------------------------------------------------------------------
 
+    public static String formatter(Date date)
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String subDate = dateFormat.format(date);
+
+        return  subDate;
+    }
 
 }
 

@@ -1,5 +1,6 @@
 package com.example.attendo.data;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -11,15 +12,16 @@ import java.util.Date;
 public class CalendarEntity {
 
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     private int Id;
 
     @ColumnInfo(name = "date")
-    private Date date;
+    private String date;
 
     @ColumnInfo(name = "subject")
     private String subject;
 
-    public CalendarEntity( Date date, String subject) {
+    public CalendarEntity(String date, String subject) {
         this.date = date;
         this.subject = subject;
     }
@@ -32,11 +34,11 @@ public class CalendarEntity {
         Id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -47,7 +49,4 @@ public class CalendarEntity {
     public void setSubject(String subject) {
         this.subject = subject;
     }
-
-
-
 }

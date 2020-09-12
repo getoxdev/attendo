@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.attendo.R;
 import com.example.attendo.data.CalendarEntity;
+import com.example.attendo.data.DateConverter;
 import com.example.attendo.data.SubEntity;
 import com.example.attendo.ui.main.BottomNavMainActivity;
 import com.example.attendo.ui.main.MainActivity;
@@ -41,51 +42,75 @@ import butterknife.ButterKnife;
 public class FragmentCalender extends Fragment {
 
 
-
     @BindView(R.id.CalRecyclerview)
     RecyclerView recyclerView;
 
     @BindView(R.id.selected_date)
-    TextView selected_date;
+    TextView selectedDate;
 
     @BindView(R.id.calendar_fragment)
     CalendarView calendar;
 
-
     private CalAdapter calAdapter;
     private CalViewModel calViewModel;
-    List<CalendarEntity> mDataList;
-    private Context mcontext;
+    private DateConverter dateConverter;
+    private String subDate;
+    private List<String> mDataList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_calender, container, false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Calendar");
-        ButterKnife.bind(this,view);
-        Date date = Calendar.getInstance().getTime();
-        Calendar calendar=Calendar.getInstance();
-        SimpleDateFormat sdf=new SimpleDateFormat(" HH:mm:ss dd MMMM yyyy");
-        String currentdate=sdf.format(calendar.getTime());
-        selected_date.setText(currentdate);
+        View view = inflater.inflate(R.layout.fragment_calender, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Calendar");
+        ButterKnife.bind(this, view);
 
-        calAdapter = new CalAdapter(getContext(),mDataList);
-        calViewModel = new ViewModelProvider((BottomNavMainActivity)getContext()).get(CalViewModel.class);
+        dateConverter = new DateConverter();
 
-        calViewModel.getitem().observe(getActivity(), new Observer<List<String>>() {
+        subDate = formatter(dateConverter.fromTimestamp(calendar.getDate()));
+        selectedDate.setText(subDate);
 
-
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onChanged(List<String> subjects) {
-                calAdapter.set(subjects);
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                subDate = formatter(dateConverter.fromTimestamp(view.getDate()));
+                selectedDate.setText(subDate);
 
+                calAdapter = new CalAdapter(getActivity(), mDataList);
+                calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
+                calViewModel.getSub(subDate).observe(getActivity(), new Observer<List<String>>() {
+                    @Override
+                    public void onChanged(List<String> data) {
+                        calAdapter.setData(data);
+                    }
+                });
+
+                recyclerView.setAdapter(calAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             }
         });
+
+        calAdapter = new CalAdapter(getActivity(), mDataList);
+        calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
+        calViewModel.getSub(subDate).observe(getActivity(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> data) {
+                calAdapter.setData(data);
+            }
+        });
+
         recyclerView.setAdapter(calAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
+    }
 
+    public static String formatter(Date date)
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String subDate = dateFormat.format(date);
+
+        return  subDate;
     }
 }

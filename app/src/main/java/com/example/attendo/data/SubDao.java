@@ -18,12 +18,6 @@ public interface SubDao {
     @Query("SELECT * FROM SubjectName")
     LiveData<List<SubEntity>> getAllSubjects();
 
-    @Query("SELECT * FROM SubjectName WHERE id=:subId")
-    LiveData<SubEntity> getSubject(String subId);
-
-    @Update
-    void update(SubEntity SUBJECT);
-
     @Delete
     int delete(SubEntity SUBJECT);
 

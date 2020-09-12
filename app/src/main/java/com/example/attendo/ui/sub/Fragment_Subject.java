@@ -39,8 +39,6 @@ import butterknife.BindView;
 
 public class Fragment_Subject extends Fragment {
 
-    private static final int NEW_SUBJECT_ACTIVITY_REQUEST_CODE = 1;
-    public static final int UPDATE_SUBJECT_ACTIVITY_REQUEST_CODE = 2;
     private SubjectViewModel subViewModel;
     private SubListAdapter subListAdapter;
     private List<SubEntity> mSubjects=new ArrayList<>();
@@ -55,34 +53,6 @@ public class Fragment_Subject extends Fragment {
 
     @BindView(R.id.recyclerview)
     RecyclerView subRView;
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-  private String mParam1;
-    private String mParam2;
-
-    public Fragment_Subject() {
-        // Required empty public constructor
-    }
-
-    public static Fragment_Subject newInstance(String param1, String param2) {
-        Fragment_Subject fragment = new Fragment_Subject();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,11 +69,8 @@ public class Fragment_Subject extends Fragment {
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                /*Intent intent = new Intent(SubjectActivity.this, Activity_Add_Subject.class);
-                startActivityForResult(intent, NEW_SUBJECT_ACTIVITY_REQUEST_CODE);
-                */
-                 //setFragment(fragment_addSubject);
+            public void onClick(View view)
+            {
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
                 View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet_add_subject,
                         (ConstraintLayout) view.findViewById(R.id.bottom_sheet_add_subject_container));
@@ -123,13 +90,12 @@ public class Fragment_Subject extends Fragment {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        celebration.setVisibility(View.VISIBLE);
-                        celebration.playAnimation();
-
-                        if(subjectName.getText().toString() != null){
+                        if(subjectName.getText().toString() != null)
+                        {
                             SubEntity subEntity = new SubEntity(subjectName.getText().toString().trim(), 0, 0, 0);
                             subViewModel.insertSubject(subEntity);
+                            celebration.setVisibility(View.VISIBLE);
+                            celebration.playAnimation();
                             Handler mhandler = new Handler();
                             mhandler.postDelayed(new Runnable() {
                                 @Override
@@ -137,13 +103,10 @@ public class Fragment_Subject extends Fragment {
                                     bottomSheetDialog.dismiss();
                                 }
                             },600);
-
                         }
                         else{
                             Toast.makeText(getContext(), "Please enter the subject name", Toast.LENGTH_SHORT).show();
                         }
-
-
                     }
                 });
 
@@ -172,15 +135,6 @@ public class Fragment_Subject extends Fragment {
         recyclerView.setAdapter(subListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-//        Bundle bundle = getArguments();
-//        String data = bundle.getString("key");
-//        if(!data.isEmpty()){
-//            SubEntity subject = new SubEntity(data, 0,0,0);
-//            data= "";
-//            subViewModel.insertSubject(subject);
-//            Toast.makeText(getActivity(), "  Subject is Added ",
-//                    Toast.LENGTH_SHORT).show();
-//        }
      return  view;
     }
 

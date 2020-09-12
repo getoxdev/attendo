@@ -31,33 +31,31 @@ import butterknife.ButterKnife;
 public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder> {
 
     private Context mContext;
-    private List<CalendarEntity> mDatalist;
-    private CalViewModel calViewModel;
+    private List<String> mDatalist;
 
-    public CalAdapter(Context mContext, List<CalendarEntity> mDatalist) {
+    public CalAdapter(Context mContext, List<String> mDatalist)
+    {
         this.mContext = mContext;
         this.mDatalist = mDatalist;
-        calViewModel = new ViewModelProvider((BottomNavMainActivity)mContext).get(CalViewModel.class);
+    }
+
+    public void setData(List<String> data) {
+        mDatalist = data;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public CalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+    public CalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View view = LayoutInflater.from(mContext).inflate(R.layout.calendar_card_listitem,parent,false);
         return new CalViewHolder(view);
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull CalViewHolder holder, int position) {
-        final CalendarEntity calendarEntity = mDatalist.get(position);
-
-        Date date = Calendar.getInstance().getTime();
-        holder.caltextView.setText(calendarEntity.getSubject());
-
-
-
+        final String data = mDatalist.get(position);
+        holder.caltextView.setText(data);
     }
 
     @Override
@@ -67,22 +65,10 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder> {
         else return 0;
     }
 
-    public void set(List<String> itemlist) {
-        itemlist = calViewModel.getSub();
-        Log.e("information", String.valueOf(itemlist));
-        notifyDataSetChanged();
-
-    }
-
-
-
     public class CalViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.cal_textview)
         TextView caltextView;
-
-
-
 
         public CalViewHolder(@NonNull View itemView) {
             super(itemView);
