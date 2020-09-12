@@ -7,14 +7,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.transition.Transition;
+import androidx.transition.TransitionInflater;
 
+import android.transition.Explode;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.attendo.R;
 import com.example.attendo.ui.auth.AuthenticationActivity;
 import com.example.attendo.ui.main.BottomNavMainActivity;
@@ -25,6 +32,7 @@ import com.example.attendo.ui.main.drawers.FragmentEditAttendance;
 import com.example.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.example.attendo.ui.main.drawers.FragmentHelp;
 import com.example.attendo.ui.main.menu.FragmentAbout;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,6 +56,7 @@ public class FragmentAccountAndSettings extends Fragment {
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
     FirebaseStorage firebaseStorage;
+    LottieAnimationView profileLottie;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -96,6 +105,7 @@ public class FragmentAccountAndSettings extends Fragment {
         fragmentHelp = new FragmentHelp();
         name = view.findViewById(R.id.profile_name);
         college = view.findViewById(R.id.profile_college);
+        profileLottie = view.findViewById(R.id.lottieanimationprofile);
 
         mAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
@@ -111,11 +121,11 @@ public class FragmentAccountAndSettings extends Fragment {
                     college.setText(snapshot.child(user_id).child("college").getValue(String.class));
                 }
                 else{
-                    Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
+                    name.setText("user_name");
+                    college.setText("institute_name");
                 }
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -130,6 +140,44 @@ public class FragmentAccountAndSettings extends Fragment {
         AttCritaria = view.findViewById(R.id.edit_attendance_criterion);
         Help = view.findViewById(R.id.help_settings);
         logout = view.findViewById(R.id.logout_settings);
+
+        Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.card_transition);
+
+        MaterialSharedAxis enter = new MaterialSharedAxis(MaterialSharedAxis.Z, true);
+        MaterialSharedAxis exit = new MaterialSharedAxis(MaterialSharedAxis.Z, false);
+
+        Explode explode = new Explode();
+        explode.setDuration(400);
+        explode.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        Fade fade = new Fade();
+        fade.setDuration(400);
+        fade.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        enter.setInterpolator(new AccelerateDecelerateInterpolator());
+        enter.setDuration(400);
+
+        exit.setInterpolator(new AccelerateDecelerateInterpolator());
+        exit.setDuration(400);
+
+//        fragmentUserProfile.setExitTransition(fade);
+//        fragmentUserProfile.setEnterTransition(explode);
+        fragmentAppRate.setEnterTransition(enter);
+        fragmentAppRate.setExitTransition(exit);
+
+        fragmentHelp.setEnterTransition(enter);
+        fragmentHelp.setExitTransition(exit);
+
+        fragmentBug.setEnterTransition(enter);
+        fragmentBug.setExitTransition(exit);
+
+        fragmentEditAttendance.setEnterTransition(enter);
+        fragmentEditAttendance.setExitTransition(exit);
+
+        fragmentEditAttendanceCriteria.setEnterTransition(enter);
+        fragmentEditAttendanceCriteria.setExitTransition(exit);
+
+
 
 
         AppRate.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +204,14 @@ public class FragmentAccountAndSettings extends Fragment {
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragment(fragmentUserProfile);
+                FragmentTransaction fragmentManager = getFragmentManager().beginTransaction();
+                fragmentManager.replace(R.id.container_frame, fragmentUserProfile)
+                        .addSharedElement(Profile, "card_expand_to_fit_screen")
+                        .addSharedElement(profileLottie, "profileExpand")
+                        .addToBackStack(null)
+                        .commit();
+
+                fragmentUserProfile.setSharedElementEnterTransition(transition);
             }
         });
 

@@ -90,6 +90,7 @@
                     android:background="@drawable/edittext_field_background"
                     android:clickable="true"
                     android:text="Cancel"
+                    android:textSize="17dp"
                     android:textAllCaps="false"
                     android:textColor="#FB5050"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -99,11 +100,25 @@
 
             </RelativeLayout>
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:text="No Alarm set"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"/>
+
+
+
 
 
 
 
         </LinearLayout>
+
     </ScrollView>
 
 

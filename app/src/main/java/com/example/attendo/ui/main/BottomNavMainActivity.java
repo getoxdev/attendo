@@ -12,6 +12,7 @@ import android.animation.PropertyValuesHolder;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.FrameLayout;
 
@@ -24,6 +25,7 @@ import com.example.attendo.ui.sub.Fragment_Subject;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.transition.MaterialSharedAxis;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +60,13 @@ public class BottomNavMainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+            MaterialSharedAxis enter = new MaterialSharedAxis(MaterialSharedAxis.Z, true);
+            MaterialSharedAxis exit = new MaterialSharedAxis(MaterialSharedAxis.Z, false);
+            enter.setDuration(400);
+            enter.setInterpolator(new AccelerateDecelerateInterpolator());
+            exit.setDuration(400);
+            exit.setInterpolator(new AccelerateDecelerateInterpolator());
+
 
             switch (item.getItemId()){
                 case R.id.subjects_bottom_nav:
@@ -65,6 +74,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     selectedFragment = subject;
                     Bundle bundle = new Bundle();
                     bundle.putString("key","");
+                    subject.setEnterTransition(enter);
+                    subject.setExitTransition(exit);
                     subject.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
@@ -76,6 +87,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 case R.id.reminder_bottom_nav:
                     Fragment reminder = new FragmentExamReminder();
                     selectedFragment = reminder;
+                    reminder.setEnterTransition(enter);
+                    reminder.setExitTransition(exit);
                     getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
                             .replace(R.id.container_frame, reminder, "reminder_fragment")
@@ -86,6 +99,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 case R.id.calendar_bottom_nav:
                     Fragment calendar = new FragmentCalender();
                     selectedFragment = calendar;
+                    calendar.setEnterTransition(enter);
+                    calendar.setExitTransition(exit);
                     getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
                             .replace(R.id.container_frame, calendar, "calendar_fragment")
@@ -96,6 +111,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 case R.id.account_bottom_nav:
                     Fragment account = new FragmentAccountAndSettings();
                     selectedFragment = account;
+                    account.setEnterTransition(enter);
+                    account.setExitTransition(exit);
                     getSupportFragmentManager().beginTransaction()
                             .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_right)
                             .replace(R.id.container_frame, account, "account_fragment")

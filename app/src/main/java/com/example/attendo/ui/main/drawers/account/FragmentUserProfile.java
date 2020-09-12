@@ -69,6 +69,8 @@ public class FragmentUserProfile extends Fragment {
         profile = view.findViewById(R.id.USER_IMAGE);
         delete = view.findViewById(R.id.Delete_Account);
 
+
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +138,7 @@ public class FragmentUserProfile extends Fragment {
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame,fragment);
+        fragmentTransaction.replace(R.id.container_frame,fragment);
         fragmentTransaction.addToBackStack(null).commit();
     }
 
