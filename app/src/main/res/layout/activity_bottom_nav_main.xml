@@ -27,6 +27,8 @@
         android:layout_marginTop="75dp"
         app:layout_anchor="@id/toolbar_bottom_nav"
         app:layout_anchorGravity="bottom"
+        android:background="#F6F5F5"
+        android:backgroundTint="#F6F5F5"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_marginBottom="70dp">
 

@@ -161,7 +161,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                         deletebottomsheet.show();
 
                         Button delete = deletebottomsheet.findViewById(R.id.delete_button_delete_bottom_sheet);
-                        Button donotdelete = deletebottomsheet.findViewById(R.id.donot_delete_button);
                         LottieAnimationView deleteanim = deletebottomsheet.findViewById(R.id.lottieAnimationView);
 
                         deleteanim.setAnimation(R.raw.delete_animation);
@@ -186,13 +185,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                             }
                         });
-
-                        donotdelete.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                deletebottomsheet.dismiss();
-                            }
-                        });
                     }
                 });
 
@@ -212,7 +204,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                         EditText subjectName = bottomSheetDialogedit.findViewById(R.id.add_subject_bottomsheet);
                         Button addButton = bottomSheetDialogedit.findViewById(R.id.add_subject_btn);
-                        Button cancelButton = bottomSheetDialogedit.findViewById(R.id.cancel_subject_button);
                         TextView update = bottomSheetDialogedit.findViewById(R.id.add_subject_id);
 
                         update.setText("Update Subject");
@@ -225,14 +216,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                             @Override
                             public void onClick(View v) {
                                 subjectViewModel.updateSubject(subjectName.getText().toString().trim(), subEntity.getId());
-                                bottomSheetDialogedit.dismiss();
-                            }
-                        });
-
-                        cancelButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                bottomSheetDialog.dismiss();
                                 bottomSheetDialogedit.dismiss();
                             }
                         });

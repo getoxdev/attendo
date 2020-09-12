@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -124,6 +125,12 @@ public class FragmentUserProfile extends Fragment {
 
             }
         });
+
+        MaterialSharedAxis enter = new MaterialSharedAxis(MaterialSharedAxis.Z, true);
+        MaterialSharedAxis exit = new MaterialSharedAxis(MaterialSharedAxis.Z , false);
+
+        fragment_profile.setEnterTransition(enter);
+        fragment_profile.setExitTransition(exit);
 
         btn = view.findViewById(R.id.edit_profile);
         btn.setOnClickListener(new View.OnClickListener() {

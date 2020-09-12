@@ -113,7 +113,6 @@ public class Fragment_Subject extends Fragment {
 
                 EditText subjectName = bottomSheetDialog.findViewById(R.id.add_subject_bottomsheet);
                 Button addButton = bottomSheetDialog.findViewById(R.id.add_subject_btn);
-                Button cancelButton = bottomSheetDialog.findViewById(R.id.cancel_subject_button);
                 TextView update = bottomSheetDialog.findViewById(R.id.add_subject_id);
                 LottieAnimationView celebration = bottomSheetDialog.findViewById(R.id.lottie_animation_add_subject);
                 celebration.setVisibility(View.INVISIBLE);
@@ -147,14 +146,6 @@ public class Fragment_Subject extends Fragment {
                     }
                 });
 
-                cancelButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        bottomSheetDialog.setDismissWithAnimation(true);
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-
                  }
 
         });
@@ -172,15 +163,7 @@ public class Fragment_Subject extends Fragment {
         recyclerView.setAdapter(subListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-//        Bundle bundle = getArguments();
-//        String data = bundle.getString("key");
-//        if(!data.isEmpty()){
-//            SubEntity subject = new SubEntity(data, 0,0,0);
-//            data= "";
-//            subViewModel.insertSubject(subject);
-//            Toast.makeText(getActivity(), "  Subject is Added ",
-//                    Toast.LENGTH_SHORT).show();
-//        }
+//
      return  view;
     }
 

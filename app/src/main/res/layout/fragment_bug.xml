@@ -41,15 +41,15 @@
 
     <Button
         android:id="@+id/btn_send"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:background="@drawable/yes_button"
+        android:background="@drawable/edittext_field_background"
         android:clickable="true"
         android:soundEffectsEnabled="true"
-
         android:text="Send"
-        android:textColor="@color/white"
+        android:elevation="0dp"
+        android:textColor="#152A93"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/msgData"
@@ -57,14 +57,14 @@
 
     <Button
         android:id="@+id/btn_details"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/yes_button"
+        android:background="@drawable/edittext_field_background"
         android:clickable="true"
         android:soundEffectsEnabled="true"
         android:text="Details"
-
-        android:textColor="@color/white"
+        android:elevation="0dp"
+        android:textColor="#30AF13"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.183"
