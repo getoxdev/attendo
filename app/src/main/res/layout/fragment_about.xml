@@ -6,11 +6,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.main.menu.FragmentAbout"
-    android:background="#fff">
+    android:backgroundTint="#F6F5F5"
+    android:background="#F6F5F5">
 
    <ScrollView
        android:layout_width="match_parent"
        android:layout_height="match_parent"
+       android:backgroundTint="#F6F5F5"
+       android:background="#F6F5F5"
        android:layout_marginTop="?attr/actionBarSize"
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintBottom_toBottomOf="parent">
@@ -18,6 +21,8 @@
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="500dp"
+          android:backgroundTint="#F6F5F5"
+          android:background="#F6F5F5"
           android:orientation="vertical">
 
 

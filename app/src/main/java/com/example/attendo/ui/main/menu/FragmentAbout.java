@@ -18,11 +18,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.attendo.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.net.URL;
 
 public class FragmentAbout extends Fragment {
+
+    BottomNavigationView bottomNavigationView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

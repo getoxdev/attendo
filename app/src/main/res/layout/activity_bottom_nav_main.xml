@@ -17,7 +17,8 @@
         app:titleTextAppearance="@style/AppBarTitleTextAppearance"
         android:elevation="0dp"
         android:backgroundTint="#F6F5F5"
-        android:background="#F6F5F5"/>
+        android:background="#F6F5F5"
+        app:menu="@menu/new_activity_app_bar_menu"/>
 
 
 

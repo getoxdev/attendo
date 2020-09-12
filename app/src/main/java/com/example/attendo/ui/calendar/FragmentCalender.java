@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.example.attendo.ui.main.MainActivity;
 import com.example.attendo.ui.sub.SubListAdapter;
 import com.example.attendo.viewmodel.CalViewModel;
 import com.example.attendo.viewmodel.SubjectViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -50,6 +52,9 @@ public class FragmentCalender extends Fragment {
     @BindView(R.id.calendar_fragment)
     CalendarView calendar;
 
+    @BindView(R.id.my_bottom_sheet_calendar)
+    RelativeLayout bototmsheetCalendar;
+
 
     private CalAdapter calAdapter;
     private CalViewModel calViewModel;
@@ -71,6 +76,10 @@ public class FragmentCalender extends Fragment {
 
         calAdapter = new CalAdapter(getContext(),mDataList);
         calViewModel = new ViewModelProvider((BottomNavMainActivity)getContext()).get(CalViewModel.class);
+
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(bototmsheetCalendar);
+        bottomSheetBehavior.setFitToContents(false);
+        bottomSheetBehavior.setHalfExpandedRatio(0.5f);
 
         calViewModel.getitem().observe(getActivity(), new Observer<List<CalendarEntity>>() {
             @Override
