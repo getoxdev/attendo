@@ -1,12 +1,14 @@
 package com.example.attendo.ui.calendar;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +20,7 @@ import com.example.attendo.ui.main.MainActivity;
 import com.example.attendo.viewmodel.CalViewModel;
 import com.example.attendo.viewmodel.SubjectViewModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -64,8 +67,9 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder> {
         else return 0;
     }
 
-    public void set(List<CalendarEntity> itemlist) {
-        mDatalist = itemlist;
+    public void set(List<String> itemlist) {
+        itemlist = calViewModel.getSub();
+        Log.e("information", String.valueOf(itemlist));
         notifyDataSetChanged();
 
     }

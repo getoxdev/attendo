@@ -11,6 +11,7 @@ import com.example.attendo.data.CalendarDao;
 import com.example.attendo.data.CalendarEntity;
 import com.example.attendo.data.database.SubDatabase;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -34,10 +35,34 @@ public class CalViewModel extends AndroidViewModel {
         return calendarDao.getSubjectByDate(date);
     }
 
-    public LiveData<List<CalendarEntity>> getitem()
+    public LiveData<List<String>> getitem()
     {
         return calendarDao.getitem();
+
+
+
     }
+
+    public List<String> getSub() {
+         List<String> strings = new  ArrayList<String>();
+
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                List<String> subject = calendarDao.getsub();
+                strings.addAll(subject);
+
+                Log.e("info78", String.valueOf(strings));
+
+            }
+        });
+        Log.e("info", String.valueOf(strings));
+        return strings;
+
+
+
+    }
+
 
 
 

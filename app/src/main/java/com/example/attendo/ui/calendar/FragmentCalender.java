@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -72,10 +73,12 @@ public class FragmentCalender extends Fragment {
         calAdapter = new CalAdapter(getContext(),mDataList);
         calViewModel = new ViewModelProvider((BottomNavMainActivity)getContext()).get(CalViewModel.class);
 
-        calViewModel.getitem().observe(getActivity(), new Observer<List<CalendarEntity>>() {
+        calViewModel.getitem().observe(getActivity(), new Observer<List<String>>() {
+
+
             @Override
-            public void onChanged(List<CalendarEntity> calendarEntities) {
-                calAdapter.set(calendarEntities);
+            public void onChanged(List<String> subjects) {
+                calAdapter.set(subjects);
 
             }
         });
