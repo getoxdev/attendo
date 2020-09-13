@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,20 +87,40 @@ public class FragmentCalender extends Fragment {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                subDate = formatter(dateConverter.fromTimestamp(view.getDate()));
-                selectedDate.setText(subDate);
 
-                calAdapter = new CalAdapter(getActivity(), mDataList);
-                calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
-                calViewModel.getSub(subDate).observe(getActivity(), new Observer<List<String>>() {
-                    @Override
-                    public void onChanged(List<String> data) {
-                        calAdapter.setData(data);
-                    }
-                });
+                if(month<9)
+                {
+                    selectedDate.setText(dayOfMonth+"-"+"0"+(month+1)+"-"+year);
+                    calAdapter = new CalAdapter(getActivity(),mDataList);
+                    calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
+                    calViewModel.getSub(dayOfMonth+"-"+"0"+(month+1)+"-"+year).observe(getActivity(), new Observer<List<String>>() {
+                        @Override
+                        public void onChanged(List<String> strings) {
+                            calAdapter.setData(strings);
 
-                recyclerView.setAdapter(calAdapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        }
+                    });
+                    recyclerView.setAdapter(calAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                }
+                else
+                {
+                    selectedDate.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+
+                    Log.e("date",subDate);
+                    calAdapter = new CalAdapter(getActivity(),mDataList);
+                    calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
+                    calViewModel.getSub(dayOfMonth+"-"+(month+1)+"-"+year).observe(getActivity(), new Observer<List<String>>() {
+                        @Override
+                        public void onChanged(List<String> strings) {
+                            calAdapter.setData(strings);
+
+                        }
+                    });
+                    recyclerView.setAdapter(calAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));}
+
             }
         });
 
