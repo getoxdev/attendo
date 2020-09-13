@@ -40,7 +40,7 @@
                     android:id="@+id/IMAGE_CARDVIEW"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="50dp"
                     app:cardCornerRadius="50dp"
                     android:layout_marginBottom="30dp"
                     android:transitionName="profileExpand"
