@@ -198,8 +198,10 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                         EditText subjectName = bottomSheetDialogedit.findViewById(R.id.add_subject_bottomsheet);
                         Button addButton = bottomSheetDialogedit.findViewById(R.id.add_subject_btn);
                         TextView update = bottomSheetDialogedit.findViewById(R.id.add_subject_id);
+                        LottieAnimationView animation = bottomSheetDialogedit.findViewById(R.id.lottie);
 
                         update.setText("Update Subject");
+                        animation.setAnimation(R.raw.study_confused);
 
                         subjectName.setText(subEntity.getSubject().toString().trim());
 

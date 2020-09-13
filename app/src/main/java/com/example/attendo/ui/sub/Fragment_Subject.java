@@ -140,9 +140,11 @@ public class Fragment_Subject extends Fragment {
                 Button addButton = bottomSheetDialog.findViewById(R.id.add_subject_btn);
                 TextView update = bottomSheetDialog.findViewById(R.id.add_subject_id);
                 LottieAnimationView celebration = bottomSheetDialog.findViewById(R.id.lottie_animation_add_subject);
+                LottieAnimationView addsub = bottomSheetDialog.findViewById(R.id.lottie);
                 celebration.setVisibility(View.INVISIBLE);
 
                 subjectName.setText(null);
+                addsub.setAnimation(R.raw.subject_new);
 
                 update.setText("Add Subject");
 
