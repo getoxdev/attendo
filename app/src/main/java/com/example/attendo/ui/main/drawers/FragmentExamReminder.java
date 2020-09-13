@@ -1,6 +1,7 @@
 package com.example.attendo.ui.main.drawers;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +27,9 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.util.Calendar;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+import static androidx.core.content.ContextCompat.getSystemService;
+
 
 public class FragmentExamReminder extends Fragment {
 
@@ -35,6 +39,7 @@ public class FragmentExamReminder extends Fragment {
   private int notificationId = 1;
   private FragmentHome fragmentHome;
     TextView textView;
+    public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -61,10 +66,10 @@ public class FragmentExamReminder extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+       /* NotificationManager manager = (NotificationManager)getActivity(). getSystemService(NOTIFICATION_SERVICE);
+        assert manager != null;
+        manager.cancel(getActivity().getIntent().getIntExtra(NOTIFICATION_ID, -1));
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();*/
     }
 
     @Override
@@ -146,4 +151,11 @@ public class FragmentExamReminder extends Fragment {
        textView.setText(timeText);
    }
 
+  /*  public static PendingIntent getDismissIntent(int notificationId, Context context) {
+        Intent intent = new Intent(context, AlarmReminder.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra(NOTIFICATION_ID, notificationId);
+        PendingIntent dismissIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        return dismissIntent;
+    }*/
 }
