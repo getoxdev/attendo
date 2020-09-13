@@ -10,183 +10,210 @@
     tools:context=".ui.main.drawers.account.FragmentUserProfile">
 
 
-    <ImageView
-        android:id="@+id/Delete_Account"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/ic_baseline_delete_24"
-        app:layout_constraintBottom_toTopOf="@+id/main_block_account"
-        app:layout_constraintEnd_toStartOf="@+id/IMAGE_CARDVIEW"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/IMAGE_CARDVIEW"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="50dp"
-        app:cardCornerRadius="50dp"
-        android:transitionName="profileExpand"
-        app:layout_constraintBottom_toTopOf="@+id/main_block_account"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/USER_IMAGE"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_baseline_profile_image_24"/>
-
-    </androidx.cardview.widget.CardView>
-
-    <RelativeLayout
-        android:id="@+id/main_block_account"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/edit_profile"
-        app:layout_constraintTop_toBottomOf="@id/IMAGE_CARDVIEW"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:text="Name"
-            android:textColor="#6c6c6c"
-            android:textSize="13dp" />
-
-        <TextView
-            android:id="@+id/USER_NAME"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/name"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/login_btn_bcg"
-            android:paddingLeft="10dp"
-            android:paddingTop="7dp"
-            android:text=""
-            android:fontFamily="@font/roboto_light"
-            android:textAlignment="inherit"
-            android:textColor="@color/colorAccent"
-            android:textSize="16dp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/institute_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/USER_NAME"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
-            android:text="Institute Name"
-            android:textColor="#6c6c6c"
-            android:textSize="13dp" />
+                <ImageView
+                    android:id="@+id/Delete_Account"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_baseline_delete_24"
+                    app:layout_constraintBottom_toTopOf="@+id/main_block_account"
+                    app:layout_constraintEnd_toStartOf="@+id/IMAGE_CARDVIEW"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/USER_COLLEGE"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/institute_name"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/login_btn_bcg"
-            android:paddingLeft="10dp"
-            android:paddingTop="7dp"
-            android:text=""
-            android:textAlignment="inherit"
-            android:fontFamily="@font/roboto_light"
-            android:textColor="@color/colorAccent"
-            android:textSize="16dp" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/IMAGE_CARDVIEW"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="80dp"
+                    app:cardCornerRadius="50dp"
+                    android:layout_marginBottom="30dp"
+                    android:transitionName="profileExpand"
+                    app:layout_constraintBottom_toTopOf="@+id/main_block_account"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/town"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/USER_COLLEGE"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
-            android:text="Town"
-            android:textColor="#6c6c6c"
-            android:textSize="10dp" />
+                    <ImageView
+                        android:id="@+id/USER_IMAGE"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_baseline_profile_image_24"/>
 
-        <TextView
-            android:id="@+id/USER_CITY"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/town"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/login_btn_bcg"
-            android:paddingLeft="10dp"
-            android:paddingTop="7dp"
-            android:text=""
-            android:textAlignment="inherit"
-            android:textColor="@color/colorAccent"
-            android:textSize="16dp"
-            android:fontFamily="@font/roboto_light"/>
+                </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/USER_CITY"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="10dp"
-            android:text="Contact Number"
-            android:textColor="#6c6c6c"
-            android:textSize="10dp" />
+                <RelativeLayout
+                    android:id="@+id/main_block_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/edit_profile"
+                    app:layout_constraintTop_toBottomOf="@id/IMAGE_CARDVIEW"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent">
 
-        <TextView
-            android:id="@+id/USER_PHONE"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/phone"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="50dp"
-            android:background="@drawable/login_btn_bcg"
-            android:paddingLeft="10dp"
-            android:paddingTop="7dp"
-            android:text=""
-            android:textAlignment="inherit"
-            android:fontFamily="@font/roboto_light"
-            android:textColor="@color/colorAccent"
-            android:textSize="16dp" />
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:text="Name"
+                        android:textColor="#6c6c6c"
+                        android:textSize="13dp" />
 
-        <ProgressBar
-            android:id="@+id/progressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/USER_PHONE"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp" />
+                    <TextView
+                        android:id="@+id/USER_NAME"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/name"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginRight="50dp"
+                        android:background="@drawable/login_btn_bcg"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
+                        android:text=""
+                        android:fontFamily="@font/roboto_light"
+                        android:textAlignment="inherit"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/institute_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/USER_NAME"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Institute Name"
+                        android:textColor="#6c6c6c"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:id="@+id/USER_COLLEGE"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/institute_name"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginRight="50dp"
+                        android:background="@drawable/login_btn_bcg"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
+                        android:text=""
+                        android:textAlignment="inherit"
+                        android:fontFamily="@font/roboto_light"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/town"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/USER_COLLEGE"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Town"
+                        android:textColor="#6c6c6c"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/USER_CITY"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/town"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginRight="50dp"
+                        android:background="@drawable/login_btn_bcg"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
+                        android:text=""
+                        android:textAlignment="inherit"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16dp"
+                        android:fontFamily="@font/roboto_light"/>
+
+                    <TextView
+                        android:id="@+id/phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/USER_CITY"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Contact Number"
+                        android:textColor="#6c6c6c"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/USER_PHONE"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/phone"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginRight="50dp"
+                        android:background="@drawable/login_btn_bcg"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="7dp"
+                        android:text=""
+                        android:textAlignment="inherit"
+                        android:fontFamily="@font/roboto_light"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="16dp" />
+
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/USER_PHONE"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="18dp" />
 
 
-    </RelativeLayout>
+                </RelativeLayout>
 
-    <Button
-        android:id="@+id/edit_profile"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/edittext_field_background"
-        android:text="Edit Profile"
-        android:textColor="#4F28A8"
-        android:textSize="17dp"
-        android:textAllCaps="false"
-        android:elevation="0dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_block_account" />
+                <Button
+                    android:id="@+id/edit_profile"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/edittext_field_background"
+                    android:text="Edit Profile"
+                    android:textColor="#4F28A8"
+                    android:textSize="17dp"
+                    android:textAllCaps="false"
+                    android:elevation="0dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/main_block_account" />
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
