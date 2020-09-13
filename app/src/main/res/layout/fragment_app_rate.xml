@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#F6F5F5"
+    android:backgroundTint="#F6F5F5"
     tools:context=".ui.main.drawers.FragmentAppRate">
 
     <TextView
@@ -55,14 +56,16 @@
 
     <Button
         android:id="@+id/btnFeedback"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="36dp"
-        android:background="@drawable/yes_button"
+        android:background="@drawable/edittext_field_background"
         android:clickable="true"
         android:soundEffectsEnabled="true"
         android:text="Submit"
-        android:textColor="@color/white"
+        android:foreground="?android:selectableItemBackground"
+        android:elevation="0dp"
+        android:textColor="#060AF3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,8 @@ import com.example.attendo.ui.main.drawers.FragmentEditAttendance;
 import com.example.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.example.attendo.ui.main.drawers.FragmentHelp;
 import com.example.attendo.ui.main.menu.FragmentAbout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -52,6 +57,7 @@ public class FragmentAccountAndSettings extends Fragment {
     private FragmentEditAttendance fragmentEditAttendance;
     TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college;
     CardView Profile;
+    BottomNavigationView bottomNavigationView;
 
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
@@ -106,6 +112,9 @@ public class FragmentAccountAndSettings extends Fragment {
         name = view.findViewById(R.id.profile_name);
         college = view.findViewById(R.id.profile_college);
         profileLottie = view.findViewById(R.id.lottieanimationprofile);
+        bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+
+        bottomNavigationView.setVisibility(View.VISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
@@ -160,8 +169,7 @@ public class FragmentAccountAndSettings extends Fragment {
         exit.setInterpolator(new AccelerateDecelerateInterpolator());
         exit.setDuration(400);
 
-//        fragmentUserProfile.setExitTransition(fade);
-//        fragmentUserProfile.setEnterTransition(explode);
+
         fragmentAppRate.setEnterTransition(enter);
         fragmentAppRate.setExitTransition(exit);
 
@@ -184,6 +192,7 @@ public class FragmentAccountAndSettings extends Fragment {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentAppRate);
+                bottomNavigationView.setVisibility(View.GONE);
             }
         });
 
@@ -191,6 +200,7 @@ public class FragmentAccountAndSettings extends Fragment {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentBug);
+                bottomNavigationView.setVisibility(View.GONE);
             }
         });
 
@@ -198,6 +208,7 @@ public class FragmentAccountAndSettings extends Fragment {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentEditAttendance);
+                bottomNavigationView.setVisibility(View.GONE);
             }
         });
 
@@ -211,6 +222,8 @@ public class FragmentAccountAndSettings extends Fragment {
                         .addToBackStack(null)
                         .commit();
 
+                bottomNavigationView.setVisibility(View.GONE);
+
                 fragmentUserProfile.setSharedElementEnterTransition(transition);
             }
         });
@@ -218,7 +231,25 @@ public class FragmentAccountAndSettings extends Fragment {
         AttCritaria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragment(fragmentEditAttendanceCriteria);
+                BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
+                View bottomsheet = LayoutInflater.from(getContext()).inflate(R.layout.edit_attendance_criterion_bottom_sheet,
+                        (ConstraintLayout) view.findViewById(R.id.edit_attendance_criterion_bottom_sheet));
+
+                dialog.setContentView(bottomsheet);
+                dialog.show();
+
+                EditText criterion = dialog.findViewById(R.id.edittext_criterion);
+                Button change = dialog.findViewById(R.id.change_criterion_bottom_sheett);
+
+                change.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //write your code to connect with database here
+                        //TODO: connect to database to change attendance criterion
+                        dialog.dismiss();
+                        Toast.makeText(getContext(), "Attendance Criterion Changed", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -226,6 +257,7 @@ public class FragmentAccountAndSettings extends Fragment {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentHelp);
+                bottomNavigationView.setVisibility(View.GONE);
             }
         });
 

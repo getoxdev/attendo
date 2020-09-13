@@ -9,7 +9,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -21,6 +23,7 @@ import com.example.attendo.ui.calendar.FragmentCalender;
 import com.example.attendo.ui.main.drawers.AlarmReminder;
 import com.example.attendo.ui.main.drawers.FragmentExamReminder;
 import com.example.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
+import com.example.attendo.ui.main.menu.FragmentAbout;
 import com.example.attendo.ui.sub.Fragment_Subject;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -50,6 +53,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
         setSupportActionBar(toolbar);
+
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_frame, new Fragment_Subject()).commit();
 
@@ -127,4 +132,50 @@ public class BottomNavMainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.new_activity_app_bar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        Fragment aboutUs = new FragmentAbout();
+
+        MaterialSharedAxis enter = new MaterialSharedAxis(MaterialSharedAxis.Z, true);
+        MaterialSharedAxis exit = new MaterialSharedAxis(MaterialSharedAxis.Z, false);
+
+        aboutUs.setEnterTransition(enter);
+        aboutUs.setExitTransition(exit);
+
+
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.aboutus:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container_frame, aboutUs)
+                        .addToBackStack(null)
+                        .commit();
+
+                break;
+
+            case R.id.share_menu:
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                String body = "http://bit.ly/attendoshare";
+                String subject = "AttendoURL";
+                intent.putExtra(Intent.EXTRA_TEXT,body);
+                intent.putExtra(Intent.EXTRA_SUBJECT,subject);
+                startActivity(Intent.createChooser(intent,"Share App Using"));
+
+                break;
+
+        }
+
+        return true;
+
+    }
 }

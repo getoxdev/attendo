@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F6F5F5"
+    android:backgroundTint="#F6F5F5"
     tools:context=".ui.main.drawers.account.FragmentProfile">
 
 
@@ -44,6 +46,7 @@
         android:hint="Username"
         android:drawableLeft="@drawable/account_icon"
         android:paddingLeft="10dp"
+        android:drawablePadding="10dp"
         android:paddingRight="10dp"
         app:layout_constraintBottom_toTopOf="@id/user_school"
         android:textAlignment="textStart"
@@ -65,7 +68,8 @@
         android:background="@drawable/login_btn_bcg"
         android:elevation="10dp"
         android:ems="10"
-        android:hint="institution"
+        android:hint="Institution"
+        android:drawablePadding="10dp"
         android:textAlignment="inherit"
         android:inputType="textPersonName" />
 
@@ -78,6 +82,7 @@
         app:layout_constraintBottom_toTopOf="@id/user_phone"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="30dp"
+        android:drawablePadding="10dp"
         android:layout_marginStart="30dp"
         android:drawableLeft="@drawable/ic_baseline_home_24"
         android:paddingRight="10dp"
@@ -93,6 +98,7 @@
         android:id="@+id/user_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
         app:layout_constraintBottom_toTopOf="@id/user_progressbar"
         android:layout_marginBottom="20dp"
         android:layout_marginStart="30dp"
@@ -119,15 +125,16 @@
 
     <Button
         android:id="@+id/save_profile"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_phone"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
-        android:background="@drawable/bcg_login_signup"
+        android:background="@drawable/edittext_field_background"
         android:text="update"
-        android:textColor="#fff"
+        android:textColor="#6720D8"
         android:textSize="18dp"
+        android:elevation="0dp"
         app:layout_constraintBottom_toTopOf="@id/skip_account_creation"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
