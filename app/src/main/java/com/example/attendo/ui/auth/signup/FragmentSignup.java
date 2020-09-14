@@ -121,6 +121,14 @@ public class FragmentSignup extends Fragment implements signupinterface.View {
     public void onSignup() {
         progress.setVisibility(View.INVISIBLE);
         Toast.makeText(getActivity(),"Signup Successful",Toast.LENGTH_SHORT).show();
+        //Passing empty data
+        Bundle bundle = new Bundle();
+        bundle.putString("name","");
+        bundle.putString("institution","");
+        bundle.putString("city","");
+        bundle.putString("phone","");
+        fragment_profile.setArguments(bundle);
+        //
         setFragment(fragment_profile);
         }
 

@@ -147,6 +147,7 @@ public class FragmentExamReminder extends Fragment {
    private void updateTimeText(Calendar c) {
        String timeText = title.getText().toString()+" : Alarm set for : ";
        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
+       title.setText("");
 
        textView.setText(timeText);
    }
