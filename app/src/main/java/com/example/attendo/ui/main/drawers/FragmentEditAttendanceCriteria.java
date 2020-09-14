@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.attendo.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 /**
@@ -64,6 +65,8 @@ public class FragmentEditAttendanceCriteria extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_edit_attendance_criteria, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Attendance Criterion");
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+        bottomNavigationView.setVisibility(View.GONE);
         return view;
     }
 }
