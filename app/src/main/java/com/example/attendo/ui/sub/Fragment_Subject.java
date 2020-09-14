@@ -51,7 +51,7 @@ public class Fragment_Subject extends Fragment {
     private SubListAdapter subListAdapter;
     private List<SubEntity> mSubjects=new ArrayList<>();
 
-    private Fragment_AddSubject fragment_addSubject;
+
 
     @BindView(R.id.tvPres)
     TextView present;
@@ -100,7 +100,7 @@ public class Fragment_Subject extends Fragment {
 
         final Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
-        fragment_addSubject = new Fragment_AddSubject();
+
 
         Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.card_transition);
 
