@@ -1,26 +1,95 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F6F5F5"
+    android:backgroundTint="#F6F5F5"
     tools:context=".ui.main.drawers.FragmentEditAttendanceCriteria">
 
-   <TextView
-       android:id="@+id/text1"
-       android:layout_width="wrap_content"
+
+   <Button
+       android:id="@+id/button2"
+       android:layout_width="0dp"
        android:layout_height="wrap_content"
-       android:layout_centerHorizontal="true"
-       android:layout_centerVertical="true"
-       android:text="Edit Attendance Criteria will be added"
-       android:textSize="20dp"/>
+       android:layout_marginStart="24dp"
+       android:layout_marginEnd="24dp"
+       android:layout_marginBottom="16dp"
+       android:background="@drawable/edittext_field_background"
+       android:elevation="0dp"
+       android:text="Change"
+       android:textAllCaps="false"
+       android:textColor="#6F2FD8"
+       android:textSize="17dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.0"
+       app:layout_constraintStart_toStartOf="parent" />
+
+   <EditText
+       android:id="@+id/editText"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content"
+       android:layout_marginStart="24dp"
+       android:layout_marginEnd="24dp"
+       android:layout_marginBottom="56dp"
+       android:background="@drawable/edittext_field_background"
+       android:drawableStart="@drawable/ic_baseline_book_bottom_nav"
+       android:drawablePadding="10dp"
+       android:hint="Type your criteron"
+       android:padding="10dp"
+       app:layout_constraintBottom_toTopOf="@+id/button2"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="1.0"
+       app:layout_constraintStart_toStartOf="parent" />
 
    <TextView
+       android:id="@+id/textView9"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:layout_below="@+id/text1"
-       android:layout_centerHorizontal="true"
-       android:layout_centerVertical="true"
-       android:text="soon in next Version"
-       android:textSize="20dp"/>
+       android:layout_marginStart="24dp"
+       android:layout_marginBottom="32dp"
+       android:text="Current Attendance Criterion:"
+       android:textColor="#737373"
+       android:textSize="22dp"
+       app:layout_constraintBottom_toTopOf="@+id/editText"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.0"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintVertical_bias="0.09" />
 
-</RelativeLayout>
+   <TextView
+       android:id="@+id/textView10"
+       android:layout_width="0dp"
+       android:layout_height="0dp"
+       android:elevation="8dp"
+       android:fontFamily="@font/comfortaa"
+       android:gravity="center"
+       android:text="75%"
+       android:textSize="40dp"
+       app:layout_constraintBottom_toTopOf="@+id/editText"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.498"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/textView9"
+       app:layout_constraintVertical_bias="0.477" />
+
+   <com.airbnb.lottie.LottieAnimationView
+       android:layout_width="0dp"
+       android:layout_height="0dp"
+       android:layout_marginTop="24dp"
+       android:layout_marginBottom="24dp"
+       android:elevation="0dp"
+       app:layout_constraintBottom_toTopOf="@+id/editText"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintHorizontal_bias="0.0"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@+id/textView9"
+       app:layout_constraintVertical_bias="0.0"
+       app:lottie_autoPlay="true"
+       app:lottie_loop="true"
+       app:lottie_rawRes="@raw/loading" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

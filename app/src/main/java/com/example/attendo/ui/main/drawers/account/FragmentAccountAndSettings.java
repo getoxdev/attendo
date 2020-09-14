@@ -231,25 +231,7 @@ public class FragmentAccountAndSettings extends Fragment {
         AttCritaria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetDialog dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
-                View bottomsheet = LayoutInflater.from(getContext()).inflate(R.layout.edit_attendance_criterion_bottom_sheet,
-                        (ConstraintLayout) view.findViewById(R.id.edit_attendance_criterion_bottom_sheet));
-
-                dialog.setContentView(bottomsheet);
-                dialog.show();
-
-                EditText criterion = dialog.findViewById(R.id.edittext_criterion);
-                Button change = dialog.findViewById(R.id.change_criterion_bottom_sheett);
-
-                change.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //write your code to connect with database here
-                        //TODO: connect to database to change attendance criterion
-                        dialog.dismiss();
-                        Toast.makeText(getContext(), "Attendance Criterion Changed", Toast.LENGTH_SHORT).show();
-                    }
-                });
+               setFragment(fragmentEditAttendanceCriteria);
             }
         });
 
