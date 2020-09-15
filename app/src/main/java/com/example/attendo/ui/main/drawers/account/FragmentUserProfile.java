@@ -137,6 +137,15 @@ public class FragmentUserProfile extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Passing empty data
+                Bundle bundle = new Bundle();
+                bundle.putString("name",name.getText().toString());
+                bundle.putString("institution",college.getText().toString());
+                bundle.putString("city",city.getText().toString());
+                bundle.putString("phone",contact.getText().toString());
+                fragment_profile.setArguments(bundle);
+                Toast.makeText(getActivity(),"Edit Your Profile",Toast.LENGTH_SHORT).show();
+                //
                 setFragment(fragment_profile);
             }
         });
