@@ -2,6 +2,7 @@ package com.example.attendo.ui.sub;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.util.Log;
@@ -32,6 +33,7 @@ import com.example.attendo.R;
 import com.example.attendo.ui.calendar.CalAdapter;
 import com.example.attendo.ui.main.BottomNavMainActivity;
 import com.example.attendo.ui.main.MainActivity;
+import com.example.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.example.attendo.viewmodel.CalViewModel;
 import com.example.attendo.viewmodel.SubjectViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -55,10 +57,13 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     private SubjectViewModel subjectViewModel;
     private CalViewModel calViewModel;
     private DateConverter dateConverter;
+    private FragmentEditAttendanceCriteria fragmentEditAttendanceCriteria;
+    private String key;
 
-    public SubListAdapter(Context mContext, List<SubEntity> mSubjects) {
+    public SubListAdapter(Context mContext, List<SubEntity> mSubjects,String key) {
         this.mContext = mContext;
         this.mSubjects = mSubjects;
+        this.key = key;
 
         subjectViewModel = new ViewModelProvider((BottomNavMainActivity) mContext).get(SubjectViewModel.class);
         calViewModel = new ViewModelProvider((BottomNavMainActivity) mContext).get(CalViewModel.class);
@@ -82,7 +87,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         holder.tvTotal.setText(String.valueOf(subEntity.getTotal()));
         holder.percent.setText(getPercentage(subEntity.getPresent(), subEntity.getTotal()) + "%");
 
-        holder.status.setText(Status("75",getPercentage(subEntity
+        holder.status.setText(Status(key,getPercentage(subEntity
                 .getPresent(),subEntity.getTotal()),subEntity.getPresent(),subEntity.getAbsent()));
 
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
@@ -297,7 +302,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         else if(percentagedouble<criteriadouble)
         {
 
-            //((presentdouble+absentdouble)*criteriadouble-100*presentdouble)/(100-criteriadouble)
+
             double value;
             value=ceil(((criteriadouble*(presentdouble+absentdouble))/100 - presentdouble));
             value = value+1;
@@ -310,6 +315,11 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         return status;
     }
 
+
+
+
+
+
     //----------------------------------------------------------------------------------------
 
     public static String formatter(Date date) {
@@ -318,5 +328,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
         return subDate;
     }
+
+
 
 }

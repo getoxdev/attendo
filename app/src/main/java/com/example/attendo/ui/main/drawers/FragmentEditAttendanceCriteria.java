@@ -119,9 +119,11 @@ public class FragmentEditAttendanceCriteria extends Fragment {
     public void loadData()
     {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("Mypref",getContext().MODE_PRIVATE);
-        text = sharedPreferences.getString("Criterion","75%");
+        text = sharedPreferences.getString("Criterion","75");
 
     }
+
+
     public void updateDate()
     {
         percentage.setText(text);

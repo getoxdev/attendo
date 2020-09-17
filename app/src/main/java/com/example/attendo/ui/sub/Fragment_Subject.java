@@ -1,6 +1,7 @@
 package com.example.attendo.ui.sub;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -180,7 +181,7 @@ public class Fragment_Subject extends Fragment {
 
         });
 
-        subListAdapter = new SubListAdapter(getActivity(),mSubjects);
+        subListAdapter = new SubListAdapter(getActivity(),mSubjects,fetchVAlue());
         subViewModel = new ViewModelProvider(this).get(SubjectViewModel.class);
         subViewModel.getAllSubjects().observe(getActivity(), new Observer<List<SubEntity>>() {
             @Override
@@ -201,6 +202,15 @@ public class Fragment_Subject extends Fragment {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container_frame,fragment);
         fragmentTransaction.commit();
+    }
+
+    public String fetchVAlue()
+    {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("Mypref",getContext().MODE_PRIVATE);
+        String value = sharedPreferences.getString("Criterion","75");
+        return value;
+
+
     }
 
 }
