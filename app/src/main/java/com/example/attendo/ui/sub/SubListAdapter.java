@@ -82,6 +82,9 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         holder.tvTotal.setText(String.valueOf(subEntity.getTotal()));
         holder.percent.setText(getPercentage(subEntity.getPresent(), subEntity.getTotal()) + "%");
 
+        holder.status.setText(Status("95",getPercentage(subEntity
+                .getPresent(),subEntity.getTotal()),subEntity.getPresent(),subEntity.getAbsent()));
+
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
 
         holder.btnPres.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +242,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
     public class SubViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView subItemView, tvTotal, tvPres, percent;
+        private TextView subItemView, tvTotal, tvPres, percent,status,criteria;
         private Button btnAbs, btnPres;
         private CardView card;
 
@@ -252,6 +255,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             tvTotal = itemView.findViewById(R.id.tvTotal);
             tvPres = itemView.findViewById(R.id.tvPres);
             percent = itemView.findViewById(R.id.percentage);
+            status = itemView.findViewById(R.id.status_counter);
+            criteria = itemView.findViewById(R.id.textView10);
         }
     }
 
@@ -271,27 +276,29 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         return df.format(percentage);
     }
 
-    public String Status(Double criteria,Double percentage,int present,int absent)
+    private String Status(String criteria,String percentage,int present,int absent)
     {
         String status;
-        double presentdouble, absentdouble;
+        double presentdouble, absentdouble,percentagedouble,criteriadouble;
         presentdouble = Double.valueOf(present);
         absentdouble = Double.valueOf(absent);
+        percentagedouble = Double.valueOf(percentage);
+        criteriadouble = Double.valueOf(criteria);
 
-        if(percentage>criteria)
+        if(percentagedouble>criteriadouble)
         {
             double value;
-            value=floor((100*(absentdouble+presentdouble)-criteria*(absentdouble+presentdouble)-100*absentdouble)/criteria);
+            value=floor((100*(absentdouble+presentdouble)-criteriadouble*(absentdouble+presentdouble)-100*absentdouble)/criteriadouble);
             if(value==0.0)
                 status="Dont't miss next lecture";
             else
                 status="You can skip next "+String.format("%.0f",value)+" lectures";
         }
         else
-        if(percentage<criteria)
+        if(percentagedouble<criteriadouble)
         {
             double value;
-            value=ceil(((presentdouble+absentdouble)*criteria-100*presentdouble)/(100-criteria));
+            value=ceil(((presentdouble+absentdouble)*criteriadouble-100*presentdouble)/(100-criteriadouble));
             status="You must attend next "+String.format("%.0f",value)+" lectures";
         }
         else
