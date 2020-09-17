@@ -82,7 +82,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         holder.tvTotal.setText(String.valueOf(subEntity.getTotal()));
         holder.percent.setText(getPercentage(subEntity.getPresent(), subEntity.getTotal()) + "%");
 
-        holder.status.setText(Status("95",getPercentage(subEntity
+        holder.status.setText(Status("75",getPercentage(subEntity
                 .getPresent(),subEntity.getTotal()),subEntity.getPresent(),subEntity.getAbsent()));
 
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
@@ -102,7 +102,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 String subject = String.valueOf(holder.subItemView.getText());
                 CalendarEntity calendarEntity = new CalendarEntity(subDate, subject);
                 calViewModel.insertDate(calendarEntity);
-
                 subjectViewModel.updatePresent(pre, id);
                 subjectViewModel.updateTotal(total, id);
             }
@@ -288,17 +287,20 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         if(percentagedouble>criteriadouble)
         {
             double value;
-            value=floor((100*(absentdouble+presentdouble)-criteriadouble*(absentdouble+presentdouble)-100*absentdouble)/criteriadouble);
+            value=floor(presentdouble - (criteriadouble*(presentdouble + absentdouble))/100);
+            value = value;
             if(value==0.0)
                 status="Dont't miss next lecture";
             else
                 status="You can skip next "+String.format("%.0f",value)+" lectures";
         }
-        else
-        if(percentagedouble<criteriadouble)
+        else if(percentagedouble<criteriadouble)
         {
+
+            //((presentdouble+absentdouble)*criteriadouble-100*presentdouble)/(100-criteriadouble)
             double value;
-            value=ceil(((presentdouble+absentdouble)*criteriadouble-100*presentdouble)/(100-criteriadouble));
+            value=ceil(((criteriadouble*(presentdouble+absentdouble))/100 - presentdouble));
+            value = value+1;
             status="You must attend next "+String.format("%.0f",value)+" lectures";
         }
         else
