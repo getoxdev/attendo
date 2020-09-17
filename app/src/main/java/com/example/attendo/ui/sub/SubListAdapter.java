@@ -45,6 +45,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static java.lang.Math.ceil;
+import static java.lang.Math.floor;
+
 
 public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewHolder> {
     private Context mContext;
@@ -266,6 +269,36 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
         double percentage = (presentdouble / totaldouble) * 100;
         return df.format(percentage);
+    }
+
+    public String Status(Double criteria,Double percentage,int present,int absent)
+    {
+        String status;
+        double presentdouble, absentdouble;
+        presentdouble = Double.valueOf(present);
+        absentdouble = Double.valueOf(absent);
+
+        if(percentage>criteria)
+        {
+            double value;
+            value=floor((100*(absentdouble+presentdouble)-criteria*(absentdouble+presentdouble)-100*absentdouble)/criteria);
+            if(value==0.0)
+                status="Dont't miss next lecture";
+            else
+                status="You can skip next "+String.format("%.0f",value)+" lectures";
+        }
+        else
+        if(percentage<criteria)
+        {
+            double value;
+            value=ceil(((presentdouble+absentdouble)*criteria-100*presentdouble)/(100-criteria));
+            status="You must attend next "+String.format("%.0f",value)+" lectures";
+        }
+        else
+        {
+            status="Don't miss next lecture";
+        }
+        return status;
     }
 
     //----------------------------------------------------------------------------------------
