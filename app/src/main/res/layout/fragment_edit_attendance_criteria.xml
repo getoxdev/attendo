@@ -33,6 +33,7 @@
        android:layout_marginStart="24dp"
        android:layout_marginEnd="24dp"
        android:layout_marginBottom="56dp"
+       android:inputType="number"
        android:background="@drawable/custom_input_field"
        android:drawableStart="@drawable/book_icon_custom_dynamic"
        android:drawablePadding="10dp"
