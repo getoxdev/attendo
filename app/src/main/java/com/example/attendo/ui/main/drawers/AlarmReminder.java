@@ -22,26 +22,26 @@ import com.example.attendo.ui.auth.AuthenticationActivity;
 
 public class AlarmReminder extends BroadcastReceiver {
 
-    int startfrom=0;
+   /* int startfrom=0;
     int endAt=20000;
     Runnable stopPlayerTask=new Runnable() {
         @Override
         public void run() {
             mediaPlayer.pause();
         }
-    };
+    };*/
 
     private static final String CHANNEL_ID="SAMPLE_CHANNEL";
     public MediaPlayer mediaPlayer;
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        mediaPlayer=MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
+       /* mediaPlayer=MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
         mediaPlayer.seekTo(startfrom);
         mediaPlayer.start();
 
         Handler handler=new Handler();
-        handler.postDelayed(stopPlayerTask,endAt);
+        handler.postDelayed(stopPlayerTask,endAt);*/
 
 
 
@@ -56,10 +56,10 @@ public class AlarmReminder extends BroadcastReceiver {
         Intent dismiss = new Intent(context,AlarmReminder.class);
 
         //dismiss.addCategory(Intent.CATEGORY_HOME);
-        dismiss.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        dismiss.setAction(Intent.ACTION_DEFAULT);
 
 
-        PendingIntent dismissIntent = PendingIntent.getActivity(context,1,dismiss,PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent dismissIntent = PendingIntent.getActivity(context,1,dismiss,0);
         NotificationManager NM = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
@@ -83,7 +83,6 @@ public class AlarmReminder extends BroadcastReceiver {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .addAction(R.drawable.ic_close_24,"Dismiss",dismissIntent)
                 .setAutoCancel(false)
-
                 ;
 
         //notify

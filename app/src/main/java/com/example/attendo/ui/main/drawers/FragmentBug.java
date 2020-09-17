@@ -70,6 +70,7 @@ public class FragmentBug extends Fragment {
             @Override
             public void onClick(View v) {
                 details.setEnabled(true);
+                send.setEnabled(true);
 
 
                 final String msg = msgdata.getText().toString().trim();
@@ -77,7 +78,7 @@ public class FragmentBug extends Fragment {
 
                 if (msg.isEmpty()) {
                     msgdata.setError("this is a required field");
-                    send.setEnabled(false);
+                    //send.setEnabled(false);
                 } else {
                     msgdata.setError(null);
                     send.setEnabled(true);
