@@ -66,7 +66,7 @@
        android:elevation="8dp"
        android:fontFamily="@font/comfortaa"
        android:gravity="center"
-       android:text="75%"
+       android:text="75"
        android:textSize="40dp"
        app:layout_constraintBottom_toTopOf="@+id/editText"
        app:layout_constraintEnd_toEndOf="parent"
