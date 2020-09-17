@@ -34,4 +34,6 @@ public interface SubDao {
     @Query("UPDATE SubjectName SET subject = :subject WHERE id = :id")
     void updateSubject(String subject,int id);
 
+
+
 }

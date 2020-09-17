@@ -198,6 +198,9 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     }
 
 
+        //********GOOGLE SIGN UP CODE*********
+
+    
     private void createRequest() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.app_name))
@@ -248,13 +251,9 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                             /* If sign in fails, display a message to the user. */
                             Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
                         }
-
                         // ...
                     }
                 });
     }
-
-
-
 
 }

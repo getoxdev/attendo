@@ -2,6 +2,7 @@ package com.example.attendo.ui.main.drawers.account;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -33,6 +34,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.io.IOException;
 
 import static android.app.Activity.RESULT_OK;
@@ -85,6 +87,18 @@ public class FragmentProfile extends Fragment {
         profilecard = view.findViewById(R.id.image_cardview);
         pB = view.findViewById(R.id.user_progressbar);
         pB.setVisibility(View.INVISIBLE);
+
+        //retriving data from previous fragment
+        Bundle bundle = this.getArguments();
+        String data = bundle.getString("name");
+        name.setText(data);
+        String data2 = bundle.getString("institution");
+        college.setText(data2);
+        String data3 = bundle.getString("city");
+        city.setText(data3);
+        String data4 = bundle.getString("phone");
+        Contact.setText(data4);
+        //
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();

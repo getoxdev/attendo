@@ -46,7 +46,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewHolder>  {
+public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewHolder> {
     private Context mContext;
     private List<SubEntity> mSubjects;
     private SubjectViewModel subjectViewModel;
@@ -57,14 +57,14 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         this.mContext = mContext;
         this.mSubjects = mSubjects;
 
-        subjectViewModel = new ViewModelProvider((BottomNavMainActivity)mContext).get(SubjectViewModel.class);
-        calViewModel = new ViewModelProvider((BottomNavMainActivity)mContext).get(CalViewModel.class);
+        subjectViewModel = new ViewModelProvider((BottomNavMainActivity) mContext).get(SubjectViewModel.class);
+        calViewModel = new ViewModelProvider((BottomNavMainActivity) mContext).get(CalViewModel.class);
     }
 
     @NonNull
     @Override
     public SubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.sub_info,parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.sub_info, parent, false);
         dateConverter = new DateConverter();
 
         return new SubViewHolder(view);
@@ -77,7 +77,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         holder.subItemView.setText(subEntity.getSubject());
         holder.tvPres.setText(String.valueOf(subEntity.getPresent()));
         holder.tvTotal.setText(String.valueOf(subEntity.getTotal()));
-        holder.percent.setText(getPercentage(subEntity.getPresent(),subEntity.getTotal())+"%");
+        holder.percent.setText(getPercentage(subEntity.getPresent(), subEntity.getTotal()) + "%");
 
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -94,11 +94,11 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 Date date = new Date();
                 String subDate = formatter(dateConverter.fromTimestamp(date.getTime()));
                 String subject = String.valueOf(holder.subItemView.getText());
-                CalendarEntity calendarEntity = new CalendarEntity(subDate,subject);
+                CalendarEntity calendarEntity = new CalendarEntity(subDate, subject);
                 calViewModel.insertDate(calendarEntity);
 
-                subjectViewModel.updatePresent(pre,id);
-                subjectViewModel.updateTotal(total,id);
+                subjectViewModel.updatePresent(pre, id);
+                subjectViewModel.updateTotal(total, id);
             }
         });
 
@@ -109,14 +109,13 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                 int total = Integer.parseInt((String) holder.tvTotal.getText());
                 int pre = Integer.parseInt((String) holder.tvPres.getText());
-                int ab=total-pre;
+                int ab = total - pre;
                 ab++;
                 total++;
 
 
-
-                subjectViewModel.updateAbsent(ab,id);
-                subjectViewModel.updateTotal(total,id);
+                subjectViewModel.updateAbsent(ab, id);
+                subjectViewModel.updateTotal(total, id);
 
             }
         });
@@ -143,7 +142,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                     @Override
                     public void onClick(View v) {
 
-                        BottomSheetDialog deletebottomsheet = new BottomSheetDialog(mContext,R.style.BottomSheetDialog);
+                        BottomSheetDialog deletebottomsheet = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
                         View deletesheet = LayoutInflater.from(mContext).inflate(R.layout.delete_bottom_sheet,
                                 (ConstraintLayout) holder.itemView.findViewById(R.id.delete_bottom_sheet_container));
 
@@ -235,9 +234,9 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         notifyDataSetChanged();
     }
 
-    public class SubViewHolder extends RecyclerView.ViewHolder  {
+    public class SubViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView subItemView,tvTotal,tvPres,percent;
+        private TextView subItemView, tvTotal, tvPres, percent;
         private Button btnAbs, btnPres;
         private CardView card;
 
@@ -247,7 +246,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             btnAbs = itemView.findViewById(R.id.bAbsent);
             btnPres = itemView.findViewById(R.id.bPresent);
             card = itemView.findViewById(R.id.card1);
-            tvTotal=itemView.findViewById(R.id.tvTotal);
+            tvTotal = itemView.findViewById(R.id.tvTotal);
             tvPres = itemView.findViewById(R.id.tvPres);
             percent = itemView.findViewById(R.id.percentage);
         }
@@ -256,28 +255,26 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     // Method to get percentage of attendance from the present and total data provided
     //--------------------------------------------------------------------------------------
 
-    private String getPercentage(int present, int total){
-        double presentdouble , totaldouble;
+    private String getPercentage(int present, int total) {
+        double presentdouble, totaldouble;
         presentdouble = Double.valueOf(present);
-        totaldouble  = Double.valueOf(total);
+        totaldouble = Double.valueOf(total);
         DecimalFormat df = new DecimalFormat("#.##");
 
-        if(totaldouble==Double.valueOf(0))
+        if (totaldouble == Double.valueOf(0))
             return df.format(0);
 
-        double percentage = (presentdouble/totaldouble)*100;
+        double percentage = (presentdouble / totaldouble) * 100;
         return df.format(percentage);
     }
 
     //----------------------------------------------------------------------------------------
 
-    public static String formatter(Date date)
-    {
+    public static String formatter(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String subDate = dateFormat.format(date);
 
-        return  subDate;
+        return subDate;
     }
 
 }
-
