@@ -56,6 +56,24 @@
                 android:textColor="#434343"
                 android:textSize="15dp" />
 
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status: "
+                android:layout_below="@id/attendance"
+                android:paddingTop="8dp"
+                android:layout_marginLeft="30dp"/>
+
+            <TextView
+                android:id="@+id/status_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="status_counter_of_attendance"
+                android:layout_alignBaseline="@id/status"
+                android:layout_toRightOf="@id/status"/>
+
+
 
             <TextView
                 android:id="@+id/tvPres"
@@ -114,9 +132,9 @@
                 android:id="@+id/question"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvTotal"
+                android:layout_below="@id/status"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:text="Have you attended today's class ? "
                 android:textColor="#9A9A9A"/>
 
