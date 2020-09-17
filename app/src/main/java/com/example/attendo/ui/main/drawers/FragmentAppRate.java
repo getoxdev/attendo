@@ -82,12 +82,13 @@ public class FragmentAppRate extends Fragment {
         btnFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnFeedback.setEnabled(true);
                 final String msg = feedback.getText().toString().trim();
                 Firebase child_msg = firebase.child("FeedBack");
 
                 if (msg.isEmpty()) {
                     feedback.setError("this is a required field");
-                    btnFeedback.setEnabled(false);
+                    //btnFeedback.setEnabled(false);
                 } else {
                     feedback.setError(null);
                     btnFeedback.setEnabled(true);
