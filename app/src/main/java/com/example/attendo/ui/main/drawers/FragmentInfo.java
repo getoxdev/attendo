@@ -2,6 +2,7 @@ package com.example.attendo.ui.main.drawers;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -61,6 +62,8 @@ public class FragmentInfo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info, container, false);
+        View view=  inflater.inflate(R.layout.fragment_info, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("About");
+        return view;
     }
 }

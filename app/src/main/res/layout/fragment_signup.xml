@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF"
+    android:background="#FAFAFA"
     tools:context=".ui.main.MainActivity">
 
 
@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.595" />
+        app:layout_constraintVertical_bias="0.595"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -55,11 +55,8 @@
         android:layout_width="329dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/login_btn_bcg"
-        android:backgroundTint="#EFEDED"
-        android:drawableStart="@drawable/lock_icon"
+        android:drawableStart="@drawable/lock_icon_custom_dynamic"
         android:drawablePadding="10dp"
-        android:elevation="10dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -68,7 +65,12 @@
         android:textAlignment="inherit"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="16dp"
+        android:background="@drawable/custom_input_field"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="10dp"/>
 
 
     <Button
@@ -90,11 +92,8 @@
         android:layout_width="329dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/login_btn_bcg"
-        android:backgroundTint="#EFEDED"
-        android:drawableStart="@drawable/email_icon"
+        android:drawableStart="@drawable/email_icon_custom_dynamic"
         android:drawablePadding="10dp"
-        android:elevation="10dp"
         android:ems="10"
         android:hint="Email ID"
         android:inputType="textPersonName"
@@ -102,18 +101,20 @@
         android:textAlignment="inherit"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="16dp"
+        android:background="@drawable/custom_input_field"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="10dp"/>
 
     <EditText
         android:id="@+id/editTextTextPassword2"
         android:layout_width="329dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/login_btn_bcg"
-        android:backgroundTint="#EFEDED"
-        android:drawableStart="@drawable/lock_icon"
+        android:drawableStart="@drawable/lock_icon_custom_dynamic"
         android:drawablePadding="10dp"
-        android:elevation="10dp"
         android:ems="10"
         android:hint="Confirm Passowrd"
         android:inputType="textPassword"
@@ -121,7 +122,12 @@
         android:textAlignment="inherit"
         app:layout_constraintBottom_toTopOf="@+id/progressbar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="16dp"
+        android:background="@drawable/custom_input_field"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="10dp"/>
 
     <ProgressBar
         android:id="@+id/progressbar"

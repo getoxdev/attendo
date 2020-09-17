@@ -143,6 +143,7 @@ public class Fragment_Subject extends Fragment {
                 LottieAnimationView addsub = bottomSheetDialog.findViewById(R.id.lottie);
                 celebration.setVisibility(View.INVISIBLE);
 
+
                 subjectName.setText(null);
                 addsub.setAnimation(R.raw.subject_new);
 

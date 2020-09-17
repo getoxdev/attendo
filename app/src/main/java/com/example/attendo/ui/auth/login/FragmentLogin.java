@@ -35,6 +35,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -98,6 +99,17 @@ public class FragmentLogin extends Fragment implements logininterface.View {
             // User is signed out
             Log.d(TAG, "onAuthStateChanged:signed_out");
         }
+
+        MaterialSharedAxis enter = new MaterialSharedAxis(MaterialSharedAxis.Z, true);
+        enter.setDuration(300);
+        MaterialSharedAxis exit = new MaterialSharedAxis(MaterialSharedAxis.Z, false);
+        exit.setDuration(300);
+
+        fragmentSignup.setEnterTransition(enter);
+        fragmentSignup.setExitTransition(exit);
+
+        fragmentForgetpassword.setEnterTransition(enter);
+        fragmentForgetpassword.setExitTransition(exit);
 
         forgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override

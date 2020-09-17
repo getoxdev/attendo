@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.FrameLayout;
@@ -29,6 +30,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.google.android.material.transition.platform.MaterialFade;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +50,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().setEnterTransition(new MaterialFade().setDuration(300));
+        getWindow().setExitTransition(new MaterialFade().setDuration(300));
         setContentView(R.layout.activity_bottom_nav_main);
         ButterKnife.bind(this);
 

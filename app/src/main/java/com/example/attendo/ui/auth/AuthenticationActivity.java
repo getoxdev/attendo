@@ -11,6 +11,7 @@ import android.view.WindowManager;
 
 import com.example.attendo.R;
 import com.example.attendo.ui.auth.login.FragmentLogin;
+import com.google.android.material.transition.platform.MaterialFade;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
@@ -19,6 +20,9 @@ public class AuthenticationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().setEnterTransition(new MaterialFade().setDuration(300));
+        getWindow().setExitTransition(new MaterialFade().setDuration(300));
         setContentView(R.layout.activity_authentication);
 
 

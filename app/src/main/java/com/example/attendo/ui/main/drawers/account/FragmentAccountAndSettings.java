@@ -33,7 +33,9 @@ import com.example.attendo.ui.main.drawers.FragmentAppRate;
 import com.example.attendo.ui.main.drawers.FragmentBug;
 import com.example.attendo.ui.main.drawers.FragmentEditAttendance;
 import com.example.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
+import com.example.attendo.ui.main.drawers.FragmentFAQ;
 import com.example.attendo.ui.main.drawers.FragmentHelp;
+import com.example.attendo.ui.main.drawers.FragmentInfo;
 import com.example.attendo.ui.main.menu.FragmentAbout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -55,7 +57,9 @@ public class FragmentAccountAndSettings extends Fragment {
     private FragmentAppRate fragmentAppRate;
     private FragmentEditAttendanceCriteria fragmentEditAttendanceCriteria;
     private FragmentEditAttendance fragmentEditAttendance;
-    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college;
+    private FragmentFAQ fragmentFAQ;
+    private FragmentInfo fragmentInfo;
+    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings;
     CardView Profile;
     BottomNavigationView bottomNavigationView;
 
@@ -109,10 +113,13 @@ public class FragmentAccountAndSettings extends Fragment {
         fragmentUserProfile = new FragmentUserProfile();
         fragmentEditAttendanceCriteria = new FragmentEditAttendanceCriteria();
         fragmentHelp = new FragmentHelp();
+        fragmentFAQ = new FragmentFAQ();
+        fragmentInfo = new FragmentInfo();
         name = view.findViewById(R.id.profile_name);
         college = view.findViewById(R.id.profile_college);
         profileLottie = view.findViewById(R.id.lottieanimationprofile);
         bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+        aboutsettings = view.findViewById(R.id.about_settings);
 
         bottomNavigationView.setVisibility(View.VISIBLE);
 
@@ -185,6 +192,9 @@ public class FragmentAccountAndSettings extends Fragment {
         fragmentEditAttendanceCriteria.setEnterTransition(enter);
         fragmentEditAttendanceCriteria.setExitTransition(exit);
 
+        fragmentInfo.setEnterTransition(enter);
+        fragmentInfo.setExitTransition(exit);
+
 
 
 
@@ -238,10 +248,19 @@ public class FragmentAccountAndSettings extends Fragment {
         Help.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragment(fragmentHelp);
+                setFragment(fragmentFAQ);
                 bottomNavigationView.setVisibility(View.GONE);
             }
         });
+        aboutsettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFragment(fragmentInfo);
+                bottomNavigationView.setVisibility(View.GONE);
+            }
+        });
+
+
 
 
 
