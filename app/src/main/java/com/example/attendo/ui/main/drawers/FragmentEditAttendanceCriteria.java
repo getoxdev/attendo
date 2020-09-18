@@ -89,19 +89,23 @@ public class FragmentEditAttendanceCriteria extends Fragment {
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.GONE);
         ButterKnife.bind(this,view);
+        loadData();
+        updateDate();
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 percentage.setText(criteria.getText().toString());
                 SaveDate();
+                loadData();
+                updateDate();
+                getParentFragmentManager().popBackStack();
 
 
 
             }
         });
 
-        loadData();
-        updateDate();
+
 
 
         return view;
@@ -126,7 +130,7 @@ public class FragmentEditAttendanceCriteria extends Fragment {
 
     public void updateDate()
     {
-        percentage.setText(text);
+        percentage.setText(text + "%");
     }
 
 }
