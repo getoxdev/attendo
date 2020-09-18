@@ -113,46 +113,49 @@ public class FragmentProfile extends Fragment {
                 String Name = name.getText().toString().trim();
                 String College =college.getText().toString();
                 String City = city.getText().toString();
-                String contact = Contact.getText().toString();
+                String contact = Contact.getText().toString().trim();
                 if(Name.isEmpty() || College.isEmpty() || City.isEmpty() || contact.isEmpty()) {
                     if(Name.isEmpty() || College.isEmpty() || City.isEmpty() || contact.isEmpty()) {
                         pB.setVisibility(View.INVISIBLE);
                         Toast.makeText(getContext(), "Please enter all fields", Toast.LENGTH_SHORT).show();
                     }
                  }
-                else{
+                else {
                     //for generating unique id everytime which may not require
-
-                    pB.setVisibility(View.VISIBLE);
-                    String id = user_id;
-                    ProfileData prf = new ProfileData(id, name.getText().toString().trim(), college.getText().toString(), city.getText().toString().trim(), Contact.getText().toString().trim());
-                    databaseReference.child(id).setValue(prf);
-
-                    //Profile imgae is optional...
-                    if(filepath!=null) {
-                        UploadImage();
-                    }
-                    else{
+                    if (contact.length() != 10) {
                         pB.setVisibility(View.INVISIBLE);
-                        storageReference = storage.getReference();
-                        storageReference.child("images/" + user_id.toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                databaseReference.child("images/" + user_id.toString()).removeValue();
-                                Toast.makeText(getContext(),"Account Updated "+name.getText().toString(),Toast.LENGTH_SHORT).show();
-                                Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
-                                startActivity(intent);
-                                getActivity().finish();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getContext(),"Account Updated "+name.getText().toString(),Toast.LENGTH_SHORT).show();
-                                Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
-                                startActivity(intent);
-                                getActivity().finish();
-                            }
-                        });
+                        Toast.makeText(getContext(), "Enter a valid Mobile Number of length 10", Toast.LENGTH_SHORT).show();
+                    } else {
+                        pB.setVisibility(View.VISIBLE);
+                        String id = user_id;
+                        ProfileData prf = new ProfileData(id, name.getText().toString().trim(), college.getText().toString(), city.getText().toString().trim(), Contact.getText().toString().trim());
+                        databaseReference.child(id).setValue(prf);
+
+                        //Profile imgae is optional...
+                        if (filepath != null) {
+                            UploadImage();
+                        } else {
+                            pB.setVisibility(View.INVISIBLE);
+                            storageReference = storage.getReference();
+                            storageReference.child("images/" + user_id.toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    databaseReference.child("images/" + user_id.toString()).removeValue();
+                                    Toast.makeText(getContext(), "Account Updated " + name.getText().toString(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getActivity(), BottomNavMainActivity.class);
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getContext(), "Account Updated " + name.getText().toString(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getActivity(), BottomNavMainActivity.class);
+                                    startActivity(intent);
+                                    getActivity().finish();
+                                }
+                            });
+                        }
                     }
                 }
             }

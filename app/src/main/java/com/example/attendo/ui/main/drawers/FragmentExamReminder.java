@@ -120,6 +120,7 @@ public class FragmentExamReminder extends Fragment {
                 //set Alarm
                 alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime,alarmIntent);
 
+
                 Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG).show();
                // setFragment(fragmentHome);
             }
@@ -159,4 +160,11 @@ public class FragmentExamReminder extends Fragment {
         PendingIntent dismissIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         return dismissIntent;
     }*/
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+
+    }
 }

@@ -20,6 +20,7 @@ import androidx.core.app.NotificationCompat;
 import com.example.attendo.R;
 import com.example.attendo.ui.auth.AuthenticationActivity;
 
+
 public class AlarmReminder extends BroadcastReceiver {
 
    /* int startfrom=0;
@@ -30,6 +31,7 @@ public class AlarmReminder extends BroadcastReceiver {
             mediaPlayer.pause();
         }
     };*/
+
 
     private static final String CHANNEL_ID="SAMPLE_CHANNEL";
     public MediaPlayer mediaPlayer;
@@ -56,7 +58,7 @@ public class AlarmReminder extends BroadcastReceiver {
         Intent dismiss = new Intent(context,AlarmReminder.class);
 
         //dismiss.addCategory(Intent.CATEGORY_HOME);
-        dismiss.setAction(Intent.ACTION_DEFAULT);
+        //android.dismiss.action.CLOSE_SYSTEM_DIALOGS;
 
 
         PendingIntent dismissIntent = PendingIntent.getActivity(context,1,dismiss,0);
@@ -88,5 +90,7 @@ public class AlarmReminder extends BroadcastReceiver {
         //notify
         NM.notify(notificationId,builder.build());
 
+
     }
+
 }

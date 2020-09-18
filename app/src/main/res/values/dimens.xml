@@ -8,4 +8,11 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="collapsingtoolbartitle">2dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+
+    <dimen name="list_padding_vertical_small">8dp</dimen>
+
+    <dimen name="fab_margin_default">16dp</dimen>
 </resources>
