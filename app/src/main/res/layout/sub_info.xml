@@ -147,7 +147,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="7dp"
-                android:background="@drawable/edittext_field_background"
+                android:background="@drawable/button_background"
                 android:text="Yes"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"

@@ -23,9 +23,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin_default"
+        app:backgroundTint="#9657F1"
         android:layout_marginRight="@dimen/fab_margin_default"
         android:layout_marginBottom="@dimen/fab_margin_default"
-        app:srcCompat="@drawable/ic_alarm_white_24dp"
+        app:srcCompat="@drawable/ic_baseline_access_alarm_24"
         app:fabSize="auto"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
