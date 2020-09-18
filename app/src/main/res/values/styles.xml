@@ -1,9 +1,9 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">#EFF0F1</item>
         <item name="colorPrimaryDark">#888686</item>
         <item name="colorAccent">#744AD6</item>
         <item name="android:windowContentTransitions">true</item>
@@ -18,6 +18,10 @@
         <item name="colorAccent">#6A30D6</item>
         <item name="android:windowContentTransitions">true</item>
 
+    </style>
+    
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/bottom_sheet_behavior"
     android:layout_gravity="bottom"
@@ -23,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="Select Time"
-        android:textSize="25dp"
+        android:text="Add Reminder"
+        android:textSize="19dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.057"
@@ -38,32 +39,165 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:animateLayoutChanges="true"
+        android:background="#F3F2F2"
         android:splitMotionEvents="true"
         android:timePickerMode="spinner"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="#F3F2F2"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.051" />
 
     <Button
+        android:id="@+id/add_reminder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/edittext_field_background"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:text="Add"
+        android:textAllCaps="false"
+        android:textColor="#224AE3"
+        android:textSize="17dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timePicker"
-        app:layout_constraintVertical_bias="0.351"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:clickable="true"
-        android:text="Add"
-        android:textSize="17dp"
-        android:textAllCaps="false"
-        android:textColor="#224AE3"/>
+        app:layout_constraintVertical_bias="0.868" />
+
+    <EditText
+        android:id="@+id/reminder_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="Label"
+        android:textSize="19dp"
+        app:layout_constraintBottom_toTopOf="@id/add_reminder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timePicker"
+        app:layout_constraintVertical_bias="0.117"
+        android:background="@drawable/custom_input_field"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="10dp"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="12dp"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toTopOf="@id/add_reminder"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reminder_label"
+        app:layout_constraintVertical_bias="1.0"
+        app:singleLine="false"
+        app:singleSelection="false">
+
+        <com.google.android.material.chip.Chip
+            style="@style/CustomChipStyle"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Sunday"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            app:checkedIconEnabled="true"
+            app:chipCornerRadius="20dp" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/CustomChipStyle"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Monday"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            app:checkedIconEnabled="true"
+            app:chipCornerRadius="20dp" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Tuesday"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            app:checkedIconEnabled="true"
+            app:chipCornerRadius="20dp" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Wednesday"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            app:checkedIconEnabled="true"
+            app:chipCornerRadius="20dp" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Thursday"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            app:checkedIconEnabled="true"
+            app:chipCornerRadius="20dp" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Friday"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            app:checkedIconEnabled="true"
+            app:chipCornerRadius="20dp" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/CustomChipStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="Saturday"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            app:checkedIconEnabled="true"
+            app:chipCornerRadius="20dp" />
+
+    </com.google.android.material.chip.ChipGroup>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
