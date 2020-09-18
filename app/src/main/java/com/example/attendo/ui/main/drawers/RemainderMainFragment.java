@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -23,6 +24,7 @@ import com.example.attendo.service.LoadAlarmsService;
 import com.example.attendo.ui.adapter.AlarmsAdapter;
 import com.example.attendo.util.AlarmUtils;
 import com.example.attendo.view.EmptyRecyclerView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -58,10 +60,22 @@ final EmptyRecyclerView rv = v.findViewById(R.id.recycler);
         rv.setItemAnimator(new DefaultItemAnimator());
 
 final FloatingActionButton fab = v.findViewById(R.id.fab);
-        fab.setOnClickListener(view -> {
-        AlarmUtils.checkAlarmPermissions(getActivity());
-final Intent i = buildAddEditAlarmActivityIntent(getContext(), ADD_ALARM);
-        startActivity(i);
+//        fab.setOnClickListener(view -> {
+//        AlarmUtils.checkAlarmPermissions(getActivity());
+//final Intent i = buildAddEditAlarmActivityIntent(getContext(), ADD_ALARM);
+//        startActivity(i);
+//        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        BottomSheetDialog addReminderBottomSheet = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
+                        View bottomsheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet,
+                                (ConstraintLayout) v.findViewById(R.id.time_picker_container));
+                        addReminderBottomSheet.setContentView(bottomsheet);
+                        addReminderBottomSheet.show();
+
+                }
         });
 
         return v;
