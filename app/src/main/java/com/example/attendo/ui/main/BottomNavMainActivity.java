@@ -23,6 +23,7 @@ import com.example.attendo.R;
 import com.example.attendo.ui.calendar.FragmentCalender;
 import com.example.attendo.ui.main.drawers.AlarmReminder;
 import com.example.attendo.ui.main.drawers.FragmentExamReminder;
+import com.example.attendo.ui.main.drawers.RemainderMainFragment;
 import com.example.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
 import com.example.attendo.ui.main.menu.FragmentAbout;
 import com.example.attendo.ui.sub.Fragment_Subject;
@@ -94,7 +95,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.reminder_bottom_nav:
-                    Fragment reminder = new FragmentExamReminder();
+                    Fragment reminder = new RemainderMainFragment();
                     selectedFragment = reminder;
                     reminder.setEnterTransition(enter);
                     reminder.setExitTransition(exit);

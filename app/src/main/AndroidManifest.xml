@@ -5,9 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <dist:module dist:instant="true" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
         android:allowBackup="true"
@@ -16,22 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.BottomNavMainActivity" android:theme="@style/AppThemeCustom"></activity>
-        <activity
-            android:name=".ui.auth.AuthenticationActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-4809014227716894~6673264229" />
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-
         <activity
             android:name=".ui.splash.IntroActivity"
             android:theme="@style/AppTheme">
@@ -42,7 +25,46 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".ui.main.drawers.AlarmReminder" />
+        <activity android:name=".ui.main.BottomNavMainActivity" android:theme="@style/AppThemeCustom">
+        </activity>
+        <activity
+            android:name=".ui.auth.AuthenticationActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4809014227716894~6673264229" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+
+        <activity android:name=".ui.main.drawers.AddEditAlarmActivity" />
+
+        <activity
+            android:name=".ui.main.drawers.AlarmLandingPageActivity"
+            android:theme="@style/AlertLandingPageTheme" />
+
+        <service android:name=".service.LoadAlarmsService" />
+
+        <receiver android:name=".service.LoadAlarmsReceiver" />
+
+        <receiver android:name=".service.AlarmReceiver" />
+
+        <receiver android:name=".service.BootReceiver" android:enabled="true" android:exported="true">
+            <intent-filter android:priority="${bootPriority}">
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
+
+
+
+
 
 </manifest>
