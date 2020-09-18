@@ -17,8 +17,6 @@ import com.example.attendo.service.LoadAlarmsService;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import static android.drm.DrmStore.DrmObjectType.UNKNOWN;
-
 public class AddEditAlarmActivity extends AppCompatActivity {
 
     public static final String ALARM_EXTRA = "alarm_extra";

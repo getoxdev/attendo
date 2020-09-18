@@ -10,7 +10,6 @@ import android.util.SparseBooleanArray;
 
 import androidx.core.app.ActivityCompat;
 
-import com.example.attendo.data.DatabaseHelper;
 import com.example.attendo.model.Alarm;
 
 import java.text.SimpleDateFormat;
