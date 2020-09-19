@@ -23,14 +23,16 @@ import com.example.attendo.ui.auth.AuthenticationActivity;
 
 public class AlarmReminder extends BroadcastReceiver {
 
-   /* int startfrom=0;
+    /*int startfrom=0;
     int endAt=20000;
     Runnable stopPlayerTask=new Runnable() {
         @Override
         public void run() {
             mediaPlayer.pause();
         }
-    };*/
+    };
+
+     */
 
 
     private static final String CHANNEL_ID="SAMPLE_CHANNEL";
@@ -38,12 +40,14 @@ public class AlarmReminder extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-       /* mediaPlayer=MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
+        /*mediaPlayer=MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
         mediaPlayer.seekTo(startfrom);
         mediaPlayer.start();
 
         Handler handler=new Handler();
-        handler.postDelayed(stopPlayerTask,endAt);*/
+        handler.postDelayed(stopPlayerTask,endAt);
+
+         */
 
 
 
@@ -70,6 +74,9 @@ public class AlarmReminder extends BroadcastReceiver {
             CharSequence channelName = "My notifications";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, channelName, importance);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[] {1000,500,1000,500,1000,500});
+            channel.setBypassDnd(true);
             NM.createNotificationChannel(channel);
         }
 
@@ -83,7 +90,8 @@ public class AlarmReminder extends BroadcastReceiver {
                 .setContentIntent(contentIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setDefaults(Notification.DEFAULT_ALL)
-                .addAction(R.drawable.ic_close_24,"Dismiss",dismissIntent)
+                .setVibrate(new long[] {1000,500,1000,500,1000,500})
+                //.addAction(R.drawable.ic_close_24,"Dismiss",dismissIntent)
                 .setAutoCancel(false)
                 ;
 

@@ -44,23 +44,7 @@
             android:resource="@array/preloaded_fonts" />
 
 
-        <activity android:name=".ui.main.drawers.AddEditAlarmActivity" />
-
-        <activity
-            android:name=".ui.main.drawers.AlarmLandingPageActivity"
-            android:theme="@style/AlertLandingPageTheme" />
-
-        <service android:name=".service.LoadAlarmsService" />
-
-        <receiver android:name=".service.LoadAlarmsReceiver" />
-
-        <receiver android:name=".service.AlarmReceiver" />
-
-        <receiver android:name=".service.BootReceiver" android:enabled="true" android:exported="true">
-            <intent-filter android:priority="${bootPriority}">
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
+        <receiver android:name=".ui.main.drawers.AlarmReminder"/>
     </application>
 
 
