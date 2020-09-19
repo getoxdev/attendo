@@ -68,6 +68,26 @@ public class AlarmReminder extends BroadcastReceiver {
         PendingIntent dismissIntent = PendingIntent.getActivity(context,1,dismiss,0);
         NotificationManager NM = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
+        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.O){
+
+            Notification.Builder builder = new Notification.Builder(context)
+                    .setSmallIcon(R.drawable.foreground_app_icon)
+                    .setContentTitle("Class Reminder!")
+                    .setContentText(message)
+                    .setWhen(System.currentTimeMillis())
+                    .setContentIntent(contentIntent)
+                    .setPriority(Notification.PRIORITY_HIGH)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setVibrate(new long[] {1000,500,1000,500,1000,500})
+                    //.addAction(R.drawable.ic_close_24,"Dismiss",dismissIntent)
+                    .setAutoCancel(false)
+                    ;
+
+            //notify
+            NM.notify(notificationId,builder.build());
+
+        }
+
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
 
             //Notification channel
@@ -100,5 +120,6 @@ public class AlarmReminder extends BroadcastReceiver {
 
 
     }
+
 
 }
