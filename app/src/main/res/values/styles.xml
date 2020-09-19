@@ -8,6 +8,7 @@
         <item name="colorAccent">#EFF0F1</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:statusBarColor">#FAFAFA</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
     </style>
 
     <style name="AppThemeCustom" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -18,11 +19,19 @@
         <item name="colorPrimaryDark">#918F8F</item>
         <item name="colorAccent">#EFF0F1</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
 
     </style>
     
     <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
         <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="chipIconTint">@color/colorPrimary</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />

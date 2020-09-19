@@ -75,17 +75,21 @@
 
     <Button
         android:id="@+id/button"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="172dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:background="@drawable/edittext_field_background"
+        android:layout_height="60dp"
+        android:layout_marginBottom="70dp"
+        android:stateListAnimator="@animator/card_pressed_animator"
         android:text="Sign Up"
         android:textColor="#702CCD"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#AF91F4"
+        app:strokeColor="#6333D3"
+        app:strokeWidth="1dp" />
 
     <EditText
         android:id="@+id/editTextEmail"
