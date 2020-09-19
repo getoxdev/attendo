@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
-    android:padding="10dp"
+    android:backgroundTint="#F6F5F5"
+    android:background="#F6F5F5"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
     tools:context=".ui.main.drawers.FragmentExamReminder">
 
@@ -16,21 +16,120 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="end|bottom"
-       android:layout_margin="23dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="end|center_horizontal"
+        android:layout_margin="26dp"
         android:src="@drawable/ic_alarm_white"
-        app:backgroundTint="#9657F1"/>
+        app:backgroundTint="#9657F1"
+        app:fabCustomSize="65dp"
+        app:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/subject"
-        android:layout_width="226dp"
-        android:layout_height="235dp"
-        android:text="TextView"
-        android:textSize="24sp"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="80dp"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/idle_card"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_margin="12dp"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/card_background_blurred"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stay Focused"
+            android:layout_gravity="center"
+            android:textSize="35dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="#4A4A4A"/>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/alarm_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_margin="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/idle_card"
+        app:cardBackgroundColor="#FFF"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        android:foreground="?android:selectableItemBackground"
+        android:clickable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="Alarm Set for"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="19dp"
+                android:textSize="15dp"
+                android:fontFamily="@font/roboto_light"/>
+
+            <TextView
+                android:id="@+id/time_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="35dp"
+                android:text="Set Your Alarm"
+                android:layout_marginStart="19dp"
+                android:textSize="29dp"
+                android:fontFamily="@font/roboto_bold"/>
+
+            <TextView
+                android:id="@+id/label_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="23dp"
+                android:text="Alarm Name"
+                android:textSize="23dp"
+                android:fontFamily="@font/roboto_light"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:alpha="0.7"
+                app:lottie_rawRes="@raw/clock_lottie"/>
+
+
+
+        </RelativeLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

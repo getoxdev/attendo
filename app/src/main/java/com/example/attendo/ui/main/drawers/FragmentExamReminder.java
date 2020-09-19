@@ -5,9 +5,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -40,6 +43,8 @@ public class FragmentExamReminder extends Fragment {
   FloatingActionButton mFloatingActionButton;
   Button update,Cancel;
   TimePicker time;
+  TextView timeShow, labelShow;
+  CardView alarmCard;
   private int notificationId = 5;
   private FragmentHome fragmentHome;
     TextView subject;
@@ -84,11 +89,25 @@ public class FragmentExamReminder extends Fragment {
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Class Reminder");
         mFloatingActionButton=view.findViewById(R.id.add_rem);
-        subject=view.findViewById(R.id.subject);
+        timeShow = view.findViewById(R.id.time_show);
+        labelShow = view.findViewById(R.id.label_show);
+        alarmCard = view.findViewById(R.id.alarm_card_view);
+
+
+        SharedPreferences preferences = getContext().getSharedPreferences("MYPREF", 0);
+        SharedPreferences.Editor  editor = preferences.edit();
+
+        SharedPreferences retrieve = getContext().getSharedPreferences("MYPREF" ,0);
+
+
+
+
         /*Intent get=getActivity().getIntent();
         if(get.getExtras()!=null){
             String lab=get.getStringExtra("label");
             subject.setText(lab);*/
+
+
 
 
 
@@ -107,9 +126,9 @@ public class FragmentExamReminder extends Fragment {
                 bottomSheetDialog.setDismissWithAnimation(true);
                 bottomSheetDialog.show();
 
-                TimePicker timePicker=bottomSheet.findViewById(R.id.timePicker);
-               label=bottomSheet.findViewById(R.id.reminder_label);
-                Button add=bottomSheet.findViewById(R.id.add_reminder);
+                TimePicker timePicker = bottomSheet.findViewById(R.id.timePicker);
+                label = bottomSheet.findViewById(R.id.reminder_label);
+                Button add = bottomSheet.findViewById(R.id.add_reminder);
 
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -119,7 +138,7 @@ public class FragmentExamReminder extends Fragment {
                         intent.putExtra("notificationId", notificationId);
                         intent.putExtra("todo", label.getText().toString());
 
-                        Intent frag=new Intent(getActivity(),FragmentExamReminder.class);
+                        Intent frag = new Intent(getActivity(),FragmentExamReminder.class);
                         intent.putExtra("Label",label.getText().toString());
 
 
@@ -136,17 +155,30 @@ public class FragmentExamReminder extends Fragment {
                         startTime.set(Calendar.MINUTE,minute);
                         startTime.set(Calendar.SECOND,0);
 
-                        String timeText = label.getText().toString()+" : Alarm set for : ";
-                        timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime.getTime());
+
+                        //my code to show time and label in cardview
+                        String timeshow = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime.getTime());
+                        String labelshow = label.getText().toString().trim();
+
+                        editor.putString("time" ,timeshow);
+                        editor.putString("label" ,labelshow);
+                        editor.commit();
+
+                        String retirveTime = retrieve.getString("time" , "Set An Alarm");
+                        String retriveLabel = retrieve.getString("label" ,"Your Label");
+
+                        timeShow.setText(retirveTime);
+                        labelShow.setText(retriveLabel);
+
                          //updateTimeText(startTime);
                         label.setText("");
                         long alarmStartTime = startTime.getTimeInMillis();
 
 
-                /*if time is crossed
-                if(startTime.before(Calendar.getInstance())){
-                    startTime.add(Calendar.DATE, 1);
-                }*/
+                    /*if time is crossed
+                    if(startTime.before(Calendar.getInstance())){
+                        startTime.add(Calendar.DATE, 1);
+                    }*/
 
 
                         //set Alarm
@@ -154,7 +186,10 @@ public class FragmentExamReminder extends Fragment {
 
 
                         Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG).show();
-                        subject.setText(timeText);
+//                        timeShow.setText(timeshow);
+//                        labelShow.setText(labelshow);
+
+                        bottomSheetDialog.dismiss();
 
 
                     }
@@ -174,6 +209,21 @@ public class FragmentExamReminder extends Fragment {
                 //setFragment(fragmentHome);
             }
         });*/
+
+        String retirveTime = retrieve.getString("time" , "Set An Alarm");
+        String retriveLabel = retrieve.getString("label" ,"Your Label");
+
+
+            timeShow.setText(retirveTime);
+            labelShow.setText(retriveLabel);
+
+
+
+
+
+
+
+
 
 
         return  view;

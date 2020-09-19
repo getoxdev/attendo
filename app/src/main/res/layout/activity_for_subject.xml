@@ -75,6 +75,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/fabi_icon_add_drawable"
             android:layout_gravity="end|bottom"
+            app:tint="@color/white"
             app:backgroundTint="#9657F1"/>
 
 
