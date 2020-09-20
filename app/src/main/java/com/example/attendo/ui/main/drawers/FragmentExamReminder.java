@@ -50,9 +50,10 @@ public class FragmentExamReminder extends Fragment {
   TimePicker time,timePicker;
   TextView timeShow, labelShow;
   CardView alarmCard;
+  private boolean flag;
   LottieAnimationView cancelAlarm;
   private int notificationId = 5;
-   String mylabel;
+   private String mylabel;
   private FragmentHome fragmentHome;
     TextView subject;
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
@@ -144,7 +145,7 @@ public class FragmentExamReminder extends Fragment {
                 Button add = bottomSheet.findViewById(R.id.add_reminder);
 
 
-                mylabel = label.getText().toString().trim();
+
 
                 intent.putExtra("notificationId", notificationId);
 
@@ -152,12 +153,14 @@ public class FragmentExamReminder extends Fragment {
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        intent.putExtra("todo", label.getText().toString());
+                        mylabel = label.getText().toString().trim();
+                        intent.putExtra("todo", mylabel);
 
 
 
                        //Intent frag = new Intent(getActivity(),AlarmReminder.class);
                         //frag.putExtra("Label", label.getText().toString());
+                        flag = true;
 
 
 
@@ -215,6 +218,7 @@ public class FragmentExamReminder extends Fragment {
             public void onClick(View v) {
                 cancelAlarm.setSpeed(2f);
                 cancelAlarm.playAnimation();
+                flag = false;
 
                 alarm.cancel(alarmIntent);
                 Toast.makeText(getContext(), "Alarm cancelled", Toast.LENGTH_SHORT).show();
@@ -227,8 +231,10 @@ public class FragmentExamReminder extends Fragment {
 
         String retirveTime = retrieve.getString("time" , "Set An Alarm");
         String retriveLabel = retrieve.getString("label" ,"Your Label");
+
         timeShow.setText(retirveTime);
         labelShow.setText(retriveLabel);
+
 
 
 

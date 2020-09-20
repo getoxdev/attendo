@@ -16,12 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.splash.IntroActivity"
-            android:theme="@style/AppTheme">
+            android:name=".ui.main.BottomNavMainActivity"
+            android:theme="@style/AppThemeCustom">
 
         </activity>
 
-        <activity android:name=".ui.main.BottomNavMainActivity" android:theme="@style/AppThemeCustom">
+        <activity android:name=".ui.splash.IntroActivity" android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
