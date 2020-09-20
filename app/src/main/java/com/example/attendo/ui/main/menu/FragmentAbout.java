@@ -298,7 +298,7 @@ public class FragmentAbout extends Fragment {
         });
         //----------------------------------------------------------------------
 
-        //----------------  Mentor card on click  ----------------------------
+        //----------------  Mentor 2 card on click  ----------------------------
         mentor2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -315,7 +315,7 @@ public class FragmentAbout extends Fragment {
                 github.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "Not Available", Toast.LENGTH_SHORT).show();
+                        gotoUrl("https://github.com/Nanduag0");
 
                     }
                 });

@@ -9,11 +9,9 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="133dp"
+        android:layout_width="113dp"
         android:layout_height="204dp"
-        android:elevation="20dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher_foreground"
+        android:src="@drawable/low_res_app_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
