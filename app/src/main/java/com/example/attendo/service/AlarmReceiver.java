@@ -111,13 +111,6 @@ public final class AlarmReceiver extends BroadcastReceiver {
         }
     }
 
-    /**
-     * Calculates the actual time of the next alarm/notification based on the user-set time the
-     * alarm should sound each day, the days the alarm is set to run, and the current time.
-     * @param alarm Alarm containing the daily time the alarm is set to run and days the alarm
-     *              should run
-     * @return A Calendar with the actual time of the next alarm.
-     */
     private static Calendar getTimeForNextAlarm(Alarm alarm) {
 
         final Calendar calendar = Calendar.getInstance();
