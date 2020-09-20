@@ -18,14 +18,15 @@
         <activity
             android:name=".ui.splash.IntroActivity"
             android:theme="@style/AppTheme">
+
+        </activity>
+
+        <activity android:name=".ui.main.BottomNavMainActivity" android:theme="@style/AppThemeCustom">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".ui.main.BottomNavMainActivity" android:theme="@style/AppThemeCustom">
         </activity>
         <activity
             android:name=".ui.auth.AuthenticationActivity"
@@ -44,23 +45,7 @@
             android:resource="@array/preloaded_fonts" />
 
 
-        <activity android:name=".ui.main.drawers.AddEditAlarmActivity" />
-
-        <activity
-            android:name=".ui.main.drawers.AlarmLandingPageActivity"
-            android:theme="@style/AlertLandingPageTheme" />
-
-        <service android:name=".service.LoadAlarmsService" />
-
-        <receiver android:name=".service.LoadAlarmsReceiver" />
-
-        <receiver android:name=".service.AlarmReceiver" />
-
-        <receiver android:name=".service.BootReceiver" android:enabled="true" android:exported="true">
-            <intent-filter android:priority="${bootPriority}">
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
+        <receiver android:name=".ui.main.drawers.AlarmReminder"/>
     </application>
 
 

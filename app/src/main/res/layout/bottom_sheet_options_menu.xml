@@ -45,8 +45,7 @@
             android:drawablePadding="10dp"
             android:clickable="true"
             android:stateListAnimator="@animator/card_pressed_animator"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_margin="4dp"/>
+            android:foreground="?android:attr/selectableItemBackground" />
 
 
     </LinearLayout>

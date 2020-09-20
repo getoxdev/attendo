@@ -33,7 +33,7 @@
         android:background="#F6F5F5"
         android:backgroundTint="#F6F5F5"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        android:layout_marginBottom="70dp">
+        android:layout_marginBottom="60dp">
 
 
 
@@ -48,7 +48,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_bar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_gravity="bottom"
         app:menu="@menu/bottom_nav_menu"
         android:background="#FFFCFC"
