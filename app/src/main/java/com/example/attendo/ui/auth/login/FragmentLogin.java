@@ -51,23 +51,16 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private EditText email,password;
     private Button loginbtn;
     private TextView forgotpassword;
-    private TextView register,Google_Signup;
+    private TextView register;
     private logininterface.Presenter presenter;
     private FragmentSignup fragmentSignup;
     private FragmentForgetPassword fragmentForgetpassword;
     private ProgressBar progress;
-    private GoogleSignInClient mGoogleSignInClient;
-    private static final int RC_SIGN_IN = 1;
-    private FirebaseAuth mAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_login, container, false);
-
-        //Google SignUp
-        createRequest();
-        mAuth = FirebaseAuth.getInstance();
 
         email = view.findViewById(R.id.editTextTextPersonName);
         password = view.findViewById(R.id.editTextTextPassword);
@@ -76,14 +69,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         register = view.findViewById(R.id.textViewregister);
         progress = view.findViewById(R.id.progress_circular);
         presenter = new loginPresenter(this);
-        Google_Signup = view.findViewById(R.id.GoogleSignUp);
 
-        Google_Signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-            }
-        });
 
         fragmentSignup = new FragmentSignup();
         fragmentForgetpassword = new FragmentForgetPassword();
@@ -208,64 +194,4 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         fragmentTransaction.replace(R.id.start_frame,fragment);
         fragmentTransaction.addToBackStack(null).commit();
     }
-
-
-        //********GOOGLE SIGN UP CODE*********
-
-    
-    private void createRequest() {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.app_name))
-                .requestEmail()
-                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
-
-    }
-
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-               GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                // ...
-                Toast.makeText(getActivity(),""+e,Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private void firebaseAuthWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getActivity(),"Signup",Toast.LENGTH_SHORT).show();
-                        } else {
-                            /* If sign in fails, display a message to the user. */
-                            Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
-                        }
-                        // ...
-                    }
-                });
-    }
-
 }

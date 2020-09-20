@@ -43,7 +43,7 @@ public class FragmentUserProfile extends Fragment {
 
     Button btn;
     private FragmentProfile fragment_profile;
-    TextView name,college,city,contact;
+    TextView name,college,city,contact,DELETE;
     String user_id;
     ProgressBar pgb;
     ImageView profile,delete;
@@ -70,8 +70,14 @@ public class FragmentUserProfile extends Fragment {
         pgb = view.findViewById(R.id.progressbar);
         profile = view.findViewById(R.id.USER_IMAGE);
         delete = view.findViewById(R.id.Delete_Account);
+        DELETE = view.findViewById(R.id.delete__account);
 
-
+        DELETE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DeleteAccount();
+            }
+        });
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override

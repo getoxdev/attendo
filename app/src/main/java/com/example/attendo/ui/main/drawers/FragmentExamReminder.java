@@ -83,10 +83,7 @@ public class FragmentExamReminder extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* NotificationManager manager = (NotificationManager)getActivity(). getSystemService(NOTIFICATION_SERVICE);
-        assert manager != null;
-        manager.cancel(getActivity().getIntent().getIntExtra(NOTIFICATION_ID, -1));
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();*/
+
     }
 
     @Override
@@ -120,35 +117,16 @@ public class FragmentExamReminder extends Fragment {
                 0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
 
-
-
-
-
-
-
-
-
-
-
-
-
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 bottomSheetDialog.show();
-
 
                  timePicker = bottomSheet.findViewById(R.id.timePicker);
                 label = bottomSheet.findViewById(R.id.reminder_label);
                 Button add = bottomSheet.findViewById(R.id.add_reminder);
 
-
-
-
                 intent.putExtra("notificationId", notificationId);
-
 
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -156,13 +134,7 @@ public class FragmentExamReminder extends Fragment {
                         mylabel = label.getText().toString().trim();
                         intent.putExtra("todo", mylabel);
 
-
-
-                       //Intent frag = new Intent(getActivity(),AlarmReminder.class);
-                        //frag.putExtra("Label", label.getText().toString());
                         flag = true;
-
-
 
                         int hour = timePicker.getCurrentHour();
                         int minute= timePicker.getCurrentMinute();
@@ -205,11 +177,8 @@ public class FragmentExamReminder extends Fragment {
                     }
                 });
 
-
-
             }
         });
-
 
 
       //cancel alarm
@@ -223,9 +192,6 @@ public class FragmentExamReminder extends Fragment {
                 alarm.cancel(alarmIntent);
                 Toast.makeText(getContext(), "Alarm cancelled", Toast.LENGTH_SHORT).show();
 
-
-
-
             }
         });
 
@@ -235,51 +201,10 @@ public class FragmentExamReminder extends Fragment {
         timeShow.setText(retirveTime);
         labelShow.setText(retriveLabel);
 
-
-
-
-
-
-
-
-
-
-
-
-
         return  view;
     }
 
-   /* private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame,fragment);
-        fragmentTransaction.commit();
-    }*/
-
-
-   /*private void updateTimeText(Calendar c) {
-       String timeText = label.getText().toString()+" : Alarm set for : ";
-       timeText += DateFormat.getTimeInstance(DateFormat.SHORT).format(c.getTime());
-      // title.setText("");
-
-       subject.setText(timeText);
-   }
-
-    */
-
-
-  /*  public static PendingIntent getDismissIntent(int notificationId, Context context) {
-        Intent intent = new Intent(context, AlarmReminder.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra(NOTIFICATION_ID, notificationId);
-        PendingIntent dismissIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        return dismissIntent;
-    }*/
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
 
 
     }
-}
+
