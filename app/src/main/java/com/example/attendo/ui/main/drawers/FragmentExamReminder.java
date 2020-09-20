@@ -210,6 +210,7 @@ public class FragmentExamReminder extends Fragment {
         cancelAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cancelAlarm.setSpeed(2f);
                 cancelAlarm.playAnimation();
                 alarm.cancel(alarmIntent);
                 Toast.makeText(getContext(), "Alarm cancelled", Toast.LENGTH_SHORT).show();
