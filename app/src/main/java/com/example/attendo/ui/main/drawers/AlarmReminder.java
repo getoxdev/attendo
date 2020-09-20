@@ -30,7 +30,7 @@ public class AlarmReminder extends BroadcastReceiver {
 
         //get id and message from intent
         int notificationId = intent.getIntExtra("notificationId",0);
-        String message = intent.getStringExtra("label");
+        String message = intent.getStringExtra("todo");
 
 
         //When notification is tapped, Home screen come is logged in
@@ -49,7 +49,7 @@ public class AlarmReminder extends BroadcastReceiver {
                     .setContentIntent(contentIntent)
                     .setPriority(Notification.PRIORITY_HIGH)
                     .setDefaults(Notification.DEFAULT_ALL)
-                    .setVibrate(new long[] {1000,500,1000,500,1000,500})
+                    .setVibrate(new long[] {1000,500,1000,500,1000,500,1000,500})
                     .setAutoCancel(true)
                     ;
 
@@ -65,7 +65,7 @@ public class AlarmReminder extends BroadcastReceiver {
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, channelName, importance);
             channel.enableVibration(true);
-            channel.setVibrationPattern(new long[] {1000,500,1000,500,1000,500});
+            channel.setVibrationPattern(new long[] {1000,500,1000,500,1000,500,1000,500});
             channel.setBypassDnd(true);
             NM.createNotificationChannel(channel);
         }
@@ -80,7 +80,7 @@ public class AlarmReminder extends BroadcastReceiver {
                 .setContentIntent(contentIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setDefaults(Notification.DEFAULT_ALL)
-                .setVibrate(new long[] {1000,500,1000,500,1000,500})
+                .setVibrate(new long[] {1000,500,1000,500,1000,500,1000,500})
                 .setAutoCancel(true)
                 ;
 

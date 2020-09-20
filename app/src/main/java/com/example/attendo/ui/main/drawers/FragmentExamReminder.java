@@ -40,14 +40,9 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class FragmentExamReminder extends Fragment {
 
-
-
-
-  EditText title;
    EditText label;
   FloatingActionButton mFloatingActionButton;
-  Button update,Cancel;
-  TimePicker time,timePicker;
+  TimePicker timePicker;
   TextView timeShow, labelShow;
   CardView alarmCard;
   private boolean flag;
@@ -55,7 +50,7 @@ public class FragmentExamReminder extends Fragment {
   private int notificationId = 5;
    private String mylabel;
   private FragmentHome fragmentHome;
-    TextView subject;
+
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
 
 
@@ -89,7 +84,7 @@ public class FragmentExamReminder extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_exam_reminder, container, false);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Class Reminder");
