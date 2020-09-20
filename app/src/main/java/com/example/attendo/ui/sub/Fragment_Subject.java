@@ -163,11 +163,9 @@ public class Fragment_Subject extends Fragment {
                     public void onClick(View v) {
 
                        subjectanim.setVisibility(View.GONE);
-
-                        celebration.setVisibility(View.VISIBLE);
-                        celebration.playAnimation();
-
-                        if(subjectName.getText().toString() != ""){
+                        if(subjectName.getText().toString().trim().length()>0){
+                            celebration.setVisibility(View.VISIBLE);
+                            celebration.playAnimation();
                             SubEntity subEntity = new SubEntity(subjectName.getText().toString().trim(), 0, 0, 0);
                             subViewModel.insertSubject(subEntity);
                             Handler mhandler = new Handler();
