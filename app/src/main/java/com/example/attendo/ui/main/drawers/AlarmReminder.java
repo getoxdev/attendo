@@ -1,6 +1,7 @@
 package com.example.attendo.ui.main.drawers;
 
 import android.app.Notification;
+import android.app.Notification.Builder;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -43,15 +44,14 @@ public class AlarmReminder extends BroadcastReceiver {
 
             Notification.Builder builder = new Notification.Builder(context)
                     .setSmallIcon(R.drawable.foreground_app_icon)
-                    .setContentTitle("Class Reminder!")
+                    .setContentTitle("Class Reminder")
                     .setContentText(message)
                     .setWhen(System.currentTimeMillis())
                     .setContentIntent(contentIntent)
                     .setPriority(Notification.PRIORITY_HIGH)
                     .setDefaults(Notification.DEFAULT_ALL)
-                    .setVibrate(new long[] {1000,500,1000,500,1000,500,1000,500})
-                    .setAutoCancel(true)
-                    ;
+                    .setVibrate(new long[]{300, 400, 300})
+                    .setAutoCancel(true);
 
             //notify
             NM.notify(notificationId,builder.build());
@@ -60,12 +60,13 @@ public class AlarmReminder extends BroadcastReceiver {
 
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
 
+
             //Notification channel
             CharSequence channelName = "My notifications";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, channelName, importance);
             channel.enableVibration(true);
-            channel.setVibrationPattern(new long[] {1000,500,1000,500,1000,500,1000,500});
+            channel.setVibrationPattern(new long[]{300, 400, 300});
             channel.setBypassDnd(true);
             NM.createNotificationChannel(channel);
         }
@@ -74,15 +75,16 @@ public class AlarmReminder extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
                 .setSmallIcon(R.drawable.foreground_app_icon)
-                .setContentTitle("Class Reminder!")
+                .setContentTitle("Class Reminder")
                 .setContentText(message)
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(contentIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setDefaults(Notification.DEFAULT_ALL)
-                .setVibrate(new long[] {1000,500,1000,500,1000,500,1000,500})
-                .setAutoCancel(true)
-                ;
+                .setVibrate(new long[]{300, 400, 300})
+                .setAutoCancel(true);
+
+        builder.setDefaults(Notification.DEFAULT_SOUND);
 
         //notify
         NM.notify(notificationId,builder.build());

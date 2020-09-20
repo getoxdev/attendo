@@ -40,15 +40,16 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class FragmentExamReminder extends Fragment {
 
-   EditText label;
-  FloatingActionButton mFloatingActionButton;
-  TimePicker timePicker;
-  TextView timeShow, labelShow;
-  CardView alarmCard;
-  private boolean flag;
-  LottieAnimationView cancelAlarm;
-  private int notificationId = 5;
-   private String mylabel;
+    EditText label;
+    FloatingActionButton mFloatingActionButton;
+    TimePicker timePicker;
+    TextView timeShow, labelShow;
+    CardView alarmCard;
+    private boolean flag;
+    LottieAnimationView cancelAlarm;
+    private int notificationId = 5;
+    private String mylabel;
+    private PendingIntent alarmdone;
   private FragmentHome fragmentHome;
 
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
@@ -80,8 +81,8 @@ public class FragmentExamReminder extends Fragment {
         bottomSheetDialog.setDismissWithAnimation(true);
 
         Intent intent = new Intent(getActivity(), AlarmReminder.class);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(getActivity(),
-                0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+
+
         AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
 
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -101,10 +102,13 @@ public class FragmentExamReminder extends Fragment {
                         mylabel = label.getText().toString().trim();
                         intent.putExtra("todo", mylabel);
 
-                        flag = true;
+                        alarmdone = PendingIntent.getBroadcast(getActivity(),
+                                0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
                         int hour = timePicker.getCurrentHour();
                         int minute= timePicker.getCurrentMinute();
+
+                        AlarmReminder reminder = new AlarmReminder();
 
                         //Create Time
                         Calendar startTime = Calendar.getInstance();
@@ -132,7 +136,7 @@ public class FragmentExamReminder extends Fragment {
                         long alarmStartTime = startTime.getTimeInMillis();
 
                         //set Alarm
-                        alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime,alarmIntent);
+                        alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime,alarmdone);
 
 
                         Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG).show();
@@ -156,7 +160,7 @@ public class FragmentExamReminder extends Fragment {
                 cancelAlarm.playAnimation();
                 flag = false;
 
-                alarm.cancel(alarmIntent);
+                alarm.cancel(alarmdone);
                 Toast.makeText(getContext(), "Alarm cancelled", Toast.LENGTH_SHORT).show();
 
             }
