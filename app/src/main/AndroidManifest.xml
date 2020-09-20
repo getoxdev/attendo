@@ -18,14 +18,15 @@
         <activity
             android:name=".ui.splash.IntroActivity"
             android:theme="@style/AppTheme">
+
+        </activity>
+
+        <activity android:name=".ui.main.BottomNavMainActivity" android:theme="@style/AppThemeCustom">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <activity android:name=".ui.main.BottomNavMainActivity" android:theme="@style/AppThemeCustom">
         </activity>
         <activity
             android:name=".ui.auth.AuthenticationActivity"

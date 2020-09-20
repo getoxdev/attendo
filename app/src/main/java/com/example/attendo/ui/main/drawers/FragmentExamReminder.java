@@ -40,16 +40,20 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class FragmentExamReminder extends Fragment {
 
+    Intent intent;
+    PendingIntent alarmIntent;
+    AlarmManager alarm;
+
   EditText title;
-  private EditText label;
+   EditText label;
   FloatingActionButton mFloatingActionButton;
   Button update,Cancel;
-  TimePicker time;
+  TimePicker time,timePicker;
   TextView timeShow, labelShow;
   CardView alarmCard;
   LottieAnimationView cancelAlarm;
   private int notificationId = 5;
-  private String mylabel;
+   String mylabel;
   private FragmentHome fragmentHome;
     TextView subject;
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
@@ -117,13 +121,9 @@ public class FragmentExamReminder extends Fragment {
 
 
 
-        AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-
-        Intent intent = new Intent(getActivity(), AlarmReminder.class);
 
 
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(getActivity(),
-                0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+
 
 
 
@@ -135,7 +135,7 @@ public class FragmentExamReminder extends Fragment {
                 bottomSheetDialog.show();
 
 
-                TimePicker timePicker = bottomSheet.findViewById(R.id.timePicker);
+                 timePicker = bottomSheet.findViewById(R.id.timePicker);
                 label = bottomSheet.findViewById(R.id.reminder_label);
                 Button add = bottomSheet.findViewById(R.id.add_reminder);
 
@@ -145,20 +145,26 @@ public class FragmentExamReminder extends Fragment {
                     public void onClick(View v) {
 
                         mylabel = label.getText().toString().trim();
-
-
+                        intent = new Intent(getActivity(), AlarmReminder.class);
                         intent.putExtra("notificationId", notificationId);
-                        intent.putExtra("todo", mylabel);
-
-                        Intent frag = new Intent(getActivity(),FragmentExamReminder.class);
-                        intent.putExtra("Label", mylabel);
+                        intent.putExtra("todo", label.getText().toString());
 
 
-
+                        alarmIntent = PendingIntent.getBroadcast(getActivity(),
+                                0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
 
 
 
+                       // Intent frag = new Intent(getActivity(),FragmentExamReminder.class);
+                      //  intent.putExtra("Label", label.getText().toString());
+
+
+
+
+
+
+                        alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                         int hour = timePicker.getCurrentHour();
                         int minute= timePicker.getCurrentMinute();
 
@@ -214,15 +220,18 @@ public class FragmentExamReminder extends Fragment {
                 cancelAlarm.playAnimation();
                 alarm.cancel(alarmIntent);
                 Toast.makeText(getContext(), "Alarm cancelled", Toast.LENGTH_SHORT).show();
+
+                timeShow.setText("Set Your Alarm");
+                labelShow.setText("Alarm Name");
+
+
             }
         });
 
-        String retirveTime = retrieve.getString("time" , "Set An Alarm");
-        String retriveLabel = retrieve.getString("label" ,"Your Label");
+        //String retirveTime = retrieve.getString("time" , "Set An Alarm");
+        //String retriveLabel = retrieve.getString("label" ,"Your Label");
 
 
-            timeShow.setText(retirveTime);
-            labelShow.setText(retriveLabel);
 
 
 

@@ -80,7 +80,7 @@ public class AlarmReminder extends BroadcastReceiver {
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setVibrate(new long[] {1000,500,1000,500,1000,500})
                     //.addAction(R.drawable.ic_close_24,"Dismiss",dismissIntent)
-                    .setAutoCancel(false)
+                    .setAutoCancel(true)
                     ;
 
             //notify
@@ -112,7 +112,7 @@ public class AlarmReminder extends BroadcastReceiver {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setVibrate(new long[] {1000,500,1000,500,1000,500})
                 //.addAction(R.drawable.ic_close_24,"Dismiss",dismissIntent)
-                .setAutoCancel(false)
+                .setAutoCancel(true)
                 ;
 
         //notify
