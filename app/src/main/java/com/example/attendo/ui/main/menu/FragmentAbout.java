@@ -35,14 +35,15 @@ public class FragmentAbout extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("About Us");
 
         //connect to developers
-        CardView mentorCard, learner1, learner2, learner3, learner4;
+        CardView mentorCard, learner1, learner2, learner3, learner4, mentor2;
 
         //---------------------------  hooks  ---------------------------------
-        mentorCard = view.findViewById(R.id.mentor_card);
+        mentorCard = view.findViewById(R.id.mentor1);
         learner1 = view.findViewById(R.id.learner1);
         learner2 = view.findViewById(R.id.learner2);
         learner3 = view.findViewById(R.id.learner3);
         learner4 = view.findViewById(R.id.learner4);
+        mentor2 = view.findViewById(R.id.mentor2);
 
         //---------------------------------------------------------------------
 
@@ -296,6 +297,55 @@ public class FragmentAbout extends Fragment {
             }
         });
         //----------------------------------------------------------------------
+
+        //----------------  Mentor card on click  ----------------------------
+        mentor2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(),R.style.BottomSheetDialog);
+                View bottomsheet = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet,
+                        (ConstraintLayout) view.findViewById(R.id.bottom_sheet_container));
+
+                //hooks
+                ImageView github = bottomsheet.findViewById(R.id.github_icon);
+                ImageView linkedin = bottomsheet.findViewById(R.id.linked_icon);
+                ImageView instagram = bottomsheet.findViewById(R.id.instagram_icon);
+                ImageView facebook = bottomsheet.findViewById(R.id.facebook_icon);
+
+                github.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), "Not Available", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+                linkedin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gotoUrl("https://www.linkedin.com/in/nandini-agarwal-889217189/");
+                    }
+                });
+
+                instagram.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), "Not Available", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                facebook.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gotoUrl("https://www.facebook.com/nandini.agarwal.921");
+                    }
+                });
+
+                bottomSheetDialog.setContentView(bottomsheet);
+                bottomSheetDialog.show();
+
+
+            }
+        });
 
 
 
