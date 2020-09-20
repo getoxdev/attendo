@@ -149,10 +149,6 @@ public class FragmentExamReminder extends Fragment {
                 intent.putExtra("notificationId", notificationId);
 
 
-
-
-
-
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
