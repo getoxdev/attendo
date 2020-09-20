@@ -1,5 +1,6 @@
 package com.example.attendo.ui.sub;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -23,6 +24,9 @@ import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,6 +35,7 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.attendo.R;
 import com.example.attendo.data.SubEntity;
+import com.example.attendo.ui.main.BottomNavMainActivity;
 import com.example.attendo.viewmodel.SubjectViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -62,6 +67,7 @@ public class Fragment_Subject extends Fragment {
 
     @BindView(R.id.recyclerview)
     RecyclerView subRView;
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -107,6 +113,8 @@ public class Fragment_Subject extends Fragment {
 
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
+        LottieAnimationView subjectanim = view.findViewById(R.id.subject_lottie_animation_unique);
+        TextView helpText = view.findViewById(R.id.help_text_subject);
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
 
@@ -154,10 +162,10 @@ public class Fragment_Subject extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        celebration.setVisibility(View.VISIBLE);
-                        celebration.playAnimation();
-
-                        if(subjectName.getText().toString() != null){
+                       subjectanim.setVisibility(View.GONE);
+                        if(subjectName.getText().toString().trim().length()>0){
+                            celebration.setVisibility(View.VISIBLE);
+                            celebration.playAnimation();
                             SubEntity subEntity = new SubEntity(subjectName.getText().toString().trim(), 0, 0, 0);
                             subViewModel.insertSubject(subEntity);
                             Handler mhandler = new Handler();
@@ -181,18 +189,34 @@ public class Fragment_Subject extends Fragment {
 
         });
 
+        Animation fadeIN = AnimationUtils.loadAnimation(getContext(), R.anim.fade_card);
+
+
         subListAdapter = new SubListAdapter(getActivity(),mSubjects,fetchVAlue());
         subViewModel = new ViewModelProvider(this).get(SubjectViewModel.class);
         subViewModel.getAllSubjects().observe(getActivity(), new Observer<List<SubEntity>>() {
             @Override
             public void onChanged(@Nullable List<SubEntity> subjects) {
                 subListAdapter.setSubjects(subjects);
+
+                if(subjects.isEmpty()){
+                    helpText.setAnimation(fadeIN);
+                    subjectanim.setAnimation(fadeIN);
+                    helpText.setVisibility(View.VISIBLE);
+                    subjectanim.setVisibility(View.VISIBLE);
+                }
+                else{
+                    helpText.setVisibility(View.GONE);
+                    subjectanim.setVisibility(View.GONE);
+                }
             }
         });
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setAdapter(subListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
 
 //
      return  view;

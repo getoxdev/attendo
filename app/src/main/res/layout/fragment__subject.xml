@@ -15,6 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/sub_info"
+        android:elevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="#F6F5F5"
@@ -36,6 +37,28 @@
         app:tint="@color/white"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:backgroundTint="#9657F1"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/subject_lottie_animation_unique"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:elevation="10dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/study_confused" />
+
+    <TextView
+        android:id="@+id/help_text_subject"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Confused? Click on +  button to add subject"
+        android:layout_gravity="center_horizontal|bottom"
+        android:textSize="17dp"
+        app:layout_anchor="@id/subject_lottie_animation_unique"
+        app:layout_anchorGravity="bottom|center_horizontal"
+        android:textAlignment="center"
+        android:fontFamily="@font/roboto_light"/>
 
 
 
