@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.attendo.R;
 import com.example.attendo.ui.main.FragmentHome;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -39,13 +40,16 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class FragmentExamReminder extends Fragment {
 
-  EditText title,label;
+  EditText title;
+  private EditText label;
   FloatingActionButton mFloatingActionButton;
   Button update,Cancel;
   TimePicker time;
   TextView timeShow, labelShow;
   CardView alarmCard;
+  LottieAnimationView cancelAlarm;
   private int notificationId = 5;
+  private String mylabel;
   private FragmentHome fragmentHome;
     TextView subject;
     public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
@@ -92,6 +96,7 @@ public class FragmentExamReminder extends Fragment {
         timeShow = view.findViewById(R.id.time_show);
         labelShow = view.findViewById(R.id.label_show);
         alarmCard = view.findViewById(R.id.alarm_card_view);
+        cancelAlarm = view.findViewById(R.id.cancel_alarm);
 
 
         SharedPreferences preferences = getContext().getSharedPreferences("MYPREF", 0);
@@ -99,22 +104,26 @@ public class FragmentExamReminder extends Fragment {
 
         SharedPreferences retrieve = getContext().getSharedPreferences("MYPREF" ,0);
 
-
-
-
-        /*Intent get=getActivity().getIntent();
-        if(get.getExtras()!=null){
-            String lab=get.getStringExtra("label");
-            subject.setText(lab);*/
-
-
-
-
-
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
 
         View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet,
                 (ConstraintLayout) view.findViewById(R.id.time_picker_container));
+        bottomSheetDialog.setContentView(bottomSheet);
+        bottomSheetDialog.setDismissWithAnimation(true);
+
+
+
+
+
+
+
+        AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(getActivity(), AlarmReminder.class);
+
+
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(getActivity(),
+                0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
 
 
@@ -122,30 +131,34 @@ public class FragmentExamReminder extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bottomSheetDialog.setContentView(bottomSheet);
-                bottomSheetDialog.setDismissWithAnimation(true);
+
                 bottomSheetDialog.show();
+
 
                 TimePicker timePicker = bottomSheet.findViewById(R.id.timePicker);
                 label = bottomSheet.findViewById(R.id.reminder_label);
                 Button add = bottomSheet.findViewById(R.id.add_reminder);
 
+
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        Intent intent = new Intent(getActivity(), AlarmReminder.class);
+                        mylabel = label.getText().toString().trim();
+
+
                         intent.putExtra("notificationId", notificationId);
-                        intent.putExtra("todo", label.getText().toString());
+                        intent.putExtra("todo", mylabel);
 
                         Intent frag = new Intent(getActivity(),FragmentExamReminder.class);
-                        intent.putExtra("Label",label.getText().toString());
+                        intent.putExtra("Label", mylabel);
 
 
-                        PendingIntent alarmIntent = PendingIntent.getBroadcast(getActivity(),
-                                0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
-                        AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+
+
+
+
                         int hour = timePicker.getCurrentHour();
                         int minute= timePicker.getCurrentMinute();
 
@@ -174,20 +187,11 @@ public class FragmentExamReminder extends Fragment {
                         label.setText("");
                         long alarmStartTime = startTime.getTimeInMillis();
 
-
-                    /*if time is crossed
-                    if(startTime.before(Calendar.getInstance())){
-                        startTime.add(Calendar.DATE, 1);
-                    }*/
-
-
                         //set Alarm
                         alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime,alarmIntent);
 
 
                         Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG).show();
-//                        timeShow.setText(timeshow);
-//                        labelShow.setText(labelshow);
 
                         bottomSheetDialog.dismiss();
 
@@ -196,19 +200,21 @@ public class FragmentExamReminder extends Fragment {
                 });
 
 
-               // setFragment(fragmentHome);
+
             }
         });
 
 
 
-      /* Cancel.setOnClickListener(new View.OnClickListener() {
+      //cancel alarm
+        cancelAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"Reminder Not Added",Toast.LENGTH_LONG).show();
-                //setFragment(fragmentHome);
+                cancelAlarm.playAnimation();
+                alarm.cancel(alarmIntent);
+                Toast.makeText(getContext(), "Alarm cancelled", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
 
         String retirveTime = retrieve.getString("time" , "Set An Alarm");
         String retriveLabel = retrieve.getString("label" ,"Your Label");

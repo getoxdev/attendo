@@ -111,13 +111,12 @@
                 android:fontFamily="@font/roboto_light"/>
 
             <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/cancel_alarm"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="12dp"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
                 android:alpha="0.7"
                 app:lottie_rawRes="@raw/clock_lottie"/>
 
