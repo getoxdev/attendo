@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
@@ -54,7 +55,8 @@ public class AlarmReminder extends BroadcastReceiver {
 
         //get id and message from intent
         int notificationId = intent.getIntExtra("notificationId",0);
-        String message = intent.getStringExtra("todo");
+        String message = intent.getStringExtra("label");
+
 
         //When notification is tapped, Home screen come is logged in
         Intent mainIntent = new Intent(context, AuthenticationActivity.class);
