@@ -53,9 +53,10 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Confused? Click on +  button to add subject"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="140dp"
+        android:layout_gravity="center_horizontal|bottom"
         android:textSize="17dp"
+        app:layout_anchor="@id/subject_lottie_animation_unique"
+        app:layout_anchorGravity="bottom|center_horizontal"
         android:textAlignment="center"
         android:fontFamily="@font/roboto_light"/>
 
