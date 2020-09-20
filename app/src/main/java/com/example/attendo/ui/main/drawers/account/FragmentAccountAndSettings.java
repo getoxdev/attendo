@@ -119,7 +119,6 @@ public class FragmentAccountAndSettings extends Fragment {
         college = view.findViewById(R.id.profile_college);
         profileLottie = view.findViewById(R.id.lottieanimationprofile);
         bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
-        aboutsettings = view.findViewById(R.id.about_settings);
 
         bottomNavigationView.setVisibility(View.VISIBLE);
 
@@ -151,7 +150,6 @@ public class FragmentAccountAndSettings extends Fragment {
 
         AppRate = view.findViewById(R.id.rate_app);
         Bug = view.findViewById(R.id.report_bug);
-        Att = view.findViewById(R.id.edit_attendance);
         Profile = view.findViewById(R.id.view_account);
         AttCritaria = view.findViewById(R.id.edit_attendance_criterion);
         Help = view.findViewById(R.id.help_settings);
@@ -214,13 +212,7 @@ public class FragmentAccountAndSettings extends Fragment {
             }
         });
 
-        Att.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setFragment(fragmentEditAttendance);
-                bottomNavigationView.setVisibility(View.GONE);
-            }
-        });
+
 
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,13 +244,7 @@ public class FragmentAccountAndSettings extends Fragment {
                 bottomNavigationView.setVisibility(View.GONE);
             }
         });
-        aboutsettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setFragment(fragmentInfo);
-                bottomNavigationView.setVisibility(View.GONE);
-            }
-        });
+
 
 
 

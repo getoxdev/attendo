@@ -153,4 +153,8 @@
 
     <!-- Notification -->
     <string name="channel_name">Simple Alarms</string>
+
+
+    <string name="time_set">Set Your Alarm</string>
+    <string name="subject_set">Alarm Name</string>
 </resources>

@@ -1,86 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="?attr/listPreferredItemHeight"
-    android:paddingStart="@dimen/activity_horizontal_margin"
-    android:paddingEnd="@dimen/activity_horizontal_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:layout_height="wrap_content"
     android:foreground="?selectableItemBackground"
     android:clickable="true">
 
-    <TextView
-        android:id="@+id/ar_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="start|bottom"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        tools:text="7:00"/>
 
-    <TextView
-        android:id="@+id/ar_am_pm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAllCaps="true"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_alignBaseline="@+id/ar_time"
-        android:layout_toRightOf="@+id/ar_time"
-        android:layout_toEndOf="@+id/ar_time"
-        tools:text="AM"/>
-
-
-    <ImageView
-        android:id="@+id/ar_repeat_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_repeat_black_24dp"
-        android:layout_toRightOf="@+id/ar_am_pm"
-        android:layout_toEndOf="@+id/ar_am_pm"
-        android:layout_alignTop="@+id/ar_time"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"/>
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_toRightOf="@+id/ar_repeat_icon"
-        android:layout_toEndOf="@+id/ar_repeat_icon"
-        android:layout_toLeftOf="@+id/ar_icon"
-        android:layout_toStartOf="@+id/ar_icon"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_centerVertical="true">
+        android:layout_height="140dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        android:padding="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
 
-        <TextView
-            android:id="@+id/ar_lab"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Get Up"/>
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/ar_day"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="M Tu W Th F Sa Su"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/ar_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="29dp"
+                android:layout_marginTop="8dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:text="7:00"
+                android:padding="8dp"
+                android:layout_marginStart="12dp"/>
 
-    <ImageView
-        android:id="@+id/ar_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:tint="@color/accent"
-        android:src="@drawable/ic_alarm_white_24dp"/>
+            <TextView
+                android:id="@+id/ar_am_pm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_alignBaseline="@+id/ar_time"
+                android:layout_toRightOf="@+id/ar_time"
+                android:layout_toEndOf="@+id/ar_time"
+                android:text="AM"
+                />
 
-</RelativeLayout>
+
+            <ImageView
+                android:id="@+id/ar_repeat_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_repeat_black_24dp"
+                android:layout_toRightOf="@+id/ar_am_pm"
+                android:baselineAlignBottom="true"
+                android:layout_alignBaseline="@id/ar_time"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="20dp"
+                android:layout_toLeftOf="@+id/ar_icon"
+                android:layout_toStartOf="@+id/ar_icon"
+                android:layout_below="@id/ar_time"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/ar_lab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Get Up"/>
+
+                <TextView
+                    android:id="@+id/ar_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="M Tu W Th F Sa Su"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ar_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_alignParentEnd="true"
+                android:tint="#7E3AED"
+                android:src="@drawable/ic_alarm_white_24dp"/>
+
+
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

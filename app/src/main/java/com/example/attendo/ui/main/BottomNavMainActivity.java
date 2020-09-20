@@ -19,11 +19,12 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.FrameLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.attendo.R;
 import com.example.attendo.ui.calendar.FragmentCalender;
 import com.example.attendo.ui.main.drawers.AlarmReminder;
 import com.example.attendo.ui.main.drawers.FragmentExamReminder;
-import com.example.attendo.ui.main.drawers.RemainderMainFragment;
+
 import com.example.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
 import com.example.attendo.ui.main.menu.FragmentAbout;
 import com.example.attendo.ui.sub.Fragment_Subject;
@@ -92,10 +93,11 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             .replace(R.id.container_frame, subject, "subject_fragment")
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .commit();
+
                     break;
 
                 case R.id.reminder_bottom_nav:
-                    Fragment reminder = new RemainderMainFragment();
+                    Fragment reminder = new FragmentExamReminder();
                     selectedFragment = reminder;
                     reminder.setEnterTransition(enter);
                     reminder.setExitTransition(exit);

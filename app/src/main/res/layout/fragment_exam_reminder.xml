@@ -5,122 +5,128 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:backgroundTint="#F6F5F5"
     android:background="#F6F5F5"
-    tools:context=".ui.main.drawers.FragmentExamReminder"
-    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+    tools:context=".ui.main.drawers.FragmentExamReminder">
 
-    <ScrollView
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_rem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end|center_horizontal"
+        android:layout_margin="26dp"
+        android:src="@drawable/ic_alarm_white"
+        app:backgroundTint="#9657F1"
+        app:fabCustomSize="65dp"
+        app:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/idle_card"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="190dp"
+        android:layout_margin="12dp"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
 
-        <LinearLayout
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:src="@drawable/card_background_blurred"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stay Focused"
+            android:layout_gravity="center"
+            android:textSize="35dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="#4A4A4A"/>
 
 
 
-            <TimePicker
-                android:id="@+id/Time_Picker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:animateLayoutChanges="true"
-                android:headerBackground="#6748F3"
-                android:numbersBackgroundColor="#DCD7F6"
-                android:numbersInnerTextColor="@color/white"
-                android:numbersSelectorColor="#724EF1"
-                android:numbersTextColor="#272727"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                app:layout_constraintBottom_toTopOf="@+id/Time_Title"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+    </androidx.cardview.widget.CardView>
 
-            <EditText
-                android:id="@+id/Time_Title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/edittext_field_background"
-                android:drawableStart="@drawable/ic_baseline_access_alarm_24"
-                android:hint=" Enter Class Reminder Title"
-                android:padding="10dp"
-                android:layout_marginRight="17dp"
-                android:layout_marginLeft="17dp"
-                android:textAlignment="inherit"
-                app:layout_constraintBottom_toTopOf="@+id/Set_Time"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.238"
-                app:layout_constraintStart_toStartOf="parent" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/alarm_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_margin="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/idle_card"
+        app:cardBackgroundColor="#FFF"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        android:foreground="?android:selectableItemBackground"
+        android:clickable="true">
 
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/Set_Time"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginBottom="30dp"
-                    android:background="@drawable/edittext_field_background"
-                    android:text="Add"
-                    android:textSize="17dp"
-                    android:clickable="true"
-                    android:textColor="#1914F5"
-                    android:textAllCaps="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/Cancel_Time"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <Button
-                    android:id="@+id/Cancel_Time"
-                    android:layout_width="150dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="28dp"
-                    android:background="@drawable/edittext_field_background"
-                    android:clickable="true"
-                    android:text="Cancel"
-                    android:textSize="17dp"
-                    android:textAllCaps="false"
-                    android:textColor="#FB5050"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-
-
-            </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="30dp"
-                android:text="No Alarm set"
-                android:textSize="20sp"
-                android:layout_gravity="center_horizontal"
-                android:textStyle="bold"/>
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="Alarm Set for"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="19dp"
+                android:textSize="15dp"
+                android:fontFamily="@font/roboto_light"/>
+
+            <TextView
+                android:id="@+id/time_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="35dp"
+                android:text="Set Your Alarm"
+                android:layout_marginStart="19dp"
+                android:textSize="29dp"
+                android:fontFamily="@font/roboto_bold"/>
+
+            <TextView
+                android:id="@+id/label_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="23dp"
+                android:text="Alarm Name"
+                android:textSize="23dp"
+                android:fontFamily="@font/roboto_light"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/cancel_alarm"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:alpha="0.7"
+                app:lottie_rawRes="@raw/clock_lottie"/>
 
 
 
+        </RelativeLayout>
 
 
 
-
-        </LinearLayout>
-
-    </ScrollView>
-
+    </androidx.cardview.widget.CardView>
 
 
 

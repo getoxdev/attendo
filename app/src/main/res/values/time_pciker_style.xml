@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TimePickerStyle">
+        <item name="android:textSize">23dp</item>
+        <item name="android:textColor">#A6A4A4</item>
+    </style>
+</resources>

@@ -31,18 +31,19 @@ import java.util.ArrayList;
 
 import static com.example.attendo.ui.main.drawers.AddEditAlarmActivity.ADD_ALARM;
 import static com.example.attendo.ui.main.drawers.AddEditAlarmActivity.buildAddEditAlarmActivityIntent;
-
+/*
 public final class RemainderMainFragment extends Fragment
         implements LoadAlarmsReceiver.OnAlarmsLoadedListener {
 
-private LoadAlarmsReceiver mReceiver;
-private AlarmsAdapter mAdapter;
+        private LoadAlarmsReceiver mReceiver;
+        private AlarmsAdapter mAdapter;
 
-@Override
-public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mReceiver = new LoadAlarmsReceiver(this);
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                mReceiver = new LoadAlarmsReceiver(this);
         }
+}
 
 @Nullable
 @Override
@@ -102,6 +103,8 @@ public void onAlarmsLoaded(ArrayList<Alarm> alarms) {
         }
 
         }
+
+ */
 
 
 
