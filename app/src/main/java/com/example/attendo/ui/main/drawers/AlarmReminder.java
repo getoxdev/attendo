@@ -21,7 +21,6 @@ import androidx.core.app.NotificationCompat;
 import com.example.attendo.R;
 import com.example.attendo.ui.auth.AuthenticationActivity;
 
-
 public class AlarmReminder extends BroadcastReceiver {
 
     /*int startfrom=0;
@@ -34,7 +33,6 @@ public class AlarmReminder extends BroadcastReceiver {
     };
 
      */
-
 
     private static final String CHANNEL_ID="SAMPLE_CHANNEL";
     public MediaPlayer mediaPlayer;
@@ -49,9 +47,6 @@ public class AlarmReminder extends BroadcastReceiver {
         handler.postDelayed(stopPlayerTask,endAt);
 
          */
-
-
-
 
         //get id and message from intent
         int notificationId = intent.getIntExtra("notificationId",0);
@@ -119,7 +114,6 @@ public class AlarmReminder extends BroadcastReceiver {
 
         //notify
         NM.notify(notificationId,builder.build());
-
 
     }
 
