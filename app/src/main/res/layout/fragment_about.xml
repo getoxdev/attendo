@@ -14,7 +14,6 @@
        android:layout_height="match_parent"
        android:backgroundTint="#F6F5F5"
        android:background="#F6F5F5"
-       android:layout_marginTop="?attr/actionBarSize"
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintBottom_toBottomOf="parent">
 
