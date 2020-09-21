@@ -47,12 +47,9 @@ public class FragmentExamReminder extends Fragment {
     CardView alarmCard;
     private boolean flag;
     LottieAnimationView cancelAlarm;
-    private int notificationId = 5;
     private String mylabel;
     private PendingIntent alarmdone;
-  private FragmentHome fragmentHome;
-
-    public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
+    private Bundle bundle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,6 +64,7 @@ public class FragmentExamReminder extends Fragment {
         alarmCard = view.findViewById(R.id.alarm_card_view);
         cancelAlarm = view.findViewById(R.id.cancel_alarm);
 
+        bundle = new Bundle();
 
         SharedPreferences preferences = getContext().getSharedPreferences("MYPREF", 0);
         SharedPreferences.Editor  editor = preferences.edit();
@@ -82,7 +80,6 @@ public class FragmentExamReminder extends Fragment {
 
         Intent intent = new Intent(getActivity(), AlarmReminder.class);
 
-
         AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
 
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -90,20 +87,19 @@ public class FragmentExamReminder extends Fragment {
             public void onClick(View v) {
                 bottomSheetDialog.show();
 
-                 timePicker = bottomSheet.findViewById(R.id.timePicker);
+                timePicker = bottomSheet.findViewById(R.id.timePicker);
                 label = bottomSheet.findViewById(R.id.reminder_label);
                 Button add = bottomSheet.findViewById(R.id.add_reminder);
-
-                intent.putExtra("notificationId", notificationId);
 
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mylabel = label.getText().toString().trim();
-                        intent.putExtra("todo", mylabel);
 
-                        alarmdone = PendingIntent.getBroadcast(getActivity(),
-                                0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+                        bundle.putString("Label",mylabel);
+                        intent.putExtras(bundle);
+
+                        alarmdone = PendingIntent.getBroadcast(getActivity(), 101,intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
                         int hour = timePicker.getCurrentHour();
                         int minute= timePicker.getCurrentMinute();
@@ -115,7 +111,6 @@ public class FragmentExamReminder extends Fragment {
                         startTime.set(Calendar.HOUR_OF_DAY,hour);
                         startTime.set(Calendar.MINUTE,minute);
                         startTime.set(Calendar.SECOND,0);
-
 
                         //my code to show time and label in cardview
                         String timeshow = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime.getTime());
@@ -138,13 +133,10 @@ public class FragmentExamReminder extends Fragment {
                         //set Alarm
                         alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime,alarmdone);
 
-
                         Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG).show();
 
                         bottomSheetDialog.dismiss();
                         label.setText("");
-
-
                     }
                 });
 
@@ -161,7 +153,7 @@ public class FragmentExamReminder extends Fragment {
                 flag = false;
 
                 alarm.cancel(alarmdone);
-                Toast.makeText(getContext(), "Alarm cancelled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Reminder Cancelled", Toast.LENGTH_SHORT).show();
 
             }
         });

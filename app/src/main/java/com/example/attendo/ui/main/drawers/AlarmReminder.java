@@ -35,18 +35,17 @@ public class AlarmReminder extends BroadcastReceiver {
     {
 
         //get id and message from intent
-        int notificationId = intent.getIntExtra("notificationId",0);
-        String message = intent.getStringExtra("todo");
-
+        String message = intent.getExtras().getString("Label");
 
         //When notification is tapped, Home screen come is logged in
         Intent mainIntent = new Intent(context, AuthenticationActivity.class);
 
-        PendingIntent contentIntent = PendingIntent.getActivity(context,101,mainIntent,0);
+        PendingIntent contentIntent = PendingIntent.getActivity(context,1,mainIntent,0);
 
         NotificationManager NM = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+        {
             //Notification channel
             CharSequence channelName = "Attendo Notifications";
             int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -77,10 +76,8 @@ public class AlarmReminder extends BroadcastReceiver {
                 .setVibrate(new long[]{300, 400, 300})
                 .setAutoCancel(true);
 
-            builder.setDefaults(Notification.DEFAULT_SOUND);
-
             //notify
-            NM.notify(notificationId, builder.build());
+            NM.notify(1, builder.build());
 
     }
 }
