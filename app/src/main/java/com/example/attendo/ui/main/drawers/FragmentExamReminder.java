@@ -120,8 +120,8 @@ public class FragmentExamReminder extends Fragment {
                         editor.putString("label" ,labelshow);
                         editor.commit();
 
-                        String retirveTime = retrieve.getString("time" , "Set An Alarm");
-                        String retriveLabel = retrieve.getString("label" ,"Your Label");
+                        String retirveTime = retrieve.getString("time" , "Set a Reminder");
+                        String retriveLabel = retrieve.getString("label" ,"Reminder Label");
 
                         timeShow.setText(retirveTime);
                         labelShow.setText(retriveLabel);
@@ -155,11 +155,13 @@ public class FragmentExamReminder extends Fragment {
                 alarm.cancel(alarmdone);
                 Toast.makeText(getContext(), "Reminder Cancelled", Toast.LENGTH_SHORT).show();
 
+                timeShow.setText("Set a Reminder");
+                labelShow.setText("Reminder Label");
             }
         });
 
-        String retirveTime = retrieve.getString("time" , "Set An Alarm");
-        String retriveLabel = retrieve.getString("label" ,"Your Label");
+        String retirveTime = retrieve.getString("time" , "Set a Reminder");
+        String retriveLabel = retrieve.getString("label" ,"Reminder Label");
 
         timeShow.setText(retirveTime);
         labelShow.setText(retriveLabel);

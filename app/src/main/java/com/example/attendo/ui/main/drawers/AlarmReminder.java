@@ -61,23 +61,39 @@ public class AlarmReminder extends BroadcastReceiver {
             channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             channel.canShowBadge();
             NM.createNotificationChannel(channel);
-        }
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
-                .setSmallIcon(R.drawable.foreground_app_icon)
-                .setContentTitle("Class Reminder")
-                .setContentText(message)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setWhen(System.currentTimeMillis())
-                .setContentIntent(contentIntent)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setLights(Color.BLUE, 1000, 300)
-                .setVibrate(new long[]{300, 400, 300})
-                .setAutoCancel(true);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
+                    .setSmallIcon(R.drawable.foreground_app_icon)
+                    .setContentTitle("Class Reminder")
+                    .setContentText(message)
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                    .setWhen(System.currentTimeMillis())
+                    .setContentIntent(contentIntent)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setDefaults(Notification.DEFAULT_VIBRATE)
+                    .setLights(Color.BLUE, 1000, 300)
+                    .setAutoCancel(true);
 
             //notify
             NM.notify(1, builder.build());
+        }
+        else
+        {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
+                    .setSmallIcon(R.drawable.foreground_app_icon)
+                    .setContentTitle("Class Reminder")
+                    .setContentText(message)
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                    .setWhen(System.currentTimeMillis())
+                    .setContentIntent(contentIntent)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setDefaults(Notification.DEFAULT_VIBRATE)
+                    .setLights(Color.BLUE, 1000, 300)
+                    .setVibrate(new long[]{300, 400, 300})
+                    .setAutoCancel(true);
 
+            //notify
+            NM.notify(1, builder.build());
+        }
     }
 }
