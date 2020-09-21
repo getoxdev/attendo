@@ -6,6 +6,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -68,26 +69,26 @@ public class AlarmReminder extends BroadcastReceiver {
             channel.enableVibration(true);
             channel.setVibrationPattern(new long[]{300, 400, 300});
             channel.setBypassDnd(true);
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            channel.canShowBadge();
             NM.createNotificationChannel(channel);
+
+
+            //prepeare Notification
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                    .setSmallIcon(R.mipmap.ic_launcher_foreground)
+                    .setContentText(message)
+                    .setContentTitle("Reminder")
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setVibrate(new long[]{300});
+
+
+            builder.setDefaults(Notification.DEFAULT_SOUND);
+
+            //notify
+            NM.notify(notificationId, builder.build());
         }
-
-        //prepeare Notification
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
-                .setSmallIcon(R.drawable.foreground_app_icon)
-                .setContentTitle("Class Reminder")
-                .setContentText(message)
-                .setWhen(System.currentTimeMillis())
-                .setContentIntent(contentIntent)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setVibrate(new long[]{300, 400, 300})
-                .setAutoCancel(true);
-
-        builder.setDefaults(Notification.DEFAULT_SOUND);
-
-        //notify
-        NM.notify(notificationId,builder.build());
 
     }
 
