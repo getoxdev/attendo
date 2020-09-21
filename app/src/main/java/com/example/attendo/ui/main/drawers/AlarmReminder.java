@@ -63,7 +63,7 @@ public class AlarmReminder extends BroadcastReceiver {
             NM.createNotificationChannel(channel);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
-                    .setSmallIcon(R.drawable.foreground_app_icon)
+                    .setSmallIcon(R.drawable.jpg_white_background_app_icon)
                     .setContentTitle("Class Reminder")
                     .setContentText(message)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
@@ -80,7 +80,7 @@ public class AlarmReminder extends BroadcastReceiver {
         else
         {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
-                    .setSmallIcon(R.drawable.foreground_app_icon)
+                    .setSmallIcon(R.drawable.jpg_white_background_app_icon)
                     .setContentTitle("Class Reminder")
                     .setContentText(message)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
