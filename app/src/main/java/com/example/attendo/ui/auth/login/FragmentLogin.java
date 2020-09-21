@@ -161,12 +161,12 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
     @Override
     public boolean isValidEmail() {
-        return Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches();
+        return Patterns.EMAIL_ADDRESS.matcher(email.getText().toString().trim()).matches();
     }
 
     @Override
     public boolean isValidPassword() {
-        if(TextUtils.isEmpty(password.getText().toString()) || password.getText().toString().length()<6){
+        if(TextUtils.isEmpty(password.getText().toString().trim()) || password.getText().toString().trim().length()<6){
             Toast.makeText(getActivity(),"please enter a valid password",Toast.LENGTH_SHORT).show();
             password.setError("Invalid data");
             return false;

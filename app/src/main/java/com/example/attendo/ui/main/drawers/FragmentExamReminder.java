@@ -40,46 +40,16 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class FragmentExamReminder extends Fragment {
 
-   EditText label;
-  FloatingActionButton mFloatingActionButton;
-  TimePicker timePicker;
-  TextView timeShow, labelShow;
-  CardView alarmCard;
-  private boolean flag;
-  LottieAnimationView cancelAlarm;
-  private int notificationId = 5;
-   private String mylabel;
-  private FragmentHome fragmentHome;
-
-    public static final String NOTIFICATION_ID = "NOTIFICATION_ID";
-
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentExamReminder() {
-        // Required empty public constructor
-    }
-
-
-    // TODO: Rename and change types and number of parameters
-    public static FragmentExamReminder newInstance(String param1, String param2) {
-        FragmentExamReminder fragment = new FragmentExamReminder();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
+    EditText label;
+    FloatingActionButton mFloatingActionButton;
+    TimePicker timePicker;
+    TextView timeShow, labelShow;
+    CardView alarmCard;
+    private boolean flag;
+    LottieAnimationView cancelAlarm;
+    private String mylabel;
+    private PendingIntent alarmdone;
+    private Bundle bundle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,6 +64,7 @@ public class FragmentExamReminder extends Fragment {
         alarmCard = view.findViewById(R.id.alarm_card_view);
         cancelAlarm = view.findViewById(R.id.cancel_alarm);
 
+        bundle = new Bundle();
 
         SharedPreferences preferences = getContext().getSharedPreferences("MYPREF", 0);
         SharedPreferences.Editor  editor = preferences.edit();
@@ -108,8 +79,7 @@ public class FragmentExamReminder extends Fragment {
         bottomSheetDialog.setDismissWithAnimation(true);
 
         Intent intent = new Intent(getActivity(), AlarmReminder.class);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(getActivity(),
-                0,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+
         AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
 
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -117,29 +87,30 @@ public class FragmentExamReminder extends Fragment {
             public void onClick(View v) {
                 bottomSheetDialog.show();
 
-                 timePicker = bottomSheet.findViewById(R.id.timePicker);
+                timePicker = bottomSheet.findViewById(R.id.timePicker);
                 label = bottomSheet.findViewById(R.id.reminder_label);
                 Button add = bottomSheet.findViewById(R.id.add_reminder);
-
-                intent.putExtra("notificationId", notificationId);
 
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mylabel = label.getText().toString().trim();
-                        intent.putExtra("todo", mylabel);
 
-                        flag = true;
+                        bundle.putString("Label",mylabel);
+                        intent.putExtras(bundle);
+
+                        alarmdone = PendingIntent.getBroadcast(getActivity(), 101,intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
                         int hour = timePicker.getCurrentHour();
                         int minute= timePicker.getCurrentMinute();
+
+                        AlarmReminder reminder = new AlarmReminder();
 
                         //Create Time
                         Calendar startTime = Calendar.getInstance();
                         startTime.set(Calendar.HOUR_OF_DAY,hour);
                         startTime.set(Calendar.MINUTE,minute);
                         startTime.set(Calendar.SECOND,0);
-
 
                         //my code to show time and label in cardview
                         String timeshow = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime.getTime());
@@ -149,8 +120,8 @@ public class FragmentExamReminder extends Fragment {
                         editor.putString("label" ,labelshow);
                         editor.commit();
 
-                        String retirveTime = retrieve.getString("time" , "Set An Alarm");
-                        String retriveLabel = retrieve.getString("label" ,"Your Label");
+                        String retirveTime = retrieve.getString("time" , "Set a Reminder");
+                        String retriveLabel = retrieve.getString("label" ,"Reminder Label");
 
                         timeShow.setText(retirveTime);
                         labelShow.setText(retriveLabel);
@@ -160,15 +131,12 @@ public class FragmentExamReminder extends Fragment {
                         long alarmStartTime = startTime.getTimeInMillis();
 
                         //set Alarm
-                        alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime,alarmIntent);
-
+                        alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime,alarmdone);
 
                         Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG).show();
 
                         bottomSheetDialog.dismiss();
                         label.setText("");
-
-
                     }
                 });
 
@@ -184,14 +152,16 @@ public class FragmentExamReminder extends Fragment {
                 cancelAlarm.playAnimation();
                 flag = false;
 
-                alarm.cancel(alarmIntent);
-                Toast.makeText(getContext(), "Alarm cancelled", Toast.LENGTH_SHORT).show();
+                alarm.cancel(alarmdone);
+                Toast.makeText(getContext(), "Reminder Cancelled", Toast.LENGTH_SHORT).show();
 
+                timeShow.setText("Set a Reminder");
+                labelShow.setText("Reminder Label");
             }
         });
 
-        String retirveTime = retrieve.getString("time" , "Set An Alarm");
-        String retriveLabel = retrieve.getString("label" ,"Your Label");
+        String retirveTime = retrieve.getString("time" , "Set a Reminder");
+        String retriveLabel = retrieve.getString("label" ,"Reminder Label");
 
         timeShow.setText(retirveTime);
         labelShow.setText(retriveLabel);
