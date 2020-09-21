@@ -28,7 +28,7 @@ import com.example.attendo.ui.auth.AuthenticationActivity;
 
 public class AlarmReminder extends BroadcastReceiver {
 
-    private static final String CHANNEL_ID="SAMPLE_CHANNEL";
+    private static final String CHANNEL_ID="CHANNEL";
 
     @Override
     public void onReceive(Context context, Intent intent)
