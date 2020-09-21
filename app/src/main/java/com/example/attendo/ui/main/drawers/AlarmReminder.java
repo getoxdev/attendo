@@ -6,6 +6,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,7 +31,8 @@ public class AlarmReminder extends BroadcastReceiver {
     private static final String CHANNEL_ID="SAMPLE_CHANNEL";
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context context, Intent intent)
+    {
 
         //get id and message from intent
         int notificationId = intent.getIntExtra("notificationId",0);
@@ -44,8 +46,7 @@ public class AlarmReminder extends BroadcastReceiver {
 
         NotificationManager NM = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
-        {
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
             //Notification channel
             CharSequence channelName = "Attendo Notifications";
             int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -56,11 +57,12 @@ public class AlarmReminder extends BroadcastReceiver {
             channel.enableLights(true);
             channel.setLightColor(Color.BLUE);
             channel.enableVibration(true);
-            channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500});
+            channel.setVibrationPattern(new long[]{300, 400, 300});
+            channel.setBypassDnd(true);
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            channel.canShowBadge();
             NM.createNotificationChannel(channel);
         }
-
-        //prepeare Notification
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
                 .setSmallIcon(R.drawable.foreground_app_icon)
@@ -75,12 +77,10 @@ public class AlarmReminder extends BroadcastReceiver {
                 .setVibrate(new long[]{300, 400, 300})
                 .setAutoCancel(true);
 
-        builder.setDefaults(Notification.DEFAULT_SOUND);
+            builder.setDefaults(Notification.DEFAULT_SOUND);
 
-        //notify
-        NM.notify(notificationId,builder.build());
+            //notify
+            NM.notify(notificationId, builder.build());
 
     }
-
-
 }
