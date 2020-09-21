@@ -34,7 +34,8 @@
         android:clickable="true"
         android:foreground="?android:selectableItemBackground"
         app:cardCornerRadius="15dp"
-        app:cardElevation="0dp"
+        app:cardElevation="15dp"
+        android:outlineSpotShadowColor="#7A31C3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
@@ -68,7 +69,9 @@
         app:layout_constraintTop_toBottomOf="@id/idle_card"
         app:cardBackgroundColor="#FFF"
         app:cardCornerRadius="15dp"
-        app:cardElevation="0dp"
+        app:cardElevation="12dp"
+        android:outlineAmbientShadowColor="#7A31C3"
+        android:outlineSpotShadowColor="#CAA6EF"
         android:foreground="?android:selectableItemBackground"
         android:clickable="true">
 
@@ -110,15 +113,25 @@
                 android:textSize="23dp"
                 android:fontFamily="@font/roboto_light"/>
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/cancel_alarm"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="12dp"
-                android:alpha="0.7"
-                app:lottie_rawRes="@raw/clock_lottie"/>
+           <Button
+               android:id="@+id/cancel_alarm"
+               android:layout_width="wrap_content"
+               android:layout_height="40dp"
+               android:elevation="0dp"
+               android:textColor="#5920D8"
+               android:textSize="15dp"
+               android:stateListAnimator="@animator/card_pressed_animator"
+               android:clickable="true"
+               style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+               app:strokeWidth="1dp"
+               app:strokeColor="#6333D3"
+               app:rippleColor="#AF91F4"
+               android:paddingBottom="4dp"
+               android:textAllCaps="false"
+               android:layout_alignParentEnd="true"
+               android:layout_centerVertical="true"
+               android:layout_marginEnd="10dp"
+               android:text="Alarm"/>
 
 
 

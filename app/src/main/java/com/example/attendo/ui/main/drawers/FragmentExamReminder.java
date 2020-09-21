@@ -45,8 +45,8 @@ public class FragmentExamReminder extends Fragment {
     TimePicker timePicker;
     TextView timeShow, labelShow;
     CardView alarmCard;
+    Button cancelAlarm;
     private boolean flag;
-    LottieAnimationView cancelAlarm;
     private String mylabel;
     private PendingIntent alarmdone;
     private Bundle bundle;
@@ -63,6 +63,7 @@ public class FragmentExamReminder extends Fragment {
         labelShow = view.findViewById(R.id.label_show);
         alarmCard = view.findViewById(R.id.alarm_card_view);
         cancelAlarm = view.findViewById(R.id.cancel_alarm);
+
 
         bundle = new Bundle();
 
@@ -82,6 +83,8 @@ public class FragmentExamReminder extends Fragment {
 
         AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
 
+        cancelAlarm.setEnabled(false);
+
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +102,7 @@ public class FragmentExamReminder extends Fragment {
                         bundle.putString("Label",mylabel);
                         intent.putExtras(bundle);
 
-                        alarmdone = PendingIntent.getBroadcast(getActivity(), 101,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+                        alarmdone = PendingIntent.getBroadcast(getActivity(), 101 ,intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
                         int hour = timePicker.getCurrentHour();
                         int minute= timePicker.getCurrentMinute();
@@ -137,6 +140,8 @@ public class FragmentExamReminder extends Fragment {
 
                         bottomSheetDialog.dismiss();
                         label.setText("");
+                        cancelAlarm.setText("Cancel Alarm");
+                        cancelAlarm.setEnabled(true);
                     }
                 });
 
@@ -148,8 +153,8 @@ public class FragmentExamReminder extends Fragment {
         cancelAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cancelAlarm.setSpeed(2f);
-                cancelAlarm.playAnimation();
+                cancelAlarm.setEnabled(false);
+               cancelAlarm.setText("Set Alarm");
                 flag = false;
 
                 alarm.cancel(alarmdone);

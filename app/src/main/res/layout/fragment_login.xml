@@ -75,7 +75,7 @@
         android:paddingBottom="12dp"
         android:paddingEnd="10dp"
         android:hint="Email ID"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:textAlignment="inherit"
