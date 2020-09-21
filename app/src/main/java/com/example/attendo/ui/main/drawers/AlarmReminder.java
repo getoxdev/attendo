@@ -9,7 +9,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -36,38 +39,24 @@ public class AlarmReminder extends BroadcastReceiver {
 
         //When notification is tapped, Home screen come is logged in
         Intent mainIntent = new Intent(context, AuthenticationActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(context,0,mainIntent,0);
+
+        PendingIntent contentIntent = PendingIntent.getActivity(context,101,mainIntent,0);
 
         NotificationManager NM = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        if(Build.VERSION.SDK_INT<Build.VERSION_CODES.O){
-
-            Notification.Builder builder = new Notification.Builder(context)
-                    .setSmallIcon(R.drawable.foreground_app_icon)
-                    .setContentTitle("Class Reminder")
-                    .setContentText(message)
-                    .setWhen(System.currentTimeMillis())
-                    .setContentIntent(contentIntent)
-                    .setPriority(Notification.PRIORITY_HIGH)
-                    .setDefaults(Notification.DEFAULT_ALL)
-                    .setVibrate(new long[]{300, 400, 300})
-                    .setAutoCancel(true);
-
-            //notify
-            NM.notify(notificationId,builder.build());
-
-        }
-
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O) {
-
-
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+        {
             //Notification channel
-            CharSequence channelName = "My notifications";
+            CharSequence channelName = "Attendo Notifications";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, channelName, importance);
+            channel.setDescription("Reminder");
+            channel.setShowBadge(true);
+            channel.canShowBadge();
+            channel.enableLights(true);
+            channel.setLightColor(Color.BLUE);
             channel.enableVibration(true);
-            channel.setVibrationPattern(new long[]{300, 400, 300});
-            channel.setBypassDnd(true);
+            channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500});
             NM.createNotificationChannel(channel);
         }
 
@@ -77,10 +66,12 @@ public class AlarmReminder extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.foreground_app_icon)
                 .setContentTitle("Class Reminder")
                 .setContentText(message)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(contentIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setDefaults(Notification.DEFAULT_ALL)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setLights(Color.BLUE, 1000, 300)
                 .setVibrate(new long[]{300, 400, 300})
                 .setAutoCancel(true);
 
