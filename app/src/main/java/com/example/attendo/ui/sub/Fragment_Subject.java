@@ -19,6 +19,7 @@ import androidx.transition.TransitionManager;
 
 import android.os.Handler;
 import android.os.Vibrator;
+import android.transition.Explode;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -108,7 +110,7 @@ public class Fragment_Subject extends Fragment {
         final Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
 
-
+        
         Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.card_transition);
 
 
