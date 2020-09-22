@@ -53,7 +53,7 @@ public class FragmentEditAttendanceCriteria extends Fragment {
 
                 String limit = criteria.getText().toString();
                 if(limit.length() >= 3 && !(limit.equals("100"))){
-                    Toast.makeText(getActivity(),"Out Of Range Critaria!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Out Of Range Criteria!",Toast.LENGTH_SHORT).show();
                 }
                 else {
                     percentage.setText(criteria.getText().toString());
