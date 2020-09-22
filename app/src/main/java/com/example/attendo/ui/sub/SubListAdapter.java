@@ -290,6 +290,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         int value1 = Integer.parseInt(criteria);
         criteriadouble = Double.valueOf(value1);
 
+
+
         if(percentagedouble>criteriadouble)
         {
             double value;
@@ -302,12 +304,23 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         }
         else if(percentagedouble<criteriadouble)
         {
-
-
+            if(criteriadouble==100)
+            {
+                if(presentdouble==0.0)
+                {
+                    status = "You must attend next 1 lecture";
+                }
+                else
+                {
+                    status = "Impossible";
+                }
+            }
+           else{
             double value;
             value=ceil(((criteriadouble*(presentdouble+absentdouble))/100 - presentdouble));
             value = value+1;
-            status="You must attend next "+String.format("%.0f",value)+" lectures";
+            status="You must attend next "+String.format("%.0f",value)+" lectures";}
+
         }
         else
         {

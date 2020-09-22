@@ -176,7 +176,7 @@ public class FragmentUserProfile extends Fragment {
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setTitle("Are You Sure?");
         dialog.setMessage("Deleting this account will result in completely removing your account and profile from the system");
-        dialog.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 pgb.setVisibility(View.VISIBLE);
@@ -209,7 +209,7 @@ public class FragmentUserProfile extends Fragment {
                 });
             }
         });
-        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 pgb.setVisibility(View.INVISIBLE);
