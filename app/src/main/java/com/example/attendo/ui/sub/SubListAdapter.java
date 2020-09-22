@@ -3,6 +3,8 @@ package com.example.attendo.ui.sub;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.util.Log;
@@ -21,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -92,6 +95,18 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
 
+        Double cardPerent = Double.valueOf(getPercentage(subEntity.getPresent(), subEntity.getTotal()));
+        Double cardCriterion = Double.valueOf(key);
+
+
+        if(cardPerent < cardCriterion){
+            holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
+        }
+        else{
+            holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+        }
+
+
         holder.btnPres.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +124,13 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 calViewModel.insertDate(calendarEntity);
                 subjectViewModel.updatePresent(pre, id);
                 subjectViewModel.updateTotal(total, id);
+
+                if(cardPerent < cardCriterion){
+                    holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
+                }
+                else{
+                    holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+                }
             }
         });
 
@@ -126,6 +148,13 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                 subjectViewModel.updateAbsent(ab, id);
                 subjectViewModel.updateTotal(total, id);
+
+                if(cardPerent < cardCriterion){
+                    holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
+                }
+                else{
+                    holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+                }
 
             }
         });
