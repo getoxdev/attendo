@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.attendo.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -49,11 +50,18 @@ public class FragmentEditAttendanceCriteria extends Fragment {
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                percentage.setText(criteria.getText().toString());
-                SaveDate();
-                loadData();
-                updateDate();
-                getParentFragmentManager().popBackStack();
+
+                String limit = criteria.getText().toString();
+                if(limit.length() >= 3 && !(limit.equals("100"))){
+                    Toast.makeText(getActivity(),"Out Of Range Critaria!",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    percentage.setText(criteria.getText().toString());
+                    SaveDate();
+                    loadData();
+                    updateDate();
+                    getParentFragmentManager().popBackStack();
+                }
             }
         });
 
