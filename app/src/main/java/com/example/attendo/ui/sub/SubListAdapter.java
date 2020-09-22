@@ -306,9 +306,16 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         {
             if(criteriadouble==100)
             {
-                status = "Impossible";
+                if(presentdouble==0.0)
+                {
+                    status = "You must attend next 1 lecture";
+                }
+                else
+                {
+                    status = "Impossible";
+                }
             }
-            else{
+           else{
             double value;
             value=ceil(((criteriadouble*(presentdouble+absentdouble))/100 - presentdouble));
             value = value+1;
