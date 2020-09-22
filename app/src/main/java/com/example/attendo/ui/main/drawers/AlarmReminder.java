@@ -10,6 +10,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
@@ -22,6 +24,7 @@ import android.util.Log;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.example.attendo.R;
 import com.example.attendo.ui.auth.AuthenticationActivity;
@@ -63,12 +66,13 @@ public class AlarmReminder extends BroadcastReceiver {
             NM.createNotificationChannel(channel);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
-                    .setSmallIcon(R.mipmap.ic_launcher_foreground)
                     .setContentTitle("Class Reminder")
                     .setContentText(message)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                     .setWhen(System.currentTimeMillis())
                     .setContentIntent(contentIntent)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.low_res_app_icon))
+                    .setSmallIcon(R.drawable.foreground_app_icon)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setDefaults(Notification.DEFAULT_VIBRATE)
                     .setLights(Color.BLUE, 1000, 300)
@@ -80,12 +84,13 @@ public class AlarmReminder extends BroadcastReceiver {
         else
         {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context,CHANNEL_ID)
-                    .setSmallIcon(R.mipmap.ic_launcher_foreground)
                     .setContentTitle("Class Reminder")
                     .setContentText(message)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                     .setWhen(System.currentTimeMillis())
                     .setContentIntent(contentIntent)
+                    .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.low_res_app_icon))
+                    .setSmallIcon(R.drawable.foreground_app_icon)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setDefaults(Notification.DEFAULT_VIBRATE)
                     .setLights(Color.BLUE, 1000, 300)
