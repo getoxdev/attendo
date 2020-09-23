@@ -50,10 +50,13 @@ public class FragmentEditAttendanceCriteria extends Fragment {
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String limit = criteria.getText().toString();
                 if(limit.length() >= 3 && !(limit.equals("100"))){
                     Toast.makeText(getActivity(),"Out Of Range Criteria!",Toast.LENGTH_SHORT).show();
+                }
+                else if(limit.length()==0)
+                {
+                    Toast.makeText(getActivity(), "Please enter the Criteria", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     percentage.setText(criteria.getText().toString());

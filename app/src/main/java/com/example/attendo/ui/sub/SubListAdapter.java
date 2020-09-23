@@ -316,8 +316,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         presentdouble = Double.valueOf(present);
         absentdouble = Double.valueOf(absent);
         percentagedouble = Double.valueOf(percentage);
-        int value1 = Integer.parseInt(criteria);
-        criteriadouble = Double.valueOf(value1);
+        criteriadouble = Double.valueOf(criteria);
 
 
 
