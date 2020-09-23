@@ -5,9 +5,7 @@
         android:id="@+id/aboutus"
         android:title="About Us"/>
 
-    <item
-        android:id="@+id/share_menu"
-        android:title="Share"/>
+
 
 
 </menu>

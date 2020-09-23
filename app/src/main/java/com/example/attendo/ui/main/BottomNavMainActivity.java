@@ -166,16 +166,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
                 break;
 
-            case R.id.share_menu:
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                String body = "http://bit.ly/attendoshare";
-                String subject = "AttendoURL";
-                intent.putExtra(Intent.EXTRA_TEXT,body);
-                intent.putExtra(Intent.EXTRA_SUBJECT,subject);
-                startActivity(Intent.createChooser(intent,"Share App Using"));
-
-                break;
 
         }
 
