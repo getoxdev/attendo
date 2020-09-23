@@ -124,7 +124,7 @@ public class FragmentAbout extends Fragment {
                 linkedin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getContext(), "Not Available on LinkedIn", Toast.LENGTH_SHORT).show();
+                        gotoUrl("https://www.linkedin.com/in/raj-kishan-0a02491b8/");
                     }
                 });
 
