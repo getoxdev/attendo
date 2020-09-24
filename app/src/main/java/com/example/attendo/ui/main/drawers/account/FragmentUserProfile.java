@@ -79,6 +79,9 @@ public class FragmentUserProfile extends Fragment {
             }
         });
 
+        mAuth = FirebaseAuth.getInstance();
+        firebaseStorage = FirebaseStorage.getInstance();
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,8 +92,6 @@ public class FragmentUserProfile extends Fragment {
 
         fragment_profile = new FragmentProfile();
 
-        mAuth = FirebaseAuth.getInstance();
-        firebaseStorage = FirebaseStorage.getInstance();
         user_id = mAuth.getCurrentUser().getUid();
         firebaseUser = mAuth.getCurrentUser();
         storage = FirebaseStorage.getInstance();
