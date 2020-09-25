@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -164,6 +165,10 @@ public class BottomNavMainActivity extends AppCompatActivity {
                         .addToBackStack(null)
                         .commit();
 
+                break;
+            case R.id.privacypolicy:
+                Uri uri = Uri.parse("https://attendo.flycricket.io/privacy.html");
+                startActivity(new Intent(Intent.ACTION_VIEW, uri));
                 break;
 
 
