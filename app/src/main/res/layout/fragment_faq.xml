@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="There a ‘+’ floating button present at the bottom right of the subject page under navigation section.  When you press  it, a bottom dialog will appear where you can add your subjects."
+                android:text="There is a ‘+’ floating button present at the bottom right of the subject page under navigation section.  When you press  it, a bottom dialog will appear where you can add your subjects."
                 android:textSize="18dp"
                 android:padding="10dp"
                 android:layout_marginEnd="12dp"
@@ -64,7 +64,7 @@
                 android:text="Click on the ‘alarm icon’ present at the bottom of the page.
  A bottom dialog will appear where you can select your desired time and label.
 Click on the add button to set the reminder.
-In case if want to cancel your alarm, just click on the ‘cancel alarm” button on the same page.
+In case if you want to cancel your alarm, just click on the ‘cancel alarm” button on the same page.
 "
                 android:textSize="18dp"
                 android:padding="10dp"
@@ -91,7 +91,7 @@ In case if want to cancel your alarm, just click on the ‘cancel alarm” butto
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="5.Is an internet connection require for using the app?"
+                android:text="5.Is an internet connection required for using the app?"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:layout_marginTop="7dp"
@@ -140,8 +140,7 @@ Describe the problem that you have faced and click on the send button.
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="By default attendance criteria is set to 75%.
-If you wish to change it,go the edit attendance criteria page, enter your own criteria and click on the change button."
+                android:text="By default attendance criteria is set to 75%. If you wish to change it,go the edit attendance criteria page, enter your own criteria and click on the change button."
                 android:textSize="18dp"
                 android:padding="10dp"
                 android:layout_marginEnd="12dp"
@@ -159,8 +158,7 @@ If you wish to change it,go the edit attendance criteria page, enter your own cr
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="In the account option there  is a ‘Edit Account’ button present at the bottom of that page .
-                Click on it to make changes in your profile."
+                android:text="In the account option there  is a ‘Edit Account’ button present at the bottom of that page. Click on it to make changes in your profile."
                 android:textSize="18dp"
                 android:padding="10dp"
                 android:layout_marginEnd="12dp"
