@@ -123,7 +123,7 @@ public class FragmentExamReminder extends Fragment {
                         editor.putString("label" ,labelshow);
                         editor.commit();
 
-                        String retirveTime = retrieve.getString("time" , "Set a Reminder");
+                        String retirveTime = retrieve.getString("time" , "Reminder Time");
                         String retriveLabel = retrieve.getString("label" ,"Reminder Label");
 
                         timeShow.setText(retirveTime);
@@ -140,7 +140,7 @@ public class FragmentExamReminder extends Fragment {
 
                         bottomSheetDialog.dismiss();
                         label.setText("");
-                        cancelAlarm.setText("Cancel Alarm");
+                        cancelAlarm.setText("Cancel Reminder");
                         cancelAlarm.setEnabled(true);
                     }
                 });

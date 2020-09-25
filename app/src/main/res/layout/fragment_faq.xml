@@ -185,7 +185,7 @@ To delete your account: Click on the  ‘Edit Account’ button under account op
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="10. Found our app usefull , want to appreciate us"
+                android:text="10. Found our app useful? Want to appreciate us?"
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:layout_marginTop="7dp"
@@ -195,7 +195,7 @@ To delete your account: Click on the  ‘Edit Account’ button under account op
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Go the ‘Rate App’ section, give your feedback regarding the app and click on the submit button. You can also rate our app on playstore"
+                android:text="Go the ‘Rate App’ section, give your feedback regarding the app and click on the submit button. You can also rate our app on playstore!"
                 android:textSize="18dp"
                 android:padding="10dp"
                 android:layout_marginEnd="12dp"
