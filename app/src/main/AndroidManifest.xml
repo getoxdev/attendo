@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    package="com.example.attendo">
+    package="com.attendo">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
@@ -16,12 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.main.BottomNavMainActivity"
+            android:name="com.attendo.ui.main.BottomNavMainActivity"
             android:theme="@style/AppThemeCustom">
 
         </activity>
 
-        <activity android:name=".ui.splash.IntroActivity" android:theme="@style/AppTheme">
+        <activity android:name="com.attendo.ui.splash.IntroActivity" android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,10 +28,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.auth.AuthenticationActivity"
+            android:name="com.attendo.ui.auth.AuthenticationActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name="com.attendo.ui.main.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
@@ -45,7 +44,7 @@
             android:resource="@array/preloaded_fonts" />
 
 
-        <receiver android:name=".ui.main.drawers.AlarmReminder"/>
+        <receiver android:name="com.attendo.ui.main.drawers.AlarmReminder"/>
     </application>
 
 

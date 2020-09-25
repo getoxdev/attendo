@@ -5,7 +5,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "com.example.attendo"
+        applicationId "com.attendo"
         manifestPlaceholders = [bootPriority:"999"]
         minSdkVersion 21
         targetSdkVersion 29

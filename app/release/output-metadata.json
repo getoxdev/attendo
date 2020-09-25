@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.attendo",
+  "applicationId": "com.attendo",
   "variantName": "release",
   "elements": [
     {
