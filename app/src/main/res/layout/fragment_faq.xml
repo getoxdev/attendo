@@ -1,17 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.drawers.FragmentFAQ">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="FAQ"
-        android:textSize="50sp"
-        android:gravity="center"
-        />
+        <LinearLayout
+            android:id="@+id/faq_liner_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. How to add subjects ?"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="There a ‘+’ floating button present at the bottom right of the subject page under navigation section.  When you press  it, a bottom dialog will appear where you can add your subjects."
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2. What is the use of Calendar?"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Calendar will keep a track on classes attended for a specific date. So if you want to see the subjects that you had attended on a particular date, simply click on the desired date."
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3. How to use reminder?"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Click on the ‘alarm icon’ present at the bottom of the page.
+ A bottom dialog will appear where you can select your desired time and label.
+Click on the add button to set the reminder.
+In case if want to cancel your alarm, just click on the ‘cancel alarm” button on the same page.
+"
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="4. How to delete and edit subject?"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Long press the subject which you want to delete or edit, a dialog box appear where you can edit the subject name or delete it."
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="5.Is an internet connection require for using the app?"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Yes , AttendO will use your phone’s cellular connection or Wi-Fi network for using authentication and account feature ."
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="6.Found a bug? Report us !"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="If you encounter any type of problem related to its functioning,  then you can report us.
+To report a bug , click the report bug  under account navigation section.
+Describe the problem that you have faced and click on the send button.
+"
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="7. How to edit attendance criteria ?"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="By default attendance criteria is set to 75%.
+If you wish to change it,go the edit attendance criteria page, enter your own criteria and click on the change button."
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="8. How to edit profile account?"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="In the account option there  is a ‘Edit Account’ button present at the bottom of that page .
+                Click on it to make changes in your profile."
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="9. How to delete account?"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Deleting your account is an irreversible process, which can’t revert even if you perform it by accident.
+To delete your account: Click on the  ‘Edit Account’ button under account option. Then, click on ‘delete account’ icon, to permanently delete your account."
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="10. Found our app usefull , want to appreciate us"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Go the ‘Rate App’ section, give your feedback regarding the app and click on the submit button. You can also rate our app on playstore"
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"/>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+</ScrollView>
