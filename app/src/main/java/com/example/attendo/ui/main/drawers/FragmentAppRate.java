@@ -2,6 +2,7 @@ package com.example.attendo.ui.main.drawers;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -16,8 +17,16 @@ import android.widget.Toast;
 
 import com.example.attendo.R;
 import com.firebase.client.Firebase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class FragmentAppRate extends Fragment {
+
+    DatabaseReference databaseReference;
+    FirebaseAuth mAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,16 +39,17 @@ public class FragmentAppRate extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Rate our App");
          feedback=view.findViewById(R.id.feedback);
         btnFeedback=view.findViewById(R.id.btnFeedback);
-        Firebase.setAndroidContext(this.getActivity());
-        String UniqueID_feed;
-        UniqueID_feed = Settings.Secure.getString(getActivity().getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        firebase=new Firebase("https://amanfirstfirebase.firebaseio.com/users"+UniqueID_feed);
+        mAuth=FirebaseAuth.getInstance();
+        String user=mAuth.getCurrentUser().getUid();
+        databaseReference= FirebaseDatabase.getInstance().getReference().child(user);
+
+
         btnFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnFeedback.setEnabled(true);
                 final String msg = feedback.getText().toString().trim();
-                Firebase child_msg = firebase.child("FeedBack");
+
 
                 if (msg.isEmpty()) {
                     feedback.setError("this is a required field");
@@ -47,8 +57,14 @@ public class FragmentAppRate extends Fragment {
                 } else {
                     feedback.setError(null);
                     btnFeedback.setEnabled(true);
-                    child_msg.setValue(msg);
-                    Toast.makeText(getContext(), "Thank You", Toast.LENGTH_SHORT).show();
+                    databaseReference.child("Feedback").setValue(msg).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(getContext(), "Thank You", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
                 }
 
 
