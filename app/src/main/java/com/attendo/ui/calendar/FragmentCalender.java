@@ -77,36 +77,75 @@ public class FragmentCalender extends Fragment {
 
                 if(month<9)
                 {
-                    selectedDate.setText(dayOfMonth+"-"+"0"+(month+1)+"-"+year);
-                    calAdapter = new CalAdapter(getActivity(),mDataList);
-                    calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
-                    calViewModel.getSub(dayOfMonth+"-"+"0"+(month+1)+"-"+year).observe(getActivity(), new Observer<List<String>>() {
-                        @Override
-                        public void onChanged(List<String> strings) {
-                            calAdapter.setData(strings);
+                    if(dayOfMonth<=9)
+                    {
+                        selectedDate.setText("0"+dayOfMonth+"-"+"0"+(month+1)+"-"+year);
+                        calAdapter = new CalAdapter(getActivity(),mDataList);
+                        calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
+                        calViewModel.getSub("0"+dayOfMonth+"-"+"0"+(month+1)+"-"+year).observe(getActivity(), new Observer<List<String>>() {
+                            @Override
+                            public void onChanged(List<String> strings) {
+                                calAdapter.setData(strings);
 
-                        }
-                    });
-                    recyclerView.setAdapter(calAdapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            }
+                        });
+                        recyclerView.setAdapter(calAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+                    }
+                    else {
+                        selectedDate.setText(dayOfMonth + "-" + "0" + (month + 1) + "-" + year);
+                        calAdapter = new CalAdapter(getActivity(), mDataList);
+                        calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
+                        calViewModel.getSub(dayOfMonth + "-" + "0" + (month + 1) + "-" + year).observe(getActivity(), new Observer<List<String>>() {
+                            @Override
+                            public void onChanged(List<String> strings) {
+                                calAdapter.setData(strings);
+
+                            }
+                        });
+                        recyclerView.setAdapter(calAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    }
 
                 }
-                else
-                {
-                    selectedDate.setText(dayOfMonth+"-"+(month+1)+"-"+year);
+                else {
+                    if (dayOfMonth <= 9) {
+                        selectedDate.setText("0"+dayOfMonth + "-" + (month + 1) + "-" + year);
 
-                    Log.e("date",subDate);
-                    calAdapter = new CalAdapter(getActivity(),mDataList);
-                    calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
-                    calViewModel.getSub(dayOfMonth+"-"+(month+1)+"-"+year).observe(getActivity(), new Observer<List<String>>() {
-                        @Override
-                        public void onChanged(List<String> strings) {
-                            calAdapter.setData(strings);
+                        Log.e("date", subDate);
+                        calAdapter = new CalAdapter(getActivity(), mDataList);
+                        calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
+                        calViewModel.getSub("0"+dayOfMonth + "-" + (month + 1) + "-" + year).observe(getActivity(), new Observer<List<String>>() {
+                            @Override
+                            public void onChanged(List<String> strings) {
+                                calAdapter.setData(strings);
 
-                        }
-                    });
-                    recyclerView.setAdapter(calAdapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));}
+                            }
+                        });
+                        recyclerView.setAdapter(calAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    }
+                    else
+                    {
+                        selectedDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+
+                        Log.e("date", subDate);
+                        calAdapter = new CalAdapter(getActivity(), mDataList);
+                        calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
+                        calViewModel.getSub(dayOfMonth + "-" + (month + 1) + "-" + year).observe(getActivity(), new Observer<List<String>>() {
+                            @Override
+                            public void onChanged(List<String> strings) {
+                                calAdapter.setData(strings);
+
+                            }
+                        });
+                        recyclerView.setAdapter(calAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                    }
+                }
 
             }
         });
