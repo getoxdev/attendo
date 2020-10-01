@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -63,7 +64,7 @@ public class Fragment_Subject extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-  private String mParam1;
+    private String mParam1;
     private String mParam2;
 
     public Fragment_Subject() {
@@ -111,6 +112,9 @@ public class Fragment_Subject extends Fragment {
 
         View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet_add_subject,
                 (ConstraintLayout) view.findViewById(R.id.bottom_sheet_add_subject_container));
+
+
+
 
 
 
@@ -179,8 +183,10 @@ public class Fragment_Subject extends Fragment {
                  }
 
         });
+        LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.recycler_view_layout_anim);
 
         Animation fadeIN = AnimationUtils.loadAnimation(getContext(), R.anim.fade_card);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
 
 
         subListAdapter = new SubListAdapter(getActivity(),mSubjects,fetchVAlue());
@@ -189,6 +195,7 @@ public class Fragment_Subject extends Fragment {
             @Override
             public void onChanged(@Nullable List<SubEntity> subjects) {
                 subListAdapter.setSubjects(subjects);
+                recyclerView.setLayoutAnimation(animationController);
 
                 if(subjects.isEmpty()){
                     helpText.setAnimation(fadeIN);
@@ -203,9 +210,13 @@ public class Fragment_Subject extends Fragment {
             }
         });
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
+
         recyclerView.setAdapter(subListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //recycler view fall down anim
+
+
 
 
 

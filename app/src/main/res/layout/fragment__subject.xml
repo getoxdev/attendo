@@ -16,6 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:listitem="@layout/sub_info"
         android:elevation="0dp"
+        android:layoutAnimation="@anim/recycler_view_layout_anim"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="#F6F5F5"

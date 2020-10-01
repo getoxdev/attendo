@@ -26,10 +26,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/idle_card"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="0dp"
         android:layout_margin="12dp"
         android:clickable="true"
         android:foreground="?android:selectableItemBackground"
@@ -38,7 +45,10 @@
         android:outlineSpotShadowColor="#7A31C3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline_reminder">
+
+
 
         <ImageView
             android:layout_width="match_parent"
@@ -66,7 +76,7 @@
         android:layout_margin="12dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/idle_card"
+        app:layout_constraintTop_toBottomOf="@id/guideline_reminder"
         app:cardBackgroundColor="#FFF"
         app:cardCornerRadius="15dp"
         app:cardElevation="12dp"
