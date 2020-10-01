@@ -195,7 +195,7 @@ public class Fragment_Subject extends Fragment {
             @Override
             public void onChanged(@Nullable List<SubEntity> subjects) {
                 subListAdapter.setSubjects(subjects);
-                recyclerView.setLayoutAnimation(animationController);
+                //recyclerView.setLayoutAnimation(animationController);
 
                 if(subjects.isEmpty()){
                     helpText.setAnimation(fadeIN);
