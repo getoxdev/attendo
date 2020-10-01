@@ -16,11 +16,12 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.attendo.ui.main.BottomNavMainActivity"
-            android:theme="@style/AppThemeCustom">
+            android:theme="@style/AppThemeCustom"
+            android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name="com.attendo.ui.splash.IntroActivity" android:theme="@style/AppTheme">
+        <activity android:name="com.attendo.ui.splash.IntroActivity" android:theme="@style/AppTheme" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +30,8 @@
         </activity>
         <activity
             android:name="com.attendo.ui.auth.AuthenticationActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.attendo.ui.main.MainActivity"
             android:label="@string/title_activity_main"
