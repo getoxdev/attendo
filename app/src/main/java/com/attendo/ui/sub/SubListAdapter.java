@@ -309,7 +309,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             value=floor(presentdouble - (criteriadouble*(presentdouble + absentdouble))/100);
             value = value;
             if(value==0.0)
-                status="Dont't miss next lecture";
+                status="Dont't miss next 1 lecture";
             else
                 status="You can skip next "+String.format("%.0f",value)+" lectures";
         }
@@ -335,7 +335,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         }
         else
         {
-            status="Don't miss next lecture";
+            status="Don't miss next 1 lecture";
         }
         return status;
     }
