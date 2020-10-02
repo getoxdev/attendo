@@ -77,7 +77,7 @@
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true"
                     android:transitionName="profileExpand"
-                    app:lottie_rawRes="@raw/account_anim"
+                    app:lottie_rawRes="@raw/account_loading"
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="20dp"/>
 

@@ -57,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/selected_date"
+            android:layoutAnimation="@anim/recycler_view_layout_anim"
             app:layout_constraintTop_toBottomOf="@id/selected_date"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/calendar_card_listitem"

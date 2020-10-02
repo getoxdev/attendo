@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -161,6 +163,10 @@ public class FragmentExamReminder extends Fragment {
 
         timeShow.setText(retirveTime);
         labelShow.setText(retriveLabel);
+
+        Animation scale_fab = AnimationUtils.loadAnimation(getContext(), R.anim.scale_fab);
+
+        mFloatingActionButton.setAnimation(scale_fab);
 
         return  view;
     }

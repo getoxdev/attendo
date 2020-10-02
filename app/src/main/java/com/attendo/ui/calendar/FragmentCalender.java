@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.CalendarView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -62,6 +64,8 @@ public class FragmentCalender extends Fragment {
 
         dateConverter = new DateConverter();
 
+        LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.recycler_view_layout_anim);
+
         subDate = formatter(dateConverter.fromTimestamp(calendar.getDate()));
         selectedDate.setText(subDate);
 
@@ -74,6 +78,7 @@ public class FragmentCalender extends Fragment {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                recyclerView.setLayoutAnimation(controller);
 
                 if(month<9)
                 {
@@ -86,6 +91,7 @@ public class FragmentCalender extends Fragment {
                             @Override
                             public void onChanged(List<String> strings) {
                                 calAdapter.setData(strings);
+
 
                             }
                         });

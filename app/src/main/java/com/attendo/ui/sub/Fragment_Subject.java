@@ -1,5 +1,7 @@
 package com.attendo.ui.sub;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -214,10 +216,8 @@ public class Fragment_Subject extends Fragment {
         recyclerView.setAdapter(subListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        //recycler view fall down anim
-
-
-
+        Animation scale = AnimationUtils.loadAnimation(getContext(), R.anim.scale_fab);
+        fab.setAnimation(scale);
 
 
 //
