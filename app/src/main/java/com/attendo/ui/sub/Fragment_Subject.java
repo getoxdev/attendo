@@ -178,7 +178,6 @@ public class Fragment_Subject extends Fragment {
 
                         }
                         else{
-                            Toast.makeText(getContext(), "Please enter the subject name", Toast.LENGTH_SHORT).show();
                             addSubLayout.setError("Please enter the subject");
 
                         }

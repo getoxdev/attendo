@@ -11,9 +11,9 @@
     android:id="@+id/time_picker_container">
 
     <ImageView
-        android:layout_width="70dp"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="14dp"
         android:src="@drawable/sepatator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
