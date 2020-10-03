@@ -25,7 +25,7 @@
         android:id="@+id/lottie"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        app:layout_constraintBottom_toTopOf="@+id/add_subject_bottomsheet"
+        app:layout_constraintBottom_toTopOf="@id/edittext_input_subject"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,9 +61,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edittext_input_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/add_subject_id"
+        android:layout_marginTop="204dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        style="@style/CustomEditText">
+
+        <EditText
+            android:id="@+id/add_subject_bottomsheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/book_icon_custom_dynamic"
+            android:drawablePadding="10dp"
+            android:hint="Subject"
+            android:padding="12dp"
+            android:elevation="0dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_subject_id" />
+
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <EditText
-        android:id="@+id/add_subject_bottomsheet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
@@ -74,6 +104,7 @@
         android:drawablePadding="10dp"
         android:hint="Type subject name"
         android:padding="12dp"
+        android:visibility="invisible"
         android:elevation="0dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -105,7 +136,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_subject_bottomsheet"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_input_subject"
         app:layout_constraintVertical_bias="0.289" />
 
 
