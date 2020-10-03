@@ -40,6 +40,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private FragmentForgetPassword fragmentForgetpassword;
     private ProgressBar progress;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
