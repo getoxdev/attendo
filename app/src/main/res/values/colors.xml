@@ -15,5 +15,11 @@
     <color name="blue">#03DAC5</color>
 
     <color name="below_criterion_color">#D3BFEF</color>
+    <color name="bg_login">#FAFAFA</color>
+    <color name="bg_bottom_nav">#FFFCFC</color>
+    <color name="card_bg_color">#FFFFFF</color>
+    <color name="btn_tint_color">#F6F2FD</color>
+    <color name="text_color_primary">#3A3A3A</color>
+    <color name="bottom_sheet_bg">#F6F5F5</color>
 
 </resources>

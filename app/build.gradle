@@ -64,7 +64,7 @@ dependencies {
      implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
 
     //lottie animations
-    implementation 'com.airbnb.android:lottie:3.4.1'
+    implementation 'com.airbnb.android:lottie:3.4.4'
 
     //rate app library
     implementation 'com.codemybrainsout.rating:ratingdialog:1.0.8'

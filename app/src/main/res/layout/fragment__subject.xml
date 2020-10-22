@@ -19,7 +19,7 @@
         android:layoutAnimation="@anim/recycler_view_layout_anim"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="#F6F5F5"
+        android:background="@color/bg_login"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -35,7 +35,7 @@
         app:srcCompat="@drawable/fabi_icon_add_drawable"
         android:layout_gravity="end|bottom"
         app:fabCustomSize="60dp"
-        app:tint="@color/white"
+        app:tint="@color/bg_login"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:backgroundTint="#9657F1"/>
 

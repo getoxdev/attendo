@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_login">#000</color>
+    <color name="bg_bottom_nav">#1E1E1E</color>
+    <color name="card_bg_color">#252525</color>
+    <color name="btn_tint_color">#363637</color>
+    <color name="text_color_primary">#EDEDED</color>
+    <color name="bottom_sheet_bg">#252525</color>
+</resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA"
+    android:background="@color/bg_login"
     tools:context=".ui.main.MainActivity">
 
 
@@ -177,7 +177,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.33"/>
+        app:layout_constraintGuide_percent="0.40" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
