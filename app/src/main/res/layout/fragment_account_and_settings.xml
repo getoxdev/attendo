@@ -158,6 +158,24 @@
                 android:backgroundTint="#E3E1E1"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"/>
+            <TextView
+                android:id="@+id/theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Theme"
+                android:drawableLeft="@drawable/theme_icon"
+                android:textAlignment="textStart"
+                android:paddingTop="10dp"
+                android:drawableTint="#292828"
+                android:drawablePadding="15dp"
+                app:layout_constraintTop_toBottomOf="@id/help_settings"
+                android:paddingLeft="25dp"
+                android:textSize="18dp"
+                android:paddingBottom="15dp"
+                android:backgroundTint="#E3E1E1"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"/>
 
 
             <TextView
