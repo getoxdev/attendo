@@ -15,7 +15,7 @@
     <color name="blue">#03DAC5</color>
 
     <color name="below_criterion_color">#D3BFEF</color>
-    <color name="bg_login">#FAFAFA</color>
+    <color name="bg_login">#F8F7F7</color>
     <color name="bg_bottom_nav">#FFFCFC</color>
     <color name="card_bg_color">#FFFFFF</color>
     <color name="btn_tint_color">#F6F2FD</color>
@@ -25,5 +25,6 @@
     <color name="btn_positive_text_color">#7D14F5</color>
     <color name="btn_negative_text_color">#FB5050</color>
     <color name="text_color_secondary">#323131</color>
+    <color name="calendar_bottom_sheet">#FFFFFF</color>
 
 </resources>

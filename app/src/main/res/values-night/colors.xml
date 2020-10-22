@@ -10,5 +10,6 @@
     <color name="btn_positive_text_color">#8684F1</color>
     <color name="btn_negative_text_color">#F47D7D</color>
     <color name="text_color_secondary">#C1C0C0</color>
+    <color name="calendar_bottom_sheet">#2B2A2A</color>
 
 </resources>

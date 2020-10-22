@@ -265,6 +265,7 @@ public class FragmentAccountAndSettings extends Fragment {
             }
         });
 
+        //shared preferences for saving the radio button state of theme selection by user
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MYPREF" , Context.MODE_PRIVATE);
         Editor editor = sharedPreferences.edit();
 
@@ -284,10 +285,9 @@ public class FragmentAccountAndSettings extends Fragment {
                 themeSelect.setDismissWithAnimation(true);
 
                 RadioGroup themeSelectRadioGroup = themeSelect.findViewById(R.id.theme_radio_group);
-                RadioButton darkTheme = themeSelect.findViewById(R.id.dark_theme_select);
-                RadioButton lightTheme = themeSelect.findViewById(R.id.light_theme_select);
                 RadioButton systemDefaultTheme = themeSelect.findViewById(R.id.system_default_theme_select);
 
+                //show the previous setting to the user
                 int selectedRadioButton = load.getInt("check_theme", systemDefaultTheme.getId());
                 themeSelectRadioGroup.check(selectedRadioButton);
 
