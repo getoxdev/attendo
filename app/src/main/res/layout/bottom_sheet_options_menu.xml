@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="130dp"
+    android:layout_height="180dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/bottom_sheet_behavior"
     android:layout_gravity="bottom"
@@ -42,6 +42,21 @@
             android:drawableTint="#9876E8"
             android:textColor="@color/btn_positive_text_color"
             android:drawableStart="@drawable/ic_baseline_delete_24"
+            android:drawablePadding="10dp"
+            android:clickable="true"
+            android:stateListAnimator="@animator/card_pressed_animator"
+            android:foreground="?android:attr/selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/edit_attendance_subject_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Attendance"
+            android:padding="15dp"
+            android:textSize="18dp"
+            android:drawableTint="#9876E8"
+            android:textColor="@color/btn_positive_text_color"
+            android:drawableStart="@drawable/ic_baseline_calendar_today_bottom_nav"
             android:drawablePadding="10dp"
             android:clickable="true"
             android:stateListAnimator="@animator/card_pressed_animator"
