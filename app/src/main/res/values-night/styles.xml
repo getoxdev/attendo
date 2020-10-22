@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+        <!-- Base application theme. -->
+        <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
+            <!-- Customize your theme here. -->
+            <item name="colorPrimary">#8630DC</item>
+            <item name="colorPrimaryDark">#8630DC</item>
+            <item name="colorAccent">#8630DC</item>
+            <item name="android:windowContentTransitions">true</item>
+            <item name="android:statusBarColor">#000000</item>
+            <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+            <item name="textInputStyle">@style/CustomEditText</item>
+        </style>
+
+        <style name="AppThemeCustom" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+            <item name="windowActionBar">false</item>
+            <item name="windowNoTitle">true</item>
+            <item name="android:statusBarColor">#000000</item>
+            <item name="colorPrimary">#8630DC</item>
+            <item name="colorPrimaryDark">#8630DC</item>
+            <item name="colorAccent">#8630DC</item>
+            <item name="android:windowContentTransitions">true</item>
+            <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+            <item name="textInputStyle">@style/CustomEditText</item>
+
+        </style>
+        <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+            <item name="chipBackgroundColor">@color/chip_background_color</item>
+            <item name="android:textColor">@color/chip_text_color</item>
+            <item name="chipIconTint">@color/colorPrimary</item>
+        </style>
+
+        <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+            <item name="cornerFamily">rounded</item>
+            <item name="cornerSize">12dp</item>
+        </style>
+
+        <style name="CustomEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <item name="colorPrimaryDark">#8630DC</item>
+            <item name="colorPrimary">#8630DC</item>
+        </style>
+
+        <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.MaterialComponents.Button.OutlinedButton">
+            <item name="iconPadding">0dp</item>
+            <item name="android:insetTop">0dp</item>
+            <item name="android:insetBottom">0dp</item>
+            <item name="android:paddingLeft">12dp</item>
+            <item name="android:paddingRight">12dp</item>
+            <item name="android:minWidth">48dp</item>
+            <item name="android:minHeight">48dp</item>
+            <item name="iconTint">#000</item>
+        </style>
+
+        <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+        <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+        <style name="AppBarTitleTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+            <item name="android:textSize">30dp</item>
+            <item name="fontFamily">@font/roboto_light</item>
+        </style>
+
+        <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+            <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+
+        </style>
+
+        <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+            <item name="android:background">@android:color/transparent</item>
+
+
+
+        </style>
+
+        <style name="DeleteAlarmDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+            <item name="colorAccent">@color/accent</item>
+        </style>
+
+        <style name="AlertLandingPageTheme" parent="Theme.AppCompat.NoActionBar">
+            <item name="colorPrimary">@color/colorPrimary</item>
+            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+            <item name="colorAccent">@color/accent</item>
+        </style>
+
+
+
+
+
+
+</resources>

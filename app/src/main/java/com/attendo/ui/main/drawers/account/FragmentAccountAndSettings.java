@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.attendo.BuildConfig;
 import com.attendo.R;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.main.drawers.FragmentAppRate;
@@ -285,11 +287,19 @@ public class FragmentAccountAndSettings extends Fragment {
                 themeSelect.setDismissWithAnimation(true);
 
                 RadioGroup themeSelectRadioGroup = themeSelect.findViewById(R.id.theme_radio_group);
+                RadioButton darkTheme = themeSelect.findViewById(R.id.dark_theme_select);
+                RadioButton lightTheme = themeSelect.findViewById(R.id.light_theme_select);
                 RadioButton systemDefaultTheme = themeSelect.findViewById(R.id.system_default_theme_select);
 
                 //show the previous setting to the user
                 int selectedRadioButton = load.getInt("check_theme", systemDefaultTheme.getId());
                 themeSelectRadioGroup.check(selectedRadioButton);
+
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+                    systemDefaultTheme.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                    darkTheme.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                    lightTheme.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                }
 
 
                 themeSelectRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

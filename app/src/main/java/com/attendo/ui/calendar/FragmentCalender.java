@@ -1,5 +1,6 @@
 package com.attendo.ui.calendar;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.CalendarView;
@@ -24,6 +26,8 @@ import com.attendo.R;
 import com.attendo.data.DateConverter;
 import com.attendo.viewmodel.CalViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import org.xmlpull.v1.XmlPullParser;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -66,6 +70,8 @@ public class FragmentCalender extends Fragment {
 
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.recycler_view_layout_anim);
 
+
+
         subDate = formatter(dateConverter.fromTimestamp(calendar.getDate()));
         selectedDate.setText(subDate);
 
@@ -73,6 +79,10 @@ public class FragmentCalender extends Fragment {
         BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(calendarRecycler);
         bottomSheetBehavior.setFitToContents(false);
         bottomSheetBehavior.setHalfExpandedRatio(0.5f);
+
+        Animation bototmSheetPeek = AnimationUtils.loadAnimation(getContext(), R.anim.calendar_bottom_sheet_peek);
+        calendarRecycler.setAnimation(bototmSheetPeek);
+
 
 
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
