@@ -6,7 +6,7 @@
     app:layout_behavior="@string/bottom_sheet_behavior"
     android:layout_gravity="bottom"
     android:background="@drawable/bottom_sheet_background"
-    android:backgroundTint="#F4F4F4"
+    android:backgroundTint="@color/bottom_sheet_bg"
     android:id="@+id/bottom_sheet_options">
 
     <LinearLayout
@@ -28,7 +28,7 @@
             android:drawablePadding="10dp"
             android:drawableTint="#9876E8"
             android:clickable="true"
-            android:textColor="#663CFF"
+            android:textColor="@color/btn_positive_text_color"
             android:stateListAnimator="@animator/card_pressed_animator"
             android:foreground="?android:attr/selectableItemBackground" />
 
@@ -40,7 +40,7 @@
             android:padding="15dp"
             android:textSize="18dp"
             android:drawableTint="#9876E8"
-            android:textColor="#663CFF"
+            android:textColor="@color/btn_positive_text_color"
             android:drawableStart="@drawable/ic_baseline_delete_24"
             android:drawablePadding="10dp"
             android:clickable="true"

@@ -6,4 +6,9 @@
     <color name="btn_tint_color">#363637</color>
     <color name="text_color_primary">#EDEDED</color>
     <color name="bottom_sheet_bg">#252525</color>
+    <color name="btn_tint_2">#3D3A42</color>
+    <color name="btn_positive_text_color">#8684F1</color>
+    <color name="btn_negative_text_color">#F47D7D</color>
+    <color name="text_color_secondary">#C1C0C0</color>
+
 </resources>
