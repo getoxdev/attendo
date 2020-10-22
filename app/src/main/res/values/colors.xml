@@ -26,5 +26,6 @@
     <color name="btn_negative_text_color">#FB5050</color>
     <color name="text_color_secondary">#323131</color>
     <color name="calendar_bottom_sheet">#FFFFFF</color>
+    <color name="about_card_bg">#F1E7FF</color>
 
 </resources>
