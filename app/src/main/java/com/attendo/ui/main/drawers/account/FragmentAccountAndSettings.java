@@ -263,6 +263,7 @@ public class FragmentAccountAndSettings extends Fragment {
                 Toast.makeText(getActivity(),"Logout",Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
                 Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
