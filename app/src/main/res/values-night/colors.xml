@@ -12,5 +12,6 @@
     <color name="text_color_secondary">#C1C0C0</color>
     <color name="calendar_bottom_sheet">#2B2A2A</color>
     <color name="about_card_bg">#313132</color>
+    <color name="profile_image_card">#717171</color>
 
 </resources>
