@@ -27,6 +27,8 @@ import com.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.attendo.viewmodel.CalViewModel;
 import com.attendo.viewmodel.SubjectViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -157,6 +159,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                 TextView editSub = bottomsheet.findViewById(R.id.edit_subject_bottom_sheet);
                 TextView deleteSub = bottomsheet.findViewById(R.id.delete_subject_bottom_sheet);
+                TextView editAttendance = bottomsheet.findViewById(R.id.edit_attendance_subject_bottom_sheet);
                 bottomSheetDialog.findViewById(editSub.getId());
                 bottomSheetDialog.findViewById(deleteSub.getId());
 
@@ -237,6 +240,43 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                         });
                     }
                 });
+
+                editAttendance.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        BottomSheetDialog editAttend = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
+                        View editattendbottomsheet = LayoutInflater.from(mContext).inflate(R.layout.bottom_sheet_edit_attendance,
+                                (ConstraintLayout) holder.itemView.findViewById(R.id.edit_attendance_bottom_sheet_container));
+
+                        editAttend.setContentView(editattendbottomsheet);
+                        editAttend.setDismissWithAnimation(true);
+                        editAttend.show();
+
+                        bottomSheetDialog.dismiss();
+
+                        EditText presentEditText = editAttend.findViewById(R.id.preset_update);
+                        EditText totalEditText = editAttend.findViewById(R.id.total_update);
+                        TextInputLayout presetnEditTextInputlayout = editAttend.findViewById(R.id.present_editText_field);
+                        TextInputLayout totalEditTextInputLayout = editAttend.findViewById(R.id.total_editText_field);
+
+                        if(presentEditText.getText().toString().length() > 0 && totalEditText.getText().toString().length() > 0){
+                            //backend database code goes here
+                            //TODO: Backend database code goes here for updating the attendance
+                        }
+                        else{
+                            if(presentEditText.getText().toString().length() == 0){
+                                presetnEditTextInputlayout.setError("Field cannot be empty");
+                            }
+                            if(totalEditText.getText().toString().length() == 0){
+                                totalEditTextInputLayout.setError("Field cannot be empty");
+                            }
+                        }
+
+                    }
+                });
+
+
+
                 return false;
 
             }

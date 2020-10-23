@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#F6F5F5"
+    android:backgroundTint="@color/bg_login"
     android:background="#F6F5F5"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.calendar.FragmentCalender"
@@ -15,7 +15,7 @@
         android:id="@+id/calendar_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#F6F5F5"
+        android:backgroundTint="@color/bg_login"
         android:background="@color/colorPrimaryDark"
         android:padding="2dp"
         android:animateLayoutChanges="true"
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_sheet_background"
-        android:backgroundTint="#FDFCFC"
+        android:backgroundTint="@color/calendar_bottom_sheet"
         app:behavior_peekHeight="80dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 

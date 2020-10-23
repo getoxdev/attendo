@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F6F5F5"
-    android:backgroundTint="#F6F5F5"
-    tools:context=".ui.main.drawers.account.FragmentProfile">
+    android:background="@color/bg_login"
+    android:backgroundTint="@color/bg_login"
+    tools:context=".ui.main.drawers.account.FragmentProfile"
+    android:fitsSystemWindows="true">
+
+
+    <!--
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,181 +21,229 @@
         app:layout_constraintLeft_toLeftOf="parent">
 
         <LinearLayout
+            android:layout_gravity="top"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/image_cardview"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="50dp"
-                    app:cardCornerRadius="50dp"
-                    android:layout_marginBottom="50dp"
-                    app:layout_constraintBottom_toTopOf="@+id/user_name"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.56">
+                -->
 
-                    <ImageView
-                        android:id="@+id/user_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        app:srcCompat="@drawable/ic_baseline_profile_image_24" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/image_cardview"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        app:cardBackgroundColor="@color/profile_image_card"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/username_input_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.56">
 
-                </androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/user_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_baseline_profile_image_24" />
 
-                <EditText
-                    android:id="@+id/user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginStart="30dp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:background="@drawable/login_btn_bcg"
-                    android:elevation="10dp"
-                    android:ems="10"
-                    android:hint="Username"
-                    android:drawableLeft="@drawable/account_icon"
-                    android:paddingLeft="10dp"
-                    android:drawablePadding="10dp"
-                    android:paddingRight="10dp"
-                    app:layout_constraintBottom_toTopOf="@id/user_school"
-                    android:textAlignment="textStart"
-                    android:inputType="textPersonName" />
+    </androidx.cardview.widget.CardView>
 
-                <EditText
-                    android:id="@+id/user_school"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginStart="30dp"
-                    android:drawableStart="@drawable/ic_baseline_school_24"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/user_city"
-                    android:background="@drawable/login_btn_bcg"
-                    android:elevation="10dp"
-                    android:ems="10"
-                    android:hint="Institution"
-                    android:drawablePadding="10dp"
-                    android:textAlignment="inherit"
-                    android:inputType="textPersonName" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/username_input_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        style="@style/CustomEditText"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/school_input_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
-                <EditText
-                    android:id="@+id/user_city"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/user_phone"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="30dp"
-                    android:drawablePadding="10dp"
-                    android:layout_marginStart="30dp"
-                    android:drawableLeft="@drawable/ic_baseline_home_24"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/login_btn_bcg"
-                    android:elevation="10dp"
-                    android:ems="10"
-                    android:hint="City"
-                    android:textAlignment="inherit"
-                    android:inputType="textPersonName" />
-
-                <EditText
-                    android:id="@+id/user_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="10dp"
-                    app:layout_constraintBottom_toTopOf="@id/user_progressbar"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="@drawable/login_btn_bcg"
-                    android:elevation="10dp"
-                    android:ems="10"
-                    android:hint="Phone Number"
-                    android:drawableLeft="@drawable/ic_baseline_phone_android_24"
-                    android:paddingRight="10dp"
-                    android:paddingLeft="10dp"
-                    android:textAlignment="inherit"
-                    android:inputType="phone" />
-
-                <ProgressBar
-                    android:id="@+id/user_progressbar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/user_phone"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginBottom="20dp"
-                    app:layout_constraintBottom_toTopOf="@id/save_profile"/>
-
-                <Button
-                    android:id="@+id/save_profile"
-                    android:layout_width="140dp"
-                    android:layout_height="60dp"
-                    android:layout_below="@+id/user_phone"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="24dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    app:strokeWidth="0dp"
-                    app:backgroundTint="#E7DDFA"
-                    app:rippleColor="#AF91F4"
-                    android:stateListAnimator="@animator/button_pressed_animator"
-                    android:text="update"
-                    android:textColor="#6720D8"
-                    android:textSize="18dp"
-                    android:elevation="0dp"
-                    app:layout_constraintBottom_toTopOf="@id/skip_account_creation"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent" />
-
-                <TextView
-                    android:id="@+id/skip_account_creation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="Skip Account Creation"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginBottom="20dp"
-                    android:textSize="14dp"
-                    android:textColor="@color/cardview_dark_background"
-                    android:layout_below="@+id/save_profile"/>
+        <EditText
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/account_icon_custom_dynamic"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="textStart"
+            app:layout_constraintBottom_toTopOf="@id/user_school"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
 
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/school_input_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        style="@style/CustomEditText"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/city_input_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
 
+        <EditText
+            android:id="@+id/user_school"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/school_icon_custom_dynamic"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="Institution"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="inherit"
+            app:layout_constraintBottom_toTopOf="@id/user_city"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
 
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-        </LinearLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/city_input_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        style="@style/CustomEditText"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/phone_input_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <EditText
+            android:id="@+id/user_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/home_icon_custom_dynamic"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="City"
+            android:inputType="textPersonName"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="inherit"
+            app:layout_constraintBottom_toTopOf="@id/user_phone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/phone_input_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        style="@style/CustomEditText"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/user_progressbar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <EditText
+            android:id="@+id/user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/phone_android_custom_dynamic"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:hint="Phone Number"
+            android:inputType="phone"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textAlignment="inherit"
+            app:layout_constraintBottom_toTopOf="@id/user_progressbar" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <!--
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-    </ScrollView>
 
 
+
+            </LinearLayout>
+
+
+
+        </ScrollView>
+
+        -->
+
+    <ProgressBar
+        android:id="@+id/user_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/phone_input_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/save_profile"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/save_profile"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/phone_input_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="54dp"
+        android:elevation="0dp"
+        android:stateListAnimator="@animator/button_pressed_animator"
+        android:text="update"
+        android:textColor="@color/btn_positive_text_color"
+        android:textSize="18dp"
+        app:backgroundTint="@color/btn_tint_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:rippleColor="#AF91F4"
+        app:strokeWidth="0dp" />
+
+    <TextView
+        android:id="@+id/skip_account_creation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Skip Account Creation"
+        android:textColor="@color/text_color_secondary"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

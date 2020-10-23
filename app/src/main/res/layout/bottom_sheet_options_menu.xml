@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="130dp"
+    android:layout_height="180dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/bottom_sheet_behavior"
     android:layout_gravity="bottom"
     android:background="@drawable/bottom_sheet_background"
-    android:backgroundTint="#F4F4F4"
+    android:backgroundTint="@color/bottom_sheet_bg"
     android:id="@+id/bottom_sheet_options">
 
     <LinearLayout
@@ -28,7 +28,7 @@
             android:drawablePadding="10dp"
             android:drawableTint="#9876E8"
             android:clickable="true"
-            android:textColor="#663CFF"
+            android:textColor="@color/btn_positive_text_color"
             android:stateListAnimator="@animator/card_pressed_animator"
             android:foreground="?android:attr/selectableItemBackground" />
 
@@ -40,8 +40,23 @@
             android:padding="15dp"
             android:textSize="18dp"
             android:drawableTint="#9876E8"
-            android:textColor="#663CFF"
+            android:textColor="@color/btn_positive_text_color"
             android:drawableStart="@drawable/ic_baseline_delete_24"
+            android:drawablePadding="10dp"
+            android:clickable="true"
+            android:stateListAnimator="@animator/card_pressed_animator"
+            android:foreground="?android:attr/selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/edit_attendance_subject_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Attendance"
+            android:padding="15dp"
+            android:textSize="18dp"
+            android:drawableTint="#9876E8"
+            android:textColor="@color/btn_positive_text_color"
+            android:drawableStart="@drawable/ic_baseline_calendar_today_bottom_nav"
             android:drawablePadding="10dp"
             android:clickable="true"
             android:stateListAnimator="@animator/card_pressed_animator"

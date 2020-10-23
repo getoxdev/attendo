@@ -1,11 +1,20 @@
 package com.attendo.ui.main.drawers.account;
 
+import android.app.AlertDialog.Builder;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.transition.Transition;
@@ -17,10 +26,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.attendo.BuildConfig;
 import com.attendo.R;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.main.drawers.FragmentAppRate;
@@ -31,6 +44,7 @@ import com.attendo.ui.main.drawers.FragmentFAQ;
 import com.attendo.ui.main.drawers.FragmentHelp;
 import com.attendo.ui.main.drawers.FragmentInfo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -51,7 +65,7 @@ public class FragmentAccountAndSettings extends Fragment {
     private FragmentEditAttendance fragmentEditAttendance;
     private FragmentFAQ fragmentFAQ;
     private FragmentInfo fragmentInfo;
-    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings;
+    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme;
     CardView Profile;
     BottomNavigationView bottomNavigationView;
 
@@ -146,6 +160,7 @@ public class FragmentAccountAndSettings extends Fragment {
         AttCritaria = view.findViewById(R.id.edit_attendance_criterion);
         Help = view.findViewById(R.id.help_settings);
         logout = view.findViewById(R.id.logout_settings);
+        theme = view.findViewById(R.id.theme);
 
         Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.card_transition);
 
@@ -248,9 +263,74 @@ public class FragmentAccountAndSettings extends Fragment {
                 Toast.makeText(getActivity(),"Logout",Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
                 Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
+
+        //shared preferences for saving the radio button state of theme selection by user
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MYPREF" , Context.MODE_PRIVATE);
+        Editor editor = sharedPreferences.edit();
+
+        SharedPreferences load = getActivity().getSharedPreferences("MYPREF" , Context.MODE_PRIVATE);
+
+
+        theme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //theme selection by user code goes here
+
+                BottomSheetDialog themeSelect = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
+                View themeBottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_theme_select,
+                        (ConstraintLayout) view.findViewById(R.id.theme_select_bottom_sheet_container));
+                themeSelect.setContentView(themeBottomSheet);
+                themeSelect.show();
+                themeSelect.setDismissWithAnimation(true);
+
+                RadioGroup themeSelectRadioGroup = themeSelect.findViewById(R.id.theme_radio_group);
+                RadioButton darkTheme = themeSelect.findViewById(R.id.dark_theme_select);
+                RadioButton lightTheme = themeSelect.findViewById(R.id.light_theme_select);
+                RadioButton systemDefaultTheme = themeSelect.findViewById(R.id.system_default_theme_select);
+
+                //show the previous setting to the user
+                int selectedRadioButton = load.getInt("check_theme", systemDefaultTheme.getId());
+                themeSelectRadioGroup.check(selectedRadioButton);
+
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+                    systemDefaultTheme.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                    darkTheme.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                    lightTheme.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+                }
+
+
+                themeSelectRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                        i = radioGroup.getCheckedRadioButtonId();
+                        switch (i){
+                            case R.id.dark_theme_select:
+                                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                                themeSelect.dismiss();
+                                break;
+                            case R.id.light_theme_select:
+                                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                                themeSelect.dismiss();
+                                break;
+                            case R.id.system_default_theme_select:
+                                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                                themeSelect.dismiss();
+                                break;
+
+                        }
+                        editor.putInt("check_theme" , i);
+                        editor.commit();
+                    }
+                });
+
+            }
+        });
+
+
 
 
 

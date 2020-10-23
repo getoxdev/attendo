@@ -37,6 +37,7 @@ import com.attendo.data.SubEntity;
 import com.attendo.viewmodel.SubjectViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,7 @@ public class Fragment_Subject extends Fragment {
 
     @BindView(R.id.recyclerview)
     RecyclerView subRView;
+
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -147,6 +149,7 @@ public class Fragment_Subject extends Fragment {
                 TextView update = bottomSheetDialog.findViewById(R.id.add_subject_id);
                 LottieAnimationView celebration = bottomSheetDialog.findViewById(R.id.lottie_animation_add_subject);
                 LottieAnimationView addsub = bottomSheetDialog.findViewById(R.id.lottie);
+                TextInputLayout addSubLayout = bottomSheetDialog.findViewById(R.id.edittext_input_subject);
                 celebration.setVisibility(View.INVISIBLE);
 
 
@@ -158,7 +161,7 @@ public class Fragment_Subject extends Fragment {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        addSubLayout.setErrorEnabled(false);
                        subjectanim.setVisibility(View.GONE);
                         if(subjectName.getText().toString().trim().length()>0){
                             celebration.setVisibility(View.VISIBLE);
@@ -175,7 +178,8 @@ public class Fragment_Subject extends Fragment {
 
                         }
                         else{
-                            Toast.makeText(getContext(), "Please enter the subject name", Toast.LENGTH_SHORT).show();
+                            addSubLayout.setError("Please enter the subject");
+
                         }
 
 

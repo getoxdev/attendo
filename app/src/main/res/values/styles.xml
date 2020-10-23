@@ -1,25 +1,27 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#888686</item>
+        <item name="colorPrimary">#8630DC</item>
+        <item name="colorPrimaryDark">#8630DC</item>
         <item name="colorAccent">#8630DC</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:statusBarColor">#FAFAFA</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="textInputStyle">@style/CustomEditText</item>
     </style>
 
-    <style name="AppThemeCustom" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="AppThemeCustom" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">#CAC9C9</item>
-        <item name="colorPrimary">#E2E3E4</item>
-        <item name="colorPrimaryDark">#918F8F</item>
+        <item name="colorPrimary">#8630DC</item>
+        <item name="colorPrimaryDark">#8630DC</item>
         <item name="colorAccent">#8630DC</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="textInputStyle">@style/CustomEditText</item>
 
     </style>
     <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
@@ -31,6 +33,11 @@
     <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="CustomEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="colorPrimaryDark">#8630DC</item>
+        <item name="colorPrimary">#8630DC</item>
     </style>
 
     <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.MaterialComponents.Button.OutlinedButton">

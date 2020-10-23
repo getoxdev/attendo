@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_login">#000</color>
+    <color name="bg_bottom_nav">#1E1E1E</color>
+    <color name="card_bg_color">#252525</color>
+    <color name="btn_tint_color">#363637</color>
+    <color name="text_color_primary">#EDEDED</color>
+    <color name="bottom_sheet_bg">#252525</color>
+    <color name="btn_tint_2">#3D3A42</color>
+    <color name="btn_positive_text_color">#8684F1</color>
+    <color name="btn_negative_text_color">#F47D7D</color>
+    <color name="text_color_secondary">#C1C0C0</color>
+    <color name="calendar_bottom_sheet">#2B2A2A</color>
+    <color name="about_card_bg">#313132</color>
+    <color name="profile_image_card">#717171</color>
+
+</resources>

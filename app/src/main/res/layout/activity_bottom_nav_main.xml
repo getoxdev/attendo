@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#F6F5F5"
-    android:background="#F6F5F5"
+    android:backgroundTint="@color/bg_login"
+    android:background="@color/bg_login"
     tools:context=".ui.main.BottomNavMainActivity">
 
 
@@ -16,8 +16,8 @@
         app:title="AppBar"
         app:titleTextAppearance="@style/AppBarTitleTextAppearance"
         android:elevation="0dp"
-        android:backgroundTint="#F6F5F5"
-        android:background="#F6F5F5"
+        android:backgroundTint="@color/bg_login"
+        android:background="@color/bg_login"
         app:menu="@menu/new_activity_app_bar_menu"/>
 
 
@@ -30,7 +30,7 @@
         android:layout_marginTop="75dp"
         app:layout_anchor="@id/toolbar_bottom_nav"
         app:layout_anchorGravity="bottom"
-        android:background="#F6F5F5"
+        android:background="@color/bg_login"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:layout_marginBottom="60dp">
 
@@ -47,7 +47,7 @@
         android:layout_height="60dp"
         android:layout_gravity="bottom"
         app:menu="@menu/bottom_nav_menu"
-        android:background="#FFFCFC"
+        android:background="@color/bg_bottom_nav"
         android:animateLayoutChanges="true"
         android:fitsSystemWindows="true"
         app:itemIconTint="#9059E8"

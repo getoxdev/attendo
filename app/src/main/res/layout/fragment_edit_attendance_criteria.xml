@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F5F5"
-    android:backgroundTint="#F6F5F5"
+    android:background="@color/bg_login"
+    android:backgroundTint="@color/bg_login"
     tools:context=".ui.main.drawers.FragmentEditAttendanceCriteria">
 
 
@@ -19,36 +19,52 @@
        app:strokeWidth="0dp"
        android:paddingTop="10dp"
        android:paddingBottom="10dp"
-       app:backgroundTint="#E7DDFA"
+       app:backgroundTint="@color/btn_tint_2"
        app:rippleColor="#AF91F4"
        android:elevation="0dp"
        android:text="Change"
        android:stateListAnimator="@animator/card_pressed_animator"
        android:textAllCaps="false"
-       android:textColor="#6F2FD8"
+       android:textColor="@color/btn_positive_text_color"
        android:textSize="17dp"
        app:layout_constraintBottom_toBottomOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintHorizontal_bias="0.0"
        app:layout_constraintStart_toStartOf="parent" />
 
-   <EditText
-       android:id="@+id/editText"
+   <com.google.android.material.textfield.TextInputLayout
+       android:id="@+id/edit_attendance_criterion_editText"
        android:layout_width="0dp"
        android:layout_height="wrap_content"
-       android:layout_marginStart="24dp"
-       android:layout_marginEnd="24dp"
-       android:layout_marginBottom="56dp"
-       android:inputType="number"
-       android:background="@drawable/custom_input_field"
-       android:drawableStart="@drawable/book_icon_custom_dynamic"
-       android:drawablePadding="10dp"
-       android:hint="Type your criteron"
-       android:padding="10dp"
        app:layout_constraintBottom_toTopOf="@+id/button2"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintHorizontal_bias="1.0"
-       app:layout_constraintStart_toStartOf="parent" />
+       app:layout_constraintStart_toStartOf="parent"
+       android:layout_marginStart="24dp"
+       android:layout_marginEnd="24dp"
+       android:layout_marginBottom="56dp">
+
+      <EditText
+          android:id="@+id/editText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="number"
+          android:drawableStart="@drawable/book_icon_custom_dynamic"
+          android:drawablePadding="10dp"
+          android:hint="Type your criteron"
+          android:padding="12dp"
+          app:layout_constraintBottom_toTopOf="@+id/button2"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="1.0"
+          app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+   </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
    <TextView
        android:id="@+id/textView9"
@@ -59,12 +75,14 @@
        android:text="Current Attendance Criterion:"
        android:textColor="#737373"
        android:textSize="22dp"
-       app:layout_constraintBottom_toTopOf="@+id/editText"
+       app:layout_constraintBottom_toTopOf="@+id/edit_attendance_criterion_editText"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintHorizontal_bias="0.0"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintVertical_bias="0.09" />
+
+   <!--TODO: Implement text input layout like login and signup  -->
 
    <TextView
        android:id="@+id/textView10"
@@ -75,7 +93,7 @@
        android:gravity="center"
        android:text="75"
        android:textSize="40dp"
-       app:layout_constraintBottom_toTopOf="@+id/editText"
+       app:layout_constraintBottom_toTopOf="@+id/edit_attendance_criterion_editText"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintHorizontal_bias="0.498"
        app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +106,7 @@
        android:layout_marginTop="24dp"
        android:layout_marginBottom="24dp"
        android:elevation="0dp"
-       app:layout_constraintBottom_toTopOf="@+id/editText"
+       app:layout_constraintBottom_toTopOf="@+id/edit_attendance_criterion_editText"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintHorizontal_bias="0.0"
        app:layout_constraintStart_toStartOf="parent"

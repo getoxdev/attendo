@@ -9,8 +9,8 @@ android {
         manifestPlaceholders = [bootPriority:"999"]
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -64,7 +64,7 @@ dependencies {
      implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
 
     //lottie animations
-    implementation 'com.airbnb.android:lottie:3.4.1'
+    implementation 'com.airbnb.android:lottie:3.4.4'
 
     //rate app library
     implementation 'com.codemybrainsout.rating:ratingdialog:1.0.8'

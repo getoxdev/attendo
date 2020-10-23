@@ -7,7 +7,7 @@
     tools:context=".ui.main.MainActivity"
     android:id="@+id/parent">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginLeft="15dp"
         android:outlineAmbientShadowColor="#673AB7"
-        app:cardBackgroundColor="#FFFFFF"
+        app:cardBackgroundColor="@color/card_bg_color"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
         android:stateListAnimator="@animator/card_pressed_animator"
@@ -31,7 +31,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/card_bg_color">
 
             <TextView
                 android:id="@+id/subName"
@@ -40,7 +41,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="15dp"
                 android:text="Subject"
-                android:textColor="#3A3A3A"
+                android:textColor="@color/text_color_primary"
                 android:textSize="22dp"
                 android:textStyle="bold" />
 
@@ -53,7 +54,7 @@
                 android:layout_marginTop="14dp"
                 android:layout_marginRight="-9dp"
                 android:text="Attendance: "
-                android:textColor="#434343"
+                android:textColor="@color/text_color_secondary"
                 android:textSize="15dp" />
 
             <TextView
@@ -85,7 +86,7 @@
                 android:layout_marginTop="14dp"
                 android:layout_toRightOf="@id/attendance"
                 android:text="1"
-                android:textColor="#0E0E0E"
+                android:textColor="@color/text_color_primary"
                 android:textSize="15dp"/>
 
             <TextView
@@ -112,7 +113,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_toRightOf="@id/tv1"
                 android:text="2"
-                android:textColor="#171717"
+                android:textColor="@color/text_color_primary"
                 android:textSize="15dp" />
 
             <TextView
@@ -123,7 +124,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="30dp"
                 android:text="75%"
-                android:textColor="#3A3A3A"
+                android:textColor="@color/text_color_primary"
                 android:textSize="22dp" />
 
 
@@ -151,11 +152,11 @@
                 android:clickable="true"
                 style="@style/Widget.MaterialComponents.Button"
                 app:strokeWidth="0dp"
-                app:backgroundTint="#F6F2FD"
+                app:backgroundTint="@color/btn_tint_color"
                 app:rippleColor="#AF91F4"
                 android:textAllCaps="false"
                 android:stateListAnimator="@animator/button_pressed_animator"
-                android:textColor="#1914F5" />
+                android:textColor="@color/btn_positive_text_color" />
 
 
             <Button
@@ -170,18 +171,18 @@
                 android:layout_marginStart="10dp"
                 style="@style/Widget.MaterialComponents.Button"
                 app:strokeWidth="0dp"
-                app:backgroundTint="#F6F2FD"
+                app:backgroundTint="@color/btn_tint_color"
                 app:rippleColor="#AF91F4"
                 android:layout_marginTop="7dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="15dp"
                 android:stateListAnimator="@animator/button_pressed_animator"
-                android:textColor="#FB5050" />
+                android:textColor="@color/btn_negative_text_color" />
 
 
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
