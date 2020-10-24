@@ -35,8 +35,7 @@
             android:id="@+id/preset_update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Present"
-            android:inputType="number"/>
+            android:hint="Present" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,12 +56,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Total Classes"
-            android:inputType="number"/>
+
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
+        android:id="@+id/updateAttendance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/total_editText_field"

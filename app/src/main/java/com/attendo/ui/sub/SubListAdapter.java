@@ -3,6 +3,7 @@ package com.attendo.ui.sub;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,9 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     @Override
     public void onBindViewHolder(@NonNull SubViewHolder holder, int position) {
 
+
         final SubEntity subEntity = mSubjects.get(position);
+        int id = mSubjects.get(position).getId();
         holder.subItemView.setText(subEntity.getSubject());
         holder.tvPres.setText(String.valueOf(subEntity.getPresent()));
         holder.tvTotal.setText(String.valueOf(subEntity.getTotal()));
@@ -224,6 +227,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                         TextView update = bottomSheetDialogedit.findViewById(R.id.add_subject_id);
                         LottieAnimationView animation = bottomSheetDialogedit.findViewById(R.id.lottie);
 
+
                         update.setText("Update Subject");
                         animation.setAnimation(R.raw.study_confused);
 
@@ -256,21 +260,50 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                         EditText presentEditText = editAttend.findViewById(R.id.preset_update);
                         EditText totalEditText = editAttend.findViewById(R.id.total_update);
+                        Button updateAttendance =  editAttend.findViewById(R.id.updateAttendance);
                         TextInputLayout presetnEditTextInputlayout = editAttend.findViewById(R.id.present_editText_field);
                         TextInputLayout totalEditTextInputLayout = editAttend.findViewById(R.id.total_editText_field);
 
-                        if(presentEditText.getText().toString().length() > 0 && totalEditText.getText().toString().length() > 0){
-                            //backend database code goes here
-                            //TODO: Backend database code goes here for updating the attendance
-                        }
-                        else{
-                            if(presentEditText.getText().toString().length() == 0){
-                                presetnEditTextInputlayout.setError("Field cannot be empty");
+
+
+
+                        updateAttendance.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                int pre = Integer.parseInt(presentEditText.getText().toString());
+                                int tot = Integer.parseInt(totalEditText.getText().toString());
+
+                                holder.tvPres.setText(String.valueOf(pre));
+                                holder.tvTotal.setText(String.valueOf(tot));
+                                subjectViewModel.updatePresent(pre,id);
+                                subjectViewModel.updateTotal(tot,id);
+
+
+
                             }
-                            if(totalEditText.getText().toString().length() == 0){
-                                totalEditTextInputLayout.setError("Field cannot be empty");
-                            }
-                        }
+                        });
+
+
+
+
+
+
+
+//                        if(presentEditText.getText().toString().length() > 0 && totalEditText.getText().toString().length() > 0){
+//
+//                            //backend database code goes here
+//
+//
+//                            //TODO: Backend database code goes here for updating the attendanc
+//                            }
+//                        else{
+//                            if(presentEditText.getText().toString().length() == 0){
+//                                presetnEditTextInputlayout.setError("Field cannot be empty");
+//                            }
+//                            if(totalEditText.getText().toString().length() == 0){
+//                                totalEditTextInputLayout.setError("Field cannot be empty");
+//                            }
+//                        }
 
                     }
                 });
@@ -299,7 +332,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     public class SubViewHolder extends RecyclerView.ViewHolder {
 
         private TextView subItemView, tvTotal, tvPres, percent,status,criteria;
-        private Button btnAbs, btnPres;
+        private Button btnAbs, btnPres,upadt;
         private CardView card;
 
         public SubViewHolder(View itemView) {
@@ -313,6 +346,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             percent = itemView.findViewById(R.id.percentage);
             status = itemView.findViewById(R.id.status_counter);
             criteria = itemView.findViewById(R.id.textView10);
+            upadt = itemView.findViewById(R.id.updateAttendance);
         }
     }
 
