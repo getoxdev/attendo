@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -270,13 +271,22 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                         updateAttendance.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+
+
                                 int pre = Integer.parseInt(presentEditText.getText().toString());
                                 int tot = Integer.parseInt(totalEditText.getText().toString());
+                                if(pre>tot)
+                                {
+                                    Toast.makeText(mContext,"Present classes should be less than total classes",Toast.LENGTH_SHORT).show();
 
-                                holder.tvPres.setText(String.valueOf(pre));
-                                holder.tvTotal.setText(String.valueOf(tot));
-                                subjectViewModel.updatePresent(pre,id);
-                                subjectViewModel.updateTotal(tot,id);
+                                }
+                                else
+                                {
+                                    holder.tvPres.setText(String.valueOf(pre));
+                                    holder.tvTotal.setText(String.valueOf(tot));
+                                    subjectViewModel.updatePresent(pre,id);
+                                    subjectViewModel.updateTotal(tot,id);
+                                }
 
 
 
@@ -407,6 +417,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             status="You must attend next "+String.format("%.0f",value)+" lectures";}
 
         }
+
         else
         {
             status="Don't miss next 1 lecture";

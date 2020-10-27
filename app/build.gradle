@@ -72,6 +72,13 @@ dependencies {
     //overscroll method
     implementation 'me.everything:overscroll-decor-android:1.1.0'
 
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+
+    //firebase
+    implementation 'com.google.firebase:firebase-messaging:20.3.0'
+
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

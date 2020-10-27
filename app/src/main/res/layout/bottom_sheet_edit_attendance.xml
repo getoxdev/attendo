@@ -35,7 +35,8 @@
             android:id="@+id/preset_update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Present" />
+            android:hint="Present"
+            android:inputType="number"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,6 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Total Classes"
+            android:inputType="number"
 
             />
 
