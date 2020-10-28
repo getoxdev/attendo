@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.room.Database;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,6 +24,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.attendo.ui.CustomLoadingDialog;
+import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.auth.FragmentForgetPassword;
 import com.attendo.R;
 import com.attendo.ui.auth.signup.FragmentSignup;
@@ -43,6 +46,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.Executor;
 
@@ -214,21 +222,26 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
+        //TODO: Add the loadin animation dialog here
+        CustomLoadingDialog loadingDialog = new CustomLoadingDialog(getActivity());
+        loadingDialog.startDialog(false);
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener( getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            loadingDialog.dismissDialog();
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(getContext(), "Sign In succesful" ,Toast.LENGTH_SHORT).show();
 
-                            setDataGoogleSignIn(fragmentProfile);
-                            setNextFragment(fragmentProfile);
+                            checkUser();
+
+
                         }
                         else {
+                            loadingDialog.dismissDialog();
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Snackbar.make(getView(), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
@@ -322,5 +335,35 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.start_frame,fragment);
         fragmentTransaction.addToBackStack(null).commit();
+    }
+
+    private void checkUser(){
+
+        if(mAuth.getCurrentUser() != null) {
+            final String id = mAuth.getCurrentUser().getUid();
+            DatabaseReference mData = FirebaseDatabase.getInstance().getReference("data");
+
+            mData.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.hasChild(mAuth.getCurrentUser().getUid())) {
+                        Intent newIntent = new Intent(getActivity(), BottomNavMainActivity.class);
+                        startActivity(newIntent);
+                        getActivity().finish();
+                    } else {
+                        setNextFragment(fragmentProfile);
+                        setDataGoogleSignIn(fragmentProfile);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
+
     }
 }
