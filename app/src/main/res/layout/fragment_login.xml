@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.178" />
+        app:layout_constraintVertical_bias="0.03" />
 
     <ProgressBar
         android:id="@+id/progress_circular"
@@ -28,7 +28,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.894" />
+        app:layout_constraintVertical_bias="0.937" />
 
     <TextView
         android:id="@+id/textView2"
@@ -40,24 +40,25 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/login_edit_text_layout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.759" />
+        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.681" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="Sign In"
         android:textColor="#505050"
         android:textSize="28dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.588"
+        app:layout_constraintHorizontal_bias="0.887"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.454" />
+        app:layout_constraintVertical_bias="0.38" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/login_edit_text_layout"
@@ -65,11 +66,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView3">
+        app:layout_constraintTop_toBottomOf="@id/textView3"
+        app:layout_constraintBottom_toTopOf="@id/passowrd_edit_text_layout">
 
         <EditText
             android:id="@+id/editTextTextPersonName"
@@ -80,14 +82,8 @@
             android:ems="10"
             android:hint="Email ID"
             android:inputType="textEmailAddress"
-            android:paddingStart="16dp"
             android:textAlignment="inherit"
-            android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5"
-            app:layout_constraintVertical_bias="0.185" />
+            android:textStyle="normal" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -116,13 +112,7 @@
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
-            android:textAlignment="inherit"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_edit_text_layout"
-            app:layout_constraintVertical_bias="0.063" />
+            android:textAlignment="inherit" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -145,8 +135,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.204"
+        app:layout_constraintTop_toBottomOf="@+id/other_signIn_options_btn"
+        app:layout_constraintVertical_bias="0.047"
         app:rippleColor="#AF91F4"
         app:strokeColor="#6333D3"
         app:strokeWidth="1dp" />
@@ -172,31 +162,34 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewforgot" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewforgot"
+        app:layout_constraintVertical_bias="0.728" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.69"/>
+        app:layout_constraintGuide_percent="0.67" />
 
     <Button
         android:id="@+id/other_signIn_options_btn"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:text="Other ways to sign in"
+        android:layout_marginTop="8dp"
+        android:text="Sign In Using"
         android:textAllCaps="false"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        app:strokeWidth="1dp"
+        android:textColor="@color/text_color_secondary"
+        android:textSize="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline2"
         app:rippleColor="#AF91F4"
         app:strokeColor="#6333D3"
-        app:layout_constraintTop_toBottomOf="@id/guideline2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:textSize="10dp"
-        android:textColor="@color/text_color_secondary"/>
+        app:strokeWidth="1dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
