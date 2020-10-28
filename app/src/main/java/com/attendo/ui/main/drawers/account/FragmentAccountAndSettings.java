@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -20,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
 
+import android.os.Handler;
 import android.transition.Explode;
 import android.transition.Fade;
 import android.view.LayoutInflater;
@@ -43,6 +46,7 @@ import com.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.attendo.ui.main.drawers.FragmentFAQ;
 import com.attendo.ui.main.drawers.FragmentHelp;
 import com.attendo.ui.main.drawers.FragmentInfo;
+import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.transition.MaterialSharedAxis;
@@ -201,13 +205,44 @@ public class FragmentAccountAndSettings extends Fragment {
         fragmentInfo.setExitTransition(exit);
 
 
-
+        Drawable drawable = getActivity().getDrawable(R.drawable.app_icon_middle_portion_removed);
 
         AppRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragment(fragmentAppRate);
-                bottomNavigationView.setVisibility(View.GONE);
+//                setFragment(fragmentAppRate);
+//                bottomNavigationView.setVisibility(View.GONE);
+                final RatingDialog ratingDialog = new RatingDialog.Builder(getContext())
+                        .icon(drawable)
+                        .threshold(2)
+                        .title("How was your experience with us?")
+                        .titleTextColor(R.color.text_color_primary)
+                        .ratingBarColor(R.color.btn_positive_text_color)
+                        .playstoreUrl("https://play.google.com/store/apps/details?id=com.attendo")
+                        .onThresholdCleared(new RatingDialog.Builder.RatingThresholdClearedListener() {
+                            @Override
+                            public void onThresholdCleared(RatingDialog ratingDialog, float rating, boolean thresholdCleared) {
+                                Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if(thresholdCleared && rating>3){
+                                            Toast.makeText(getContext(), "Thank You So Much", Toast.LENGTH_SHORT).show();
+                                            gotoUrl("https://play.google.com/store/apps/details?id=com.attendo");
+                                            ratingDialog.dismiss();
+                                        }
+                                        else if(thresholdCleared && rating<=3){
+                                            Toast.makeText(getContext(), "Please Suggest Us", Toast.LENGTH_SHORT).show();
+                                            gotoUrl("https://play.google.com/store/apps/details?id=com.attendo");
+                                            ratingDialog.dismiss();
+                                        }
+                                    }
+                                },600);
+                            }
+                        })
+                        .build();
+                ratingDialog.show();
+
             }
         });
 
@@ -343,6 +378,12 @@ public class FragmentAccountAndSettings extends Fragment {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container_frame,fragment);
         fragmentTransaction.addToBackStack(null).commit();
+    }
+
+    private void gotoUrl(String url){
+
+        Uri uri = Uri.parse(url);
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
 }

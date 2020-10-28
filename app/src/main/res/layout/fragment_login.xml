@@ -39,11 +39,11 @@
         android:textColor="#424141"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/login_edit_text_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="@+id/imageView5"
-        app:layout_constraintVertical_bias="0.681" />
+        app:layout_constraintVertical_bias="0.506" />
 
     <TextView
         android:id="@+id/textView3"
@@ -55,23 +55,25 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.887"
+        app:layout_constraintHorizontal_bias="0.854"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.38" />
+        app:layout_constraintVertical_bias="0.445" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/login_edit_text_layout"
         style="@style/CustomEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        app:layout_constraintBottom_toTopOf="@id/passowrd_edit_text_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView3"
-        app:layout_constraintBottom_toTopOf="@id/passowrd_edit_text_layout">
+        app:layout_constraintVertical_bias="1.0">
 
         <EditText
             android:id="@+id/editTextTextPersonName"
@@ -100,7 +102,6 @@
         android:layout_marginBottom="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_edit_text_layout"
         app:passwordToggleEnabled="true">
 
         <EditText
@@ -181,6 +182,7 @@
         android:layout_height="35dp"
         android:layout_marginTop="8dp"
         android:text="Sign In Using"
+        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/text_color_secondary"
         android:textSize="12dp"
