@@ -11,6 +11,7 @@
         android:id="@+id/imageView5"
         android:layout_width="113dp"
         android:layout_height="204dp"
+        android:transitionName="app_icon_animation"
         android:src="@drawable/app_icon_middle_portion_removed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

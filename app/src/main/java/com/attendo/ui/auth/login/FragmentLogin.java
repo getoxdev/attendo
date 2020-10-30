@@ -1,5 +1,6 @@
 package com.attendo.ui.auth.login;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -52,6 +53,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.transition.MaterialFade;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;

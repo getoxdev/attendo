@@ -53,6 +53,7 @@
         <receiver android:name="com.attendo.ui.main.drawers.AlarmReminder"/>
 
 
+
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 

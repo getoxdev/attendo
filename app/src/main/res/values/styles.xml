@@ -10,6 +10,12 @@
         <item name="android:statusBarColor">#FAFAFA</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="textInputStyle">@style/CustomEditText</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_image_transform</item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_image_transform</item>
     </style>
 
     <style name="AppThemeCustom" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -22,6 +28,12 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="textInputStyle">@style/CustomEditText</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_image_transform</item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_image_transform</item>
 
     </style>
     <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">

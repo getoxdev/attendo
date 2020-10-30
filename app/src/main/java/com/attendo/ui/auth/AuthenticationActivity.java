@@ -18,7 +18,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         getWindow().setEnterTransition(new MaterialFade().setDuration(300));
         getWindow().setExitTransition(new MaterialFade().setDuration(300));
         setContentView(R.layout.activity_authentication);
