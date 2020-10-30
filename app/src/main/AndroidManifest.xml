@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <queries>
+        <package android:name="com.facebook.katana" />
+    </queries>
+
 
     <application
         android:allowBackup="true"
@@ -47,6 +51,11 @@
 
 
         <receiver android:name="com.attendo.ui.main.drawers.AlarmReminder"/>
+
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
 
 
     </application>

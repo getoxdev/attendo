@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Database;
 
+
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -31,6 +33,16 @@ import com.attendo.R;
 import com.attendo.ui.auth.signup.FragmentSignup;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.ui.main.drawers.account.FragmentProfile;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookActivity;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.LoginStatusCallback;
+import com.facebook.login.LoginManager;
+import com.facebook.login.widget.LoginButton;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -43,6 +55,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthCredential;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -52,6 +66,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
 import java.util.concurrent.Executor;
 
 import static com.airbnb.lottie.L.TAG;
@@ -70,6 +85,13 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private static final int RC_SIGN_IN = 1234;
     private FirebaseAuth mAuth;
     private FragmentProfile fragmentProfile;
+
+    private CallbackManager callbackManager;
+    private LoginButton loginButton;
+    private static final String EMAIL = "email";
+    private int requestCode;
+    private int resultCode;
+    private Intent data;
 
 
     @Override
@@ -140,6 +162,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
 
         mAuth = FirebaseAuth.getInstance();
+        FacebookSdk.sdkInitialize(FacebookSdk.getApplicationContext());
 
         //google sign in option:
         View otherWaysToSignIn = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_sign_in,
@@ -148,7 +171,61 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         signInBottomSheet.setContentView(otherWaysToSignIn);
         signInBottomSheet.setDismissWithAnimation(true);
 
-        //create google sign  in request
+
+        //************************Facebook Signup**********************************
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = view.findViewById(R.id.facebook);
+        loginButton.setReadPermissions(Arrays.asList(EMAIL));
+        loginButton.setFragment(this);
+        // If you are using in a fragment, call loginButton.setFragment(this);
+
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+               Toast.makeText(getActivity(),"SuccessLogin",Toast.LENGTH_SHORT).show();
+               handleFacebookToken(loginResult.getAccessToken());
+            }
+            @Override
+            public void onCancel() {
+                // App code
+            }
+            @Override
+            public void onError(FacebookException exception) {
+               Toast.makeText(getActivity(),""+exception,Toast.LENGTH_LONG).show();
+            }
+        });
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+
+
+        LoginManager.getInstance().retrieveLoginStatus(getActivity(), new LoginStatusCallback() {
+            @Override
+            public void onCompleted(AccessToken accessToken) {
+                Toast.makeText(getActivity(),"SuccessLogin",Toast.LENGTH_SHORT).show();
+                FirebaseUser user = mAuth.getCurrentUser();
+                Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+            @Override
+            public void onFailure() {
+                //No access token could be retrieved for the user
+            }
+            @Override
+            public void onError(Exception exception) {
+                Toast.makeText(getActivity(),""+exception,Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
+
+        //****************create google sign  in request************************
         createRequest();
 
         otherWaysbtn.setOnClickListener(new View.OnClickListener() {
@@ -164,17 +241,37 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                         //code goes here for google sign in
                         signIn();
                         signInBottomSheet.dismiss();
-
-
                     }
                 });
             }
         });
 
 
-
         return view;
     }
+
+
+    private void handleFacebookToken(AccessToken Token) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(Token.getToken());
+        mAuth.signInWithCredential(credential).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(getActivity(),"Signup with credential Successfull",Toast.LENGTH_LONG).show();
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+                else{
+                    Toast.makeText(getActivity(),"Signup with credential Failed!!",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+//**************************************
+
 
 
     public void setInputs(boolean enable){
@@ -259,6 +356,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
 
     private void setDataGoogleSignIn(Fragment fragment) {
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getContext());
@@ -363,7 +461,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
             });
 
         }
-
 
     }
 }
