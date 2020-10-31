@@ -12,14 +12,14 @@ import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitProvider {
-
+public class RetrofitProvider
+{
     private static Retrofit.Builder builder;
     private static Retrofit instance = null;
     private static Gson gson;
 
-    public static Retrofit getInstance(Context context) {
-
+    public static Retrofit getInstance(Context context)
+    {
         if (instance == null) {
             synchronized (RetrofitProvider.class) {
                 if (instance == null) {
@@ -34,7 +34,7 @@ public class RetrofitProvider {
                     }).readTimeout(60, TimeUnit.SECONDS).connectTimeout(60, TimeUnit.SECONDS).build();
 
                     builder = new Retrofit.Builder()
-                            .baseUrl("https://xbribe.herokuapp.com/")
+                            .baseUrl("http://attendonits.herokuapp.com/")
                             .client(okHttpClient)
                             .addConverterFactory(GsonConverterFactory.create(gson));
 
@@ -43,7 +43,6 @@ public class RetrofitProvider {
             }
         }
         return instance;
-
     }
 }
 

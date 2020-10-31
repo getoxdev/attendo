@@ -1,13 +1,15 @@
-package com.attendo.api;
+package com.attendo.data.api;
 
 import android.content.Context;
 
-import com.attendo.model.Reminder;
+import com.attendo.data.model.Reminder;
 import com.attendo.retrofit.RetrofitProvider;
 
 import retrofit2.Call;
+import retrofit2.Retrofit;
 
-public class ApiHelper implements ApiService {
+public class ApiHelper implements ApiService
+{
     private static ApiHelper instance;
     private ApiService api;
     public ApiHelper(Context context) {
@@ -25,11 +27,8 @@ public class ApiHelper implements ApiService {
         return instance;
     }
 
-
-
-
     @Override
-    public Call<Reminder> setReminder(Reminder reminder) {
-        return api.setReminder(reminder);
+    public Call<Reminder> sendReminder(Reminder reminder) {
+        return api.sendReminder(reminder);
     }
 }

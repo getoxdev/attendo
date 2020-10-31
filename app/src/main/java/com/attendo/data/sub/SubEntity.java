@@ -1,4 +1,4 @@
-package com.attendo.data;
+package com.attendo.data.sub;
 
 
 import androidx.annotation.NonNull;
@@ -7,8 +7,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "SubjectName")
-public class SubEntity {
-
+public class SubEntity
+{
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;

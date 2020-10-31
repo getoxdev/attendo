@@ -1,4 +1,4 @@
-package com.attendo.ui.main.drawers;
+package com.attendo.ui.main.drawers.reminder;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -39,10 +43,10 @@ public class FragmentExamReminder extends Fragment {
     TextView timeShow, labelShow;
     CardView alarmCard;
     Button cancelAlarm;
-    private boolean flag;
     private String mylabel;
     private PendingIntent alarmdone;
     private Bundle bundle;
+    private String fcmToken;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,11 +61,18 @@ public class FragmentExamReminder extends Fragment {
         alarmCard = view.findViewById(R.id.alarm_card_view);
         cancelAlarm = view.findViewById(R.id.cancel_alarm);
 
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                fcmToken = instanceIdResult.getToken();
+                Log.e("My FCM Token",fcmToken);
+            }
+        });
 
         bundle = new Bundle();
 
         SharedPreferences preferences = getContext().getSharedPreferences("MYPREF", 0);
-        SharedPreferences.Editor  editor = preferences.edit();
+        SharedPreferences.Editor editor = preferences.edit();
 
         SharedPreferences retrieve = getContext().getSharedPreferences("MYPREF" ,0);
 
@@ -148,7 +159,6 @@ public class FragmentExamReminder extends Fragment {
             public void onClick(View v) {
                 cancelAlarm.setEnabled(false);
                cancelAlarm.setText("Set Alarm");
-                flag = false;
 
                 alarm.cancel(alarmdone);
                 Toast.makeText(getContext(), "Reminder Cancelled", Toast.LENGTH_SHORT).show();
@@ -171,7 +181,5 @@ public class FragmentExamReminder extends Fragment {
         return  view;
     }
 
-
-
-    }
+}
 

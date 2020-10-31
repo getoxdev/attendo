@@ -1,4 +1,4 @@
-package com.attendo.ui.main.drawers;
+package com.attendo.ui.main.drawers.reminder;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -24,7 +24,6 @@ public class AlarmReminder extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent)
     {
-
         //get id and message from intent
         String message = intent.getExtras().getString("Label");
 

@@ -8,7 +8,7 @@
     android:backgroundTint="#F6F5F5"
     android:background="#F6F5F5"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-    tools:context=".ui.main.drawers.FragmentExamReminder">
+    tools:context=".ui.main.drawers.reminder.FragmentExamReminder">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_rem"

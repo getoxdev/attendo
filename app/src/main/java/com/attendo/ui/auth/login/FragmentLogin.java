@@ -87,7 +87,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private FragmentProfile fragmentProfile;
 
     private CallbackManager callbackManager;
-    private LoginButton loginButton;
+    private Button loginButton;
     private static final String EMAIL = "email";
     private int requestCode;
     private int resultCode;

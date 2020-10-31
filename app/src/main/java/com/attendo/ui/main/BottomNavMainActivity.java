@@ -17,7 +17,7 @@ import android.widget.FrameLayout;
 
 import com.attendo.R;
 import com.attendo.ui.calendar.FragmentCalender;
-import com.attendo.ui.main.drawers.FragmentExamReminder;
+import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
 
 import com.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
 import com.attendo.ui.main.menu.FragmentAbout;
@@ -52,10 +52,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
         setSupportActionBar(toolbar);
 
-
-
         getSupportFragmentManager().beginTransaction().replace(R.id.container_frame, new Fragment_Subject()).commit();
-
     }
     private Fragment selectedFragment = null;
 
