@@ -34,7 +34,7 @@ public class RetrofitProvider {
                     }).readTimeout(60, TimeUnit.SECONDS).connectTimeout(60, TimeUnit.SECONDS).build();
 
                     builder = new Retrofit.Builder()
-                            .baseUrl("")  //endPoint url
+                            .baseUrl("https://xbribe.herokuapp.com/")
                             .client(okHttpClient)
                             .addConverterFactory(GsonConverterFactory.create(gson));
 
