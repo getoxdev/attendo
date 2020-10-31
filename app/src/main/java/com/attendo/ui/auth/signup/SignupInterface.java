@@ -1,6 +1,6 @@
 package com.attendo.ui.auth.signup;
 
-public interface signupinterface {
+public interface SignupInterface {
 
     interface View{
         void disableinput();

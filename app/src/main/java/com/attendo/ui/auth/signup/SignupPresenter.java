@@ -1,13 +1,13 @@
 package com.attendo.ui.auth.signup;
 
-public class signupPresenter implements signupinterface.Presenter, signupinterface.Tasklistener {
+public class SignupPresenter implements SignupInterface.Presenter, SignupInterface.Tasklistener {
 
-    private signupinterface.View view;
-    private signupinterface.Model model;
+    private SignupInterface.View view;
+    private SignupInterface.Model model;
 
-    public signupPresenter(signupinterface.View view) {
+    public SignupPresenter(SignupInterface.View view) {
         this.view = view;
-        model = new signupmodel(this);
+        model = new SignupModel(this);
     }
 
     @Override

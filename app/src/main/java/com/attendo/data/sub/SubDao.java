@@ -1,10 +1,12 @@
-package com.attendo.data;
+package com.attendo.data.sub;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+
+import com.attendo.data.sub.SubEntity;
 
 import java.util.List;
 

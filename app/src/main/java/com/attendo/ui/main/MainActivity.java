@@ -19,7 +19,7 @@ import com.attendo.ui.main.drawers.FragmentAppRate;
 import com.attendo.ui.main.drawers.FragmentBug;
 import com.attendo.ui.main.drawers.FragmentEditAttendance;
 import com.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
-import com.attendo.ui.main.drawers.FragmentExamReminder;
+import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
 import com.attendo.ui.main.drawers.FragmentHelp;
 import com.attendo.ui.main.menu.FragmentSettings;
 import com.attendo.ui.main.drawers.account.FragmentUserProfile;
@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentAbout fragmentAbout;
     private FragmentAppRate fragmentAppRate;
     private FragmentBug fragmentBug;
-    private FragmentEditAttendance fragmentEditAttendance;
     private FragmentEditAttendanceCriteria fragmentEditAttendanceCriteria;
     private FragmentExamReminder fragmentExamReminder;
     private FragmentHelp fragmentHelp;
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentAbout = new FragmentAbout();
         fragmentAppRate = new FragmentAppRate();
         fragmentBug = new FragmentBug();
-        fragmentEditAttendance = new FragmentEditAttendance();
         fragmentEditAttendanceCriteria = new FragmentEditAttendanceCriteria();
         fragmentExamReminder = new FragmentExamReminder();
         fragmentHelp = new FragmentHelp();
@@ -143,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
+
     @SuppressWarnings("StatementWithEmptyBody")  //see this later how it works!!!
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -154,9 +153,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case  R.id.nav_home:
                         setFragment(fragmentHome);
-                break;
-            case  R.id.nav_att:
-                        setFragment(fragmentEditAttendance);
                 break;
             case  R.id.nav_attctr:
                         setFragment(fragmentEditAttendanceCriteria);
@@ -214,10 +210,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
             return true;
     }
+
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame,fragment);
         fragmentTransaction.addToBackStack(null).commit();
     }
-
 }

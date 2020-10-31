@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.attendo.data.CalendarDao;
-import com.attendo.data.CalendarEntity;
+import com.attendo.data.calendar.CalendarDao;
+import com.attendo.data.calendar.CalendarEntity;
 import com.attendo.data.database.SubDatabase;
 
 import java.util.List;
@@ -19,7 +19,6 @@ public class CalViewModel extends AndroidViewModel
     private CalendarDao calendarDao;
     private SubDatabase subDB;
     private Executor mExecutor = Executors.newSingleThreadExecutor();
-    public LiveData<List<String>> strings;
 
     public CalViewModel(@NonNull Application application)
     {

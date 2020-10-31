@@ -7,12 +7,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class signupmodel implements signupinterface.Model {
+public class SignupModel implements SignupInterface.Model {
 
-    private  signupinterface.Tasklistener listener;
+    private  SignupInterface.Tasklistener listener;
     private FirebaseAuth auth;
 
-    public signupmodel(signupinterface.Tasklistener listener) {
+    public SignupModel(SignupInterface.Tasklistener listener) {
         this.listener = listener;
         auth = FirebaseAuth.getInstance();
     }

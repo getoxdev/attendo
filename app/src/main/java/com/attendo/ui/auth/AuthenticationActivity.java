@@ -11,8 +11,8 @@ import com.attendo.R;
 import com.attendo.ui.auth.login.FragmentLogin;
 import com.google.android.material.transition.platform.MaterialFade;
 
-public class AuthenticationActivity extends AppCompatActivity {
-
+public class AuthenticationActivity extends AppCompatActivity
+{
    private FragmentLogin fragmentLogin;
 
     @Override
@@ -23,10 +23,6 @@ public class AuthenticationActivity extends AppCompatActivity {
         getWindow().setExitTransition(new MaterialFade().setDuration(300));
         setContentView(R.layout.activity_authentication);
 
-
-
-
-
         fragmentLogin = new FragmentLogin();
         setFragment(fragmentLogin);
     }
@@ -36,5 +32,4 @@ public class AuthenticationActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.start_frame,fragment);
         fragmentTransaction.commit();
     }
-
 }

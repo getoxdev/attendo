@@ -1,4 +1,4 @@
-package com.attendo.data;
+package com.attendo.data.calendar;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

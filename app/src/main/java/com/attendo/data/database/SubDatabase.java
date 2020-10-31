@@ -8,11 +8,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.attendo.data.CalendarDao;
-import com.attendo.data.CalendarEntity;
+import com.attendo.data.calendar.CalendarDao;
+import com.attendo.data.calendar.CalendarEntity;
 import com.attendo.data.DateConverter;
-import com.attendo.data.SubEntity;
-import com.attendo.data.SubDao;
+import com.attendo.data.sub.SubEntity;
+import com.attendo.data.sub.SubDao;
 
 @Database(entities = {SubEntity.class, CalendarEntity.class}, version = 3)
 @TypeConverters(DateConverter.class)

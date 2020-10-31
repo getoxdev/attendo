@@ -14,36 +14,25 @@ public class CustomLoadingDialog {
 
     Activity activity;
     AlertDialog alertDialog;
-    TextView loadingText;
 
     public CustomLoadingDialog(Activity activity) {
         this.activity = activity;
-
     }
 
-    public void startDialog(Boolean value){
+    public void startDialog(Boolean value)
+    {
         AlertDialog.Builder builder =  new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.loading_dialog, null));
         builder.setCancelable(value);
 
-
-
         View view = activity.getWindow().getDecorView();
         view.setBackgroundResource(android.R.color.transparent);
         alertDialog = builder.create();
         alertDialog.show();
-
-
     }
-
-
 
     public void dismissDialog(){
         alertDialog.dismiss();
     }
-
-
-
-
 }

@@ -18,12 +18,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.attendo.ui.main.drawers.account.FragmentProfile;
 import com.attendo.R;
 
-public class FragmentSignup extends Fragment implements signupinterface.View {
+public class FragmentSignup extends Fragment implements SignupInterface.View {
 
     private EditText email,password,confpassword;
     Button SignUp;
     ProgressBar progress;
-    private signupinterface.Presenter presenter;
+    private SignupInterface.Presenter presenter;
     private FragmentProfile fragment_profile;
 
 
@@ -36,7 +36,7 @@ public class FragmentSignup extends Fragment implements signupinterface.View {
         confpassword = view.findViewById(R.id.editTextTextPassword2);
         SignUp = view.findViewById(R.id.button);
         progress = view.findViewById(R.id.progressbar);
-        presenter = new signupPresenter(this);
+        presenter = new SignupPresenter(this);
 
         fragment_profile = new FragmentProfile();
 
@@ -130,7 +130,7 @@ public class FragmentSignup extends Fragment implements signupinterface.View {
         fragment_profile.setArguments(bundle);
         //
         setFragment(fragment_profile);
-        }
+    }
 
     @Override
     public void onError(String message) {

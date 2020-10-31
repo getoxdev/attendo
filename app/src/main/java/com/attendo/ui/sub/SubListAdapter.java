@@ -3,7 +3,6 @@ package com.attendo.ui.sub;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,16 +19,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.attendo.data.CalendarEntity;
+import com.attendo.data.calendar.CalendarEntity;
 import com.attendo.data.DateConverter;
-import com.attendo.data.SubEntity;
+import com.attendo.data.sub.SubEntity;
 import com.attendo.R;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.attendo.viewmodel.CalViewModel;
 import com.attendo.viewmodel.SubjectViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.DecimalFormat;

@@ -58,8 +58,7 @@ public class FragmentCalender extends Fragment {
     private List<String> mDataList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calender, container, false);
@@ -69,8 +68,6 @@ public class FragmentCalender extends Fragment {
         dateConverter = new DateConverter();
 
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.recycler_view_layout_anim);
-
-
 
         subDate = formatter(dateConverter.fromTimestamp(calendar.getDate()));
         selectedDate.setText(subDate);
