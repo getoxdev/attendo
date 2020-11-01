@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Database;
 
 
-
+import android.renderscript.ScriptGroup;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -175,54 +175,10 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
 
         //************************Facebook Signup**********************************
+      loginButton = view.findViewById(R.id.facebook);
         callbackManager = CallbackManager.Factory.create();
-        loginButton = view.findViewById(R.id.facebook);
-        loginButton.setReadPermissions(Arrays.asList(EMAIL));
-        loginButton.setFragment(this);
-        // If you are using in a fragment, call loginButton.setFragment(this);
-
-        // Callback registration
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-               Toast.makeText(getActivity(),"SuccessLogin",Toast.LENGTH_SHORT).show();
-               handleFacebookToken(loginResult.getAccessToken());
-            }
-            @Override
-            public void onCancel() {
-                // App code
-            }
-            @Override
-            public void onError(FacebookException exception) {
-               Toast.makeText(getActivity(),""+exception,Toast.LENGTH_LONG).show();
-            }
-        });
-
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
 
 
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
-
-
-        LoginManager.getInstance().retrieveLoginStatus(getActivity(), new LoginStatusCallback() {
-            @Override
-            public void onCompleted(AccessToken accessToken) {
-                Toast.makeText(getActivity(),"SuccessLogin",Toast.LENGTH_SHORT).show();
-                FirebaseUser user = mAuth.getCurrentUser();
-                Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-            @Override
-            public void onFailure() {
-                //No access token could be retrieved for the user
-            }
-            @Override
-            public void onError(Exception exception) {
-                Toast.makeText(getActivity(),""+exception,Toast.LENGTH_LONG).show();
-            }
-        });
 
 
 
@@ -252,27 +208,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         return view;
     }
 
-
-    private void handleFacebookToken(AccessToken Token) {
-        AuthCredential credential = FacebookAuthProvider.getCredential(Token.getToken());
-        mAuth.signInWithCredential(credential).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(getActivity(),"Signup with credential Successfull",Toast.LENGTH_LONG).show();
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                }
-                else{
-                    Toast.makeText(getActivity(),"Signup with credential Failed!!",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-    }
-
-//**************************************
 
 
 

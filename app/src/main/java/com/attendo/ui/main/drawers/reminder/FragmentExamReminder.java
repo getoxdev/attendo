@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.data.model.Reminder;
+import com.attendo.viewmodel.ReminderViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,6 +35,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
@@ -47,6 +51,7 @@ public class FragmentExamReminder extends Fragment {
     private PendingIntent alarmdone;
     private Bundle bundle;
     private String fcmToken;
+    private ReminderViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,9 +88,9 @@ public class FragmentExamReminder extends Fragment {
         bottomSheetDialog.setContentView(bottomSheet);
         bottomSheetDialog.setDismissWithAnimation(true);
 
-        Intent intent = new Intent(getActivity(), AlarmReminder.class);
+        //Intent intent = new Intent(getActivity(), AlarmReminder.class);
 
-        AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        //AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
 
         cancelAlarm.setEnabled(false);
 
@@ -104,14 +109,14 @@ public class FragmentExamReminder extends Fragment {
                         mylabel = label.getText().toString().trim();
 
                         bundle.putString("Label",mylabel);
-                        intent.putExtras(bundle);
+                        //intent.putExtras(bundle);
 
-                        alarmdone = PendingIntent.getBroadcast(getActivity(), 101 ,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+                        //alarmdone = PendingIntent.getBroadcast(getActivity(), 101 ,intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
                         int hour = timePicker.getCurrentHour();
                         int minute= timePicker.getCurrentMinute();
 
-                        AlarmReminder reminder = new AlarmReminder();
+                        //AlarmReminder reminder = new AlarmReminder();
 
                         //Create Time
                         Calendar startTime = Calendar.getInstance();
@@ -120,7 +125,10 @@ public class FragmentExamReminder extends Fragment {
                         startTime.set(Calendar.SECOND,0);
 
                         //my code to show time and label in cardview
-                        String timeshow = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime.getTime());
+                        //String timeshow = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime.getTime());
+
+                        SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                        String timeshow=sd.format(startTime.getTime());
                         String labelshow = label.getText().toString().trim();
 
                         editor.putString("time" ,timeshow);
@@ -133,14 +141,33 @@ public class FragmentExamReminder extends Fragment {
                         timeShow.setText(retirveTime);
                         labelShow.setText(retriveLabel);
 
+                        viewModel=new ViewModelProvider(getActivity()).get(ReminderViewModel.class);
+
+                        if(labelshow.isEmpty()){
+                            label.setError("enter the subject");
+                        }
+                        else {
+                            Reminder reminder=new Reminder(fcmToken,timeshow,labelshow,true);
+                            viewModel.setReminder(reminder);
+                            viewModel.getReminderResponse().observe(getActivity(),data ->{
+                                if(data==null){
+                                    Log.i("ApiCall","Failed");
+                                }
+                                else{
+                                    Log.i("ApiCall","successFull");
+                                }
+                            });
+                        }
+
+
                          //updateTimeText(startTime);
 
-                        long alarmStartTime = startTime.getTimeInMillis();
+                        //long alarmStartTime = startTime.getTimeInMillis();
 
                         //set Alarm
-                        alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime,alarmdone);
+                       // alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime,alarmdone);
 
-                        Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG).show();
+                       // Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG).show();
 
                         bottomSheetDialog.dismiss();
                         label.setText("");
@@ -160,7 +187,7 @@ public class FragmentExamReminder extends Fragment {
                 cancelAlarm.setEnabled(false);
                cancelAlarm.setText("Set Alarm");
 
-                alarm.cancel(alarmdone);
+                //alarm.cancel(alarmdone);
                 Toast.makeText(getContext(), "Reminder Cancelled", Toast.LENGTH_SHORT).show();
 
                 timeShow.setText("Set a Reminder");
@@ -181,5 +208,29 @@ public class FragmentExamReminder extends Fragment {
         return  view;
     }
 
-}
+    /*@Override
+    public void onStart() {
+        super.onStart();
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                fcmToken = instanceIdResult.getToken();
+                Log.i("My FCM Token",fcmToken);
+            }
+        });
+        viewModel.getReminderResponse().observe(getActivity(),data ->{
+            if(data==null){
+                Log.i("ApiCall","Failed");
+            }
+            else{
+                Log.i("ApiCall","successFull");
+            }
+        });
+        */
+
+
+
+
+    }
+
 
