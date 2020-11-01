@@ -51,6 +51,13 @@
         <item name="cornerSize">12dp</item>
     </style>
 
+    <style name="CustomIconButton" parent="Widget.MaterialComponents.Button.Icon">
+        <item name="cornerRadius">3dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+
+    </style>
+
     <style name="CustomEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="colorPrimaryDark">#8630DC</item>
         <item name="colorPrimary">#8630DC</item>

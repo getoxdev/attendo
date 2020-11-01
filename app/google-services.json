@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "697432111739-s87ojvs4fs1sld84bs6ev6luclgk37qe.apps.googleusercontent.com",
+          "client_id": "697432111739-4v7v0d4mpov083qqv7sp9vd71cmet19i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.attendo",
-            "certificate_hash": "ca4b6cbde409a8237b8e38066042cfc616bdb71d"
+            "certificate_hash": "0d114f9c3e6cc9bf62af2c675c8eae54ccde8a77"
           }
         },
         {
