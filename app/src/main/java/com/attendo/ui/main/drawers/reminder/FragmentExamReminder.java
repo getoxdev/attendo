@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -26,6 +27,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.data.api.ApiHelper;
 import com.attendo.data.model.Reminder;
 import com.attendo.viewmodel.ReminderViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -52,6 +54,7 @@ public class FragmentExamReminder extends Fragment {
     private Bundle bundle;
     private String fcmToken;
     private ReminderViewModel viewModel;
+    private ApiHelper apiHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +68,10 @@ public class FragmentExamReminder extends Fragment {
         labelShow = view.findViewById(R.id.label_show);
         alarmCard = view.findViewById(R.id.alarm_card_view);
         cancelAlarm = view.findViewById(R.id.cancel_alarm);
+
+        viewModel = new ViewModelProvider(getActivity()).get(ReminderViewModel.class);
+        apiHelper = ApiHelper.getInstance(getContext());
+
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), new OnSuccessListener<InstanceIdResult>() {
             @Override
@@ -96,7 +103,7 @@ public class FragmentExamReminder extends Fragment {
 
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 bottomSheetDialog.show();
 
                 timePicker = bottomSheet.findViewById(R.id.timePicker);
@@ -105,7 +112,7 @@ public class FragmentExamReminder extends Fragment {
 
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View view) {
                         mylabel = label.getText().toString().trim();
 
                         bundle.putString("Label", mylabel);
@@ -143,6 +150,7 @@ public class FragmentExamReminder extends Fragment {
 
                         viewModel = new ViewModelProvider(getActivity()).get(ReminderViewModel.class);
 
+
                         if (labelshow.isEmpty()) {
                             label.setError("enter the subject");
                         } else {
@@ -156,27 +164,20 @@ public class FragmentExamReminder extends Fragment {
                                 }
                             });
                         }
-
-
-                        //updateTimeText(startTime);
-
-                        //long alarmStartTime = startTime.getTimeInMillis();
-
-                        //set Alarm
-                        // alarm.set(AlarmManager.RTC_WAKEUP, alarmStartTime,alarmdone);
-
-                        // Toast.makeText(getActivity(),"Reminder Added",Toast.LENGTH_LONG).show();
-
+                        viewModel.getReminderResponse().observe(getActivity(), reminder1 -> {
+                            if (reminder1 == null)
+                                Log.i("ApiCall", "successFull");
+                            else
+                                Log.i("ApiCall", "successFull");
+                        });
                         bottomSheetDialog.dismiss();
                         label.setText("");
                         cancelAlarm.setText("Cancel Reminder");
                         cancelAlarm.setEnabled(true);
                     }
                 });
-
             }
         });
-
 
         //cancel alarm
         cancelAlarm.setOnClickListener(new View.OnClickListener() {
@@ -205,6 +206,4 @@ public class FragmentExamReminder extends Fragment {
 
         return view;
     }
-
 }
-
