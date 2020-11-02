@@ -25,7 +25,6 @@ public class ReminderViewModel extends AndroidViewModel
 
         apiHelper = new ApiHelper(application);
         reminderResponse=new MutableLiveData<>();
-
     }
     public MutableLiveData<Reminder> getReminderResponse(){
         return reminderResponse;
@@ -45,9 +44,7 @@ public class ReminderViewModel extends AndroidViewModel
                 {
                     reminderResponse.postValue(null);
                 }
-
             }
-
             @Override
             public void onFailure(Call<Reminder> call, Throwable t) {
 
