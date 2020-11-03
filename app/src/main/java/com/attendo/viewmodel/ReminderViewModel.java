@@ -40,14 +40,16 @@ public class ReminderViewModel extends AndroidViewModel
                     reminderResponse.postValue(response.body());
                     Log.i("response",Integer.toString(response.code()));
                 }
-                else if(response.code()==400)
+                else if(response.code()>=400)
                 {
                     reminderResponse.postValue(null);
+                    Log.i("responseNext",Integer.toString(response.code()));
                 }
             }
             @Override
             public void onFailure(Call<Reminder> call, Throwable t) {
                 reminderResponse.postValue(null);
+                Log.i("responseFailed","Failed Response");
 
             }
         });

@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -55,6 +56,7 @@ public class FragmentExamReminder extends Fragment {
     private String fcmToken;
     private ReminderViewModel viewModel;
     private ApiHelper apiHelper;
+    private String retreiveFcmToken;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,24 +71,29 @@ public class FragmentExamReminder extends Fragment {
         alarmCard = view.findViewById(R.id.alarm_card_view);
         cancelAlarm = view.findViewById(R.id.cancel_alarm);
 
-        viewModel = new ViewModelProvider(getActivity()).get(ReminderViewModel.class);
+        viewModel = ViewModelProviders.of(getActivity()).get(ReminderViewModel.class);
         apiHelper = ApiHelper.getInstance(getContext());
+
+        SharedPreferences preferences = getContext().getSharedPreferences("MYPREF", 0);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        SharedPreferences retrieve = getContext().getSharedPreferences("MYPREF", 0);
 
 
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 fcmToken = instanceIdResult.getToken();
-                Log.e("My FCM Token", fcmToken);
+                editor.putString("fcmToken",fcmToken);
+                editor.commit();
+                retreiveFcmToken=retrieve.getString("fcmToken","");
+                Log.i("My FCM Token", retreiveFcmToken);
             }
         });
 
         bundle = new Bundle();
 
-        SharedPreferences preferences = getContext().getSharedPreferences("MYPREF", 0);
-        SharedPreferences.Editor editor = preferences.edit();
 
-        SharedPreferences retrieve = getContext().getSharedPreferences("MYPREF", 0);
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
 
@@ -148,13 +155,11 @@ public class FragmentExamReminder extends Fragment {
                         timeShow.setText(retirveTime);
                         labelShow.setText(retriveLabel);
 
-                        viewModel = new ViewModelProvider(getActivity()).get(ReminderViewModel.class);
-
 
                         if (labelshow.isEmpty()) {
                             label.setError("enter the subject");
                         } else {
-                            Reminder reminder = new Reminder(fcmToken, timeshow, labelshow, true);
+                            Reminder reminder = new Reminder(retreiveFcmToken, timeshow, labelshow, true);
                             viewModel.setReminder(reminder);
                             viewModel.getReminderResponse().observe(getActivity(), data -> {
                                 if (data == null) {
@@ -164,12 +169,6 @@ public class FragmentExamReminder extends Fragment {
                                 }
                             });
                         }
-                        viewModel.getReminderResponse().observe(getActivity(), reminder1 -> {
-                            if (reminder1 == null)
-                                Log.i("ApiCall", "successFull");
-                            else
-                                Log.i("ApiCall", "successFull");
-                        });
                         bottomSheetDialog.dismiss();
                         label.setText("");
                         cancelAlarm.setText("Cancel Reminder");
