@@ -54,4 +54,18 @@ public class ReminderViewModel extends AndroidViewModel
             }
         });
     }
+    public void cancelReminder(Reminder reminder){
+        apiHelper.sendReminder(reminder).enqueue(new Callback<Reminder>() {
+            @Override
+            public void onResponse(Call<Reminder> call, Response<Reminder> response) {
+                Log.i("cancelReminder",Integer.toString(response.code()));
+            }
+
+            @Override
+            public void onFailure(Call<Reminder> call, Throwable t){
+                Log.i("cancelReminder","Failed Response");
+
+            }
+        });
+    }
 }

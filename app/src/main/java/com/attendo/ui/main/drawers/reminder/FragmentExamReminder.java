@@ -139,13 +139,13 @@ public class FragmentExamReminder extends Fragment {
                         startTime.set(Calendar.SECOND, 0);
 
                         //my code to show time and label in cardview
-                        //String timeshow = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime.getTime());
+                        String timeshow1 = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime.getTime());
 
                         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                         String timeshow = sd.format(startTime.getTime());
                         String labelshow = label.getText().toString().trim();
 
-                        editor.putString("time", timeshow);
+                        editor.putString("time", timeshow1);
                         editor.putString("label", labelshow);
                         editor.commit();
 
@@ -184,6 +184,9 @@ public class FragmentExamReminder extends Fragment {
             public void onClick(View v) {
                 cancelAlarm.setEnabled(false);
                 cancelAlarm.setText("Set Alarm");
+
+                //Reminder reminder=new Reminder(retreiveFcmToken,timeShow,labelShow,false);
+               // viewModel.cancelReminder(reminder);
 
                 //alarm.cancel(alarmdone);
                 Toast.makeText(getContext(), "Reminder Cancelled", Toast.LENGTH_SHORT).show();
