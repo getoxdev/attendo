@@ -3,9 +3,11 @@ package com.attendo.ui.sub;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -234,6 +236,20 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                         addButton.setText("Update");
 
+                        subjectName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                            @Override
+                            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                                switch (i){
+                                    case EditorInfo.IME_ACTION_DONE:
+                                        subjectViewModel.updateSubject(subjectName.getText().toString().trim(), subEntity.getId());
+                                        bottomSheetDialogedit.dismiss();
+                                        break;
+
+                                }
+                                return false;
+                            }
+                        });
+
                         addButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -286,7 +302,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                                     subjectViewModel.updateTotal(tot,id);
                                 }
 
-
+                                editAttend.dismiss();
 
                             }
                         });

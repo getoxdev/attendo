@@ -10,7 +10,7 @@
     android:fitsSystemWindows="true">
 
 
-    <!--
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,7 +31,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                -->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/image_cardview"
@@ -184,22 +183,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <!--
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-            </LinearLayout>
-
-
-
-        </ScrollView>
-
-        -->
 
     <ProgressBar
         android:id="@+id/user_progressbar"
@@ -244,6 +228,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+            </LinearLayout>
+
+
+
+        </ScrollView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

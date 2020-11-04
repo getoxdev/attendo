@@ -18,15 +18,18 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
@@ -155,11 +158,43 @@ public class Fragment_Subject extends Fragment {
 
                 update.setText("Add Subject");
 
+                subjectName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                        switch (i){
+                            case EditorInfo.IME_ACTION_DONE:
+                                addSubLayout.setErrorEnabled(false);
+                                subjectanim.setVisibility(View.GONE);
+                                if(subjectName.getText().toString().trim().length()>0){
+                                    celebration.setVisibility(View.VISIBLE);
+                                    celebration.playAnimation();
+                                    SubEntity subEntity = new SubEntity(subjectName.getText().toString().trim(), 0, 0, 0);
+                                    subViewModel.insertSubject(subEntity);
+                                    Handler mhandler = new Handler();
+                                    mhandler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            bottomSheetDialog.dismiss();
+                                        }
+                                    },600);
+
+                                }
+                                else{
+                                    addSubLayout.setError("Please enter the subject");
+
+                                }
+                                break;
+
+                        }
+                        return false;
+                    }
+                });
+
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         addSubLayout.setErrorEnabled(false);
-                       subjectanim.setVisibility(View.GONE);
+                        subjectanim.setVisibility(View.GONE);
                         if(subjectName.getText().toString().trim().length()>0){
                             celebration.setVisibility(View.VISIBLE);
                             celebration.playAnimation();
