@@ -16,7 +16,12 @@ public class Reminder
     @SerializedName("state")
     private Boolean state;
 
-    public Reminder(String token, String time, String label, Boolean state) {
+    @SerializedName("_id")
+    private  String _id;
+
+
+    public Reminder(String token, String time, String label, Boolean state)
+    {
         this.token = token;
         this.time = time;
         this.label = label;
@@ -53,5 +58,13 @@ public class Reminder
 
     public void setState(Boolean state) {
         this.state = state;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 }
