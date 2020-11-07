@@ -24,7 +24,9 @@ import android.widget.Toast;
 
 import com.attendo.R;
 import com.attendo.data.api.ApiHelper;
+import com.attendo.data.model.Id;
 import com.attendo.data.model.Reminder;
+import com.attendo.data.model.Response;
 import com.attendo.viewmodel.ReminderViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -160,6 +162,8 @@ public class FragmentExamReminder extends Fragment {
                                 if (data == null) {
                                     Log.i("ApiCall", "Failed");
                                 } else {
+                                   editor.putString("ID", data.getReminder().get_id());
+                                   editor.commit();
                                     Log.i("ApiCall", "successFull");
                                 }
                             });
@@ -179,11 +183,17 @@ public class FragmentExamReminder extends Fragment {
             public void onClick(View v) {
                 cancelAlarm.setEnabled(false);
                 cancelAlarm.setText("Set Alarm");
+                String idOfResponse=retrieve.getString("ID","");
+                viewModel.setcancelReminder(idOfResponse);
+                viewModel.getIdresponse().observe(getActivity(), data -> {
+                    if (data == null) {
+                        Log.i("ApiCallCancel", "Failed");
+                    } else {
 
-                //Reminder reminder=new Reminder(retreiveFcmToken,timeShow,labelShow,false);
-               // viewModel.cancelReminder(reminder);
+                        Log.i("ApiCallCancel", "successFull");
+                    }
+                });
 
-                //alarm.cancel(alarmdone);
                 Toast.makeText(getContext(), "Reminder Cancelled", Toast.LENGTH_SHORT).show();
 
                 timeShow.setText("Set a Reminder");

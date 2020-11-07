@@ -8,25 +8,33 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.attendo.data.api.ApiHelper;
+import com.attendo.data.model.Id;
 import com.attendo.data.model.Reminder;
 import com.attendo.data.model.Response;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class ReminderViewModel extends AndroidViewModel
 {
     private ApiHelper apiHelper;
-    private MutableLiveData<Reminder> reminderResponse;
+    private MutableLiveData<Response> reminderResponse;
+    private MutableLiveData<ResponseBody> idresponse;
 
     public ReminderViewModel(@NonNull Application application)
     {
         super(application);
         apiHelper = new ApiHelper(application);
         reminderResponse=new MutableLiveData<>();
+        idresponse=new MutableLiveData<>();
     }
-    public MutableLiveData<Reminder> getReminderResponse(){
+    public MutableLiveData<Response> getReminderResponse(){
         return reminderResponse;
+    }
+
+    public MutableLiveData<ResponseBody> getIdresponse() {
+        return idresponse;
     }
 
     public void setReminder(Reminder reminder)
@@ -38,8 +46,9 @@ public class ReminderViewModel extends AndroidViewModel
             {
                 if(response.code()<300)
                 {
-                    reminderResponse.postValue(reminder);
+
                     Response response1=response.body();
+                    reminderResponse.postValue(response1);
                     Log.i("response",Integer.toString(response.code()));
                     Log.i("ID",response1.getReminder().get_id());
                 }
@@ -58,18 +67,28 @@ public class ReminderViewModel extends AndroidViewModel
         });
     }
 
-//    public void cancelReminder(reminder reminder){
-//        apiHelper.sendReminder(reminder).enqueue(new Callback<com.attendo.data.model.reminder>() {
-//            @Override
-//            public void onResponse(Call<com.attendo.data.model.reminder> call, Response<com.attendo.data.model.reminder> response) {
-//                Log.i("cancelReminder",Integer.toString(response.code()));
-//            }
-//
-//            @Override
-//            public void onFailure(Call<com.attendo.data.model.reminder> call, Throwable t){
-//                Log.i("cancelReminder","Failed Response");
-//
-//            }
-//        });
-//    }
+    public void setcancelReminder(String id)
+    {
+       apiHelper.cancelReminder(id).enqueue(new Callback<ResponseBody>() {
+           @Override
+           public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response)
+           {
+               if (response.code() < 300)
+               {
+                   Log.i("responseofcancel", Integer.toString(response.code()));
+                   getIdresponse().postValue(response.body());
+               }
+               else
+               if (response.code() >= 400) {
+                   getIdresponse().postValue(null);
+               }
+           }
+           @Override
+           public void onFailure(Call<ResponseBody> call, Throwable t) {
+               getIdresponse().postValue(null);
+           }
+       });
+    }
+
+
 }
