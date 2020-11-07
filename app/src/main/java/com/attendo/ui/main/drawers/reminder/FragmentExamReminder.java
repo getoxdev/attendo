@@ -184,9 +184,15 @@ public class FragmentExamReminder extends Fragment {
                 cancelAlarm.setEnabled(false);
                 cancelAlarm.setText("Set Alarm");
                 String idOfResponse=retrieve.getString("ID","");
+                viewModel.setcancelReminder(idOfResponse);
+                viewModel.getIdresponse().observe(getActivity(), data -> {
+                    if (data == null) {
+                        Log.i("ApiCallCancel", "Failed");
+                    } else {
 
-                //Id id=new Id(idOfResponse);
-                viewModel.cancelReminder();
+                        Log.i("ApiCallCancel", "successFull");
+                    }
+                });
 
                 Toast.makeText(getContext(), "Reminder Cancelled", Toast.LENGTH_SHORT).show();
 

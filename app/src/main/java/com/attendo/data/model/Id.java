@@ -2,12 +2,16 @@ package com.attendo.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Id {
+public class Id
+{
 
-    @SerializedName("reminderId")
+    @SerializedName("id")
     private String id;
 
-
+    public Id(String id)
+    {
+        this.id = id;
+    }
 
     public String getId() {
         return id;
