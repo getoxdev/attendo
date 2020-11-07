@@ -1,5 +1,6 @@
 package com.attendo.data.api;
 
+import com.attendo.data.model.Id;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
 
@@ -11,4 +12,7 @@ public interface ApiService
 {
     @POST("api/reminder")
     Call<Response> sendReminder(@Body Reminder reminder);
+
+    @POST("api/reminder/reminderId")
+    Call<Id> cancelReminder();
 }
