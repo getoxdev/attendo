@@ -1,10 +1,13 @@
 package com.attendo.ui.auth.login;
 
 import android.app.ActivityOptions;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -189,18 +192,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         otherWaysbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                signInBottomSheet.show();
-//                ImageView googleSignInbtn = signInBottomSheet.findViewById(R.id.google_sign_in);
-//                ImageView facebookSignInbtn = signInBottomSheet.findViewById(R.id.facebook_sign_in);
-//
-//                googleSignInbtn.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        //code goes here for google sign in
-//                        signIn();
-//                        signInBottomSheet.dismiss();
-//                    }
-//                });
                 signIn();
             }
         });
@@ -302,11 +293,13 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         if(signInAccount!= null){
             name = signInAccount.getDisplayName();
         }
+
         Bundle bundle = new Bundle();
-        bundle.putString("name", name);
-        bundle.putString("institution","");
-        bundle.putString("city","");
-        bundle.putString("phone","");
+                bundle.putString("name", signInAccount.getDisplayName());
+                bundle.putString("institution","");
+                bundle.putString("city","");
+                bundle.putString("phone","");
+
         fragment.setArguments(bundle);
     }
 

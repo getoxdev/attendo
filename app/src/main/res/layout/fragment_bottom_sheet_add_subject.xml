@@ -51,13 +51,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/roboto_light"
         android:padding="10dp"
         android:text="Add Subject"
         android:textColor="@color/text_color_primary"
-        android:textSize="22dp"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
