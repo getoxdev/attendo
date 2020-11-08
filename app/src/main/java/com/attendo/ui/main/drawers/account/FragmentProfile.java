@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,7 +96,8 @@ public class FragmentProfile extends Fragment {
         city.setText(data3);
         String data4 = bundle.getString("phone");
         Contact.setText(data4);
-        //
+
+
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -107,7 +109,7 @@ public class FragmentProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 pB.setVisibility(View.VISIBLE);
-                String Name = name.getText().toString().trim();
+                String Name = name.getText().toString();
                 String College =college.getText().toString();
                 String City = city.getText().toString();
                 String contact = Contact.getText().toString().trim();
@@ -118,7 +120,7 @@ public class FragmentProfile extends Fragment {
                     }
                  }
                 else {
-                    //for generating unique id everytime which may not require
+                    //for generating unique id may not require everytime
                     if (contact.length() != 10) {
                         pB.setVisibility(View.INVISIBLE);
                         Toast.makeText(getContext(), "Enter a valid Mobile Number of length 10", Toast.LENGTH_SHORT).show();
@@ -133,23 +135,23 @@ public class FragmentProfile extends Fragment {
                             UploadImage();
                         } else {
                             pB.setVisibility(View.INVISIBLE);
-                            storageReference = storage.getReference();
                             storageReference.child("images/" + user_id.toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     databaseReference.child("images/" + user_id.toString()).removeValue();
                                     Toast.makeText(getContext(), "Account Updated " + name.getText().toString(), Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getContext(), BottomNavMainActivity.class);
+                                    Intent intent = new Intent(getActivity(), BottomNavMainActivity.class);
                                     startActivity(intent);
                                     getActivity().finish();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getContext(), "Account Updated " + name.getText().toString(), Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getContext(), BottomNavMainActivity.class);
-                                    startActivity(intent);
-                                    getActivity().finish();
+                                    Toast.makeText(getContext(), "Account creation failed " + e, Toast.LENGTH_SHORT).show();
+                                    Log.d("Execption got", e.toString());
+//                                    Intent intent = new Intent(getActivity(), BottomNavMainActivity.class);
+//                                    startActivity(intent);
+//                                    getActivity().finish();
                                 }
                             });
                         }

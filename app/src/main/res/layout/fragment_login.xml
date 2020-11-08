@@ -115,19 +115,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/facebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/roboto_bold"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline2" />
-
     <Button
         android:id="@+id/button"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -168,7 +155,7 @@
         android:id="@+id/textViewregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="16dp"
         android:text="New User? Register Here"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -188,6 +175,7 @@
         style="@style/CustomIconButton"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#F44336"
         android:elevation="0dp"
         android:fontFamily="@font/roboto_bold"
@@ -200,10 +188,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passowrd_edit_text_layout"
         app:rippleColor="#EF3DDD"
         app:strokeColor="#F44336"
-        app:strokeWidth="0dp"
-        app:layout_constraintTop_toBottomOf="@id/facebook"/>
+        app:strokeWidth="0dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline50"

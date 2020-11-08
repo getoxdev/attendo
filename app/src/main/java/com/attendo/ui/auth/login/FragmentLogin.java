@@ -170,16 +170,8 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         mAuth = FirebaseAuth.getInstance();
 
 
-        //google sign in option:
-        View otherWaysToSignIn = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_sign_in,
-                (ConstraintLayout) view.findViewById(R.id.sign_in_bottom_sheet));
-        BottomSheetDialog signInBottomSheet = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
-        signInBottomSheet.setContentView(otherWaysToSignIn);
-        signInBottomSheet.setDismissWithAnimation(true);
-
-
         //************************Facebook Signup**********************************
-        callbackManager = CallbackManager.Factory.create();
+        /*callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton)view.findViewById(R.id.facebook);
 
 
@@ -208,7 +200,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
 
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));*/
 
 
 
@@ -316,7 +308,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
-        //TODO: Add the loadin animation dialog here
         CustomLoadingDialog loadingDialog = new CustomLoadingDialog(getActivity());
         loadingDialog.startDialog(false);
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -363,10 +354,10 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         }
 
         Bundle bundle = new Bundle();
-                bundle.putString("name", signInAccount.getDisplayName());
-                bundle.putString("institution","");
-                bundle.putString("city","");
-                bundle.putString("phone","");
+        bundle.putString("name", "");
+        bundle.putString("institution", "");
+        bundle.putString("city", "");
+        bundle.putString("phone", "");
 
         fragment.setArguments(bundle);
     }
