@@ -97,7 +97,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private int requestCode;
     private int resultCode;
     private Intent data;
-    private int Flag=0;
+    public int Flag=0;
 
 
     @Override
@@ -172,7 +172,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
         //************************Facebook Signup**********************************
         /*callbackManager = CallbackManager.Factory.create();
-        loginButton = (LoginButton)view.findViewById(R.id.facebook);
+        loginButton = (LoginButton)view.findViewById(R.id.Facebook);
 
 
 
