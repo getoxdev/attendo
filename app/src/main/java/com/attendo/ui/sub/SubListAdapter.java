@@ -280,29 +280,36 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                         TextInputLayout totalEditTextInputLayout = editAttend.findViewById(R.id.total_editText_field);
 
 
-
-
                         updateAttendance.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
 
+                                if(presentEditText.getText().toString().isEmpty() || totalEditText.getText().toString().isEmpty()){
+                                    presetnEditTextInputlayout.setError("This field cannot be blank");
+                                    totalEditTextInputLayout.setError("This field cannot be blank");
+                                }
+                                else{
+                                    int pre = Integer.parseInt(presentEditText.getText().toString());
+                                    int tot = Integer.parseInt(totalEditText.getText().toString());
+                                    if(pre>tot)
+                                    {
+                                        totalEditTextInputLayout.setError("Please enter a valid input");
 
-                                int pre = Integer.parseInt(presentEditText.getText().toString());
-                                int tot = Integer.parseInt(totalEditText.getText().toString());
-                                if(pre>tot)
-                                {
-                                    Toast.makeText(mContext,"Present classes should be less than total classes",Toast.LENGTH_SHORT).show();
+                                    }
+                                    else
+                                    {
+                                        holder.tvPres.setText(String.valueOf(pre));
+                                        holder.tvTotal.setText(String.valueOf(tot));
+                                        subjectViewModel.updatePresent(pre,id);
+                                        subjectViewModel.updateTotal(tot,id);
+
+                                        editAttend.dismiss();
+                                    }
 
                                 }
-                                else
-                                {
-                                    holder.tvPres.setText(String.valueOf(pre));
-                                    holder.tvTotal.setText(String.valueOf(tot));
-                                    subjectViewModel.updatePresent(pre,id);
-                                    subjectViewModel.updateTotal(tot,id);
-                                }
 
-                                editAttend.dismiss();
+
+
 
                             }
                         });
