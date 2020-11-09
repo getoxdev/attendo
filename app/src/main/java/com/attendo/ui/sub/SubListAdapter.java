@@ -280,36 +280,36 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                         TextInputLayout totalEditTextInputLayout = editAttend.findViewById(R.id.total_editText_field);
 
 
+
+
                         updateAttendance.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
 
-                                if(presentEditText.getText().toString().isEmpty() || totalEditText.getText().toString().isEmpty()){
-                                    presetnEditTextInputlayout.setError("This field cannot be blank");
-                                    totalEditTextInputLayout.setError("This field cannot be blank");
+                                if(presentEditText.getText().toString().length() == 0 || totalEditText.getText().toString().length() == 0)
+                                {
+                                    Toast.makeText(mContext,"Field cannot be empty",Toast.LENGTH_SHORT).show();
                                 }
-                                else{
+
+                                else
+                                {
                                     int pre = Integer.parseInt(presentEditText.getText().toString());
                                     int tot = Integer.parseInt(totalEditText.getText().toString());
                                     if(pre>tot)
                                     {
-                                        totalEditTextInputLayout.setError("Please enter a valid input");
+                                        Toast.makeText(mContext,"Present classes should be less than total classes",Toast.LENGTH_SHORT).show();
 
                                     }
                                     else
                                     {
-                                        holder.tvPres.setText(String.valueOf(pre));
-                                        holder.tvTotal.setText(String.valueOf(tot));
-                                        subjectViewModel.updatePresent(pre,id);
-                                        subjectViewModel.updateTotal(tot,id);
-
-                                        editAttend.dismiss();
+                                    holder.tvPres.setText(String.valueOf(pre));
+                                    holder.tvTotal.setText(String.valueOf(tot));
+                                    subjectViewModel.updatePresent(pre,id);
+                                    subjectViewModel.updateTotal(tot,id);
                                     }
-
                                 }
 
-
-
+                                editAttend.dismiss();
 
                             }
                         });
@@ -320,21 +320,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
 
 
-//                        if(presentEditText.getText().toString().length() > 0 && totalEditText.getText().toString().length() > 0){
-//
-//                            //backend database code goes here
-//
-//
-//                            //TODO: Backend database code goes here for updating the attendanc
-//                            }
-//                        else{
-//                            if(presentEditText.getText().toString().length() == 0){
-//                                presetnEditTextInputlayout.setError("Field cannot be empty");
-//                            }
-//                            if(totalEditText.getText().toString().length() == 0){
-//                                totalEditTextInputLayout.setError("Field cannot be empty");
-//                            }
-//                        }
 
                     }
                 });
@@ -416,7 +401,10 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             if(value==0.0)
                 status="Dont't miss next 1 lecture";
             else
-                status="You can skip next "+String.format("%.0f",value)+" lectures";
+                if(value==1)
+                {status="You can skip next "+String.format("%.0f",Math.abs(value))+" lecture";}
+                else
+                {status="You can skip next "+String.format("%.0f",Math.abs(value))+" lectures";}
         }
         else if(percentagedouble<criteriadouble)
         {
@@ -431,11 +419,16 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                     status = "Impossible";
                 }
             }
-           else{
-            double value;
-            value=ceil(((criteriadouble*(presentdouble+absentdouble))/100 - presentdouble));
-            value = value+1;
-            status="You must attend next "+String.format("%.0f",value)+" lectures";}
+           else {
+                double value;
+                value = ceil(((criteriadouble * (presentdouble + absentdouble)) / 100 - presentdouble));
+                value = value + 1;
+                if (value == 1) {
+                    status = "You must attend next " + String.format("%.0f", Math.abs(value)) + " lecture";
+                } else {
+                    status = "You must attend next " + String.format("%.0f", Math.abs(value)) + " lectures";
+                }
+            }
 
         }
 
