@@ -94,6 +94,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private int requestCode;
     private int resultCode;
     private Intent data;
+    public int Flag = 1;
 
 
     @Override
@@ -175,11 +176,34 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
 
         //************************Facebook Signup**********************************
-      loginButton = view.findViewById(R.id.facebook);
+
+        loginButton = view.findViewById(R.id.facebook);
         callbackManager = CallbackManager.Factory.create();
 
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                        Flag = 1;
+                        handleFacebookAccessToken(loginResult.getAccessToken());
+                    }
 
+                    @Override
+                    public void onCancel() {
+                        // App code
+                    }
 
+                    @Override
+                    public void onError(FacebookException exception) {
+                        Toast.makeText(getActivity(),""+exception,Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
 
 
 
@@ -201,6 +225,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 //                        signInBottomSheet.dismiss();
 //                    }
 //                });
+                Flag = -1;
                 signIn();
             }
         });
@@ -209,7 +234,30 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         return view;
     }
 
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
 
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            String userId = mAuth.getCurrentUser().getUid();
+                            Toast.makeText(getActivity(),"Sign In succesful "+userId,Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getActivity(),BottomNavMainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(getActivity(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+    }
 
 
     public void setInputs(boolean enable){
@@ -238,21 +286,29 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        if (Flag == -1) {
+            Flag = 0;
+            super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
-                // ...
+            // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+            if (requestCode == RC_SIGN_IN) {
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                try {
+                    // Google Sign In was successful, authenticate with Firebase
+                    GoogleSignInAccount account = task.getResult(ApiException.class);
+                    Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+                    firebaseAuthWithGoogle(account.getIdToken());
+                } catch (ApiException e) {
+                    // Google Sign In failed, update UI appropriately
+                    Log.w(TAG, "Google sign in failed", e);
+                    // ...
+                }
             }
+        }
+        if (Flag == 1) {
+            Flag = 0;
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

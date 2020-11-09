@@ -53,6 +53,7 @@ public class FragmentUserProfile extends Fragment {
     FirebaseStorage storage;
     StorageReference storageReference;
     FirebaseUser firebaseUser;
+    public String PATH = "data";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +82,12 @@ public class FragmentUserProfile extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
 
+        user_id = mAuth.getCurrentUser().getUid();
+        firebaseUser = mAuth.getCurrentUser();
+        storage = FirebaseStorage.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("data");
+        storageReference = firebaseStorage.getReference();
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,12 +97,6 @@ public class FragmentUserProfile extends Fragment {
         });
 
         fragment_profile = new FragmentProfile();
-
-        user_id = mAuth.getCurrentUser().getUid();
-        firebaseUser = mAuth.getCurrentUser();
-        storage = FirebaseStorage.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("data");
-        storageReference = firebaseStorage.getReference();
         storageReference.child("images/" + user_id.toString()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri)
@@ -125,9 +126,7 @@ public class FragmentUserProfile extends Fragment {
                     Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
                     pgb.setVisibility(View.INVISIBLE);
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -152,7 +151,7 @@ public class FragmentUserProfile extends Fragment {
                 bundle.putString("phone",contact.getText().toString());
                 fragment_profile.setArguments(bundle);
                 Toast.makeText(getActivity(),"Edit Your Profile",Toast.LENGTH_SHORT).show();
-                //
+
                 setFragment(fragment_profile);
             }
         });
@@ -185,6 +184,7 @@ public class FragmentUserProfile extends Fragment {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             storageReference = storage.getReference();
+                            databaseReference = FirebaseDatabase.getInstance().getReference("data");
                             storageReference.child("images/" + user_Id.toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -200,7 +200,7 @@ public class FragmentUserProfile extends Fragment {
                                 public void onFailure(@NonNull Exception e) {
                                     databaseReference.child(user_Id).removeValue();
                                     pgb.setVisibility(View.INVISIBLE);
-                                    Toast.makeText(getActivity(),"Your Account has been deleted",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(),"YOUR ACCOUNT HAS BEEN DELETED",Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
@@ -231,7 +231,4 @@ public class FragmentUserProfile extends Fragment {
         AlertDialog alertDialog = dialog.create();
         alertDialog.show();
     }
-
-
-
 }
