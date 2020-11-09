@@ -1,13 +1,10 @@
 package com.attendo.ui.auth.login;
 
 import android.app.ActivityOptions;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -97,7 +94,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private int requestCode;
     private int resultCode;
     private Intent data;
-    public int Flag=0;
+    public int Flag = 1;
 
 
     @Override
@@ -168,14 +165,20 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
 
         mAuth = FirebaseAuth.getInstance();
+        FacebookSdk.sdkInitialize(FacebookSdk.getApplicationContext());
+
+        //google sign in option:
+        View otherWaysToSignIn = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_sign_in,
+                (ConstraintLayout) view.findViewById(R.id.sign_in_bottom_sheet));
+        BottomSheetDialog signInBottomSheet = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
+        signInBottomSheet.setContentView(otherWaysToSignIn);
+        signInBottomSheet.setDismissWithAnimation(true);
 
 
         //************************Facebook Signup**********************************
-        /*callbackManager = CallbackManager.Factory.create();
-        loginButton = (LoginButton)view.findViewById(R.id.Facebook);
 
-
-
+        loginButton = view.findViewById(R.id.facebook);
+        callbackManager = CallbackManager.Factory.create();
 
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
@@ -200,10 +203,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
 
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));*/
-
-
-
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
 
 
 
@@ -213,6 +213,18 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         otherWaysbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                signInBottomSheet.show();
+//                ImageView googleSignInbtn = signInBottomSheet.findViewById(R.id.google_sign_in);
+//                ImageView facebookSignInbtn = signInBottomSheet.findViewById(R.id.facebook_sign_in);
+//
+//                googleSignInbtn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        //code goes here for google sign in
+//                        signIn();
+//                        signInBottomSheet.dismiss();
+//                    }
+//                });
                 Flag = -1;
                 signIn();
             }
@@ -222,9 +234,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         return view;
     }
 
-
-    //Facebook handle access token method
-    //FACEBOOK
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
@@ -237,9 +246,9 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             String userId = mAuth.getCurrentUser().getUid();
-                            Intent intent = new Intent(getContext(), BottomNavMainActivity.class);
+                            Toast.makeText(getActivity(),"Sign In succesful "+userId,Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getActivity(),BottomNavMainActivity.class);
                             startActivity(intent);
-                            getActivity().finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -249,8 +258,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                     }
                 });
     }
-
-
 
 
     public void setInputs(boolean enable){
@@ -277,12 +284,9 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-
-    //Method to get result from both Google and Facebook
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(Flag == -1){
+        if (Flag == -1) {
             Flag = 0;
             super.onActivityResult(requestCode, resultCode, data);
 
@@ -300,7 +304,8 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                     // ...
                 }
             }
-        } else if(Flag == 1) {
+        }
+        if (Flag == 1) {
             Flag = 0;
             callbackManager.onActivityResult(requestCode, resultCode, data);
             super.onActivityResult(requestCode, resultCode, data);
@@ -308,6 +313,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
+        //TODO: Add the loadin animation dialog here
         CustomLoadingDialog loadingDialog = new CustomLoadingDialog(getActivity());
         loadingDialog.startDialog(false);
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -352,13 +358,11 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         if(signInAccount!= null){
             name = signInAccount.getDisplayName();
         }
-
         Bundle bundle = new Bundle();
-        bundle.putString("name", "");
-        bundle.putString("institution", "");
-        bundle.putString("city", "");
-        bundle.putString("phone", "");
-
+        bundle.putString("name", name);
+        bundle.putString("institution","");
+        bundle.putString("city","");
+        bundle.putString("phone","");
         fragment.setArguments(bundle);
     }
 
