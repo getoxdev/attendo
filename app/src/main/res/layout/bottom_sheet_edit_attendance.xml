@@ -80,6 +80,7 @@
         app:backgroundTint="@color/btn_tint_2"
         android:elevation="0dp"
         app:strokeWidth="0dp"
+        android:stateListAnimator="@animator/button_pressed_animator"
         android:textAllCaps="false"
         app:rippleColor="#AF91F4"
         android:padding="10dp"

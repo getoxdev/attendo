@@ -13,5 +13,6 @@
     <color name="calendar_bottom_sheet">#2B2A2A</color>
     <color name="about_card_bg">#313132</color>
     <color name="profile_image_card">#717171</color>
+    <color name="theme_shadow_color">#25ACAAAA</color>
 
 </resources>

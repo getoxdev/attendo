@@ -182,6 +182,7 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#FFF"
+        android:stateListAnimator="@animator/button_pressed_animator"
         android:textSize="14dp"
         app:icon="@drawable/google_vector"
         app:layout_constraintEnd_toEndOf="parent"
