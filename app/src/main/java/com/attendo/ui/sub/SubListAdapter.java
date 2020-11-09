@@ -288,7 +288,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                                 if(presentEditText.getText().toString().length() == 0 || totalEditText.getText().toString().length() == 0)
                                 {
-                                    Toast.makeText(mContext,"Field cannot be empty",Toast.LENGTH_SHORT).show();
+                                    presetnEditTextInputlayout.setError("Field cannot be empty");
+                                    totalEditTextInputLayout.setError("Field cannot be empty");
                                 }
 
                                 else
@@ -306,10 +307,11 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                                     holder.tvTotal.setText(String.valueOf(tot));
                                     subjectViewModel.updatePresent(pre,id);
                                     subjectViewModel.updateTotal(tot,id);
+                                        editAttend.dismiss();
                                     }
                                 }
 
-                                editAttend.dismiss();
+
 
                             }
                         });
