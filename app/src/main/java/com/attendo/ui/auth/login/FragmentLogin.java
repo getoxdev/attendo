@@ -94,7 +94,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private int requestCode;
     private int resultCode;
     private Intent data;
-    public int Flag = 1;
 
 
     @Override
@@ -175,7 +174,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         signInBottomSheet.setDismissWithAnimation(true);
 
 
-        //************************Facebook Signup**********************************
+        /************************Facebook Signup**********************************
 
         loginButton = view.findViewById(R.id.facebook);
         callbackManager = CallbackManager.Factory.create();
@@ -191,7 +190,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
                     @Override
                     public void onCancel() {
-                        // App code
+                        //
                     }
 
                     @Override
@@ -206,6 +205,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
 
 
+        */
 
         //****************create google sign  in request************************
         createRequest();
@@ -225,7 +225,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 //                        signInBottomSheet.dismiss();
 //                    }
 //                });
-                Flag = -1;
+               // Flag = -1;
                 signIn();
             }
         });
@@ -234,7 +234,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         return view;
     }
 
-    private void handleFacebookAccessToken(AccessToken token) {
+   /* private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
@@ -258,7 +258,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                     }
                 });
     }
-
+*/
 
     public void setInputs(boolean enable){
         email.setEnabled(enable);
@@ -286,8 +286,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (Flag == -1) {
-            Flag = 0;
             super.onActivityResult(requestCode, resultCode, data);
 
             // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -304,12 +302,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                     // ...
                 }
             }
-        }
-        if (Flag == 1) {
-            Flag = 0;
-            callbackManager.onActivityResult(requestCode, resultCode, data);
-            super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
