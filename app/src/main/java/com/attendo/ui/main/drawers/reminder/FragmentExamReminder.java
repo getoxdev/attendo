@@ -95,10 +95,6 @@ public class FragmentExamReminder extends Fragment {
         bottomSheetDialog.setContentView(bottomSheet);
         bottomSheetDialog.setDismissWithAnimation(true);
 
-        //Intent intent = new Intent(getActivity(), AlarmReminder.class);
-
-        //AlarmManager alarm = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-
         cancelAlarm.setEnabled(false);
 
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -116,14 +112,9 @@ public class FragmentExamReminder extends Fragment {
                         mylabel = label.getText().toString().trim();
 
                         bundle.putString("Label", mylabel);
-                        //intent.putExtras(bundle);
-
-                        //alarmdone = PendingIntent.getBroadcast(getActivity(), 101 ,intent,PendingIntent.FLAG_CANCEL_CURRENT);
 
                         int hour = timePicker.getCurrentHour();
                         int minute = timePicker.getCurrentMinute();
-
-                        //AlarmReminder reminder = new AlarmReminder();
 
                         //Create Time
                         Calendar startTime = Calendar.getInstance();

@@ -48,7 +48,6 @@ public class ReminderViewModel extends AndroidViewModel
             @Override
             public void onFailure(Call<Reminder> call, Throwable t) {
                 reminderResponse.postValue(null);
-
             }
         });
     }
