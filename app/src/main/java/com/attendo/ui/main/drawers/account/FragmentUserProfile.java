@@ -178,15 +178,13 @@ public class FragmentUserProfile extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String user_Id = mAuth.getCurrentUser().getUid();
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
-                ref.removeValue();
                 pgb.setVisibility(View.VISIBLE);
                 firebaseUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            //DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
-                            //ref.removeValue();
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
+                            ref.removeValue();
                             storageReference = storage.getReference();
                             storageReference.child("images/" + user_Id.toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
