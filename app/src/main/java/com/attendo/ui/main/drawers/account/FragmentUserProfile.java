@@ -179,16 +179,17 @@ public class FragmentUserProfile extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 pgb.setVisibility(View.VISIBLE);
+                user_id = mAuth.getCurrentUser().getUid();        //......newly added......
                 firebaseUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             storageReference = storage.getReference();
-                            databaseReference = FirebaseDatabase.getInstance().getReference("data");
                             storageReference.child("images/" + user_Id.toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    databaseReference.child(user_Id).removeValue();
+                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
+                                    ref.removeValue();
                                     pgb.setVisibility(View.INVISIBLE);
                                     Toast.makeText(getActivity(),"Your Account has been deleted",Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
@@ -198,7 +199,8 @@ public class FragmentUserProfile extends Fragment {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    databaseReference.child(user_Id).removeValue();
+                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
+                                    ref.removeValue();
                                     pgb.setVisibility(View.INVISIBLE);
                                     Toast.makeText(getActivity(),"YOUR ACCOUNT HAS BEEN DELETED",Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
