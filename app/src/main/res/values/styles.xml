@@ -10,6 +10,12 @@
         <item name="android:statusBarColor">#FAFAFA</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="textInputStyle">@style/CustomEditText</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_image_transform</item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_image_transform</item>
     </style>
 
     <style name="AppThemeCustom" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -22,6 +28,12 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
         <item name="textInputStyle">@style/CustomEditText</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_image_transform</item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_image_transform</item>
 
     </style>
     <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
@@ -37,6 +49,13 @@
     <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="CustomIconButton" parent="Widget.MaterialComponents.Button.Icon">
+        <item name="cornerRadius">3dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+
     </style>
 
     <style name="CustomEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

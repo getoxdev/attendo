@@ -3,9 +3,11 @@ package com.attendo.ui.sub;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -234,6 +236,20 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                         addButton.setText("Update");
 
+                        subjectName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                            @Override
+                            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                                switch (i){
+                                    case EditorInfo.IME_ACTION_DONE:
+                                        subjectViewModel.updateSubject(subjectName.getText().toString().trim(), subEntity.getId());
+                                        bottomSheetDialogedit.dismiss();
+                                        break;
+
+                                }
+                                return false;
+                            }
+                        });
+
                         addButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -270,20 +286,29 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                             @Override
                             public void onClick(View view) {
 
-
-                                int pre = Integer.parseInt(presentEditText.getText().toString());
-                                int tot = Integer.parseInt(totalEditText.getText().toString());
-                                if(pre>tot)
+                                if(presentEditText.getText().toString().length() == 0 || totalEditText.getText().toString().length() == 0)
                                 {
-                                    Toast.makeText(mContext,"Present classes should be less than total classes",Toast.LENGTH_SHORT).show();
-
+                                    presetnEditTextInputlayout.setError("Field cannot be empty");
+                                    totalEditTextInputLayout.setError("Field cannot be empty");
                                 }
+
                                 else
                                 {
+                                    int pre = Integer.parseInt(presentEditText.getText().toString());
+                                    int tot = Integer.parseInt(totalEditText.getText().toString());
+                                    if(pre>tot)
+                                    {
+                                        Toast.makeText(mContext,"Present classes should be less than total classes",Toast.LENGTH_SHORT).show();
+
+                                    }
+                                    else
+                                    {
                                     holder.tvPres.setText(String.valueOf(pre));
                                     holder.tvTotal.setText(String.valueOf(tot));
                                     subjectViewModel.updatePresent(pre,id);
                                     subjectViewModel.updateTotal(tot,id);
+                                        editAttend.dismiss();
+                                    }
                                 }
 
 
@@ -297,21 +322,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
 
 
-//                        if(presentEditText.getText().toString().length() > 0 && totalEditText.getText().toString().length() > 0){
-//
-//                            //backend database code goes here
-//
-//
-//                            //TODO: Backend database code goes here for updating the attendanc
-//                            }
-//                        else{
-//                            if(presentEditText.getText().toString().length() == 0){
-//                                presetnEditTextInputlayout.setError("Field cannot be empty");
-//                            }
-//                            if(totalEditText.getText().toString().length() == 0){
-//                                totalEditTextInputLayout.setError("Field cannot be empty");
-//                            }
-//                        }
 
                     }
                 });
@@ -393,7 +403,10 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
             if(value==0.0)
                 status="Dont't miss next 1 lecture";
             else
-                status="You can skip next "+String.format("%.0f",value)+" lectures";
+                if(value==1)
+                {status="You can skip next "+String.format("%.0f",Math.abs(value))+" lecture";}
+                else
+                {status="You can skip next "+String.format("%.0f",Math.abs(value))+" lectures";}
         }
         else if(percentagedouble<criteriadouble)
         {
@@ -408,11 +421,16 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                     status = "Impossible";
                 }
             }
-           else{
-            double value;
-            value=ceil(((criteriadouble*(presentdouble+absentdouble))/100 - presentdouble));
-            value = value+1;
-            status="You must attend next "+String.format("%.0f",value)+" lectures";}
+           else {
+                double value;
+                value = ceil(((criteriadouble * (presentdouble + absentdouble)) / 100 - presentdouble));
+                value = value + 1;
+                if (value == 1) {
+                    status = "You must attend next " + String.format("%.0f", Math.abs(value)) + " lecture";
+                } else {
+                    status = "You must attend next " + String.format("%.0f", Math.abs(value)) + " lectures";
+                }
+            }
 
         }
 

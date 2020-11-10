@@ -74,6 +74,7 @@ public class FragmentUserProfile extends Fragment {
         DELETE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 DeleteAccount();
             }
         });
@@ -81,21 +82,20 @@ public class FragmentUserProfile extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
 
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                DeleteAccount();
-            }
-        });
-
-        fragment_profile = new FragmentProfile();
-
         user_id = mAuth.getCurrentUser().getUid();
         firebaseUser = mAuth.getCurrentUser();
         storage = FirebaseStorage.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("data");
         storageReference = firebaseStorage.getReference();
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               DeleteAccount();
+            }
+        });
+
+        fragment_profile = new FragmentProfile();
         storageReference.child("images/" + user_id.toString()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri)
@@ -125,9 +125,7 @@ public class FragmentUserProfile extends Fragment {
                     Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
                     pgb.setVisibility(View.INVISIBLE);
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -152,7 +150,7 @@ public class FragmentUserProfile extends Fragment {
                 bundle.putString("phone",contact.getText().toString());
                 fragment_profile.setArguments(bundle);
                 Toast.makeText(getActivity(),"Edit Your Profile",Toast.LENGTH_SHORT).show();
-                //
+
                 setFragment(fragment_profile);
             }
         });
@@ -179,16 +177,18 @@ public class FragmentUserProfile extends Fragment {
         dialog.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String user_Id = mAuth.getCurrentUser().getUid();
                 pgb.setVisibility(View.VISIBLE);
                 firebaseUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
+                            ref.removeValue();
                             storageReference = storage.getReference();
                             storageReference.child("images/" + user_Id.toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    databaseReference.child(user_Id).removeValue();
                                     pgb.setVisibility(View.INVISIBLE);
                                     Toast.makeText(getActivity(),"Your Account has been deleted",Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
@@ -198,9 +198,8 @@ public class FragmentUserProfile extends Fragment {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    databaseReference.child(user_Id).removeValue();
                                     pgb.setVisibility(View.INVISIBLE);
-                                    Toast.makeText(getActivity(),"Your Account has been deleted",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(),"YOUR ACCOUNT HAS BEEN DELETED",Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
@@ -231,7 +230,4 @@ public class FragmentUserProfile extends Fragment {
         AlertDialog alertDialog = dialog.create();
         alertDialog.show();
     }
-
-
-
 }

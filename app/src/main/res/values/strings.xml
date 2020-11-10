@@ -8,8 +8,9 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="facebook_app_id">2774497869495624</string>
-    <string name="fb_login_protocol_scheme">fb2774497869495624</string>
+    <string name="facebook_app_id">364140814904359</string>
+    <string name="fb_login_protocol_scheme">fb364140814904359</string>
+
 
 
     <string name="menu_home">Home</string>
@@ -112,7 +113,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 

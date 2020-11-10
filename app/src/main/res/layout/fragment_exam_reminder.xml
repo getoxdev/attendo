@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:backgroundTint="#F6F5F5"
-    android:background="#F6F5F5"
+    android:backgroundTint="@color/bg_login"
+    android:background="@color/bg_login"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
     tools:context=".ui.main.drawers.reminder.FragmentExamReminder">
 
@@ -21,7 +21,7 @@
         android:src="@drawable/ic_alarm_white"
         app:backgroundTint="#9657F1"
         app:fabCustomSize="65dp"
-        app:tint="@color/white"
+        app:tint="@color/bg_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -42,6 +42,7 @@
         android:foreground="?android:selectableItemBackground"
         app:cardCornerRadius="15dp"
         app:cardElevation="15dp"
+        android:stateListAnimator="@animator/button_pressed_animator"
         android:outlineSpotShadowColor="#7A31C3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +64,7 @@
             android:layout_gravity="center"
             android:textSize="35dp"
             android:fontFamily="@font/roboto_bold"
-            android:textColor="#4A4A4A"/>
+            android:textColor="#272626"/>
 
 
 
@@ -77,17 +78,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/guideline_reminder"
-        app:cardBackgroundColor="#FFF"
+        app:cardBackgroundColor="@color/card_bg_color"
         app:cardCornerRadius="15dp"
         app:cardElevation="12dp"
-        android:outlineAmbientShadowColor="#7A31C3"
+        android:stateListAnimator="@animator/button_pressed_animator"
+        android:outlineAmbientShadowColor="@color/theme_shadow_color"
         android:outlineSpotShadowColor="#CAA6EF"
         android:foreground="?android:selectableItemBackground"
         android:clickable="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/card_bg_color"
+            android:background="@color/card_bg_color">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -129,7 +133,7 @@
                android:layout_width="wrap_content"
                android:layout_height="40dp"
                android:elevation="0dp"
-               android:textColor="#5920D8"
+               android:textColor="@color/btn_positive_text_color"
                android:textSize="15dp"
                android:stateListAnimator="@animator/card_pressed_animator"
                android:clickable="true"

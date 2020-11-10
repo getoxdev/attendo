@@ -1,5 +1,6 @@
 package com.attendo.ui.auth.login;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -52,6 +53,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.transition.MaterialFade;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -172,14 +174,38 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         signInBottomSheet.setDismissWithAnimation(true);
 
 
-        //************************Facebook Signup**********************************
-      loginButton = view.findViewById(R.id.facebook);
+        /************************Facebook Signup**********************************
+
+        loginButton = view.findViewById(R.id.facebook);
         callbackManager = CallbackManager.Factory.create();
 
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                        Flag = 1;
+                        handleFacebookAccessToken(loginResult.getAccessToken());
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        //
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        Toast.makeText(getActivity(),""+exception,Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
 
 
-
-
+        */
 
         //****************create google sign  in request************************
         createRequest();
@@ -187,18 +213,20 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         otherWaysbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signInBottomSheet.show();
-                ImageView googleSignInbtn = signInBottomSheet.findViewById(R.id.google_sign_in);
-                ImageView facebookSignInbtn = signInBottomSheet.findViewById(R.id.facebook_sign_in);
-
-                googleSignInbtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //code goes here for google sign in
-                        signIn();
-                        signInBottomSheet.dismiss();
-                    }
-                });
+//                signInBottomSheet.show();
+//                ImageView googleSignInbtn = signInBottomSheet.findViewById(R.id.google_sign_in);
+//                ImageView facebookSignInbtn = signInBottomSheet.findViewById(R.id.facebook_sign_in);
+//
+//                googleSignInbtn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        //code goes here for google sign in
+//                        signIn();
+//                        signInBottomSheet.dismiss();
+//                    }
+//                });
+               // Flag = -1;
+                signIn();
             }
         });
 
@@ -206,8 +234,31 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         return view;
     }
 
+   /* private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
 
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            String userId = mAuth.getCurrentUser().getUid();
+                            Toast.makeText(getActivity(),"Sign In succesful "+userId,Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getActivity(),BottomNavMainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(getActivity(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        }
 
+                    }
+                });
+    }
+*/
 
     public void setInputs(boolean enable){
         email.setEnabled(enable);
@@ -235,22 +286,22 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
-                firebaseAuthWithGoogle(account.getIdToken());
-            } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
-                // ...
+            // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+            if (requestCode == RC_SIGN_IN) {
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                try {
+                    // Google Sign In was successful, authenticate with Firebase
+                    GoogleSignInAccount account = task.getResult(ApiException.class);
+                    Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+                    firebaseAuthWithGoogle(account.getIdToken());
+                } catch (ApiException e) {
+                    // Google Sign In failed, update UI appropriately
+                    Log.w(TAG, "Google sign in failed", e);
+                    // ...
+                }
             }
-        }
     }
 
     private void firebaseAuthWithGoogle(String idToken) {

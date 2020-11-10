@@ -11,6 +11,7 @@
         android:id="@+id/splash_screen_app_icon"
         android:layout_width="140dp"
         android:layout_height="100dp"
+        android:transitionName="app_icon_animation"
         android:layout_alignParentBottom="true"
         android:background="@drawable/app_icon_middle_portion_removed"
         android:outlineAmbientShadowColor="#000"

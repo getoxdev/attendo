@@ -34,7 +34,7 @@ public class RetrofitProvider
                     }).readTimeout(60, TimeUnit.SECONDS).connectTimeout(60, TimeUnit.SECONDS).build();
 
                     builder = new Retrofit.Builder()
-                            .baseUrl("http://attendonits.herokuapp.com/")
+                            .baseUrl("https://attendonits.herokuapp.com/")
                             .client(okHttpClient)
                             .addConverterFactory(GsonConverterFactory.create(gson));
 

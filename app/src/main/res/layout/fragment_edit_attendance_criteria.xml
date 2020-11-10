@@ -82,7 +82,7 @@
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintVertical_bias="0.09" />
 
-   <!--TODO: Implement text input layout like login and signup  -->
+
 
    <TextView
        android:id="@+id/textView10"
