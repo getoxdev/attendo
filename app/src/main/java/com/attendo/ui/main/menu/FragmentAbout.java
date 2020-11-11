@@ -31,7 +31,7 @@ public class FragmentAbout extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("About Us");
 
         //connect to developers
-        CardView mentorCard, learner1, learner2, learner3, learner4, mentor2;
+        CardView mentorCard, learner1, learner2, learner3, learner4, mentor2, learner5;
 
         //---------------------------  hooks  ---------------------------------
         mentorCard = view.findViewById(R.id.mentor1);
@@ -40,6 +40,7 @@ public class FragmentAbout extends Fragment {
         learner3 = view.findViewById(R.id.learner3);
         learner4 = view.findViewById(R.id.learner4);
         mentor2 = view.findViewById(R.id.mentor2);
+        learner5 = view.findViewById(R.id.learner5);
 
         //---------------------------------------------------------------------
 
@@ -340,6 +341,55 @@ public class FragmentAbout extends Fragment {
                 bottomSheetDialog.setContentView(bottomsheet);
                 bottomSheetDialog.show();
 
+
+            }
+        });
+
+        //------------------- Learner 5 card ---------------------------------------------------
+        learner5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(),R.style.BottomSheetDialog);
+                View bottomsheet = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet,
+                        (ConstraintLayout) view.findViewById(R.id.bottom_sheet_container));
+
+                //hooks
+                ImageView github = bottomsheet.findViewById(R.id.github_icon);
+                ImageView linkedin = bottomsheet.findViewById(R.id.linked_icon);
+                ImageView instagram = bottomsheet.findViewById(R.id.instagram_icon);
+                ImageView facebook = bottomsheet.findViewById(R.id.facebook_icon);
+
+                github.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gotoUrl("https://github.com/gauravdas014");
+
+                    }
+                });
+
+                linkedin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gotoUrl("https://www.linkedin.com/in/gauravdas014/");
+                    }
+                });
+
+                instagram.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gotoUrl("https://www.instagram.com/gaurav_das__/");
+                    }
+                });
+                facebook.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gotoUrl("https://www.facebook.com/gaurav.das.338211");
+                    }
+                });
+
+                bottomSheetDialog.setContentView(bottomsheet);
+                bottomSheetDialog.show();
 
             }
         });
