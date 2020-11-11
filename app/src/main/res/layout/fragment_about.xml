@@ -528,6 +528,90 @@
 
 
 
+               <!--Gaurav card-->
+               <androidx.cardview.widget.CardView
+                   android:id="@+id/learner5"
+                   android:layout_width="match_parent"
+                   android:layout_height="100dp"
+                   android:layout_below="@id/mentor2"
+                   app:cardBackgroundColor="@color/about_card_bg"
+                   app:cardCornerRadius="20dp"
+                   android:layout_marginLeft="50dp"
+                   android:layout_marginRight="20dp"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginBottom="5dp"
+                   app:cardElevation="0dp"
+                   android:clickable="true"
+                   android:foreground="?android:attr/selectableItemBackground">
+
+                  <RelativeLayout
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent">
+
+                     <TextView
+                         android:id="@+id/name_learner_5"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="Gaurav Das"
+                         android:layout_marginStart="70dp"
+                         android:layout_marginTop="14dp"
+                         android:fontFamily="@font/comfortaa"
+                         android:textColor="@color/text_color_primary"
+                         android:layout_alignParentStart="true"/>
+
+                     <TextView
+                         android:id="@+id/designation_learner_5"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_below="@id/name_learner_5"
+                         android:layout_marginStart="70dp"
+                         android:text="Full Stack Web Developer"
+                         android:layout_alignParentStart="true"/>
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_below="@id/designation_learner_5"
+                         android:layout_marginStart="70dp"
+                         android:text="NIT Silchar | CSE "
+                         android:layout_alignParentStart="true"/>
+
+
+
+
+
+
+                  </RelativeLayout>
+
+
+
+               </androidx.cardview.widget.CardView>
+
+
+               <androidx.cardview.widget.CardView
+                   app:cardElevation="1dp"
+                   android:layout_width="100dp"
+                   android:layout_height="100dp"
+                   app:cardCornerRadius="50dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginTop="8dp"
+                   android:layout_alignBottom="@id/learner5"
+                   android:layout_alignParentStart="true"
+                   android:layout_marginStart="10dp">
+
+
+
+
+                  <ImageView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:src="@drawable/gaurav_das"
+                      android:scaleType="centerCrop"/>
+
+               </androidx.cardview.widget.CardView>
+
+
+
 
 
 
