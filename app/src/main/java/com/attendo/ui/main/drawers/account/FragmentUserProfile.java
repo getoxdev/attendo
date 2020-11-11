@@ -53,7 +53,6 @@ public class FragmentUserProfile extends Fragment {
     FirebaseStorage storage;
     StorageReference storageReference;
     FirebaseUser firebaseUser;
-    public String PATH = "data";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +74,7 @@ public class FragmentUserProfile extends Fragment {
         DELETE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 DeleteAccount();
             }
         });
@@ -91,8 +91,7 @@ public class FragmentUserProfile extends Fragment {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                DeleteAccount();
+               DeleteAccount();
             }
         });
 
@@ -178,18 +177,18 @@ public class FragmentUserProfile extends Fragment {
         dialog.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String user_Id = mAuth.getCurrentUser().getUid();
                 pgb.setVisibility(View.VISIBLE);
-                user_id = mAuth.getCurrentUser().getUid();        //......newly added......
                 firebaseUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
+                            ref.removeValue();
                             storageReference = storage.getReference();
                             storageReference.child("images/" + user_Id.toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
-                                    ref.removeValue();
                                     pgb.setVisibility(View.INVISIBLE);
                                     Toast.makeText(getActivity(),"Your Account has been deleted",Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
@@ -199,8 +198,6 @@ public class FragmentUserProfile extends Fragment {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
-                                    ref.removeValue();
                                     pgb.setVisibility(View.INVISIBLE);
                                     Toast.makeText(getActivity(),"YOUR ACCOUNT HAS BEEN DELETED",Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
