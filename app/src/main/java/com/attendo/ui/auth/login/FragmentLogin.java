@@ -141,14 +141,14 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         forgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                            setFragment(fragmentForgetpassword);
+                            setNextFragment(fragmentForgetpassword);
             }
         });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragment(fragmentSignup);
+                setNextFragment(fragmentSignup);
             }
         });
 
@@ -415,11 +415,11 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         progress.setVisibility(View.INVISIBLE);
         Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
     }
-    private void setFragment(Fragment fragment) {
+    /*private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.start_frame,fragment);
         fragmentTransaction.addToBackStack(null).commit();
-    }
+    }*/
 
     private void checkUser(){
 
