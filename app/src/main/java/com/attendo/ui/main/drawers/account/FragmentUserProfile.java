@@ -177,7 +177,9 @@ public class FragmentUserProfile extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         pgb.setVisibility(View.VISIBLE);
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
+                        DatabaseReference refbugs = FirebaseDatabase.getInstance().getReference("Bugs").child(user_Id);
                         ref.removeValue();
+                        refbugs.removeValue();
                         storageReference = storage.getReference();
                         storageReference.child("images/" + user_Id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -204,7 +206,7 @@ public class FragmentUserProfile extends Fragment {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getActivity(),""+e.toString(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(),"Please Login again to delete account",Toast.LENGTH_LONG).show();
                                 pgb.setVisibility(View.INVISIBLE);
                                 mAuth.signOut();
                                 Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
