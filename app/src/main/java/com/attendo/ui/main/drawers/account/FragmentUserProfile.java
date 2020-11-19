@@ -74,7 +74,6 @@ public class FragmentUserProfile extends Fragment {
         DELETE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 DeleteAccount();
             }
         });
@@ -91,7 +90,7 @@ public class FragmentUserProfile extends Fragment {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               DeleteAccount();
+                DeleteAccount();
             }
         });
 
@@ -107,7 +106,7 @@ public class FragmentUserProfile extends Fragment {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                       // Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
                         pgb.setVisibility(View.INVISIBLE);
                     }
                 });
@@ -165,28 +164,26 @@ public class FragmentUserProfile extends Fragment {
     }
 
 
-    //************ACCOUNT DELETION CODE**************
+    //*****************ACCOUNT DELETION CODE********************
 
 
     private void DeleteAccount() {
         String user_Id = mAuth.getCurrentUser().getUid();
-
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
         dialog.setTitle("Are You Sure?");
         dialog.setMessage("Deleting this account will result in completely removing your account and profile from the system");
         dialog.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String user_Id = mAuth.getCurrentUser().getUid();
                 pgb.setVisibility(View.VISIBLE);
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
+                ref.removeValue();
                 firebaseUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
-                            ref.removeValue();
                             storageReference = storage.getReference();
-                            storageReference.child("images/" + user_Id.toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            storageReference.child("images/" + user_Id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     pgb.setVisibility(View.INVISIBLE);
@@ -210,7 +207,7 @@ public class FragmentUserProfile extends Fragment {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(),""+e,Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(),""+e.toString(),Toast.LENGTH_LONG).show();
                         pgb.setVisibility(View.INVISIBLE);
                         mAuth.signOut();
                         Intent intent = new Intent(getActivity(), AuthenticationActivity.class);

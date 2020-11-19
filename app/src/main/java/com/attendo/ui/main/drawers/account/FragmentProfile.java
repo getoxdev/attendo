@@ -147,11 +147,11 @@ public class FragmentProfile extends Fragment {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-//                                    Toast.makeText(getContext(), "Account creation failed " + e, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Account Updated", Toast.LENGTH_SHORT).show();
                                     Log.d("Execption got", e.toString());
-//                                    Intent intent = new Intent(getActivity(), BottomNavMainActivity.class);
-//                                    startActivity(intent);
-//                                    getActivity().finish();
+                                    Intent intent = new Intent(getActivity(), BottomNavMainActivity.class);
+                                    startActivity(intent);
+                                    getActivity().finish();
                                 }
                             });
                         }
