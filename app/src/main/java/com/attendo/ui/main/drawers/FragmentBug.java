@@ -43,16 +43,14 @@ public class FragmentBug extends Fragment{
         details = view.findViewById(R.id.btn_details);
         mAuth=FirebaseAuth.getInstance();
         user=mAuth.getCurrentUser().getUid();
-        databaseReference= FirebaseDatabase.getInstance().getReference().child(user);
+        databaseReference= FirebaseDatabase.getInstance().getReference("Bugs").child(user);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 details.setEnabled(true);
                 send.setEnabled(true);
 
-
               String msg = msgdata.getText().toString().trim();
-
 
                 if (msg.isEmpty()) {
                     msgdata.setError("this is a required field");

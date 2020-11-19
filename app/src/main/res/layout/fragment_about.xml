@@ -322,9 +322,9 @@
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          android:layout_below="@id/designation_learner_4"
+                         android:layout_alignParentEnd="true"
                          android:layout_marginEnd="70dp"
-                         android:text="NIT Silchar | CSE "
-                         android:layout_alignParentEnd="true"/>
+                         android:text="NIT Silchar | CSE " />
 
 
 
@@ -385,7 +385,7 @@
                          android:id="@+id/name_mentor_1"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:text="Rishiraj Paul Choudhary"
+                         android:text="Rishiraj Paul Chowdhury"
                          android:layout_marginStart="70dp"
                          android:layout_marginTop="14dp"
                          android:fontFamily="@font/comfortaa"
@@ -408,11 +408,6 @@
                          android:layout_marginStart="70dp"
                          android:text="NIT Silchar | ECE "
                          android:layout_alignParentStart="true"/>
-
-
-
-
-
 
                   </RelativeLayout>
 
