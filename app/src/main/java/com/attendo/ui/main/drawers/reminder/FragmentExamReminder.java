@@ -38,15 +38,27 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class FragmentExamReminder extends Fragment {
 
-    EditText label;
+    @BindView(R.id.add_rem)
     FloatingActionButton mFloatingActionButton;
-    TimePicker timePicker;
-    TextView timeShow, labelShow;
+    @BindView(R.id.time_show)
+    TextView timeShow;
+    @BindView(R.id.label_show)
+    TextView labelShow;
+    @BindView(R.id.alarm_card_view)
     CardView alarmCard;
+    @BindView(R.id.cancel_alarm)
     Button cancelAlarm;
+
+    TimePicker timePicker;
+    EditText label;
+
+
     private String mylabel;
     private PendingIntent alarmdone;
     private Bundle bundle;
@@ -62,11 +74,8 @@ public class FragmentExamReminder extends Fragment {
         View view = inflater.inflate(R.layout.fragment_exam_reminder, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Class Reminder");
-        mFloatingActionButton = view.findViewById(R.id.add_rem);
-        timeShow = view.findViewById(R.id.time_show);
-        labelShow = view.findViewById(R.id.label_show);
-        alarmCard = view.findViewById(R.id.alarm_card_view);
-        cancelAlarm = view.findViewById(R.id.cancel_alarm);
+
+        ButterKnife.bind(this,view);
 
         viewModel = ViewModelProviders.of(getActivity()).get(ReminderViewModel.class);
         apiHelper = ApiHelper.getInstance(getContext());
@@ -105,9 +114,8 @@ public class FragmentExamReminder extends Fragment {
             @Override
             public void onClick(View view) {
                 bottomSheetDialog.show();
-
-                timePicker = bottomSheet.findViewById(R.id.timePicker);
-                label = bottomSheet.findViewById(R.id.reminder_label);
+                timePicker=bottomSheet.findViewById(R.id.timePicker);
+                label=bottomSheet.findViewById(R.id.reminder_label);
                 Button add = bottomSheet.findViewById(R.id.add_reminder);
 
                 add.setOnClickListener(new View.OnClickListener() {

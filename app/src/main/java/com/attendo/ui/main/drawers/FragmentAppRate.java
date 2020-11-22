@@ -21,7 +21,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class FragmentAppRate extends Fragment {
+    @BindView(R.id.feedback)
+    EditText feedback;
+    @BindView(R.id.btnFeedback)
+    Button btnFeedback;
 
     DatabaseReference databaseReference;
     FirebaseAuth mAuth;
@@ -29,14 +36,13 @@ public class FragmentAppRate extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        EditText feedback;
-        Button btnFeedback;
+
         Firebase firebase;
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_app_rate, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Rate our App");
-         feedback=view.findViewById(R.id.feedback);
-        btnFeedback=view.findViewById(R.id.btnFeedback);
+        ButterKnife.bind(this,view);
+
         mAuth=FirebaseAuth.getInstance();
         String user=mAuth.getCurrentUser().getUid();
         databaseReference= FirebaseDatabase.getInstance().getReference().child(user);

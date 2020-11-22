@@ -22,8 +22,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class FragmentBug extends Fragment{
+    @BindView(R.id.msgData)
+    EditText msgdata;
+    @BindView(R.id.btn_send)
+    Button send;
+    @BindView(R.id.btn_details)
+    Button details;
+
     DatabaseReference databaseReference;
     FirebaseAuth mAuth;
     String user;
@@ -31,16 +41,13 @@ public class FragmentBug extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        EditText msgdata;
-        Button send, details;
+
         Firebase firebase;
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_bug, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Report Bug");
+        ButterKnife.bind(this,view);
 
-        msgdata = view.findViewById(R.id.msgData);
-        send = view.findViewById(R.id.btn_send);
-        details = view.findViewById(R.id.btn_details);
         mAuth=FirebaseAuth.getInstance();
         user=mAuth.getCurrentUser().getUid();
         databaseReference= FirebaseDatabase.getInstance().getReference("Bugs").child(user);
