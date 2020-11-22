@@ -18,22 +18,28 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class FragmentForgetPassword extends Fragment {
 
-    private EditText email;
-    private Button btn;
-    private ProgressBar progress;
+    @BindView(R.id.edittextforgotemail)
+    EditText email;
+    @BindView(R.id.submit)
+    Button btn;
+    @BindView(R.id.progresscircular)
+    ProgressBar progress;
+
     private FirebaseAuth firebaseAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflate the layout for this fragmen
         View view = inflater.inflate(R.layout.fragment_forgetpassword, container, false);
-        email = view.findViewById(R.id.edittextforgotemail);
-        btn = view.findViewById(R.id.submit);
-        progress = view.findViewById(R.id.progresscircular);
+        ButterKnife.bind(this, view);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         btn.setOnClickListener(new View.OnClickListener() {

@@ -13,8 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit Attendance"
-        android:textSize="21dp"
-        android:fontFamily="@font/roboto_bold"
+        android:textSize="20dp"
+        android:fontFamily="@font/roboto_light"
         android:padding="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
@@ -80,6 +80,7 @@
         app:backgroundTint="@color/btn_tint_2"
         android:elevation="0dp"
         app:strokeWidth="0dp"
+        android:stateListAnimator="@animator/button_pressed_animator"
         android:textAllCaps="false"
         app:rippleColor="#AF91F4"
         android:padding="10dp"

@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,18 +35,33 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static android.app.Activity.RESULT_OK;
 
 public class FragmentProfile extends Fragment {
 
-    Button btn;
+    @BindView(R.id.skip_account_creation)
     TextView SkipAccountCreation;
-    EditText name,college,city,Contact;
-    private FragmentUserProfile fragment_user_profile;
+    @BindView(R.id.user_name)
+    EditText name;
+    @BindView(R.id.user_school)
+    EditText college;
+    @BindView(R.id.user_city)
+    EditText city;
+    @BindView(R.id.user_phone)
+    EditText Contact;
+    @BindView(R.id.user_image)
     ImageView profileimage;
+    @BindView(R.id.save_profile)
+    Button btn;
+    @BindView(R.id.user_progressbar)
+    ProgressBar pB;
+
+    private FragmentUserProfile fragment_user_profile;
     CardView profilecard;
     private Uri filepath;
-    ProgressBar pB;
 
 
     DatabaseReference databaseReference;
@@ -72,17 +88,12 @@ public class FragmentProfile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment__profile, container, false);
+        ButterKnife.bind(this,view);
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Create Profile");
 
         fragment_user_profile = new FragmentUserProfile();
-        btn = view.findViewById(R.id.save_profile);
-        name = view.findViewById(R.id.user_name);
-        city = view.findViewById(R.id.user_city);
-        college = view.findViewById(R.id.user_school);
-        Contact = view.findViewById(R.id.user_phone);
-        profileimage = view.findViewById(R.id.user_image);
         profilecard = view.findViewById(R.id.image_cardview);
-        pB = view.findViewById(R.id.user_progressbar);
         pB.setVisibility(View.INVISIBLE);
 
         //retriving data from previous fragment
@@ -95,7 +106,8 @@ public class FragmentProfile extends Fragment {
         city.setText(data3);
         String data4 = bundle.getString("phone");
         Contact.setText(data4);
-        //
+
+
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -107,7 +119,7 @@ public class FragmentProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 pB.setVisibility(View.VISIBLE);
-                String Name = name.getText().toString().trim();
+                String Name = name.getText().toString();
                 String College =college.getText().toString();
                 String City = city.getText().toString();
                 String contact = Contact.getText().toString().trim();
@@ -118,7 +130,7 @@ public class FragmentProfile extends Fragment {
                     }
                  }
                 else {
-                    //for generating unique id everytime which may not require
+                    //for generating unique id may not require everytime
                     if (contact.length() != 10) {
                         pB.setVisibility(View.INVISIBLE);
                         Toast.makeText(getContext(), "Enter a valid Mobile Number of length 10", Toast.LENGTH_SHORT).show();
@@ -133,7 +145,6 @@ public class FragmentProfile extends Fragment {
                             UploadImage();
                         } else {
                             pB.setVisibility(View.INVISIBLE);
-                            storageReference = storage.getReference();
                             storageReference.child("images/" + user_id.toString()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -146,7 +157,8 @@ public class FragmentProfile extends Fragment {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getContext(), "Account Updated " + name.getText().toString(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "Account Updated", Toast.LENGTH_SHORT).show();
+                                    Log.d("Execption got", e.toString());
                                     Intent intent = new Intent(getActivity(), BottomNavMainActivity.class);
                                     startActivity(intent);
                                     getActivity().finish();
@@ -187,7 +199,6 @@ public class FragmentProfile extends Fragment {
 
         //SKIP ACCOUNT CREATION CODE
 
-        SkipAccountCreation = view.findViewById(R.id.skip_account_creation);
         SkipAccountCreation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
