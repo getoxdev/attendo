@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -36,6 +37,9 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static java.lang.Math.ceil;
 import static java.lang.Math.floor;
@@ -347,22 +351,40 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
     public class SubViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView subItemView, tvTotal, tvPres, percent,status,criteria;
-        private Button btnAbs, btnPres,upadt;
-        private CardView card;
+        @BindView(R.id.subName)
+        TextView subItemView;
+
+        @BindView(R.id.tvTotal)
+        TextView tvTotal;
+
+        @BindView(R.id.tvPres)
+        TextView tvPres;
+
+        @BindView(R.id.percentage)
+        TextView percent;
+
+        @BindView(R.id.status_counter)
+        TextView status;
+
+        @BindView(R.id.textView10) @Nullable
+        TextView criteria2;
+
+        @BindView(R.id.bAbsent)
+        Button btnAbs;
+
+        @BindView(R.id.bPresent)
+        Button btnPres;
+
+        @BindView(R.id.updateAttendance) @Nullable
+        Button upadt;
+
+        @BindView(R.id.card1)
+        CardView card;
 
         public SubViewHolder(View itemView) {
             super(itemView);
-            subItemView = itemView.findViewById(R.id.subName);
-            btnAbs = itemView.findViewById(R.id.bAbsent);
-            btnPres = itemView.findViewById(R.id.bPresent);
-            card = itemView.findViewById(R.id.card1);
-            tvTotal = itemView.findViewById(R.id.tvTotal);
-            tvPres = itemView.findViewById(R.id.tvPres);
-            percent = itemView.findViewById(R.id.percentage);
-            status = itemView.findViewById(R.id.status_counter);
-            criteria = itemView.findViewById(R.id.textView10);
-            upadt = itemView.findViewById(R.id.updateAttendance);
+            ButterKnife.bind(this,itemView);
+
         }
     }
 

@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class Fragment_Subject extends Fragment {
 
@@ -54,14 +55,19 @@ public class Fragment_Subject extends Fragment {
 
 
 
-    @BindView(R.id.tvPres)
-    TextView present;
 
-    @BindView(R.id.tvTotal)
-    TextView total;
 
     @BindView(R.id.recyclerview)
-    RecyclerView subRView;
+    RecyclerView recyclerView;
+
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+
+    @BindView(R.id.subject_lottie_animation_unique)
+    LottieAnimationView subjectanim;
+
+    @BindView(R.id.help_text_subject)
+    TextView helpText;
 
 
 
@@ -103,32 +109,16 @@ public class Fragment_Subject extends Fragment {
 
         final Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
+        ButterKnife.bind(this,view);
+
 
         
         Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.card_transition);
-
-
-        FloatingActionButton fab = view.findViewById(R.id.fab);
-        LottieAnimationView subjectanim = view.findViewById(R.id.subject_lottie_animation_unique);
-        TextView helpText = view.findViewById(R.id.help_text_subject);
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
 
         View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet_add_subject,
                 (ConstraintLayout) view.findViewById(R.id.bottom_sheet_add_subject_container));
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -224,7 +214,7 @@ public class Fragment_Subject extends Fragment {
         LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.recycler_view_layout_anim);
 
         Animation fadeIN = AnimationUtils.loadAnimation(getContext(), R.anim.fade_card);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
+        //RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
 
 
         subListAdapter = new SubListAdapter(getActivity(),mSubjects,fetchVAlue());
