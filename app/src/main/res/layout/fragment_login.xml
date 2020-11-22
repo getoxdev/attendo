@@ -204,7 +204,10 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5"/>
 
-
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
