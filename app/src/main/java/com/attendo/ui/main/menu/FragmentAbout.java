@@ -53,11 +53,9 @@ public class FragmentAbout extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_about, container, false);
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
         ButterKnife.bind(this, view);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("About Us");
-
-
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("About Us");
 
 
         //setting on click listener for all the cards
@@ -69,7 +67,7 @@ public class FragmentAbout extends Fragment {
                 bottomSheetFunction("https://www.facebook.com/rishiraj.paulchowdhury.7", "https://www.instagram.com/pc_rishi/",
                         "https://www.linkedin.com/in/rishiraj-paul-chowdhury-825419171/", "https://github.com/getoxdev");
 
-        }
+            }
         });
 
         learner1.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +79,6 @@ public class FragmentAbout extends Fragment {
 
             }
         });
-
 
 
         learner2.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +96,7 @@ public class FragmentAbout extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bottomSheetFunction("https://www.facebook.com/ria.sarma.733",null,
+                bottomSheetFunction("https://www.facebook.com/ria.sarma.733", null,
                         "https://www.linkedin.com/in/shristi-sarma-69619713a/", "https://github.com/sarma923");
 
             }
@@ -139,19 +136,17 @@ public class FragmentAbout extends Fragment {
         });
 
 
-
-
         return view;
     }
 
-    private void gotoUrl(String url){
+    private void gotoUrl(String url) {
 
         Uri uri = Uri.parse(url);
         startActivity(new Intent(Intent.ACTION_VIEW, uri));
     }
 
-    private void bottomSheetFunction(String facebookUrl, String instaUrl, String linkedInUrl, String githubUrl){
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(),R.style.BottomSheetDialog);
+    private void bottomSheetFunction(String facebookUrl, String instaUrl, String linkedInUrl, String githubUrl) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
         View bottomsheet = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet,
                 (ConstraintLayout) getView().findViewById(R.id.bottom_sheet_container));
 
@@ -164,9 +159,9 @@ public class FragmentAbout extends Fragment {
         github.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(githubUrl == null){
+                if (githubUrl == null) {
                     Toast.makeText(getContext(), "Not Available", Toast.LENGTH_SHORT);
-                }else{
+                } else {
                     gotoUrl(githubUrl);
                 }
 
@@ -177,9 +172,9 @@ public class FragmentAbout extends Fragment {
         linkedin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(linkedInUrl == null){
+                if (linkedInUrl == null) {
                     Toast.makeText(getContext(), "Not Available", Toast.LENGTH_SHORT);
-                }else{
+                } else {
                     gotoUrl(linkedInUrl);
                 }
             }
@@ -188,9 +183,9 @@ public class FragmentAbout extends Fragment {
         instagram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(instaUrl == null){
+                if (instaUrl == null) {
                     Toast.makeText(getContext(), "Not Available", Toast.LENGTH_SHORT);
-                }else{
+                } else {
                     gotoUrl(instaUrl);
                 }
             }
@@ -198,9 +193,9 @@ public class FragmentAbout extends Fragment {
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(facebookUrl == null){
+                if (facebookUrl == null) {
                     Toast.makeText(getContext(), "Not Available", Toast.LENGTH_SHORT);
-                }else{
+                } else {
                     gotoUrl(facebookUrl);
                 }
             }
