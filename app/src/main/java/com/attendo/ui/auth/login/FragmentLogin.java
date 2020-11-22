@@ -71,62 +71,47 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Arrays;
 import java.util.concurrent.Executor;
 
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-
 import static com.airbnb.lottie.L.TAG;
 
 public class FragmentLogin extends Fragment implements logininterface.View {
 
+    private EditText email,password;
+    private Button loginbtn, otherWaysbtn;
+    private TextView forgotpassword;
+    private TextView register;
     private logininterface.Presenter presenter;
+    private FragmentSignup fragmentSignup;
+    private FragmentForgetPassword fragmentForgetpassword;
+    private ProgressBar progress;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1234;
     private FirebaseAuth mAuth;
-
-    //Fragments initialization
-    private FragmentSignup fragmentSignup;
-    private FragmentForgetPassword fragmentForgetpassword;
     private FragmentProfile fragmentProfile;
 
-    //Binding views using Butterknife
-    @BindView(R.id.editTextTextPersonName)
-    EditText email;
-
-    @BindView(R.id.editTextTextPassword)
-    EditText password;
-
-    @BindView(R.id.button)
-    Button loginbtn;
-
-    @BindView(R.id.textViewforgot)
-    TextView forgotpassword;
-
-    @BindView(R.id.textViewregister)
-    TextView register;
-
-    @BindView(R.id.progress_circular)
-    ProgressBar progress;
-
-    @BindView(R.id.other_signIn_options_btn)
-    Button otherWaysbtn;
-
-    /*private CallbackManager callbackManager;
+    private CallbackManager callbackManager;
     private Button loginButton;
     private static final String EMAIL = "email";
     private int requestCode;
     private int resultCode;
-    private Intent data;*/
+    private Intent data;
+    int Flag = 1;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_login, container, false);
-        ButterKnife.bind(this, view);
 
-        //object initialization of presenter object
+        email = view.findViewById(R.id.editTextTextPersonName);
+        password = view.findViewById(R.id.editTextTextPassword);
+        loginbtn = view.findViewById(R.id.button);
+        forgotpassword = view.findViewById(R.id.textViewforgot);
+        register = view.findViewById(R.id.textViewregister);
+        progress = view.findViewById(R.id.progress_circular);
+        otherWaysbtn = view.findViewById(R.id.other_signIn_options_btn);
         presenter = new loginPresenter(this);
+
+
         fragmentSignup = new FragmentSignup();
         fragmentForgetpassword = new FragmentForgetPassword();
         fragmentProfile = new FragmentProfile();
@@ -157,14 +142,14 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         forgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                            setNextFragment(fragmentForgetpassword);
+                            setFragment(fragmentForgetpassword);
             }
         });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setNextFragment(fragmentSignup);
+                setFragment(fragmentSignup);
             }
         });
 
@@ -190,7 +175,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         signInBottomSheet.setDismissWithAnimation(true);
 
 
-        /************************Facebook Signup**********************************
+        //**********************Facebook Signup**********************************
 
         loginButton = view.findViewById(R.id.facebook);
         callbackManager = CallbackManager.Factory.create();
@@ -221,7 +206,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
 
 
-        */
 
         //****************create google sign  in request************************
         createRequest();
@@ -241,7 +225,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 //                        signInBottomSheet.dismiss();
 //                    }
 //                });
-               // Flag = -1;
+                Flag = -1;
                 signIn();
             }
         });
@@ -250,7 +234,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         return view;
     }
 
-   /* private void handleFacebookAccessToken(AccessToken token) {
+      private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
@@ -274,7 +258,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                     }
                 });
     }
-*/
 
     public void setInputs(boolean enable){
         email.setEnabled(enable);
@@ -302,6 +285,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(Flag == -1) {
             super.onActivityResult(requestCode, resultCode, data);
 
             // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -318,6 +302,11 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                     // ...
                 }
             }
+        }
+        if(Flag == 1){
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
@@ -431,11 +420,11 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         progress.setVisibility(View.INVISIBLE);
         Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
     }
-    /*private void setFragment(Fragment fragment) {
+    private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.start_frame,fragment);
         fragmentTransaction.addToBackStack(null).commit();
-    }*/
+    }
 
     private void checkUser(){
 
