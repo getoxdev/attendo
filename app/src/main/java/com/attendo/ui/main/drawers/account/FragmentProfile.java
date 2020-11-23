@@ -35,18 +35,33 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 import static android.app.Activity.RESULT_OK;
 
 public class FragmentProfile extends Fragment {
 
-    Button btn;
+    @BindView(R.id.skip_account_creation)
     TextView SkipAccountCreation;
-    EditText name,college,city,Contact;
-    private FragmentUserProfile fragment_user_profile;
+    @BindView(R.id.user_name)
+    EditText name;
+    @BindView(R.id.user_school)
+    EditText college;
+    @BindView(R.id.user_city)
+    EditText city;
+    @BindView(R.id.user_phone)
+    EditText Contact;
+    @BindView(R.id.user_image)
     ImageView profileimage;
+    @BindView(R.id.save_profile)
+    Button btn;
+    @BindView(R.id.user_progressbar)
+    ProgressBar pB;
+
+    private FragmentUserProfile fragment_user_profile;
     CardView profilecard;
     private Uri filepath;
-    ProgressBar pB;
 
 
     DatabaseReference databaseReference;
@@ -73,17 +88,12 @@ public class FragmentProfile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment__profile, container, false);
+        ButterKnife.bind(this,view);
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Create Profile");
 
         fragment_user_profile = new FragmentUserProfile();
-        btn = view.findViewById(R.id.save_profile);
-        name = view.findViewById(R.id.user_name);
-        city = view.findViewById(R.id.user_city);
-        college = view.findViewById(R.id.user_school);
-        Contact = view.findViewById(R.id.user_phone);
-        profileimage = view.findViewById(R.id.user_image);
         profilecard = view.findViewById(R.id.image_cardview);
-        pB = view.findViewById(R.id.user_progressbar);
         pB.setVisibility(View.INVISIBLE);
 
         //retriving data from previous fragment
@@ -189,7 +199,6 @@ public class FragmentProfile extends Fragment {
 
         //SKIP ACCOUNT CREATION CODE
 
-        SkipAccountCreation = view.findViewById(R.id.skip_account_creation);
         SkipAccountCreation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

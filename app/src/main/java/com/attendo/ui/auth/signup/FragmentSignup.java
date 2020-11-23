@@ -18,11 +18,23 @@ import androidx.fragment.app.FragmentTransaction;
 import com.attendo.ui.main.drawers.account.FragmentProfile;
 import com.attendo.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class FragmentSignup extends Fragment implements SignupInterface.View {
 
-    private EditText email,password,confpassword;
+    @BindView(R.id.editTextEmail)
+    EditText email;
+    @BindView(R.id.editTextTextPassword)
+    EditText password;
+    @BindView(R.id.editTextTextPassword2)
+    EditText confpassword;
+    @BindView(R.id.button)
     Button SignUp;
+    @BindView(R.id.progressbar)
     ProgressBar progress;
+
+
     private SignupInterface.Presenter presenter;
     private FragmentProfile fragment_profile;
 
@@ -31,11 +43,9 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_signup, container, false);
-        email = view.findViewById(R.id.editTextEmail);
-        password = view.findViewById(R.id.editTextTextPassword);
-        confpassword = view.findViewById(R.id.editTextTextPassword2);
-        SignUp = view.findViewById(R.id.button);
-        progress = view.findViewById(R.id.progressbar);
+
+        ButterKnife.bind(this, view);
+
         presenter = new SignupPresenter(this);
 
         fragment_profile = new FragmentProfile();

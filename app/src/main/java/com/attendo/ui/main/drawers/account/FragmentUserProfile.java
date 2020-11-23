@@ -38,14 +38,33 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class FragmentUserProfile extends Fragment {
 
+    @BindView(R.id.USER_NAME)
+     TextView name;
+    @BindView(R.id.USER_COLLEGE)
+    TextView college;
+    @BindView(R.id.USER_CITY)
+    TextView city;
+    @BindView(R.id.USER_PHONE)
+    TextView contact;
+    @BindView(R.id.delete__account)
+    TextView DELETE;
+    @BindView(R.id.edit_profile)
     Button btn;
-    private FragmentProfile fragment_profile;
-    TextView name,college,city,contact,DELETE;
-    String user_id;
+    @BindView(R.id.progressbar)
     ProgressBar pgb;
-    ImageView profile,delete;
+    @BindView(R.id.USER_IMAGE)
+    ImageView profile;
+    @BindView(R.id.Delete_Account)
+    ImageView delete;
+
+
+    private FragmentProfile fragment_profile;
+    String user_id;
 
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
@@ -61,15 +80,7 @@ public class FragmentUserProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Account Profile");
 
-
-        name = view.findViewById(R.id.USER_NAME);
-        college = view.findViewById(R.id.USER_COLLEGE);
-        city = view.findViewById(R.id.USER_CITY);
-        contact = view.findViewById(R.id.USER_PHONE);
-        pgb = view.findViewById(R.id.progressbar);
-        profile = view.findViewById(R.id.USER_IMAGE);
-        delete = view.findViewById(R.id.Delete_Account);
-        DELETE = view.findViewById(R.id.delete__account);
+        ButterKnife.bind(this,view);
 
         DELETE.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +148,7 @@ public class FragmentUserProfile extends Fragment {
         fragment_profile.setEnterTransition(enter);
         fragment_profile.setExitTransition(exit);
 
-        btn = view.findViewById(R.id.edit_profile);
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
