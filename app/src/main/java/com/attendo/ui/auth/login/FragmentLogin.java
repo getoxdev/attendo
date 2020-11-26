@@ -75,6 +75,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.airbnb.lottie.L.TAG;
+import static com.google.firebase.analytics.FirebaseAnalytics.Event.LOGIN;
 
 public class FragmentLogin extends Fragment implements logininterface.View {
     
@@ -94,19 +95,17 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     ProgressBar progress;
 
 
+    int found = 0;
     private logininterface.Presenter presenter;
     private FragmentSignup fragmentSignup;
     private FragmentForgetPassword fragmentForgetpassword;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1234;
     private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
     private FragmentProfile fragmentProfile;
 
-    private CallbackManager callbackManager;
     private static final String EMAIL = "email";
-    private int requestCode;
-    private int resultCode;
-    private Intent data;
 
 
     @Override
@@ -116,19 +115,13 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
         ButterKnife.bind(this, view);
 
-        //email = view.findViewById(R.id.editTextTextPersonName);
-        //password = view.findViewById(R.id.editTextTextPassword);
-        //loginbtn = view.findViewById(R.id.button);
-        //forgotpassword = view.findViewById(R.id.textViewforgot);
-        //register = view.findViewById(R.id.textViewregister);
-        //progress = view.findViewById(R.id.progress_circular);
-        //otherWaysbtn = view.findViewById(R.id.other_signIn_options_btn);
         presenter = new loginPresenter(this);
 
 
         fragmentSignup = new FragmentSignup();
         fragmentForgetpassword = new FragmentForgetPassword();
         fragmentProfile = new FragmentProfile();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule_Member");
 
         //stay logged in code
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -179,7 +172,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
 
         mAuth = FirebaseAuth.getInstance();
-        FacebookSdk.sdkInitialize(FacebookSdk.getApplicationContext());
 
         //google sign in option:
         View otherWaysToSignIn = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_sign_in,
@@ -188,39 +180,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         signInBottomSheet.setContentView(otherWaysToSignIn);
         signInBottomSheet.setDismissWithAnimation(true);
 
-
-        /**********************Facebook Signup**********************************
-
-        //loginButton = view.findViewById(R.id.facebook);
-        callbackManager = CallbackManager.Factory.create();
-
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                        Flag = 1;
-                        handleFacebookAccessToken(loginResult.getAccessToken());
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        //
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        Toast.makeText(getActivity(),""+exception,Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
-
-
-*/
         //****************create google sign  in request************************
         createRequest();
 
@@ -239,7 +198,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 //                        signInBottomSheet.dismiss();
 //                    }
 //                });
-               // Flag = -1;
                 signIn();
             }
         });
@@ -248,30 +206,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         return view;
     }
 
-     /* private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            String userId = mAuth.getCurrentUser().getUid();
-                            Toast.makeText(getActivity(),"Sign In succesful "+userId,Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getActivity(),BottomNavMainActivity.class);
-                            startActivity(intent);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed.", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-    }*/
 
     public void setInputs(boolean enable){
         email.setEnabled(enable);
@@ -416,11 +350,36 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
     @Override
     public void onLogin() {
+        //ScheduleCheck();
         progress.setVisibility(View.INVISIBLE);
         Toast.makeText(getActivity(),"Login Successful by " + email.getText().toString().trim(),Toast.LENGTH_SHORT).show();
         Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    private void ScheduleCheck() {
+        String id = mAuth.getCurrentUser().getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Schedule_Member");
+        ref.orderByKey().equalTo(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+
+                } else {
+                    databaseReference.child(id).child("Schedule_Code").setValue("");
+                    databaseReference.child(id).child("Schedule_Join_As").setValue("");
+                    found = 1;
+                }
+                if (found == 1)
+                    Toast.makeText(getActivity(), "Please enter unique code it is already registered", Toast.LENGTH_SHORT).show();
+                found = 0;
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -448,6 +407,9 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                         startActivity(newIntent);
                         getActivity().finish();
                     } else {
+                        String userId = mAuth.getCurrentUser().getUid();
+                        databaseReference.child(userId).child("Schedule_Code").setValue("");
+                        databaseReference.child(userId).child("Schedule_Join_As").setValue("");
                         setNextFragment(fragmentProfile);
                         setDataGoogleSignIn(fragmentProfile);
                     }

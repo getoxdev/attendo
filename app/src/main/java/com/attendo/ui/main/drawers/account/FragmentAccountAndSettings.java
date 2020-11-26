@@ -46,6 +46,7 @@ import com.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.attendo.ui.main.drawers.FragmentFAQ;
 import com.attendo.ui.main.drawers.FragmentHelp;
 import com.attendo.ui.main.drawers.FragmentInfo;
+import com.attendo.ui.main.drawers.ScheduleFragment;
 import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -65,6 +66,7 @@ public class FragmentAccountAndSettings extends Fragment {
     private FragmentHelp fragmentHelp;
     private FragmentBug fragmentBug;
     private FragmentAppRate fragmentAppRate;
+    private ScheduleFragment scheduleFragment;
     private FragmentEditAttendanceCriteria fragmentEditAttendanceCriteria;
     private FragmentEditAttendance fragmentEditAttendance;
     private FragmentFAQ fragmentFAQ;
@@ -121,6 +123,7 @@ public class FragmentAccountAndSettings extends Fragment {
         fragmentBug = new FragmentBug();
         fragmentEditAttendance = new FragmentEditAttendance();
         fragmentUserProfile = new FragmentUserProfile();
+        scheduleFragment = new ScheduleFragment();
         fragmentEditAttendanceCriteria = new FragmentEditAttendanceCriteria();
         fragmentHelp = new FragmentHelp();
         fragmentFAQ = new FragmentFAQ();

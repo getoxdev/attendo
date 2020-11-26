@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.main.drawers.ScheduleFragment">
+
+    <EditText
+        android:id="@+id/code"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="100dp"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter Code"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="133dp" />
+
+    <Button
+        android:id="@+id/AsStudent"
+        android:layout_width="250dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="Join as student"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="249dp" />
+
+    <Button
+        android:id="@+id/creator"
+        android:layout_width="250dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="create new schedule"
+        android:layout_marginLeft="100dp"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="314dp" />
+
+</LinearLayout>

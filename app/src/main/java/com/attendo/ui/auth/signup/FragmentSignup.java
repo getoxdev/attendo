@@ -17,6 +17,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.attendo.ui.main.drawers.account.FragmentProfile;
 import com.attendo.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +40,8 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
 
     private SignupInterface.Presenter presenter;
     private FragmentProfile fragment_profile;
+    DatabaseReference databaseReference;
+    FirebaseAuth mAuth;
 
 
     @Override
@@ -47,8 +52,9 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
         ButterKnife.bind(this, view);
 
         presenter = new SignupPresenter(this);
-
         fragment_profile = new FragmentProfile();
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule_Member");
 
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +136,7 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
     @Override
     public void onSignup() {
         progress.setVisibility(View.INVISIBLE);
+        ScheduleMember();
         Toast.makeText(getActivity(),"Signup Successful",Toast.LENGTH_SHORT).show();
         //Passing empty data
         Bundle bundle = new Bundle();
@@ -140,6 +147,12 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
         fragment_profile.setArguments(bundle);
         //
         setFragment(fragment_profile);
+    }
+
+    private void ScheduleMember() {
+        String userId = mAuth.getCurrentUser().getUid();
+        databaseReference.child(userId).child("Schedule_Code").setValue("");
+        databaseReference.child(userId).child("Schedule_Join_As").setValue("");
     }
 
     @Override
