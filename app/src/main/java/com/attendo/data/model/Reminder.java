@@ -2,6 +2,8 @@ package com.attendo.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Map;
+
 public class Reminder
 {
     @SerializedName("token")
