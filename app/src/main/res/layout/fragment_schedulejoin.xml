@@ -3,16 +3,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.main.drawers.SchedulejoinFragment">
 
 
     <TextView
         android:id="@+id/Code"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:text="join as a student"/>
+
+    <Button
+        android:id="@+id/Monday"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="monday"/>
+
+    <Button
+        android:id="@+id/Tuesday"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="tuesday"/>
+
+    <Button
+        android:id="@+id/Wednesday"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="wednesday"/>
+
+    <Button
+        android:id="@+id/Thursday"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="thursday"/>
+
+    <Button
+        android:id="@+id/Friday"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="friday"/>
+
+    <Button
+        android:id="@+id/Saturday"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="saturday"/>
+
+
+    <Button
+        android:id="@+id/leave"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="25dp"
+        android:text="leave schedule" />
 
 </LinearLayout>

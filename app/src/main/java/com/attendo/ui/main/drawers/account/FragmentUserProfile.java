@@ -193,7 +193,7 @@ public class FragmentUserProfile extends Fragment {
                         String check = refSchedulemem.child("Schedule_Join_As").toString();
                         String cr = "CR";
                         if(check.equals(cr)){
-                            String key =  refSchedulemem.child("Schedule_Code").toString();
+                            String key =  refSchedulemem.child("Schedule_Code").getDatabase().toString();
                             DatabaseReference ScheduleCr = FirebaseDatabase.getInstance().getReference("Schedule").child(key);
                             ScheduleCr.removeValue();
                         }

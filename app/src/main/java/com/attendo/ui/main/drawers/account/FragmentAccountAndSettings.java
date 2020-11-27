@@ -252,7 +252,7 @@ public class FragmentAccountAndSettings extends Fragment {
         Bug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragment(fragmentBug);
+                setFragment(fragmentBug);      //.........testing......
                 bottomNavigationView.setVisibility(View.GONE);
             }
         });

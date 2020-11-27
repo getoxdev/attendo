@@ -40,7 +40,9 @@ public class ScheduleFragment extends Fragment {
     private DatabaseReference databaseReference;
     private SchedulejoinFragment schedulejoinFragment;
     private ScheduleCreateFragment scheduleCreateFragment;
-    int found = 0;
+    private ScheduleFragment scheduleFragment;
+    int stfound = 0;
+    int crfound = 0;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -77,6 +79,7 @@ public class ScheduleFragment extends Fragment {
         ButterKnife.bind(this,view);
         schedulejoinFragment = new SchedulejoinFragment();
         scheduleCreateFragment = new ScheduleCreateFragment();
+        scheduleFragment = new ScheduleFragment();
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule_Member");
@@ -130,17 +133,20 @@ public class ScheduleFragment extends Fragment {
         ref.orderByKey().equalTo(code).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists() && found==0) {
+                if (snapshot.exists() && stfound==0) {
                     Toast.makeText(getActivity(), "You have joined Schudule with Code : " + code, Toast.LENGTH_SHORT).show();
                     databaseReference.child(id).child("Schedule_Code").setValue(code);
                     databaseReference.child(id).child("Schedule_Join_As").setValue("Student");
                     setFragment(schedulejoinFragment);
                 }
                 else {
-                    Toast.makeText(getActivity(), "This code doesn't exit", Toast.LENGTH_SHORT).show();
-                    found = 1;
+                    if(stfound == 0) {
+                        Toast.makeText(getActivity(), "This code doesn't exit", Toast.LENGTH_SHORT).show();
+                        setFragment(scheduleFragment);
+                        stfound = 1;
+                    }
                 }
-                found = 0;
+                stfound = 0;
             }
 
             @Override
@@ -157,20 +163,23 @@ public class ScheduleFragment extends Fragment {
         ref.orderByKey().equalTo(code).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-
-                } else {
-                    Toast.makeText(getActivity(), "You have created Schudule with Code : " + code, Toast.LENGTH_SHORT).show();
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Schedule");
-                    reference.child(code).child("Cr_Name").setValue(id);
-                    databaseReference.child(id).child("Schedule_Code").setValue(code);
-                    databaseReference.child(id).child("Schedule_Join_As").setValue("CR");
-                    found = 1;
-                    setFragment(scheduleCreateFragment);
-                }
-                if(found == 0)
+                if (snapshot.exists() && crfound == 0) {
                     Toast.makeText(getActivity(),"Please enter unique code it is already registered",Toast.LENGTH_SHORT).show();
-                found=0;
+                    setFragment(scheduleFragment);
+                } else {
+                    if(crfound == 0 && !snapshot.exists()) {
+                        Toast.makeText(getActivity(), "You have created Schudule with Code : " + code, Toast.LENGTH_SHORT).show();
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Schedule");
+                        reference.child(code).child("Cr_Name").setValue(id);
+                        databaseReference.child(id).child("Schedule_Code").setValue(code);
+                        databaseReference.child(id).child("Schedule_Join_As").setValue("CR");
+                        crfound = 1;
+                        Bundle bundle = new Bundle();
+                        bundle.putString("Code", code);
+                        scheduleCreateFragment.setArguments(bundle);
+                        setFragment(scheduleCreateFragment);
+                    }
+                }
             }
 
             @Override
