@@ -108,116 +108,22 @@ public class Fragment_Subject extends Fragment {
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Subjects");
 
-        final Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         ButterKnife.bind(this,view);
 
-
-        
-        Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.card_transition);
-
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
-
-        View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.fragment_bottom_sheet_add_subject,
-                (ConstraintLayout) view.findViewById(R.id.bottom_sheet_add_subject_container));
 
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(SubjectActivity.this, Activity_Add_Subject.class);
-                startActivityForResult(intent, NEW_SUBJECT_ACTIVITY_REQUEST_CODE);
-                */
-
                AddSubjectBottomSheetDialogFragment bottomSheetDialogFragment = new AddSubjectBottomSheetDialogFragment();
                bottomSheetDialogFragment.show(getParentFragmentManager(), "Add_Fragment");
 
-
-
-
-
-      /*          bottomSheetDialog.setContentView(bottomSheet);
-                bottomSheetDialog.setDismissWithAnimation(true);
-                bottomSheetDialog.show();
-
-
-                EditText subjectName = bottomSheetDialog.findViewById(R.id.add_subject_bottomsheet);
-                Button addButton = bottomSheetDialog.findViewById(R.id.add_subject_btn);
-                TextView update = bottomSheetDialog.findViewById(R.id.add_subject_id);
-                LottieAnimationView celebration = bottomSheetDialog.findViewById(R.id.lottie_animation_add_subject);
-                LottieAnimationView addsub = bottomSheetDialog.findViewById(R.id.lottie);
-                TextInputLayout addSubLayout = bottomSheetDialog.findViewById(R.id.edittext_input_subject);
-                celebration.setVisibility(View.INVISIBLE);
-
-
-                subjectName.setText(null);
-                addsub.setAnimation(R.raw.subject_new);
-
-                update.setText("Add Subject");
-
-                subjectName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                    @Override
-                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                        switch (i){
-                            case EditorInfo.IME_ACTION_DONE:
-                                addSubLayout.setErrorEnabled(false);
-                                subjectanim.setVisibility(View.GONE);
-                                if(subjectName.getText().toString().trim().length()>0){
-                                    celebration.setVisibility(View.VISIBLE);
-                                    celebration.playAnimation();
-                                    SubEntity subEntity = new SubEntity(subjectName.getText().toString().trim(), 0, 0, 0);
-                                    subViewModel.insertSubject(subEntity);
-                                    Handler mhandler = new Handler();
-                                    mhandler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            bottomSheetDialog.dismiss();
-                                        }
-                                    },600);
-
-                                }
-                                else{
-                                    addSubLayout.setError("Please enter the subject");
-
-                                }
-                                break;
-
-                        }
-                        return false;
-                    }
-                });
-
-                addButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addSubLayout.setErrorEnabled(false);
-                        subjectanim.setVisibility(View.GONE);
-                        if(subjectName.getText().toString().trim().length()>0){
-                            celebration.setVisibility(View.VISIBLE);
-                            celebration.playAnimation();
-                            SubEntity subEntity = new SubEntity(subjectName.getText().toString().trim(), 0, 0, 0);
-                            subViewModel.insertSubject(subEntity);
-                            Handler mhandler = new Handler();
-                            mhandler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    bottomSheetDialog.dismiss();
-                                }
-                            },600);
-
-                        }
-                        else{
-                            addSubLayout.setError("Please enter the subject");
-
-                        }
-
-
-                    }
-                });
-*/
-                 }
+            }
 
         });
+
+
         LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.recycler_view_layout_anim);
 
         Animation fadeIN = AnimationUtils.loadAnimation(getContext(), R.anim.fade_card);
