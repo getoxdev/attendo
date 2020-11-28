@@ -25,6 +25,10 @@
             <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
             <item name="textInputStyle">@style/CustomEditText</item>
 
+
+            <!-- specifying the style for bottom sheet -->
+            <item name="bottomSheetDialogTheme">@style/CustomModalBottomSheet</item>
+
         </style>
         <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
             <item name="chipBackgroundColor">@color/chip_background_color</item>
@@ -83,6 +87,23 @@
             <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
             <item name="colorAccent">@color/accent</item>
         </style>
+
+
+
+    <!-- Bottom sheet dialog fragment shape -->
+    <style name="CustomModalBottomSheet" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">15dp</item>
+        <item name="cornerSizeTopRight">15dp</item>
+    </style>
 
 
 

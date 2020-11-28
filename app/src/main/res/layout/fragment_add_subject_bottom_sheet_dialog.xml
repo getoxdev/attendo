@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="470dp"
+    android:layout_gravity="bottom"
+    android:backgroundTint="@color/bottom_sheet_bg"
+    android:transitionName="add_subject_transition"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    app:layout_scrollInterpolator="@android:anim/accelerate_decelerate_interpolator"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CustomModalBottomSheet"
+    tools:context=".ui.sub.AddSubjectBottomSheetDialogFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/sepatator"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@id/edittext_input_subject"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_subject_id"
+        app:layout_constraintVertical_bias="0.264"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_animation_add_subject"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:elevation="3dp"
+        app:lottie_rawRes="@raw/celebration"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/add_subject_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto_light"
+        android:padding="10dp"
+        android:text="Add Subject"
+        android:textColor="@color/text_color_primary"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edittext_input_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/add_subject_id"
+        android:layout_marginTop="204dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        style="@style/CustomEditText">
+
+        <EditText
+            android:id="@+id/add_subject_bottomsheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/book_icon_custom_dynamic"
+            android:drawablePadding="10dp"
+            android:hint="Subject"
+            android:elevation="0dp"
+            android:inputType="text"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_subject_id" />
+
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="204dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/custom_input_field"
+        android:drawableStart="@drawable/book_icon_custom_dynamic"
+        android:drawablePadding="10dp"
+        android:hint="Type subject name"
+        android:padding="12dp"
+        android:visibility="invisible"
+        android:elevation="0dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_subject_id" />
+
+
+    <Button
+        android:id="@+id/add_subject_btn"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        style="@style/Widget.MaterialComponents.Button"
+        app:strokeWidth="0dp"
+        app:backgroundTint="@color/btn_tint_2"
+        app:rippleColor="#AF91F4"
+        android:clickable="true"
+        android:enabled="true"
+        android:elevation="0dp"
+        android:fontFamily="@font/roboto_bold"
+        android:stateListAnimator="@animator/button_pressed_animator"
+        android:text="Add"
+        android:textAllCaps="false"
+        android:textColor="@color/btn_positive_text_color"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_input_subject"
+        app:layout_constraintVertical_bias="0.289" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
