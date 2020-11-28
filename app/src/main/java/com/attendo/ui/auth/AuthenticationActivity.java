@@ -9,6 +9,7 @@ import android.view.Window;
 
 import com.attendo.R;
 import com.attendo.ui.auth.login.FragmentLogin;
+import com.attendo.ui.splash.SplashFragment;
 import com.google.android.material.transition.platform.MaterialFade;
 
 public class AuthenticationActivity extends AppCompatActivity
@@ -23,8 +24,8 @@ public class AuthenticationActivity extends AppCompatActivity
         getWindow().setExitTransition(new MaterialFade().setDuration(300));
         setContentView(R.layout.activity_authentication);
 
-        fragmentLogin = new FragmentLogin();
-        setFragment(fragmentLogin);
+        //fragmentLogin = new FragmentLogin();
+        setFragment(new SplashFragment());
     }
 
     private void setFragment(Fragment fragment) {

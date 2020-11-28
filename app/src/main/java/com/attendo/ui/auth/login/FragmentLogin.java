@@ -114,6 +114,8 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_login, container, false);
 
+        setAllowEnterTransitionOverlap(false);
+
         ButterKnife.bind(this, view);
 
         presenter = new loginPresenter(this);
@@ -124,7 +126,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         fragmentProfile = new FragmentProfile();
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule_Member");
 
-        //stay logged in code
+        /*//stay logged in code
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             // User is signed in
@@ -134,7 +136,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         } else {
             // User is signed out
             Log.d(TAG, "onAuthStateChanged:signed_out");
-        }
+        }*/
 
         MaterialSharedAxis enter = new MaterialSharedAxis(MaterialSharedAxis.Z, true);
         enter.setDuration(300);
@@ -150,7 +152,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         forgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                            setFragment(fragmentForgetpassword);
+                setFragment(fragmentForgetpassword);
             }
         });
 
