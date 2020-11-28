@@ -136,7 +136,6 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
     @Override
     public void onSignup() {
         progress.setVisibility(View.INVISIBLE);
-        ScheduleMember();
         Toast.makeText(getActivity(),"Signup Successful",Toast.LENGTH_SHORT).show();
         //Passing empty data
         Bundle bundle = new Bundle();
@@ -149,11 +148,7 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
         setFragment(fragment_profile);
     }
 
-    private void ScheduleMember() {
-        String userId = mAuth.getCurrentUser().getUid();
-        databaseReference.child(userId).child("Schedule_Code").setValue("");
-        databaseReference.child(userId).child("Schedule_Join_As").setValue("");
-    }
+
 
     @Override
     public void onError(String message) {

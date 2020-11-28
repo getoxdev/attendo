@@ -33,6 +33,7 @@ import com.attendo.ui.auth.FragmentForgetPassword;
 import com.attendo.R;
 import com.attendo.ui.auth.signup.FragmentSignup;
 import com.attendo.ui.main.BottomNavMainActivity;
+import com.attendo.ui.main.Schedule;
 import com.attendo.ui.main.drawers.account.FragmentProfile;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -350,37 +351,13 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
     @Override
     public void onLogin() {
-        //ScheduleCheck();
         progress.setVisibility(View.INVISIBLE);
         Toast.makeText(getActivity(),"Login Successful by " + email.getText().toString().trim(),Toast.LENGTH_SHORT).show();
-        Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
+        Intent intent=new Intent(getActivity(),BottomNavMainActivity.class);
         startActivity(intent);
         getActivity().finish();
     }
 
-    private void ScheduleCheck() {
-        String id = mAuth.getCurrentUser().getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Schedule_Member");
-        ref.orderByKey().equalTo(id).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-
-                } else {
-                    databaseReference.child(id).child("Schedule_Code").setValue("");
-                    databaseReference.child(id).child("Schedule_Join_As").setValue("");
-                    found = 1;
-                }
-                if (found == 1)
-                    Toast.makeText(getActivity(), "Please enter unique code it is already registered", Toast.LENGTH_SHORT).show();
-                found = 0;
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     @Override
     public void onError(String message) {

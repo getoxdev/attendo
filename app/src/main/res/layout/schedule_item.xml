@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:outlineAmbientShadowColor="#673AB7"
+        app:cardBackgroundColor="@color/card_bg_color"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        android:stateListAnimator="@animator/card_pressed_animator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/card_bg_color">
+
+    <TextView
+        android:id="@+id/subName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:text="Subject Name"
+        android:textColor="@color/text_color_primary"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/attendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subName"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:text="Faculty Name"
+        android:textColor="@color/text_color_secondary"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subName"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toStartOf="@+id/status_counter"
+        android:text="Class Status: " />
+
+    <TextView
+        android:id="@+id/status_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@id/status"
+        android:layout_marginBottom="8dp"/>
+
+
+
+     <TextView
+                android:id="@+id/Timing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/subName"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:text="9am - 10am"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textColor="@color/text_color_primary"
+                android:textSize="22dp" />
+
+
+            <TextView
+                android:id="@+id/Note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/status"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="8dp"
+                android:text="NOTICE: "
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/Notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/status"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/blue"
+                android:text="MINI Project Deadline is 10 December" />
+
+
+
+
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

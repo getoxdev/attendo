@@ -1,7 +1,5 @@
 package com.attendo.ui.main.drawers.account;
 
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
@@ -29,16 +26,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.attendo.BuildConfig;
 import com.attendo.R;
 import com.attendo.ui.auth.AuthenticationActivity;
+import com.attendo.ui.main.Schedule;
 import com.attendo.ui.main.drawers.FragmentAppRate;
 import com.attendo.ui.main.drawers.FragmentBug;
 import com.attendo.ui.main.drawers.FragmentEditAttendance;
@@ -46,7 +42,6 @@ import com.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.attendo.ui.main.drawers.FragmentFAQ;
 import com.attendo.ui.main.drawers.FragmentHelp;
 import com.attendo.ui.main.drawers.FragmentInfo;
-import com.attendo.ui.main.drawers.ScheduleFragment;
 import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -66,12 +61,11 @@ public class FragmentAccountAndSettings extends Fragment {
     private FragmentHelp fragmentHelp;
     private FragmentBug fragmentBug;
     private FragmentAppRate fragmentAppRate;
-    private ScheduleFragment scheduleFragment;
     private FragmentEditAttendanceCriteria fragmentEditAttendanceCriteria;
     private FragmentEditAttendance fragmentEditAttendance;
     private FragmentFAQ fragmentFAQ;
     private FragmentInfo fragmentInfo;
-    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme;
+    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme, Schedule;
     CardView Profile;
     BottomNavigationView bottomNavigationView;
 
@@ -123,7 +117,6 @@ public class FragmentAccountAndSettings extends Fragment {
         fragmentBug = new FragmentBug();
         fragmentEditAttendance = new FragmentEditAttendance();
         fragmentUserProfile = new FragmentUserProfile();
-        scheduleFragment = new ScheduleFragment();
         fragmentEditAttendanceCriteria = new FragmentEditAttendanceCriteria();
         fragmentHelp = new FragmentHelp();
         fragmentFAQ = new FragmentFAQ();
@@ -132,6 +125,7 @@ public class FragmentAccountAndSettings extends Fragment {
         college = view.findViewById(R.id.profile_college);
         profileLottie = view.findViewById(R.id.lottieanimationprofile);
         bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+        Schedule = view.findViewById(R.id.Schedule_setting);
 
         bottomNavigationView.setVisibility(View.VISIBLE);
 
@@ -252,7 +246,7 @@ public class FragmentAccountAndSettings extends Fragment {
         Bug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragment(fragmentBug);      //.........testing......
+                setFragment(fragmentBug);
                 bottomNavigationView.setVisibility(View.GONE);
             }
         });
@@ -302,6 +296,14 @@ public class FragmentAccountAndSettings extends Fragment {
                 mAuth.signOut();
                 Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
+        Schedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),Schedule.class);
                 startActivity(intent);
             }
         });

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -31,6 +32,8 @@ import butterknife.ButterKnife;
 
 public class BottomNavMainActivity extends AppCompatActivity {
 
+
+
     @BindView(R.id.bottom_nav_bar)
     BottomNavigationView bottomNavigationView;
 
@@ -49,12 +52,16 @@ public class BottomNavMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bottom_nav_main);
         ButterKnife.bind(this);
 
+
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
         setSupportActionBar(toolbar);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_frame, new Fragment_Subject()).commit();
     }
     private Fragment selectedFragment = null;
+
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override

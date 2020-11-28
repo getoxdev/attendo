@@ -5,7 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <queries>
         <package android:name="com.facebook.katana" />
@@ -18,32 +18,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".ui.main.Schedule"></activity>
         <activity
-            android:name="com.attendo.ui.main.BottomNavMainActivity"
-            android:theme="@style/AppThemeCustom"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity android:name="com.attendo.ui.splash.IntroActivity" android:theme="@style/AppTheme" android:screenOrientation="portrait">
+            android:name=".ui.main.BottomNavMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeCustom"></activity>
+        <activity
+            android:name=".ui.splash.IntroActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.attendo.ui.auth.AuthenticationActivity"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:name=".ui.auth.AuthenticationActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"></activity>
         <activity
-            android:name="com.attendo.ui.main.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <service
             android:name=".service.FirebaseMessagingService"
@@ -60,13 +57,12 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-
-
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
     </application>
+
 </manifest>

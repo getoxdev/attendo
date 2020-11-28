@@ -189,17 +189,8 @@ public class FragmentUserProfile extends Fragment {
                         pgb.setVisibility(View.VISIBLE);
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
                         DatabaseReference refbugs = FirebaseDatabase.getInstance().getReference("Bugs").child(user_Id);
-                        DatabaseReference refSchedulemem = FirebaseDatabase.getInstance().getReference("Schedule_Member").child(user_Id);
-                        String check = refSchedulemem.child("Schedule_Join_As").toString();
-                        String cr = "CR";
-                        if(check.equals(cr)){
-                            String key =  refSchedulemem.child("Schedule_Code").getDatabase().toString();
-                            DatabaseReference ScheduleCr = FirebaseDatabase.getInstance().getReference("Schedule").child(key);
-                            ScheduleCr.removeValue();
-                        }
                         ref.removeValue();
                         refbugs.removeValue();
-                        refSchedulemem.removeValue();
                         storageReference = storage.getReference();
                         storageReference.child("images/" + user_Id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
