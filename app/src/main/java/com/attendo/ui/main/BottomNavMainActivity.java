@@ -23,6 +23,9 @@ import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
 import com.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
 import com.attendo.ui.main.menu.FragmentAbout;
 import com.attendo.ui.sub.Fragment_Subject;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.android.material.transition.platform.MaterialFade;
@@ -51,6 +54,12 @@ public class BottomNavMainActivity extends AppCompatActivity {
         getWindow().setExitTransition(new MaterialFade().setDuration(300));
         setContentView(R.layout.activity_bottom_nav_main);
         ButterKnife.bind(this);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);

@@ -82,6 +82,9 @@ dependencies {
     //firebase
     implementation 'com.google.firebase:firebase-messaging:20.3.0'
 
+    //AdMob dependencies ----> Ads to be shown
+    implementation 'com.google.android.gms:play-services-ads:19.5.0'
+
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

@@ -43,6 +43,12 @@ import com.attendo.ui.main.drawers.FragmentFAQ;
 import com.attendo.ui.main.drawers.FragmentHelp;
 import com.attendo.ui.main.drawers.FragmentInfo;
 import com.codemybrainsout.ratingdialog.RatingDialog;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdRequest.Builder;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.transition.MaterialSharedAxis;
@@ -54,7 +60,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class FragmentAccountAndSettings extends Fragment {
+
+    @BindView(R.id.adView)
+    AdView adView;
 
 
     private FragmentUserProfile fragmentUserProfile;
@@ -109,6 +121,7 @@ public class FragmentAccountAndSettings extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account_and_settings, container, false);
+        ButterKnife.bind(this, view);
 
 
 
@@ -375,6 +388,21 @@ public class FragmentAccountAndSettings extends Fragment {
 
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Settings");
+
+        //mobile ads
+
+        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+
+
         return view;
     }
 
