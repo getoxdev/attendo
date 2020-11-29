@@ -8,12 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.attendo.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CrScheduleFragment extends Fragment {
 
     private TextView text;
+    private FloatingActionButton fab;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -49,9 +52,19 @@ public class CrScheduleFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_cr_schedule, container, false);
 
+
         text = view.findViewById(R.id.day_cr);
         String  message = getArguments().getString("message");
         text.setText(message);
+
+        fab = view.findViewById(R.id.add_btn);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetForSchedule bottomSheetForSchedule = new BottomSheetForSchedule();
+                bottomSheetForSchedule.show(getChildFragmentManager(),"BottomSheet");
+            }
+        });
 
         return view;
     }
