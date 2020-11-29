@@ -46,7 +46,6 @@ public class ReminderViewModel extends AndroidViewModel
             {
                 if(response.code()<300)
                 {
-
                     Response response1=response.body();
                     reminderResponse.postValue(response1);
                     Log.i("response",Integer.toString(response.code()));

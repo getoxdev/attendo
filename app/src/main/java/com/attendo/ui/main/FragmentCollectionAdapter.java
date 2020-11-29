@@ -31,7 +31,7 @@ public class FragmentCollectionAdapter extends FragmentStatePagerAdapter {
             day = "Saturday";
         if(position == 7)
             day = "Sunday";
-        bundle.putString("message",day+" : "+position);
+        bundle.putString("message",day+"");
         scheduleFragment.setArguments(bundle);
         return scheduleFragment;
     }

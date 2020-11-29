@@ -31,7 +31,7 @@ public class CrFragmentCollectionAdapter extends FragmentStatePagerAdapter {
             day = "Saturday";
         if(position == 7)
             day = "Sunday";
-        bundle.putString("message",day+" : "+position);
+        bundle.putString("message",day+"");
         crScheduleFragment.setArguments(bundle);
         return crScheduleFragment;
     }
