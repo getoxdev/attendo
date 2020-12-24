@@ -8,17 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.transition.Transition;
-import androidx.transition.TransitionInflater;
-
 import android.os.Handler;
 import android.transition.Explode;
 import android.transition.Fade;
@@ -31,10 +20,19 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.transition.Transition;
+import androidx.transition.TransitionInflater;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.ui.auth.AuthenticationActivity;
-import com.attendo.ui.main.Schedule;
 import com.attendo.ui.main.drawers.FragmentAppRate;
 import com.attendo.ui.main.drawers.FragmentBug;
 import com.attendo.ui.main.drawers.FragmentEditAttendance;
@@ -44,7 +42,6 @@ import com.attendo.ui.main.drawers.FragmentHelp;
 import com.attendo.ui.main.drawers.FragmentInfo;
 import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdRequest.Builder;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
@@ -77,7 +74,7 @@ public class FragmentAccountAndSettings extends Fragment {
     private FragmentEditAttendance fragmentEditAttendance;
     private FragmentFAQ fragmentFAQ;
     private FragmentInfo fragmentInfo;
-    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme, Schedule;
+    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme;
     CardView Profile;
     BottomNavigationView bottomNavigationView;
 
@@ -138,7 +135,6 @@ public class FragmentAccountAndSettings extends Fragment {
         college = view.findViewById(R.id.profile_college);
         profileLottie = view.findViewById(R.id.lottieanimationprofile);
         bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
-        Schedule = view.findViewById(R.id.Schedule_setting);
 
         bottomNavigationView.setVisibility(View.VISIBLE);
 
@@ -313,13 +309,7 @@ public class FragmentAccountAndSettings extends Fragment {
             }
         });
 
-        Schedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(),Schedule.class);
-                startActivity(intent);
-            }
-        });
+
 
         //shared preferences for saving the radio button state of theme selection by user
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MYPREF" , Context.MODE_PRIVATE);

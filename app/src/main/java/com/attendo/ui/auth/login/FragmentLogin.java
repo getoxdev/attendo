@@ -1,6 +1,5 @@
 package com.attendo.ui.auth.login;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,12 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.room.Database;
 
 
-import android.renderscript.ScriptGroup;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -22,29 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.attendo.ui.CustomLoadingDialog;
-import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.auth.FragmentForgetPassword;
 import com.attendo.R;
 import com.attendo.ui.auth.signup.FragmentSignup;
 import com.attendo.ui.main.BottomNavMainActivity;
-import com.attendo.ui.main.Schedule;
 import com.attendo.ui.main.drawers.account.FragmentProfile;
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookActivity;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.LoginStatusCallback;
-import com.facebook.login.LoginManager;
-import com.facebook.login.widget.LoginButton;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -54,14 +37,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.transition.MaterialFade;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthCredential;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -69,14 +48,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Arrays;
-import java.util.concurrent.Executor;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.airbnb.lottie.L.TAG;
-import static com.google.firebase.analytics.FirebaseAnalytics.Event.LOGIN;
 
 public class FragmentLogin extends Fragment implements logininterface.View {
     
