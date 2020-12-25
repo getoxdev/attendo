@@ -13,7 +13,7 @@
     <item
         android:id="@+id/reminder_bottom_nav"
         android:title="Reminder"
-        android:icon="@drawable/ic_baseline_access_alarm_24"/>
+        android:icon="@drawable/asld_clock_state_selector"/>
     <item
         android:id="@+id/account_bottom_nav"
         android:icon="@drawable/ic_baseline_account_circle_24"
