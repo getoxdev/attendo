@@ -5,18 +5,18 @@
     <item
         android:id="@+id/subjects_bottom_nav"
         android:title="Subjects"
-        android:icon="@drawable/ic_baseline_book_bottom_nav" />
+        android:icon="@drawable/book_state_selector" />
     <item
         android:id="@+id/calendar_bottom_nav"
         android:title="Calendar"
-        android:icon="@drawable/ic_baseline_calendar_today_bottom_nav"/>
+        android:icon="@drawable/calendar_state_selector"/>
     <item
         android:id="@+id/reminder_bottom_nav"
         android:title="Reminder"
         android:icon="@drawable/asld_clock_state_selector"/>
     <item
         android:id="@+id/account_bottom_nav"
-        android:icon="@drawable/ic_baseline_account_circle_24"
-        android:title="Account"/>
+        android:icon="@drawable/settings_state_selector"
+        android:title="Settings"/>
 
 </menu>
