@@ -10,13 +10,19 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
+import com.attendo.data.database.SubDatabase;
 import com.attendo.ui.calendar.FragmentCalender;
 import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
 
@@ -27,14 +33,16 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.android.material.transition.platform.MaterialFade;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class BottomNavMainActivity extends AppCompatActivity {
-
 
 
     @BindView(R.id.bottom_nav_bar)
@@ -45,6 +53,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_bottom_nav)
     Toolbar toolbar;
+    SubDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +76,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_frame, new Fragment_Subject()).commit();
     }
+
     private Fragment selectedFragment = null;
-
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -84,12 +92,12 @@ public class BottomNavMainActivity extends AppCompatActivity {
             exit.setInterpolator(new AccelerateDecelerateInterpolator());
 
 
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.subjects_bottom_nav:
                     Fragment subject = new Fragment_Subject();
                     selectedFragment = subject;
                     Bundle bundle = new Bundle();
-                    bundle.putString("key","");
+                    bundle.putString("key", "");
                     subject.setEnterTransition(enter);
                     subject.setExitTransition(exit);
                     subject.setArguments(bundle);
@@ -150,6 +158,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+
         Fragment aboutUs = new FragmentAbout();
 
         MaterialSharedAxis enter = new MaterialSharedAxis(MaterialSharedAxis.Z, true);
@@ -158,10 +167,16 @@ public class BottomNavMainActivity extends AppCompatActivity {
         aboutUs.setEnterTransition(enter);
         aboutUs.setExitTransition(exit);
 
+        String directory_path = Environment.getExternalStorageDirectory().getPath();
+        File file = new File(directory_path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
 
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
             case R.id.aboutus:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container_frame, aboutUs)
@@ -173,9 +188,49 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 Uri uri = Uri.parse("https://attendo.flycricket.io/privacy.html");
                 startActivity(new Intent(Intent.ACTION_VIEW, uri));
                 break;
+            case R.id.exporttoexcel:
+
+                SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(this, database.DATABASE_NAME, directory_path);
+                sqLiteToExcel.exportAllTables("student.xls", new SQLiteToExcel.ExportListener() {
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onCompleted(String filePath) {
+
+                       Toast.makeText(getApplicationContext(), "Successfully exported", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
+                break;
+            case R.id.shareexcel :
+                try {
 
 
+                    Intent intent = new Intent(Intent.ACTION_SENDTO);
+                    intent.setType("text/plain");
+                    String message="File to be shared is .";
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Students REPORT");
+                    intent.putExtra(Intent.EXTRA_STREAM, Uri.parse( "file://"+directory_path));
+                    intent.putExtra(Intent.EXTRA_TEXT, message);
+                    intent.setData(Uri.parse("shristisarma923@gmail.com"));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    startActivity(intent);
+                } catch(Exception e)  {
+                    System.out.println("is exception raises during sending mail"+e);
+                }
+                break;
         }
+
+
 
         return true;
 

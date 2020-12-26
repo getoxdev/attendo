@@ -7,6 +7,12 @@
     <item
         android:id="@+id/privacypolicy"
         android:title="Privacy Policy"/>
+    <item android:id="@+id/exporttoexcel"
+        android:title="Export to Excel"
+        />
+    <item android:id="@+id/shareexcel"
+        android:title="Share Excel File"
+        />
 
 
 
