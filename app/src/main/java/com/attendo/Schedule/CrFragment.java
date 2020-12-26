@@ -1,42 +1,43 @@
-package com.attendo.ui.main;
+package com.attendo.Schedule;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.attendo.R;
+import com.attendo.Schedule.Adapters.RoutineItemAdapter;
+import com.attendo.Schedule.Adapters.WeekDayAdapter;
+import com.attendo.Schedule.Model.DayOfWeek;
+import com.attendo.Schedule.Model.SubjectRoutine;
+import com.attendo.Schedule.dynamicRvInterface.LoadMore;
 
-public class ScheduleFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
- TextView text;
+public class CrFragment extends Fragment {
 
-  private static final String ARG_PARAM1 = "param1";
+    private RecyclerView dayofWeekRecyclerView;
+    private WeekDayAdapter weekDayAdapter;
+    private ArrayList<DayOfWeek> dayList;
+
+    private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
+   private String mParam1;
     private String mParam2;
 
-    public ScheduleFragment() {
+    public CrFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ScheduleFragment.
-     */
     // TODO: Rename and change types and number of parameters
-    public static ScheduleFragment newInstance(String param1, String param2) {
-        ScheduleFragment fragment = new ScheduleFragment();
+    public static CrFragment newInstance(String param1, String param2) {
+        CrFragment fragment = new CrFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,12 +58,11 @@ public class ScheduleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_schedule, container, false);
+        View view  =inflater.inflate(R.layout.fragment_cr, container, false);
 
-        text = view.findViewById(R.id.day);
-        String  message = getArguments().getString("message");
-        text.setText(message);
 
-        return view;
+    return view;
     }
+
+
 }
