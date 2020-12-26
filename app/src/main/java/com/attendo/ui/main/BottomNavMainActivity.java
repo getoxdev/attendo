@@ -17,6 +17,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 
 import com.attendo.R;
+import com.attendo.Schedule.MultipleRecyclerViewFragment;
 import com.attendo.ui.calendar.FragmentCalender;
 import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
 
@@ -107,6 +108,17 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     reminder.setExitTransition(exit);
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.container_frame, reminder, "reminder_fragment")
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            .commit();
+                    break;
+
+                case R.id.schedule_bottom_nav:
+                    Fragment schedule = new MultipleRecyclerViewFragment();
+                    selectedFragment = schedule;
+                    schedule.setEnterTransition(enter);
+                    schedule.setExitTransition(exit);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container_frame, schedule, "schedule_fragment")
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .commit();
                     break;

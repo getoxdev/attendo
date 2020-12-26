@@ -11,6 +11,10 @@
         android:title="Calendar"
         android:icon="@drawable/ic_baseline_calendar_today_bottom_nav"/>
     <item
+        android:id="@+id/schedule_bottom_nav"
+        android:title="Schedule"
+        android:icon="@drawable/ic_baseline_school_focused"/>
+    <item
         android:id="@+id/reminder_bottom_nav"
         android:title="Reminder"
         android:icon="@drawable/ic_baseline_access_alarm_24"/>
