@@ -1,22 +1,31 @@
 package com.attendo.Schedule;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
+import com.attendo.data.database.SubDatabase;
+
+import java.io.File;
 
 public class MultipleRecyclerViewFragment extends Fragment {
 
     private Button cr,stu;
     private CrFragment crFragment;
     private StudentFragment studentFragment;
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -71,6 +80,9 @@ public class MultipleRecyclerViewFragment extends Fragment {
                 setFragment(studentFragment);
             }
         });
+
+
+
 
         return view;
     }
