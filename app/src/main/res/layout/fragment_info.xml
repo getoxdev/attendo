@@ -44,7 +44,6 @@
         android:layout_height="150dp"
         android:layout_centerInParent="true"
         android:layout_marginTop="280dp"
-        android:src="@drawable/foreground_header_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
