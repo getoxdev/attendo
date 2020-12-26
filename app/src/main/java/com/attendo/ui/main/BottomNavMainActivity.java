@@ -180,7 +180,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
             } else {
 
-                System.out.println("NOt ok");
+                System.out.println("ERROR!!");
             }
         }catch (Exception e){
             System.out.println(e);
@@ -228,13 +228,13 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
                     @Override
                     public void onCompleted(String filePath) {
-                        Toast.makeText(getApplicationContext(),"exported",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Successfully Exported",Toast.LENGTH_SHORT).show();
 
                     }
 
                     @Override
                     public void onError(Exception e) {
-                        Toast.makeText(getApplicationContext(),"error",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"ERROR",Toast.LENGTH_SHORT).show();
 
                     }
                 });
