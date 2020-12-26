@@ -3,21 +3,21 @@ package com.attendo.Schedule;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.attendo.R;
-import com.attendo.Schedule.Adapters.RoutineItemAdapter;
 import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.Schedule.dynamicRvInterface.LoadMore;
+import com.attendo.ui.main.AddSubjectDetailsFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -30,6 +30,7 @@ public class CrFragment extends Fragment implements LoadMore {
     private RoutineItemAdapterCr routineItemAdapter;
     private ArrayList<SubjectRoutine> subjectRoutines  = new ArrayList();
     private FloatingActionButton fb;
+    private AddSubjectDetailsFragment addSubjectDetailsFragment;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -66,12 +67,17 @@ public class CrFragment extends Fragment implements LoadMore {
         // Inflate the layout for this fragment
         View view  =inflater.inflate(R.layout.fragment_cr, container, false);
 
+        addSubjectDetailsFragment = new AddSubjectDetailsFragment();
+
         fb = view.findViewById(R.id.Schedule_add_subject);
 
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"Add Subject details",Toast.LENGTH_SHORT).show();
+                AddSubjectDetailsFragment addSubjectDetailsFragment = new AddSubjectDetailsFragment();
+                addSubjectDetailsFragment.show(getParentFragmentManager(),"Subject_Details");
+                //BottomSheetForSchedule bottomSheetForSchedule = new BottomSheetForSchedule();
+                //bottomSheetForSchedule.show(getParentFragmentManager(),"Subject_Details");
             }
         });
 
@@ -104,6 +110,12 @@ public class CrFragment extends Fragment implements LoadMore {
         routineItemAdapter = new RoutineItemAdapterCr(subjectRoutines);
         routineItemAdapter.notifyDataSetChanged();
         subjectrecyclerView.setAdapter(routineItemAdapter);
+    }
+
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container_frame,fragment);
+        fragmentTransaction.addToBackStack(null).commit();
     }
 
 }

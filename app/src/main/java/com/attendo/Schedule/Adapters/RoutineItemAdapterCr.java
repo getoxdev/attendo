@@ -1,5 +1,7 @@
 package com.attendo.Schedule.Adapters;
 
+import android.content.Context;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,13 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
 import com.attendo.Schedule.Model.SubjectRoutine;
-import com.firebase.client.core.Context;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 
@@ -21,11 +24,11 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
 
     private ArrayList<SubjectRoutine> items;
 
+
     public RoutineItemAdapterCr(ArrayList<SubjectRoutine> items)
     {
         this.items = items;
     }
-
 
 
     @NonNull
@@ -43,12 +46,13 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
         holder.faculty.setText(currentItem.getInstructor());
         holder.time.setText(currentItem.getTime());
 
+
+
         //long pressed....
         holder.mview.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
-                return true;
+               return true;
             }
         });
     }

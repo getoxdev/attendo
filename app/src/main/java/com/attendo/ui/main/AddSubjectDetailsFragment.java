@@ -4,42 +4,34 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AddSubjectDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class AddSubjectDetailsFragment extends Fragment {
+public class AddSubjectDetailsFragment extends BottomSheetDialogFragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    private EditText subject,faculty,time;
+    private Button submit;
+    private LottieAnimationView celebration;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
+   private String mParam1;
     private String mParam2;
 
     public AddSubjectDetailsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AddSubjectDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AddSubjectDetailsFragment newInstance(String param1, String param2) {
+        }
+ public static AddSubjectDetailsFragment newInstance(String param1, String param2) {
         AddSubjectDetailsFragment fragment = new AddSubjectDetailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -61,6 +53,40 @@ public class AddSubjectDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_subject_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_subject_details, container, false);
+
+        celebration = view.findViewById(R.id.lottie_animation_add_subject_details);
+        celebration.setVisibility(View.INVISIBLE);
+
+        subject = view.findViewById(R.id.add_subject_bottomsheet);
+        faculty = view.findViewById(R.id.add_faculty);
+        time = view.findViewById(R.id.add_Time);
+        submit = view.findViewById(R.id.add_subject_btn);
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sub = subject.getText().toString();
+                String teacher = faculty.getText().toString();
+                String clock = time.getText().toString();
+                if(sub.length()>0 && teacher.length()>0 && clock.length()>0){
+                    celebration.setVisibility(View.VISIBLE);
+                    celebration.playAnimation();
+                    Handler mhandler = new Handler();
+                    mhandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dismiss();
+
+                        }
+                    },600);
+                }
+                else{
+                    Toast.makeText(getActivity(),"Please fill all details",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        return  view;
     }
 }
