@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.attendo.R;
 
@@ -17,6 +19,7 @@ public class MultipleRecyclerViewFragment extends Fragment {
     private Button cr,stu;
     private CrFragment crFragment;
     private StudentFragment studentFragment;
+    private EditText code;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -54,6 +57,7 @@ public class MultipleRecyclerViewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_multiple_recycler_view, container, false);
 
+        code = view.findViewById(R.id.schedule_code);
         crFragment = new CrFragment();
         studentFragment = new StudentFragment();
 
@@ -62,18 +66,31 @@ public class MultipleRecyclerViewFragment extends Fragment {
         cr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragment(crFragment);
+                String CODE = code.getText().toString();
+                if(CODE.isEmpty()){
+                    Toast.makeText(getActivity(),"Please Enter Schedule Code",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    setFragment(crFragment);
+                }
             }
         });
         stu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setFragment(studentFragment);
+                String CODE = code.getText().toString();
+                if(CODE.isEmpty()){
+                    Toast.makeText(getActivity(),"Please Enter Schedule Code",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    setFragment(studentFragment);
+                }
             }
         });
 
         return view;
     }
+
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
