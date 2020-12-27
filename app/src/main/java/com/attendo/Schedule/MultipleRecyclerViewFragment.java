@@ -2,6 +2,7 @@ package com.attendo.Schedule;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -34,6 +35,7 @@ public class MultipleRecyclerViewFragment extends Fragment {
     private String mParam2;
 
     public MultipleRecyclerViewFragment() {
+
     }
 
 
@@ -60,6 +62,7 @@ public class MultipleRecyclerViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_multiple_recycler_view, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Routine");
 
         code = view.findViewById(R.id.schedule_code);
         crFragment = new CrFragment();
@@ -69,7 +72,6 @@ public class MultipleRecyclerViewFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         String userId = mAuth.getCurrentUser().getUid();
-
 
         cr = view.findViewById(R.id.CrSchedule);
         stu = view.findViewById(R.id.StudentSchedule);

@@ -12,6 +12,7 @@ import com.attendo.retrofit.RetrofitProvider;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 
 public class ApiHelper implements ApiService
 {
@@ -38,10 +39,9 @@ public class ApiHelper implements ApiService
     }
 
     @Override
-    public Call<CreateClass> sendclass(CreateClass createClass) {
-        return  api.sendclass(createClass);
+    public Call<Response> sendSchedule(CreateSchedule createSchedule) {
+        return null;
     }
-
 
     @Override
     public Call<ResponseBody> cancelReminder(String id) {
@@ -49,7 +49,12 @@ public class ApiHelper implements ApiService
     }
 
     @Override
-    public Call<JoinClass> getclass(JoinClass joinClass) {
-        return  api.getclass(joinClass);
+    public Call<CreateClass> createclass(@Body CreateClass createClass){
+        return api.createclass(createClass);
+    }
+
+    @Override
+    public Call<JoinClass> joinclass(@Body JoinClass joinClass){
+        return api.joinclass(joinClass);
     }
 }

@@ -6,20 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Schedule.StudentFragment">
 
-    <TextView
-        android:id="@+id/Scedule_Join"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Schedule Join"
-        android:padding="8dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:textSize="26dp"
-        android:layout_marginStart="24dp"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/static_weekdays_recyclerview_student"
         android:layout_width="match_parent"
@@ -27,7 +13,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
         tools:listitem="@layout/weekday_card"
-        app:layout_constraintTop_toBottomOf="@id/Scedule_Join"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"

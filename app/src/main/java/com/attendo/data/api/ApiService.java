@@ -12,7 +12,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -22,15 +21,15 @@ public interface  ApiService
     Call<Response> sendReminder(@Body Reminder reminder);
 
     @POST("api/class")
-    Call<CreateClass> sendclass(@Body CreateClass createClass);
+    Call<Response> sendSchedule(@Body CreateSchedule createSchedule);
 
     @POST("api/reminder/{reminderId}/")
     Call<ResponseBody> cancelReminder (@Path("reminderId") String id);
 
-    @GET("api/class/join")
-    Call<JoinClass> getclass(@Body JoinClass joinClass);
+    @POST("api/class")
+    Call<CreateClass> createclass(@Body CreateClass createClass);
 
-    
-
+    @POST("api/class/join")
+    Call<JoinClass> joinclass(@Body JoinClass joinClass);
 
 }

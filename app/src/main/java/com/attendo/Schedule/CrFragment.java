@@ -2,6 +2,7 @@ package com.attendo.Schedule;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,13 +17,13 @@ import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Model.SubjectRoutine;
-import com.attendo.Schedule.dynamicRvInterface.LoadMore;
+import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.ui.main.AddSubjectDetailsFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class CrFragment extends Fragment implements LoadMore {
+public class CrFragment extends Fragment implements UpdateRecyclerView {
 
     private RecyclerView dayofWeekRecyclerView,subjectrecyclerView;
     private WeekDayAdapter weekDayAdapter;
@@ -66,6 +67,7 @@ public class CrFragment extends Fragment implements LoadMore {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view  =inflater.inflate(R.layout.fragment_cr, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Routine");
 
         addSubjectDetailsFragment = new AddSubjectDetailsFragment();
 
