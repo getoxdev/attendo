@@ -20,9 +20,6 @@ public interface  ApiService
     @POST("api/reminder")
     Call<Response> sendReminder(@Body Reminder reminder);
 
-    @POST("api/class")
-    Call<Response> sendSchedule(@Body CreateSchedule createSchedule);
-
     @POST("api/reminder/{reminderId}/")
     Call<ResponseBody> cancelReminder (@Path("reminderId") String id);
 

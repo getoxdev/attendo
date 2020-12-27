@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
@@ -16,15 +17,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.attendo.R;
-import com.attendo.Schedule.Model.CreateClassViewModel;
 import com.attendo.data.model.CreateClass;
-import com.attendo.viewmodel.ReminderViewModel;
+import com.attendo.viewmodel.CreateClassViewModel;
+import com.attendo.viewmodel.SubjectViewModel;
 
 public class CRDetailsInputFragment extends Fragment {
 
     private EditText name,scholarId,ClassName,Email;
     private Button create;
-    private CreateClassViewModel viewModel;
+    private CreateClassViewModel createClassViewModel;
     private CrFragment crFragment;
 
     private static final String ARG_PARAM1 = "param1";
@@ -62,7 +63,7 @@ public class CRDetailsInputFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cr_details_input, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Create Class");
 
-        viewModel = ViewModelProviders.of(getActivity()).get(CreateClassViewModel.class);;
+       createClassViewModel =  new ViewModelProvider(this).get(CreateClassViewModel.class);
 
         crFragment = new CrFragment();
         name = view.findViewById(R.id.cr_name_edittext);
@@ -93,16 +94,17 @@ public class CRDetailsInputFragment extends Fragment {
 
     private void SendDataToServer() {
         setFragment(crFragment);
-        /*CreateClass createClass = new CreateClass(name.getText().toString(),Email.getText().toString(),ClassName.getText().toString(),scholarId.getText().toString());
-        viewModel.setClassData(createClass);
-        viewModel.getClassResponse().observe(getActivity(), data -> {
+        CreateClass createClass = new CreateClass(name.getText().toString(),Email.getText().toString(),ClassName.getText().toString(),scholarId.getText().toString());
+        createClassViewModel.setClassData(createClass);
+        createClassViewModel.getClassResponse().observe(getActivity(), data -> {
             if (data == null) {
                 Log.i("ApiCall", "Failed");
             } else {
 
                 Log.i("ApiCall", "successFull");
+                Toast.makeText(getContext(),"Class Created",Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
     }
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();

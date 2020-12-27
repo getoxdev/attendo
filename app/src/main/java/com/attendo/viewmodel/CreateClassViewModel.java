@@ -1,4 +1,4 @@
-package com.attendo.Schedule.Model;
+package com.attendo.viewmodel;
 
 import android.app.Application;
 import android.util.Log;
@@ -15,28 +15,29 @@ import retrofit2.Call;
 import retrofit2.Callback;
 public class CreateClassViewModel extends AndroidViewModel {
     private ApiHelper apiHelper;
-    private MutableLiveData<Response> classResponse;
+    private MutableLiveData<CreateClass> classResponse;
     public CreateClassViewModel(@NonNull Application application) {
         super(application);
         apiHelper = new ApiHelper(application);
-        classResponse=new MutableLiveData<Response>();
+        classResponse=new MutableLiveData<CreateClass>();
     }
-    public MutableLiveData<Response> getClassResponse(){
+    public MutableLiveData<CreateClass> getClassResponse(){
         return classResponse;
     }
+
     public void setClassData(CreateClass createClass){
         apiHelper.createclass(createClass).enqueue(new Callback<CreateClass>() {
             @Override
             public void onResponse(Call<CreateClass> call, retrofit2.Response<CreateClass> response) {
                 if(response.code()<300) {
-                    // response1=createClass.getClass();
-                    //createClass.postValue(response1);
-                    //Log.i("response",Integer.toString(response.code()));
-                    //Log.i("ID",createClass.getClass().getName());
+
+                    CreateClass createClass1 = response.body();
+                    classResponse.postValue(createClass1);
+
                 }
                 else if(response.code()>=400) {
                     classResponse.postValue(null);
-                    Log.i("responseNext", Integer.toString(response.code()));
+
                 }
             }
             @Override

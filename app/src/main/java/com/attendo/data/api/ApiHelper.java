@@ -38,10 +38,6 @@ public class ApiHelper implements ApiService
         return api.sendReminder(reminder);
     }
 
-    @Override
-    public Call<Response> sendSchedule(CreateSchedule createSchedule) {
-        return null;
-    }
 
     @Override
     public Call<ResponseBody> cancelReminder(String id) {
