@@ -1,7 +1,9 @@
 package com.attendo.data.api;
 
+import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.CreateSchedule;
 import com.attendo.data.model.Id;
+import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
 
@@ -24,7 +26,10 @@ public interface  ApiService
     @POST("api/reminder/{reminderId}/")
     Call<ResponseBody> cancelReminder (@Path("reminderId") String id);
 
-    
+    @POST("api/class")
+    Call<CreateClass> createclass(@Body CreateClass createClass);
 
+    @POST("api/class/join")
+    Call<JoinClass> joinclass(@Body JoinClass joinClass);
 
 }

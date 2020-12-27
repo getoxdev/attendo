@@ -97,7 +97,7 @@
         style="@style/CustomEditText">
 
         <EditText
-            android:id="@+id/cr_email_edittext"
+            android:id="@+id/student_email_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
