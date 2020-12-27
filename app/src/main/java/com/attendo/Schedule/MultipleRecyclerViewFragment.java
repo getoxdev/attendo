@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MultipleRecyclerViewFragment extends Fragment {
 
@@ -20,6 +23,8 @@ public class MultipleRecyclerViewFragment extends Fragment {
     private CrFragment crFragment;
     private StudentFragment studentFragment;
     private EditText code;
+    private FirebaseAuth mAuth;
+    DatabaseReference databaseReference;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -59,6 +64,12 @@ public class MultipleRecyclerViewFragment extends Fragment {
         code = view.findViewById(R.id.schedule_code);
         crFragment = new CrFragment();
         studentFragment = new StudentFragment();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("data");
+        mAuth = FirebaseAuth.getInstance();
+
+        String userId = mAuth.getCurrentUser().getUid();
+
 
         cr = view.findViewById(R.id.CrSchedule);
         stu = view.findViewById(R.id.StudentSchedule);

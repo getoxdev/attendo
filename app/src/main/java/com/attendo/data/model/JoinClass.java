@@ -1,6 +1,7 @@
 package com.attendo.data.model;
 
 public class JoinClass {
+
     private String classCode;
     private String name;
     private String email;
