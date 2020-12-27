@@ -3,20 +3,28 @@ package com.attendo.ui.main;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
+import com.attendo.Schedule.MultipleRecyclerViewFragment;
+import com.attendo.data.database.SubDatabase;
 import com.attendo.ui.calendar.FragmentCalender;
 import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
 
@@ -29,6 +37,8 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.android.material.transition.platform.MaterialFade;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +55,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_bottom_nav)
     Toolbar toolbar;
+
+    SubDatabase subDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +123,17 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             .commit();
                     break;
 
+                case R.id.schedule_bottom_nav:
+                    Fragment schedule = new MultipleRecyclerViewFragment();
+                    selectedFragment = schedule;
+                    schedule.setEnterTransition(enter);
+                    schedule.setExitTransition(exit);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container_frame, schedule, "schedule_fragment")
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            .commit();
+                    break;
+
                 case R.id.calendar_bottom_nav:
                     Fragment calendar = new FragmentCalender();
                     selectedFragment = calendar;
@@ -150,6 +173,28 @@ public class BottomNavMainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+        try {
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                // this will request for permission from the user if not yet granted
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            } else {
+
+                System.out.println("ERROR!!");
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+
+
+        String path = Environment.getExternalStorageDirectory().getPath() + "/Backup/";
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+
         Fragment aboutUs = new FragmentAbout();
 
         MaterialSharedAxis enter = new MaterialSharedAxis(MaterialSharedAxis.Z, true);
@@ -173,6 +218,45 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 Uri uri = Uri.parse("https://attendo.flycricket.io/privacy.html");
                 startActivity(new Intent(Intent.ACTION_VIEW, uri));
                 break;
+            case R.id.exporttoexcel :
+                SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(getApplicationContext(),subDatabase.DATABASE_NAME,path);
+                sqLiteToExcel.exportAllTables("student.xls", new SQLiteToExcel.ExportListener() {
+                    @Override
+                    public void onStart() {
+
+                    }
+
+                    @Override
+                    public void onCompleted(String filePath) {
+                        Toast.makeText(getApplicationContext(),"Successfully Exported",Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Toast.makeText(getApplicationContext(),"ERROR",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                break;
+            case R.id.shareexcel :
+                try {
+                String filelocation= Environment.getExternalStorageDirectory().getPath() + "/Backup/student.xls";
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setType("text/plain");
+                String message="File to be shared is .";
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Students REPORT");
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse( "file://"+filelocation));
+                intent.putExtra(Intent.EXTRA_TEXT, message);
+                intent.setData(Uri.parse("mail to : shristisarma923@gmail.com"));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(intent);
+            } catch(Exception e)  {
+                System.out.println("is exception raises during sending mail"+e);
+            }
+                break;
+
 
 
         }
