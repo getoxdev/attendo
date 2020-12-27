@@ -54,7 +54,6 @@ public class MultipleRecyclerViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_multiple_recycler_view, container, false);
 
         code = view.findViewById(R.id.schedule_code);
@@ -71,7 +70,7 @@ public class MultipleRecyclerViewFragment extends Fragment {
                     Toast.makeText(getActivity(),"Please Enter Schedule Code",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    setFragment(crFragment);
+                    CreateSchedule();
                 }
             }
         });
@@ -83,12 +82,22 @@ public class MultipleRecyclerViewFragment extends Fragment {
                     Toast.makeText(getActivity(),"Please Enter Schedule Code",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    setFragment(studentFragment);
+                    JoinSchedule();
                 }
             }
         });
 
         return view;
+    }
+
+    private void JoinSchedule() {
+
+        setFragment(studentFragment);
+    }
+
+    private void CreateSchedule() {
+
+        setFragment(crFragment);
     }
 
 

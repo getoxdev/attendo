@@ -64,12 +64,6 @@ public class StudentFragment extends Fragment implements LoadMore {
         dayofWeekRecyclerView = view.findViewById(R.id.static_weekdays_recyclerview_student);
         subjectrecyclerView = view.findViewById(R.id.subjectsRecyclerView);
 
-        subjectRoutines.add(new SubjectRoutine("Mathematics","9am-10am","Pankaj"));
-        subjectRoutines.add(new SubjectRoutine("Analog Electronics","10am-11am","Anupal"));
-        subjectRoutines.add(new SubjectRoutine("Physics","2pm-3pm","ABC"));
-        subjectRoutines.add(new SubjectRoutine("Data Structure","4pm-5pm","Dalton"));
-        subjectRoutines.add(new SubjectRoutine("Analog","5pm-6pm","Anupal"));
-        subjectRoutines.add(new SubjectRoutine("Algorithm","6pm-7pm","Dalton"));
 
         subjectrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         routineItemAdapter = new RoutineItemAdapter(subjectRoutines);

@@ -70,6 +70,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment {
                 String teacher = faculty.getText().toString();
                 String clock = time.getText().toString();
                 if(sub.length()>0 && teacher.length()>0 && clock.length()>0){
+                    SendDataToServer();
                     celebration.setVisibility(View.VISIBLE);
                     celebration.playAnimation();
                     Handler mhandler = new Handler();
@@ -88,5 +89,11 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment {
         });
 
         return  view;
+    }
+
+    private void SendDataToServer() {
+
+        //******send data to server*******
+
     }
 }

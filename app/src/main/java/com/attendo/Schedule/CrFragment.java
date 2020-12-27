@@ -76,8 +76,6 @@ public class CrFragment extends Fragment implements LoadMore {
             public void onClick(View v) {
                 AddSubjectDetailsFragment addSubjectDetailsFragment = new AddSubjectDetailsFragment();
                 addSubjectDetailsFragment.show(getParentFragmentManager(),"Subject_Details");
-                //BottomSheetForSchedule bottomSheetForSchedule = new BottomSheetForSchedule();
-                //bottomSheetForSchedule.show(getParentFragmentManager(),"Subject_Details");
             }
         });
 
@@ -90,7 +88,7 @@ public class CrFragment extends Fragment implements LoadMore {
 
         dayList = new ArrayList<>();
 
-        dayList.add(new DayOfWeek("MON"));
+        dayList.add(new DayOfWeek("SUN"));
         dayList.add(new DayOfWeek("MON"));
         dayList.add(new DayOfWeek("TUE"));
         dayList.add(new DayOfWeek("WED"));
