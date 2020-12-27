@@ -20,6 +20,9 @@ import com.google.android.material.card.MaterialCardView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHolder> {
 
     Context context;
@@ -33,14 +36,15 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.weekday_card)
         MaterialCardView daycard;
+        @BindView(R.id.day)
         TextView dayTextView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             //finding the items and storing them in viewholder
-            daycard = itemView.findViewById(R.id.weekday_card);
-            dayTextView = itemView.findViewById(R.id.day);
+            ButterKnife.bind(this,itemView);
         }
     }
 

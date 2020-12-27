@@ -20,6 +20,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapterCr.RoutineItemAdapterCrHolder> {
 
     private ArrayList<SubjectRoutine> items;
@@ -64,14 +67,18 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
 
     public class RoutineItemAdapterCrHolder extends RecyclerView.ViewHolder {
 
-        public TextView subject,faculty,time;
+        @BindView(R.id.subjectname)
+        TextView subject;
+        @BindView(R.id.instructor)
+        TextView faculty;
+        @BindView(R.id.time)
+        TextView time;
+
         View mview;
 
         public RoutineItemAdapterCrHolder(@NonNull View itemView) {
             super(itemView);
-            subject = itemView.findViewById(R.id.subjectname);
-            time = itemView.findViewById(R.id.time);
-            faculty = itemView.findViewById(R.id.instructor);
+           ButterKnife.bind(this,itemView);
             mview = itemView;
         }
     }

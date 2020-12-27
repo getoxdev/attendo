@@ -2,8 +2,10 @@ package com.attendo.data.api;
 
 import android.content.Context;
 
+import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.CreateSchedule;
 import com.attendo.data.model.Id;
+import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
 import com.attendo.retrofit.RetrofitProvider;
@@ -36,12 +38,18 @@ public class ApiHelper implements ApiService
     }
 
     @Override
-    public Call<Response> sendSchedule(CreateSchedule createSchedule) {
-        return null;
+    public Call<CreateClass> sendclass(CreateClass createClass) {
+        return  api.sendclass(createClass);
     }
+
 
     @Override
     public Call<ResponseBody> cancelReminder(String id) {
         return api.cancelReminder(id);
+    }
+
+    @Override
+    public Call<JoinClass> getclass(JoinClass joinClass) {
+        return  api.getclass(joinClass);
     }
 }

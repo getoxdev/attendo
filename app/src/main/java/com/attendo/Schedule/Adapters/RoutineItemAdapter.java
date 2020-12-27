@@ -15,6 +15,9 @@ import com.attendo.Schedule.Model.SubjectRoutine;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class RoutineItemAdapter extends RecyclerView.Adapter<RoutineItemAdapter.RoutineItemAdapterHolder>{
 
     private ArrayList<SubjectRoutine> items;
@@ -48,13 +51,16 @@ public class RoutineItemAdapter extends RecyclerView.Adapter<RoutineItemAdapter.
 
     public static class RoutineItemAdapterHolder extends RecyclerView.ViewHolder{
 
-        public TextView subject,faculty,time;
+        @BindView(R.id.subjectname)
+        TextView subject;
+        @BindView(R.id.instructor)
+        TextView faculty;
+        @BindView(R.id.time)
+        TextView time;
 
         public RoutineItemAdapterHolder(@NonNull View itemView) {
             super(itemView);
-            subject = itemView.findViewById(R.id.subjectname);
-            time = itemView.findViewById(R.id.time);
-            faculty = itemView.findViewById(R.id.instructor);
+            ButterKnife.bind(this,itemView);
         }
     }
 
