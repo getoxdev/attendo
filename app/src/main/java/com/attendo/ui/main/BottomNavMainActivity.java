@@ -79,7 +79,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_frame, new Fragment_Subject()).commit();
 
-                try {
+        try {
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 // this will request for permission from the user if not yet granted
@@ -233,23 +233,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"ERROR",Toast.LENGTH_SHORT).show();
                     }
                 });
-                break;
-            case R.id.shareexcel :
-                try {
-                String filelocation= Environment.getExternalStorageDirectory().getPath() + "/Backup/student.xls";
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setType("text/plain");
-                String message="File to be shared is .";
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Students REPORT");
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse( "file://"+filelocation));
-                intent.putExtra(Intent.EXTRA_TEXT, message);
-                intent.setData(Uri.parse("mail to : shristisarma923@gmail.com"));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                startActivity(intent);
-            } catch(Exception e)  {
-                System.out.println("is exception raises during sending mail"+e);
-            }
                 break;
 
 
