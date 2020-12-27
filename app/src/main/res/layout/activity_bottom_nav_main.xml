@@ -54,6 +54,7 @@
         app:itemTextColor="#9059E8"
         app:itemRippleColor="#AF8AEA"
         app:elevation="6dp"
+        app:labelVisibilityMode="selected"
         android:padding="5dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
