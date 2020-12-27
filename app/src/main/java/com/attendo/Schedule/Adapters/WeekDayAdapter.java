@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.attendo.R;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Model.SubjectRoutine;
-import com.attendo.Schedule.dynamicRvInterface.LoadMore;
+import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
     Context context;
     List<DayOfWeek> day;
     int index=0;
-    LoadMore loadMore;
+    UpdateRecyclerView updateRecyclerView;
     Activity activity;
     boolean check = true;
     boolean select = true;
@@ -44,11 +44,11 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         }
     }
 
-    public WeekDayAdapter(Context context, List<DayOfWeek> day, Activity activity, LoadMore loadMore) {
+    public WeekDayAdapter(Context context, List<DayOfWeek> day, Activity activity, UpdateRecyclerView updateRecyclerView) {
         this.context = context;
         this.day = day;
         this.activity = activity;
-        this.loadMore = loadMore;
+        this.updateRecyclerView = updateRecyclerView;
     }
 
     @NonNull
@@ -79,7 +79,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
                     routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
                     routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
 
-                    loadMore.callback(position, routines);
+                    updateRecyclerView.callback(position, routines);
                 }
                 else if(position == 1 ){
                     ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
@@ -92,7 +92,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
                     routines.add(new SubjectRoutine("English", "7:00 pm", "Jyotimoy"));
                     routines.add(new SubjectRoutine("English", "7:00 pm", "Jyotimoy"));
 
-                    loadMore.callback(position, routines);
+                    updateRecyclerView.callback(position, routines);
                 }
                 else if(position == 2){
                     ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
@@ -105,7 +105,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
                     routines.add(new SubjectRoutine("Science", "7:00 pm", "Jyotimoy"));
                     routines.add(new SubjectRoutine("Science", "7:00 pm", "Jyotimoy"));
 
-                    loadMore.callback(position, routines);
+                    updateRecyclerView.callback(position, routines);
                 }else if(position == 3){
                     ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
                     routines.add(new SubjectRoutine("Biology", "7:00 pm", "Jyotimoy"));
@@ -117,7 +117,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
                     routines.add(new SubjectRoutine("Biology", "7:00 pm", "Jyotimoy"));
                     routines.add(new SubjectRoutine("Biology", "7:00 pm", "Jyotimoy"));
 
-                    loadMore.callback(position, routines);
+                    updateRecyclerView.callback(position, routines);
                 }else if(position == 4){
                     ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
                     routines.add(new SubjectRoutine("Physics", "7:00 pm", "Jyotimoy"));
@@ -129,7 +129,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
                     routines.add(new SubjectRoutine("Physics", "7:00 pm", "Jyotimoy"));
                     routines.add(new SubjectRoutine("Physics", "7:00 pm", "Jyotimoy"));
 
-                    loadMore.callback(position, routines);
+                    updateRecyclerView.callback(position, routines);
                 }else if(position == 5){
                     ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
                     routines.add(new SubjectRoutine("Hindi", "7:00 pm", "Jyotimoy"));
@@ -141,7 +141,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
                     routines.add(new SubjectRoutine("Hindi", "7:00 pm", "Jyotimoy"));
                     routines.add(new SubjectRoutine("Hindi", "7:00 pm", "Jyotimoy"));
 
-                    loadMore.callback(position, routines);
+                    updateRecyclerView.callback(position, routines);
                 }else if(position == 6){
                     ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
                     routines.add(new SubjectRoutine("Chemistry", "7:00 pm", "Jyotimoy"));
@@ -153,7 +153,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
                     routines.add(new SubjectRoutine("Chemistry", "7:00 pm", "Jyotimoy"));
                     routines.add(new SubjectRoutine("Chemistry", "7:00 pm", "Jyotimoy"));
 
-                    loadMore.callback(position, routines);
+                    updateRecyclerView.callback(position, routines);
                 }
             }
         });
@@ -176,7 +176,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
             routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
             routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
 
-            loadMore.callback(position, routines);
+            updateRecyclerView.callback(position, routines);
             check = false;
         }
     }

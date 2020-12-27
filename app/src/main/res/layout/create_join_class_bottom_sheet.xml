@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    style="@style/CustomModalBottomSheet"
+    app:layout_behavior="@string/bottom_sheet_behavior"
+    app:layout_scrollInterpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:backgroundTint="@color/bottom_sheet_bg">
+
+    <Button
+        android:id="@+id/join_class_btn"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="32dp"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:enabled="true"
+        android:fontFamily="@font/roboto_bold"
+        android:stateListAnimator="@animator/button_pressed_animator"
+        android:text="Join Class"
+        android:textAllCaps="false"
+        android:textColor="@color/btn_positive_text_color"
+        android:textSize="17dp"
+        app:backgroundTint="@color/btn_tint_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:rippleColor="#AF91F4"
+        app:strokeWidth="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"/>
+
+    <Button
+        android:id="@+id/create_class_btn"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="2dp"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:enabled="true"
+        android:fontFamily="@font/roboto_bold"
+        android:stateListAnimator="@animator/button_pressed_animator"
+        android:text="Create Class"
+        android:textAllCaps="false"
+        android:textColor="@color/btn_positive_text_color"
+        android:textSize="17dp"
+        app:backgroundTint="@color/btn_tint_2"
+        app:layout_constraintBottom_toTopOf="@+id/join_class_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:rippleColor="#AF91F4"
+        app:strokeWidth="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="30dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

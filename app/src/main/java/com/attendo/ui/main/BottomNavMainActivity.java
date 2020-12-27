@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
+import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
 import com.attendo.Schedule.MultipleRecyclerViewFragment;
 import com.attendo.data.database.SubDatabase;
 import com.attendo.ui.calendar.FragmentCalender;
@@ -138,14 +139,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.schedule_bottom_nav:
-                    Fragment schedule = new MultipleRecyclerViewFragment();
-                    selectedFragment = schedule;
-                    schedule.setEnterTransition(enter);
-                    schedule.setExitTransition(exit);
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container_frame, schedule, "schedule_fragment")
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .commit();
+                    CreateAndJoinClassBottomSheetDialogFragment joinAndCreateFragment = new CreateAndJoinClassBottomSheetDialogFragment();
+                    joinAndCreateFragment.show(getSupportFragmentManager(), "Create Class and Join Class Fragment ");
                     break;
 
                 case R.id.calendar_bottom_nav:
