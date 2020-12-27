@@ -78,6 +78,20 @@ public class BottomNavMainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_frame, new Fragment_Subject()).commit();
+
+                try {
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                // this will request for permission from the user if not yet granted
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            } else {
+
+                System.out.println("ERROR!!");
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
     }
     private Fragment selectedFragment = null;
 
@@ -173,21 +187,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        try {
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                // this will request for permission from the user if not yet granted
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-            } else {
-
-                System.out.println("ERROR!!");
-            }
-        }catch (Exception e){
-            System.out.println(e);
-        }
-
-
-
         String path = Environment.getExternalStorageDirectory().getPath() + "/Backup/";
         File file = new File(path);
         if (!file.exists()) {
@@ -220,22 +219,18 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 break;
             case R.id.exporttoexcel :
                 SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(getApplicationContext(),subDatabase.DATABASE_NAME,path);
-                sqLiteToExcel.exportAllTables("student.xls", new SQLiteToExcel.ExportListener() {
+
+                sqLiteToExcel.exportSingleTable("SubjectName", "student.xls", new SQLiteToExcel.ExportListener() {
                     @Override
                     public void onStart() {
-
                     }
-
                     @Override
                     public void onCompleted(String filePath) {
                         Toast.makeText(getApplicationContext(),"Successfully Exported",Toast.LENGTH_SHORT).show();
-
                     }
-
                     @Override
                     public void onError(Exception e) {
                         Toast.makeText(getApplicationContext(),"ERROR",Toast.LENGTH_SHORT).show();
-
                     }
                 });
                 break;
