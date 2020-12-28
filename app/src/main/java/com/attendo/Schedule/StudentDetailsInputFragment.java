@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.attendo.R;
 import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.JoinClass;
+import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.CreateClassViewModel;
 import com.attendo.viewmodel.JoinClassViewModel;
 
@@ -29,6 +30,7 @@ public class StudentDetailsInputFragment extends Fragment {
     private Button btn;
     private StudentFragment studentFragment;
     private JoinClassViewModel joinClassViewModel;
+    CustomLoadingDialog customLoadingDialog;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -68,6 +70,7 @@ public class StudentDetailsInputFragment extends Fragment {
 
         studentFragment = new StudentFragment();
         joinClassViewModel = new ViewModelProvider(this).get(JoinClassViewModel.class);
+        customLoadingDialog = new CustomLoadingDialog(getActivity());
 
         name = view.findViewById(R.id.student_name_edittext);
         scholarid = view.findViewById(R.id.student_scholar_id_edittext);
@@ -85,6 +88,7 @@ public class StudentDetailsInputFragment extends Fragment {
                 String Class = classcode.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
                     SendDataToServer();
+                    customLoadingDialog.startDialog(false);
                 }
                 else{
                     Toast.makeText(getActivity(),"Please fill all the fields",Toast.LENGTH_SHORT).show();
@@ -99,6 +103,9 @@ public class StudentDetailsInputFragment extends Fragment {
         JoinClass joinClass = new JoinClass(classcode.getText().toString(),name.getText().toString(),email.getText().toString(),scholarid.getText().toString());
         joinClassViewModel.setJoinResponse(joinClass);
         joinClassViewModel.getJoinResponse().observe(getActivity(), data -> {
+
+            customLoadingDialog.dismissDialog();
+
             if (data == null) {
                 Log.i("ApiCall", "Failed");
             } else {

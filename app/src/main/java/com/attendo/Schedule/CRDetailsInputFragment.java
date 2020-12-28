@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.attendo.R;
 import com.attendo.data.model.Class;
 import com.attendo.data.model.CreateClass;
+import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.CreateClassViewModel;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -29,6 +30,7 @@ public class CRDetailsInputFragment extends Fragment {
     private CreateClassViewModel createClassViewModel;
     private CrFragment crFragment;
     private String class_code;
+    private CustomLoadingDialog customLoadingDialog;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -66,6 +68,7 @@ public class CRDetailsInputFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Create Class");
 
        createClassViewModel =  new ViewModelProvider(this).get(CreateClassViewModel.class);
+       customLoadingDialog = new CustomLoadingDialog(getActivity());
 
         crFragment = new CrFragment();
         name = view.findViewById(R.id.cr_name_edittext);
@@ -85,6 +88,7 @@ public class CRDetailsInputFragment extends Fragment {
                 String Class = ClassName.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
                     class_code = SendDataToServer();
+                    customLoadingDialog.startDialog(false);
                 }
                 else{
                     Toast.makeText(getActivity(),"Please fill all the fields",Toast.LENGTH_SHORT).show();
@@ -101,6 +105,7 @@ public class CRDetailsInputFragment extends Fragment {
         CreateClass createClass = new CreateClass(name.getText().toString(),Email.getText().toString(),ClassName.getText().toString(),scholarId.getText().toString());
         createClassViewModel.setClassResponse(createClass);
         createClassViewModel.getClassResponse().observe(getActivity(), data -> {
+            customLoadingDialog.dismissDialog();
             if (data == null) {
                 Toast.makeText(getActivity(),"Fail to Create",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
