@@ -21,6 +21,9 @@ import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.JoinClass;
 import com.attendo.viewmodel.CreateClassViewModel;
 import com.attendo.viewmodel.JoinClassViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class StudentDetailsInputFragment extends Fragment {
 
@@ -29,6 +32,8 @@ public class StudentDetailsInputFragment extends Fragment {
     private Button btn;
     private StudentFragment studentFragment;
     private JoinClassViewModel joinClassViewModel;
+    private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -66,6 +71,9 @@ public class StudentDetailsInputFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_student_details_input, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Join Class");
 
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
+
         studentFragment = new StudentFragment();
         joinClassViewModel = new ViewModelProvider(this).get(JoinClassViewModel.class);
 
@@ -102,11 +110,14 @@ public class StudentDetailsInputFragment extends Fragment {
             if (data == null) {
                 Log.i("ApiCall", "Failed");
             } else {
+                String UserId = mAuth.getCurrentUser().getUid();
+                databaseReference.child(UserId).child("Class_Code").setValue(classcode.getText().toString());
+                databaseReference.child(UserId).child("Join_As").setValue("Student");
                 Log.i("ApiCall", "successFull");
-                Toast.makeText(getContext(),"Class Joined" + data.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"" + data.getMessage(),Toast.LENGTH_LONG).show();
                 setFragment(studentFragment);
             }
-        });//P9k219
+        });
     }
 
     private void setFragment(Fragment fragment) {
@@ -115,4 +126,4 @@ public class StudentDetailsInputFragment extends Fragment {
         fragmentTransaction.addToBackStack(null).commit();
     }
 
-}
+}//gE8PMS

@@ -32,12 +32,17 @@ import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
 import com.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
 import com.attendo.ui.main.menu.FragmentAbout;
 import com.attendo.ui.sub.Fragment_Subject;
+import com.firebase.client.Firebase;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.android.material.transition.platform.MaterialFade;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 
@@ -58,6 +63,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     SubDatabase subDatabase;
+    private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +81,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
             }
         });
 
+
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
 
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
         setSupportActionBar(toolbar);
@@ -139,6 +149,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.schedule_bottom_nav:
+                    String userid = mAuth.getCurrentUser().getUid();
                     CreateAndJoinClassBottomSheetDialogFragment joinAndCreateFragment = new CreateAndJoinClassBottomSheetDialogFragment();
                     joinAndCreateFragment.show(getSupportFragmentManager(), "Create Class and Join Class Fragment ");
                     break;
