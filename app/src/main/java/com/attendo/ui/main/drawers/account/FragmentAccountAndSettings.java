@@ -32,6 +32,8 @@ import androidx.transition.TransitionInflater;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
+import com.attendo.Schedule.CRSettingsFragment;
+import com.attendo.Schedule.StudetntSettingsFragment;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.main.drawers.FragmentAppRate;
 import com.attendo.ui.main.drawers.FragmentBug;
@@ -74,7 +76,7 @@ public class FragmentAccountAndSettings extends Fragment {
     private FragmentEditAttendance fragmentEditAttendance;
     private FragmentFAQ fragmentFAQ;
     private FragmentInfo fragmentInfo;
-    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme;
+    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme, routine;
     CardView Profile;
     BottomNavigationView bottomNavigationView;
 
@@ -82,6 +84,9 @@ public class FragmentAccountAndSettings extends Fragment {
     DatabaseReference databaseReference;
     FirebaseStorage firebaseStorage;
     LottieAnimationView profileLottie;
+
+    //database for schedule
+    DatabaseReference scheduleReference;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -143,6 +148,9 @@ public class FragmentAccountAndSettings extends Fragment {
         String user_id = mAuth.getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference("data");
 
+        //schedule reference
+        scheduleReference = FirebaseDatabase.getInstance().getReference("Schedule");
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -171,6 +179,7 @@ public class FragmentAccountAndSettings extends Fragment {
         Help = view.findViewById(R.id.help_settings);
         logout = view.findViewById(R.id.logout_settings);
         theme = view.findViewById(R.id.theme);
+        routine = view.findViewById(R.id.routine_settings);
 
         Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.card_transition);
 
@@ -370,6 +379,39 @@ public class FragmentAccountAndSettings extends Fragment {
                     }
                 });
 
+            }
+        });
+
+        routine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scheduleReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            String typeOfUser = snapshot.child(mAuth.getCurrentUser().getUid()).child("Join_As").getValue(String.class);
+                            String crr = "Cr";
+                            if(typeOfUser.equals(crr)){
+                                //set fragment for CR
+                                CRSettingsFragment settingsFragment = new CRSettingsFragment();
+                                settingsFragment.show(getParentFragmentManager(), "Cr Settings");
+
+                            }else{
+                                //set fragment for student
+                                StudetntSettingsFragment studetntSettingsFragment = new StudetntSettingsFragment();
+                                studetntSettingsFragment.show(getParentFragmentManager(), "Students Settings");
+                            }
+                        }else{
+                            Toast.makeText(getContext(), "Please join or create a class", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(), "Oops! something went wrong", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
             }
         });
 

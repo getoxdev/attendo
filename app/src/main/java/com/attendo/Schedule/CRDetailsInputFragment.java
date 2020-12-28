@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.attendo.R;
 import com.attendo.data.model.Class;
 import com.attendo.data.model.CreateClass;
+import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.CreateClassViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +35,7 @@ public class CRDetailsInputFragment extends Fragment {
     private String class_code;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
+    private CustomLoadingDialog customLoadingDialog;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -75,6 +77,7 @@ public class CRDetailsInputFragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
 
        createClassViewModel =  new ViewModelProvider(this).get(CreateClassViewModel.class);
+       customLoadingDialog = new CustomLoadingDialog(getActivity());
 
         crFragment = new CrFragment();
         name = view.findViewById(R.id.cr_name_edittext);
@@ -94,6 +97,7 @@ public class CRDetailsInputFragment extends Fragment {
                 String Class = ClassName.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
                     class_code = SendDataToServer();
+                    customLoadingDialog.startDialog(false);
                 }
                 else{
                     Toast.makeText(getActivity(),"Please fill all the fields",Toast.LENGTH_SHORT).show();
@@ -111,9 +115,11 @@ public class CRDetailsInputFragment extends Fragment {
         createClassViewModel.setClassResponse(createClass);
         createClassViewModel.getClassResponse().observe(getActivity(), data -> {
             if (data == null) {
+                customLoadingDialog.dismissDialog();
                 Toast.makeText(getActivity(),"Fail to Create",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
+                customLoadingDialog.dismissDialog();
                 Log.i("ApiCall", "successFull");
                 setFragment(crFragment);
                 class_code = data.get_class().getCode();
@@ -127,9 +133,9 @@ public class CRDetailsInputFragment extends Fragment {
         return class_code;
     }
     private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container_frame,fragment);
-        fragmentTransaction.addToBackStack(null).commit();
+        fragmentTransaction.commit();
     }
 
 
