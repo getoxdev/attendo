@@ -19,9 +19,11 @@ import android.widget.Toast;
 import com.attendo.R;
 import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.JoinClass;
-import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.CreateClassViewModel;
 import com.attendo.viewmodel.JoinClassViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class StudentDetailsInputFragment extends Fragment {
 
@@ -30,7 +32,8 @@ public class StudentDetailsInputFragment extends Fragment {
     private Button btn;
     private StudentFragment studentFragment;
     private JoinClassViewModel joinClassViewModel;
-    CustomLoadingDialog customLoadingDialog;
+    private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -68,9 +71,11 @@ public class StudentDetailsInputFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_student_details_input, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Join Class");
 
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
+
         studentFragment = new StudentFragment();
         joinClassViewModel = new ViewModelProvider(this).get(JoinClassViewModel.class);
-        customLoadingDialog = new CustomLoadingDialog(getActivity());
 
         name = view.findViewById(R.id.student_name_edittext);
         scholarid = view.findViewById(R.id.student_scholar_id_edittext);
@@ -88,7 +93,6 @@ public class StudentDetailsInputFragment extends Fragment {
                 String Class = classcode.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
                     SendDataToServer();
-                    customLoadingDialog.startDialog(false);
                 }
                 else{
                     Toast.makeText(getActivity(),"Please fill all the fields",Toast.LENGTH_SHORT).show();
@@ -103,17 +107,17 @@ public class StudentDetailsInputFragment extends Fragment {
         JoinClass joinClass = new JoinClass(classcode.getText().toString(),name.getText().toString(),email.getText().toString(),scholarid.getText().toString());
         joinClassViewModel.setJoinResponse(joinClass);
         joinClassViewModel.getJoinResponse().observe(getActivity(), data -> {
-
-            customLoadingDialog.dismissDialog();
-
             if (data == null) {
                 Log.i("ApiCall", "Failed");
             } else {
+                String UserId = mAuth.getCurrentUser().getUid();
+                databaseReference.child(UserId).child("Class_Code").setValue(classcode.getText().toString());
+                databaseReference.child(UserId).child("Join_As").setValue("Student");
                 Log.i("ApiCall", "successFull");
-                Toast.makeText(getContext(),"Class Joined" + data.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"" + data.getMessage(),Toast.LENGTH_LONG).show();
                 setFragment(studentFragment);
             }
-        });//P9k219
+        });
     }
 
     private void setFragment(Fragment fragment) {
@@ -122,4 +126,4 @@ public class StudentDetailsInputFragment extends Fragment {
         fragmentTransaction.addToBackStack(null).commit();
     }
 
-}
+}//gE8PMS

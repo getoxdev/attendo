@@ -1,0 +1,166 @@
+Index: app/src/main/java/com/attendo/Schedule/CRDetailsInputFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.attendo.Schedule;\r\n\r\nimport android.os.Bundle;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.fragment.app.FragmentTransaction;\r\nimport androidx.lifecycle.ViewModelProvider;\r\n\r\nimport android.util.Log;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.Toast;\r\n\r\nimport com.attendo.R;\r\nimport com.attendo.data.model.Class;\r\nimport com.attendo.data.model.CreateClass;\r\nimport com.attendo.viewmodel.CreateClassViewModel;\r\n\r\nimport java.util.concurrent.atomic.AtomicReference;\r\n\r\npublic class CRDetailsInputFragment extends Fragment {\r\n\r\n    private EditText name,scholarId,ClassName,Email;\r\n    private Button create;\r\n    private CreateClassViewModel createClassViewModel;\r\n    private CrFragment crFragment;\r\n    private String class_code;\r\n\r\n    private static final String ARG_PARAM1 = \"param1\";\r\n    private static final String ARG_PARAM2 = \"param2\";\r\n\r\n    private String mParam1;\r\n    private String mParam2;\r\n\r\n    public CRDetailsInputFragment() {\r\n        // Required empty public constructor\r\n    }\r\n\r\n    public static CRDetailsInputFragment newInstance(String param1, String param2) {\r\n        CRDetailsInputFragment fragment = new CRDetailsInputFragment();\r\n        Bundle args = new Bundle();\r\n        args.putString(ARG_PARAM1, param1);\r\n        args.putString(ARG_PARAM2, param2);\r\n        fragment.setArguments(args);\r\n        return fragment;\r\n    }\r\n\r\n    @Override\r\n    public void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        if (getArguments() != null) {\r\n            mParam1 = getArguments().getString(ARG_PARAM1);\r\n            mParam2 = getArguments().getString(ARG_PARAM2);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n        // Inflate the layout for this fragment\r\n        View view = inflater.inflate(R.layout.fragment_cr_details_input, container, false);\r\n        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(\"Create Class\");\r\n\r\n       createClassViewModel =  new ViewModelProvider(this).get(CreateClassViewModel.class);\r\n\r\n        crFragment = new CrFragment();\r\n        name = view.findViewById(R.id.cr_name_edittext);\r\n        scholarId = view.findViewById(R.id.cr_scholar_id_edittext);\r\n        Email = view.findViewById(R.id.cr_email_edittext);\r\n        ClassName = view.findViewById(R.id.cr_class_name_edittext);\r\n\r\n        create = view.findViewById(R.id.cr_create_class_btn);\r\n\r\n\r\n        create.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                String Name = name.getText().toString();\r\n                String Scholarid = scholarId.getText().toString();\r\n                String EmailId = Email.getText().toString();\r\n                String Class = ClassName.getText().toString();\r\n                if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){\r\n                    class_code = SendDataToServer();\r\n                }\r\n                else{\r\n                    Toast.makeText(getActivity(),\"Please fill all the fields\",Toast.LENGTH_SHORT).show();\r\n                }\r\n            }\r\n        });\r\n\r\n\r\n\r\n        return view;\r\n    }\r\n\r\n    private String  SendDataToServer() {\r\n        CreateClass createClass = new CreateClass(name.getText().toString(),Email.getText().toString(),ClassName.getText().toString(),scholarId.getText().toString());\r\n        createClassViewModel.setClassResponse(createClass);\r\n        createClassViewModel.getClassResponse().observe(getActivity(), data -> {\r\n            if (data == null) {\r\n                Toast.makeText(getActivity(),\"Fail to Create\",Toast.LENGTH_SHORT).show();\r\n                Log.i(\"ApiCall\", \"Failed\");\r\n            } else {\r\n                Log.i(\"ApiCall\", \"successFull\");\r\n                setFragment(crFragment);\r\n                class_code = data.get_class().getCode();\r\n                Toast.makeText(getContext(),\"Class Created\" + class_code,Toast.LENGTH_SHORT).show();\r\n            }\r\n        });\r\n\r\n        return class_code;\r\n    }\r\n    private void setFragment(Fragment fragment) {\r\n        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();\r\n        fragmentTransaction.replace(R.id.container_frame,fragment);\r\n        fragmentTransaction.addToBackStack(null).commit();\r\n    }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/attendo/Schedule/CRDetailsInputFragment.java	(revision 548feff79477ee8bd69cd790708cd0c3df5ca472)
++++ app/src/main/java/com/attendo/Schedule/CRDetailsInputFragment.java	(date 1609165614465)
+@@ -19,6 +19,9 @@
+ import com.attendo.data.model.Class;
+ import com.attendo.data.model.CreateClass;
+ import com.attendo.viewmodel.CreateClassViewModel;
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.database.DatabaseReference;
++import com.google.firebase.database.FirebaseDatabase;
+ 
+ import java.util.concurrent.atomic.AtomicReference;
+ 
+@@ -29,6 +32,9 @@
+     private CreateClassViewModel createClassViewModel;
+     private CrFragment crFragment;
+     private String class_code;
++    private FirebaseAuth mAuth;
++    private DatabaseReference databaseReference;
++
+ 
+     private static final String ARG_PARAM1 = "param1";
+     private static final String ARG_PARAM2 = "param2";
+@@ -65,6 +71,9 @@
+         View view = inflater.inflate(R.layout.fragment_cr_details_input, container, false);
+         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Create Class");
+ 
++        mAuth = FirebaseAuth.getInstance();
++        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
++
+        createClassViewModel =  new ViewModelProvider(this).get(CreateClassViewModel.class);
+ 
+         crFragment = new CrFragment();
+@@ -108,6 +117,9 @@
+                 Log.i("ApiCall", "successFull");
+                 setFragment(crFragment);
+                 class_code = data.get_class().getCode();
++                String UserId = mAuth.getCurrentUser().getUid();
++                databaseReference.child(UserId).child("Class_Code").setValue(class_code);
++                databaseReference.child(UserId).child("Join_As").setValue("Cr");
+                 Toast.makeText(getContext(),"Class Created" + class_code,Toast.LENGTH_SHORT).show();
+             }
+         });
+Index: app/src/main/java/com/attendo/Schedule/StudentDetailsInputFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.attendo.Schedule;\r\n\r\nimport android.graphics.Paint;\r\nimport android.os.Bundle;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.fragment.app.FragmentTransaction;\r\nimport androidx.lifecycle.ViewModelProvider;\r\n\r\nimport android.util.Log;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.Toast;\r\n\r\nimport com.attendo.R;\r\nimport com.attendo.data.model.CreateClass;\r\nimport com.attendo.data.model.JoinClass;\r\nimport com.attendo.viewmodel.CreateClassViewModel;\r\nimport com.attendo.viewmodel.JoinClassViewModel;\r\n\r\npublic class StudentDetailsInputFragment extends Fragment {\r\n\r\n\r\n    private EditText name,scholarid,email,classcode;\r\n    private Button btn;\r\n    private StudentFragment studentFragment;\r\n    private JoinClassViewModel joinClassViewModel;\r\n\r\n    private static final String ARG_PARAM1 = \"param1\";\r\n    private static final String ARG_PARAM2 = \"param2\";\r\n\r\n    private String mParam1;\r\n    private String mParam2;\r\n\r\n    public StudentDetailsInputFragment() {\r\n        // Required empty public constructor\r\n    }\r\n\r\n\r\n    public static StudentDetailsInputFragment newInstance(String param1, String param2) {\r\n        StudentDetailsInputFragment fragment = new StudentDetailsInputFragment();\r\n        Bundle args = new Bundle();\r\n        args.putString(ARG_PARAM1, param1);\r\n        args.putString(ARG_PARAM2, param2);\r\n        fragment.setArguments(args);\r\n        return fragment;\r\n    }\r\n\r\n    @Override\r\n    public void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        if (getArguments() != null) {\r\n            mParam1 = getArguments().getString(ARG_PARAM1);\r\n            mParam2 = getArguments().getString(ARG_PARAM2);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n\r\n        View view = inflater.inflate(R.layout.fragment_student_details_input, container, false);\r\n        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(\"Join Class\");\r\n\r\n        studentFragment = new StudentFragment();\r\n        joinClassViewModel = new ViewModelProvider(this).get(JoinClassViewModel.class);\r\n\r\n        name = view.findViewById(R.id.student_name_edittext);\r\n        scholarid = view.findViewById(R.id.student_scholar_id_edittext);\r\n        email = view.findViewById(R.id.student_email_edittext);\r\n        classcode = view.findViewById(R.id.student_class_code_edittext);\r\n\r\n        btn = view.findViewById(R.id.student_join_class_btn);\r\n\r\n        btn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                String Name = name.getText().toString();\r\n                String Scholarid = scholarid.getText().toString();\r\n                String EmailId = email.getText().toString();\r\n                String Class = classcode.getText().toString();\r\n                if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){\r\n                    SendDataToServer();\r\n                }\r\n                else{\r\n                    Toast.makeText(getActivity(),\"Please fill all the fields\",Toast.LENGTH_SHORT).show();\r\n                }\r\n            }\r\n        });\r\n\r\n        return view;\r\n    }\r\n\r\n    private void SendDataToServer() {\r\n        JoinClass joinClass = new JoinClass(classcode.getText().toString(),name.getText().toString(),email.getText().toString(),scholarid.getText().toString());\r\n        joinClassViewModel.setClassData(joinClass);\r\n        joinClassViewModel.getJoinResponse().observe(getActivity(), data -> {\r\n            if (data == null) {\r\n                Log.i(\"ApiCall\", \"Failed\");\r\n            } else {\r\n                Log.i(\"ApiCall\", \"successFull\");\r\n                Toast.makeText(getContext(),\"Class Joined\",Toast.LENGTH_SHORT).show();\r\n                setFragment(studentFragment);\r\n            }\r\n        });//P9k219\r\n    }\r\n\r\n    private void setFragment(Fragment fragment) {\r\n        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();\r\n        fragmentTransaction.replace(R.id.container_frame,fragment);\r\n        fragmentTransaction.addToBackStack(null).commit();\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/attendo/Schedule/StudentDetailsInputFragment.java	(revision 548feff79477ee8bd69cd790708cd0c3df5ca472)
++++ app/src/main/java/com/attendo/Schedule/StudentDetailsInputFragment.java	(date 1609167998738)
+@@ -21,6 +21,9 @@
+ import com.attendo.data.model.JoinClass;
+ import com.attendo.viewmodel.CreateClassViewModel;
+ import com.attendo.viewmodel.JoinClassViewModel;
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.database.DatabaseReference;
++import com.google.firebase.database.FirebaseDatabase;
+ 
+ public class StudentDetailsInputFragment extends Fragment {
+ 
+@@ -29,6 +32,8 @@
+     private Button btn;
+     private StudentFragment studentFragment;
+     private JoinClassViewModel joinClassViewModel;
++    private FirebaseAuth mAuth;
++    private DatabaseReference databaseReference;
+ 
+     private static final String ARG_PARAM1 = "param1";
+     private static final String ARG_PARAM2 = "param2";
+@@ -66,6 +71,9 @@
+         View view = inflater.inflate(R.layout.fragment_student_details_input, container, false);
+         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Join Class");
+ 
++        mAuth = FirebaseAuth.getInstance();
++        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
++
+         studentFragment = new StudentFragment();
+         joinClassViewModel = new ViewModelProvider(this).get(JoinClassViewModel.class);
+ 
+@@ -102,11 +110,14 @@
+             if (data == null) {
+                 Log.i("ApiCall", "Failed");
+             } else {
++                String UserId = mAuth.getCurrentUser().getUid();
++                databaseReference.child(UserId).child("Class_Code").setValue(classcode.getText().toString());
++                databaseReference.child(UserId).child("Join_As").setValue("Student");
+                 Log.i("ApiCall", "successFull");
+                 Toast.makeText(getContext(),"Class Joined",Toast.LENGTH_SHORT).show();
+                 setFragment(studentFragment);
+             }
+-        });//P9k219
++        });
+     }
+ 
+     private void setFragment(Fragment fragment) {
+@@ -115,4 +126,4 @@
+         fragmentTransaction.addToBackStack(null).commit();
+     }
+ 
+-}
+\ No newline at end of file
++}//gE8PMS
+\ No newline at end of file
+Index: app/src/main/java/com/attendo/ui/main/BottomNavMainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.attendo.ui.main;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.appcompat.widget.Toolbar;\r\nimport androidx.core.app.ActivityCompat;\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.fragment.app.FragmentTransaction;\r\nimport androidx.viewpager.widget.ViewPager;\r\n\r\nimport android.Manifest;\r\nimport android.content.Intent;\r\nimport android.content.pm.PackageManager;\r\nimport android.net.Uri;\r\nimport android.os.Bundle;\r\nimport android.os.Environment;\r\nimport android.view.Menu;\r\nimport android.view.MenuItem;\r\nimport android.view.Window;\r\nimport android.view.animation.AccelerateDecelerateInterpolator;\r\nimport android.widget.FrameLayout;\r\nimport android.widget.Toast;\r\n\r\nimport com.ajts.androidmads.library.SQLiteToExcel;\r\nimport com.attendo.R;\r\nimport com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;\r\nimport com.attendo.Schedule.MultipleRecyclerViewFragment;\r\nimport com.attendo.data.database.SubDatabase;\r\nimport com.attendo.ui.calendar.FragmentCalender;\r\nimport com.attendo.ui.main.drawers.reminder.FragmentExamReminder;\r\n\r\nimport com.attendo.ui.main.drawers.account.FragmentAccountAndSettings;\r\nimport com.attendo.ui.main.menu.FragmentAbout;\r\nimport com.attendo.ui.sub.Fragment_Subject;\r\nimport com.google.android.gms.ads.MobileAds;\r\nimport com.google.android.gms.ads.initialization.InitializationStatus;\r\nimport com.google.android.gms.ads.initialization.OnInitializationCompleteListener;\r\nimport com.google.android.material.bottomnavigation.BottomNavigationView;\r\nimport com.google.android.material.transition.MaterialSharedAxis;\r\nimport com.google.android.material.transition.platform.MaterialFade;\r\n\r\nimport java.io.File;\r\n\r\nimport butterknife.BindView;\r\nimport butterknife.ButterKnife;\r\n\r\npublic class BottomNavMainActivity extends AppCompatActivity {\r\n\r\n\r\n\r\n    @BindView(R.id.bottom_nav_bar)\r\n    BottomNavigationView bottomNavigationView;\r\n\r\n    @BindView(R.id.container_frame)\r\n    FrameLayout frameLayout;\r\n\r\n    @BindView(R.id.toolbar_bottom_nav)\r\n    Toolbar toolbar;\r\n\r\n    SubDatabase subDatabase;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);\r\n        getWindow().setEnterTransition(new MaterialFade().setDuration(300));\r\n        getWindow().setExitTransition(new MaterialFade().setDuration(300));\r\n        setContentView(R.layout.activity_bottom_nav_main);\r\n        ButterKnife.bind(this);\r\n\r\n        MobileAds.initialize(this, new OnInitializationCompleteListener() {\r\n            @Override\r\n            public void onInitializationComplete(InitializationStatus initializationStatus) {\r\n            }\r\n        });\r\n\r\n\r\n        bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);\r\n        setSupportActionBar(toolbar);\r\n\r\n        getSupportFragmentManager().beginTransaction().replace(R.id.container_frame, new Fragment_Subject()).commit();\r\n\r\n        try {\r\n\r\n            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {\r\n                // this will request for permission from the user if not yet granted\r\n                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);\r\n            } else {\r\n\r\n                System.out.println(\"ERROR!!\");\r\n            }\r\n        }catch (Exception e){\r\n            System.out.println(e);\r\n        }\r\n\r\n    }\r\n    private Fragment selectedFragment = null;\r\n\r\n\r\n\r\n\r\n    private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {\r\n        @Override\r\n        public boolean onNavigationItemSelected(@NonNull MenuItem item) {\r\n\r\n            MaterialSharedAxis enter = new MaterialSharedAxis(MaterialSharedAxis.Z, true);\r\n            MaterialSharedAxis exit = new MaterialSharedAxis(MaterialSharedAxis.Z, false);\r\n            enter.setDuration(400);\r\n            enter.setInterpolator(new AccelerateDecelerateInterpolator());\r\n            exit.setDuration(400);\r\n            exit.setInterpolator(new AccelerateDecelerateInterpolator());\r\n\r\n\r\n            switch (item.getItemId()){\r\n                case R.id.subjects_bottom_nav:\r\n                    Fragment subject = new Fragment_Subject();\r\n                    selectedFragment = subject;\r\n                    Bundle bundle = new Bundle();\r\n                    bundle.putString(\"key\",\"\");\r\n                    subject.setEnterTransition(enter);\r\n                    subject.setExitTransition(exit);\r\n                    subject.setArguments(bundle);\r\n                    getSupportFragmentManager().beginTransaction()\r\n                            .replace(R.id.container_frame, subject, \"subject_fragment\")\r\n                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)\r\n                            .commit();\r\n\r\n                    break;\r\n\r\n                case R.id.reminder_bottom_nav:\r\n                    Fragment reminder = new FragmentExamReminder();\r\n                    selectedFragment = reminder;\r\n                    reminder.setEnterTransition(enter);\r\n                    reminder.setExitTransition(exit);\r\n                    getSupportFragmentManager().beginTransaction()\r\n                            .replace(R.id.container_frame, reminder, \"reminder_fragment\")\r\n                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)\r\n                            .commit();\r\n                    break;\r\n\r\n                case R.id.schedule_bottom_nav:\r\n                    CreateAndJoinClassBottomSheetDialogFragment joinAndCreateFragment = new CreateAndJoinClassBottomSheetDialogFragment();\r\n                    joinAndCreateFragment.show(getSupportFragmentManager(), \"Create Class and Join Class Fragment \");\r\n                    break;\r\n\r\n                case R.id.calendar_bottom_nav:\r\n                    Fragment calendar = new FragmentCalender();\r\n                    selectedFragment = calendar;\r\n                    calendar.setEnterTransition(enter);\r\n                    calendar.setExitTransition(exit);\r\n                    getSupportFragmentManager().beginTransaction()\r\n                            .replace(R.id.container_frame, calendar, \"calendar_fragment\")\r\n                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)\r\n                            .commit();\r\n                    break;\r\n\r\n                case R.id.account_bottom_nav:\r\n                    Fragment account = new FragmentAccountAndSettings();\r\n                    selectedFragment = account;\r\n                    account.setEnterTransition(enter);\r\n                    account.setExitTransition(exit);\r\n                    getSupportFragmentManager().beginTransaction()\r\n                            .replace(R.id.container_frame, account, \"account_fragment\")\r\n                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)\r\n                            .commit();\r\n\r\n                    break;\r\n\r\n            }\r\n\r\n\r\n            return true;\r\n        }\r\n    };\r\n\r\n    @Override\r\n    public boolean onCreateOptionsMenu(Menu menu) {\r\n        getMenuInflater().inflate(R.menu.new_activity_app_bar_menu, menu);\r\n        return true;\r\n    }\r\n\r\n    @Override\r\n    public boolean onOptionsItemSelected(@NonNull MenuItem item) {\r\n\r\n        String path = Environment.getExternalStorageDirectory().getPath() + \"/Backup/\";\r\n        File file = new File(path);\r\n        if (!file.exists()) {\r\n            file.mkdirs();\r\n        }\r\n\r\n\r\n        Fragment aboutUs = new FragmentAbout();\r\n\r\n        MaterialSharedAxis enter = new MaterialSharedAxis(MaterialSharedAxis.Z, true);\r\n        MaterialSharedAxis exit = new MaterialSharedAxis(MaterialSharedAxis.Z, false);\r\n\r\n        aboutUs.setEnterTransition(enter);\r\n        aboutUs.setExitTransition(exit);\r\n\r\n\r\n        int id = item.getItemId();\r\n\r\n        switch (id){\r\n            case R.id.aboutus:\r\n                getSupportFragmentManager().beginTransaction()\r\n                        .replace(R.id.container_frame, aboutUs)\r\n                        .addToBackStack(null)\r\n                        .commit();\r\n\r\n                break;\r\n            case R.id.privacypolicy:\r\n                Uri uri = Uri.parse(\"https://attendo.flycricket.io/privacy.html\");\r\n                startActivity(new Intent(Intent.ACTION_VIEW, uri));\r\n                break;\r\n            case R.id.exporttoexcel :\r\n                SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(getApplicationContext(),subDatabase.DATABASE_NAME,path);\r\n\r\n                sqLiteToExcel.exportSingleTable(\"SubjectName\", \"student.xls\", new SQLiteToExcel.ExportListener() {\r\n                    @Override\r\n                    public void onStart() {\r\n                    }\r\n                    @Override\r\n                    public void onCompleted(String filePath) {\r\n                        Toast.makeText(getApplicationContext(),\"Successfully Exported\",Toast.LENGTH_SHORT).show();\r\n                    }\r\n                    @Override\r\n                    public void onError(Exception e) {\r\n                        Toast.makeText(getApplicationContext(),\"ERROR\",Toast.LENGTH_SHORT).show();\r\n                    }\r\n                });\r\n                break;\r\n\r\n\r\n\r\n        }\r\n\r\n        return true;\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/attendo/ui/main/BottomNavMainActivity.java	(revision 548feff79477ee8bd69cd790708cd0c3df5ca472)
++++ app/src/main/java/com/attendo/ui/main/BottomNavMainActivity.java	(date 1609165981878)
+@@ -32,12 +32,17 @@
+ import com.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
+ import com.attendo.ui.main.menu.FragmentAbout;
+ import com.attendo.ui.sub.Fragment_Subject;
++import com.firebase.client.Firebase;
+ import com.google.android.gms.ads.MobileAds;
+ import com.google.android.gms.ads.initialization.InitializationStatus;
+ import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+ import com.google.android.material.bottomnavigation.BottomNavigationView;
+ import com.google.android.material.transition.MaterialSharedAxis;
+ import com.google.android.material.transition.platform.MaterialFade;
++import com.google.firebase.auth.FirebaseAuth;
++import com.google.firebase.database.ChildEventListener;
++import com.google.firebase.database.DatabaseReference;
++import com.google.firebase.database.FirebaseDatabase;
+ 
+ import java.io.File;
+ 
+@@ -58,6 +63,8 @@
+     Toolbar toolbar;
+ 
+     SubDatabase subDatabase;
++    private FirebaseAuth mAuth;
++    private DatabaseReference databaseReference;
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+@@ -75,6 +82,9 @@
+         });
+ 
+ 
++        mAuth = FirebaseAuth.getInstance();
++        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
++
+         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
+         setSupportActionBar(toolbar);
+ 
+@@ -139,6 +149,7 @@
+                     break;
+ 
+                 case R.id.schedule_bottom_nav:
++                    String userid = mAuth.getCurrentUser().getUid();
+                     CreateAndJoinClassBottomSheetDialogFragment joinAndCreateFragment = new CreateAndJoinClassBottomSheetDialogFragment();
+                     joinAndCreateFragment.show(getSupportFragmentManager(), "Create Class and Join Class Fragment ");
+                     break;
+diff --git .idea/shelf/Uncommitted_changes_before_Update_at_12_27_2020_5_04_PM__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Update_at_12_27_2020_5_04_PM__Default_Changelist_.xml

@@ -18,8 +18,10 @@ import android.widget.Toast;
 import com.attendo.R;
 import com.attendo.data.model.Class;
 import com.attendo.data.model.CreateClass;
-import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.CreateClassViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -30,7 +32,9 @@ public class CRDetailsInputFragment extends Fragment {
     private CreateClassViewModel createClassViewModel;
     private CrFragment crFragment;
     private String class_code;
-    private CustomLoadingDialog customLoadingDialog;
+    private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -67,8 +71,10 @@ public class CRDetailsInputFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cr_details_input, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Create Class");
 
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
+
        createClassViewModel =  new ViewModelProvider(this).get(CreateClassViewModel.class);
-       customLoadingDialog = new CustomLoadingDialog(getActivity());
 
         crFragment = new CrFragment();
         name = view.findViewById(R.id.cr_name_edittext);
@@ -88,7 +94,6 @@ public class CRDetailsInputFragment extends Fragment {
                 String Class = ClassName.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
                     class_code = SendDataToServer();
-                    customLoadingDialog.startDialog(false);
                 }
                 else{
                     Toast.makeText(getActivity(),"Please fill all the fields",Toast.LENGTH_SHORT).show();
@@ -105,7 +110,6 @@ public class CRDetailsInputFragment extends Fragment {
         CreateClass createClass = new CreateClass(name.getText().toString(),Email.getText().toString(),ClassName.getText().toString(),scholarId.getText().toString());
         createClassViewModel.setClassResponse(createClass);
         createClassViewModel.getClassResponse().observe(getActivity(), data -> {
-            customLoadingDialog.dismissDialog();
             if (data == null) {
                 Toast.makeText(getActivity(),"Fail to Create",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
@@ -113,7 +117,10 @@ public class CRDetailsInputFragment extends Fragment {
                 Log.i("ApiCall", "successFull");
                 setFragment(crFragment);
                 class_code = data.get_class().getCode();
-                Toast.makeText(getContext(),"Class Created" + class_code,Toast.LENGTH_SHORT).show();
+                String UserId = mAuth.getCurrentUser().getUid();
+                databaseReference.child(UserId).child("Class_Code").setValue(class_code);
+                databaseReference.child(UserId).child("Join_As").setValue("Cr");
+                Toast.makeText(getContext(),"Class Created" + class_code,Toast.LENGTH_LONG).show();
             }
         });
 
