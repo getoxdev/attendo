@@ -18,13 +18,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
+import com.attendo.Schedule.CrFragment;
 import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
 import com.attendo.Schedule.MultipleRecyclerViewFragment;
+import com.attendo.Schedule.StudentFragment;
 import com.attendo.data.database.SubDatabase;
 import com.attendo.ui.calendar.FragmentCalender;
 import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
@@ -41,8 +44,11 @@ import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.android.material.transition.platform.MaterialFade;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 
@@ -65,6 +71,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
     SubDatabase subDatabase;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
+    private CrFragment crFragment;
+    private StudentFragment studentFragment;
+    private EditText joinas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +93,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
+        crFragment = new CrFragment();
+        studentFragment = new StudentFragment();
+        joinas = findViewById(R.id.Join_As);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
         setSupportActionBar(toolbar);
@@ -150,8 +162,30 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
                 case R.id.schedule_bottom_nav:
                     String userid = mAuth.getCurrentUser().getUid();
-                    CreateAndJoinClassBottomSheetDialogFragment joinAndCreateFragment = new CreateAndJoinClassBottomSheetDialogFragment();
-                    joinAndCreateFragment.show(getSupportFragmentManager(), "Create Class and Join Class Fragment ");
+                    databaseReference.orderByKey().equalTo(userid).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(snapshot.exists()) {
+                                joinas.setText(snapshot.child(userid).child("Join_As").getValue(String.class));
+                                String code = joinas.getText().toString();
+                                String crr = "Cr";
+                                if(code.equals(crr)){
+                                    setFragment(crFragment);
+                                }
+                                else{
+                                    setFragment(studentFragment);
+                                }
+                            } else {
+                                CreateAndJoinClassBottomSheetDialogFragment joinAndCreateFragment = new CreateAndJoinClassBottomSheetDialogFragment();
+                                joinAndCreateFragment.show(getSupportFragmentManager(), "Create Class and Join Class Fragment ");
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(BottomNavMainActivity.this,""+error,Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                     break;
 
                 case R.id.calendar_bottom_nav:
@@ -183,6 +217,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
             return true;
         }
     };
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -248,4 +283,11 @@ public class BottomNavMainActivity extends AppCompatActivity {
         return true;
 
     }
+
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container_frame,fragment);
+        fragmentTransaction.commit();
+    }
+
 }
