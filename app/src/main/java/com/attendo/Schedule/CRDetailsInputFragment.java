@@ -93,16 +93,16 @@ public class CRDetailsInputFragment extends Fragment {
     }
 
     private void SendDataToServer() {
-        setFragment(crFragment);
         CreateClass createClass = new CreateClass(name.getText().toString(),Email.getText().toString(),ClassName.getText().toString(),scholarId.getText().toString());
         createClassViewModel.setClassData(createClass);
         createClassViewModel.getClassResponse().observe(getActivity(), data -> {
             if (data == null) {
+                Toast.makeText(getActivity(),"Fail to Create",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
-
                 Log.i("ApiCall", "successFull");
                 Toast.makeText(getContext(),"Class Created",Toast.LENGTH_SHORT).show();
+                setFragment(crFragment);
             }
         });
     }

@@ -1,11 +1,14 @@
 package com.attendo.Schedule;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.data.model.CreateClass;
+import com.attendo.data.model.JoinClass;
+import com.attendo.viewmodel.CreateClassViewModel;
+import com.attendo.viewmodel.JoinClassViewModel;
 
 public class StudentDetailsInputFragment extends Fragment {
 
@@ -21,6 +28,7 @@ public class StudentDetailsInputFragment extends Fragment {
     private EditText name,scholarid,email,classcode;
     private Button btn;
     private StudentFragment studentFragment;
+    private JoinClassViewModel joinClassViewModel;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -59,6 +67,7 @@ public class StudentDetailsInputFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Join Class");
 
         studentFragment = new StudentFragment();
+        joinClassViewModel = new ViewModelProvider(this).get(JoinClassViewModel.class);
 
         name = view.findViewById(R.id.student_name_edittext);
         scholarid = view.findViewById(R.id.student_scholar_id_edittext);
@@ -87,8 +96,17 @@ public class StudentDetailsInputFragment extends Fragment {
     }
 
     private void SendDataToServer() {
-        setFragment(studentFragment);
-
+        JoinClass joinClass = new JoinClass(classcode.getText().toString(),name.getText().toString(),email.getText().toString(),scholarid.getText().toString());
+        joinClassViewModel.setClassData(joinClass);
+        joinClassViewModel.getJoinResponse().observe(getActivity(), data -> {
+            if (data == null) {
+                Log.i("ApiCall", "Failed");
+            } else {
+                Log.i("ApiCall", "successFull");
+                Toast.makeText(getContext(),"Class Joined",Toast.LENGTH_SHORT).show();
+                setFragment(studentFragment);
+            }
+        });//P9k219
     }
 
     private void setFragment(Fragment fragment) {
