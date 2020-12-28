@@ -3,7 +3,7 @@ package com.attendo.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ResponseClass {
+public class ResponseCreateClass {
     @SerializedName("status")
     @Expose
 

@@ -1,18 +1,15 @@
 package com.attendo.data.api;
 
 import com.attendo.data.model.CreateClass;
-import com.attendo.data.model.CreateSchedule;
-import com.attendo.data.model.Id;
 import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
-import com.attendo.data.model.ResponseClass;
+import com.attendo.data.model.ResponseCreateClass;
+import com.attendo.data.model.ResponseJoinClass;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -25,9 +22,9 @@ public interface  ApiService
     Call<ResponseBody> cancelReminder (@Path("reminderId") String id);
 
     @POST("api/class")
-    Call<ResponseClass> createclass(@Body CreateClass createClass);
+    Call<ResponseCreateClass> createclass(@Body CreateClass createClass);
 
     @POST("api/class/join")
-    Call<JoinClass> joinclass(@Body JoinClass joinClass);
+    Call<ResponseJoinClass> joinclass(@Body JoinClass joinClass);
 
 }

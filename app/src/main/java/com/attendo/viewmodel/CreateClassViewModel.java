@@ -1,7 +1,6 @@
 package com.attendo.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -9,9 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.attendo.data.api.ApiHelper;
 import com.attendo.data.model.CreateClass;
-import com.attendo.data.model.ResponseClass;
-
-import java.util.List;
+import com.attendo.data.model.ResponseCreateClass;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,13 +16,13 @@ import retrofit2.Response;
 
 public class CreateClassViewModel extends AndroidViewModel {
     private ApiHelper apiHelper;
-    private MutableLiveData<ResponseClass> classResponse;
+    private MutableLiveData<ResponseCreateClass> classResponse;
     public CreateClassViewModel(@NonNull Application application) {
         super(application);
         apiHelper = new ApiHelper(application);
-        classResponse=new MutableLiveData<ResponseClass>();
+        classResponse=new MutableLiveData<ResponseCreateClass>();
     }
-    public MutableLiveData<ResponseClass> getClassResponse(){
+    public MutableLiveData<ResponseCreateClass> getClassResponse(){
         return classResponse;
     }
 
@@ -50,12 +47,12 @@ public class CreateClassViewModel extends AndroidViewModel {
 //    }
 
     public void setClassResponse(CreateClass createClass){
-        apiHelper.createclass(createClass).enqueue(new Callback<ResponseClass>() {
+        apiHelper.createclass(createClass).enqueue(new Callback<ResponseCreateClass>() {
             @Override
-            public void onResponse(Call<ResponseClass> call, Response<ResponseClass> response) {
+            public void onResponse(Call<ResponseCreateClass> call, Response<ResponseCreateClass> response) {
                 if(response.code() < 300){
-                    ResponseClass responseClass = response.body();
-                    classResponse.postValue(responseClass);
+                    ResponseCreateClass responseCreateClass = response.body();
+                    classResponse.postValue(responseCreateClass);
                 }else if(response.code() >= 400){
                     classResponse.postValue(null);
                 }
@@ -63,7 +60,7 @@ public class CreateClassViewModel extends AndroidViewModel {
             }
 
             @Override
-            public void onFailure(Call<ResponseClass> call, Throwable t) {
+            public void onFailure(Call<ResponseCreateClass> call, Throwable t) {
                 classResponse.postValue(null);
             }
         });
