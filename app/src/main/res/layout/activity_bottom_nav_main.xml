@@ -20,7 +20,10 @@
         android:background="@color/bg_login"
         app:menu="@menu/new_activity_app_bar_menu"/>
 
-
+<EditText
+    android:id="@+id/Join_As"
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"/>
 
 
     <FrameLayout
