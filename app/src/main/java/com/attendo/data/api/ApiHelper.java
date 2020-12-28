@@ -3,12 +3,11 @@ package com.attendo.data.api;
 import android.content.Context;
 
 import com.attendo.data.model.CreateClass;
-import com.attendo.data.model.CreateSchedule;
-import com.attendo.data.model.Id;
 import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
-import com.attendo.data.model.ResponseClass;
+import com.attendo.data.model.ResponseCreateClass;
+import com.attendo.data.model.ResponseJoinClass;
 import com.attendo.retrofit.RetrofitProvider;
 
 import okhttp3.ResponseBody;
@@ -46,12 +45,12 @@ public class ApiHelper implements ApiService
     }
 
     @Override
-    public Call<ResponseClass> createclass(@Body CreateClass createClass){
+    public Call<ResponseCreateClass> createclass(@Body CreateClass createClass){
         return api.createclass(createClass);
     }
 
     @Override
-    public Call<JoinClass> joinclass(@Body JoinClass joinClass){
+    public Call<ResponseJoinClass> joinclass(@Body JoinClass joinClass){
         return api.joinclass(joinClass);
     }
 }

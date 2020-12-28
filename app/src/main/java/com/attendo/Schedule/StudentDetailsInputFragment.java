@@ -97,13 +97,13 @@ public class StudentDetailsInputFragment extends Fragment {
 
     private void SendDataToServer() {
         JoinClass joinClass = new JoinClass(classcode.getText().toString(),name.getText().toString(),email.getText().toString(),scholarid.getText().toString());
-        joinClassViewModel.setClassData(joinClass);
+        joinClassViewModel.setJoinResponse(joinClass);
         joinClassViewModel.getJoinResponse().observe(getActivity(), data -> {
             if (data == null) {
                 Log.i("ApiCall", "Failed");
             } else {
                 Log.i("ApiCall", "successFull");
-                Toast.makeText(getContext(),"Class Joined",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Class Joined" + data.getMessage(),Toast.LENGTH_SHORT).show();
                 setFragment(studentFragment);
             }
         });//P9k219
