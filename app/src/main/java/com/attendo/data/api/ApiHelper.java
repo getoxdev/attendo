@@ -8,6 +8,7 @@ import com.attendo.data.model.Id;
 import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
+import com.attendo.data.model.ResponseClass;
 import com.attendo.retrofit.RetrofitProvider;
 
 import okhttp3.ResponseBody;
@@ -45,7 +46,7 @@ public class ApiHelper implements ApiService
     }
 
     @Override
-    public Call<CreateClass> createclass(@Body CreateClass createClass){
+    public Call<ResponseClass> createclass(@Body CreateClass createClass){
         return api.createclass(createClass);
     }
 
