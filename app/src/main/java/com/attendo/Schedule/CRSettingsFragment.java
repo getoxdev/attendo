@@ -69,9 +69,8 @@ public class CRSettingsFragment extends BottomSheetDialogFragment {
                 String userId = mAuth.getCurrentUser().getUid();
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Schedule").child(userId);
                 ref.removeValue();
-                Toast.makeText(getActivity(),"You leaved the Schedule",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), BottomNavMainActivity.class);
-                startActivity(intent);
+                Toast.makeText(getActivity(),"You left the Schedule",Toast.LENGTH_SHORT).show();
+                dismiss();
             }
         });
 
