@@ -97,6 +97,7 @@ public class CRDetailsInputFragment extends Fragment {
                 String Class = ClassName.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
                     class_code = SendDataToServer();
+                    customLoadingDialog.startDialog(false);
                 }
                 else{
                     Toast.makeText(getActivity(),"Please fill all the fields",Toast.LENGTH_SHORT).show();
@@ -113,11 +114,12 @@ public class CRDetailsInputFragment extends Fragment {
         CreateClass createClass = new CreateClass(name.getText().toString(),Email.getText().toString(),ClassName.getText().toString(),scholarId.getText().toString());
         createClassViewModel.setClassResponse(createClass);
         createClassViewModel.getClassResponse().observe(getActivity(), data -> {
-            customLoadingDialog.dismissDialog();
             if (data == null) {
+                customLoadingDialog.dismissDialog();
                 Toast.makeText(getActivity(),"Fail to Create",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
+                customLoadingDialog.dismissDialog();
                 Log.i("ApiCall", "successFull");
                 setFragment(crFragment);
                 class_code = data.get_class().getCode();

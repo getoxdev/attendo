@@ -14,24 +14,29 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
+import com.attendo.Schedule.Interface.UpdateRecyclerView;
+import com.attendo.Schedule.Model.SubjectRoutine;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import java.util.ArrayList;
 
 public class AddSubjectDetailsFragment extends BottomSheetDialogFragment {
 
 
-    private EditText subject,faculty,time;
+    private EditText subject, faculty, time;
     private Button submit;
     private LottieAnimationView celebration;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-   private String mParam1;
+    private String mParam1;
     private String mParam2;
 
     public AddSubjectDetailsFragment() {
-        }
- public static AddSubjectDetailsFragment newInstance(String param1, String param2) {
+    }
+
+    public static AddSubjectDetailsFragment newInstance(String param1, String param2) {
         AddSubjectDetailsFragment fragment = new AddSubjectDetailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -69,7 +74,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment {
                 String sub = subject.getText().toString();
                 String teacher = faculty.getText().toString();
                 String clock = time.getText().toString();
-                if(sub.length()>0 && teacher.length()>0 && clock.length()>0){
+                if (sub.length() > 0 && teacher.length() > 0 && clock.length() > 0) {
                     SendDataToServer();
                     celebration.setVisibility(View.VISIBLE);
                     celebration.playAnimation();
@@ -80,15 +85,14 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment {
                             dismiss();
 
                         }
-                    },600);
-                }
-                else{
-                    Toast.makeText(getActivity(),"Please fill all details",Toast.LENGTH_SHORT).show();
+                    }, 600);
+                } else {
+                    Toast.makeText(getActivity(), "Please fill all details", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        return  view;
+        return view;
     }
 
     private void SendDataToServer() {
@@ -96,4 +100,5 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment {
         //******send data to server*******
 
     }
+
 }
