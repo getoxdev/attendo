@@ -74,7 +74,7 @@ public class FragmentAccountAndSettings extends Fragment {
     private FragmentEditAttendance fragmentEditAttendance;
     private FragmentFAQ fragmentFAQ;
     private FragmentInfo fragmentInfo;
-    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme;
+    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme, routine;
     CardView Profile;
     BottomNavigationView bottomNavigationView;
 
@@ -171,6 +171,7 @@ public class FragmentAccountAndSettings extends Fragment {
         Help = view.findViewById(R.id.help_settings);
         logout = view.findViewById(R.id.logout_settings);
         theme = view.findViewById(R.id.theme);
+        routine = view.findViewById(R.id.routine_settings);
 
         Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.card_transition);
 
@@ -369,6 +370,13 @@ public class FragmentAccountAndSettings extends Fragment {
                         editor.commit();
                     }
                 });
+
+            }
+        });
+
+        routine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
             }
         });
