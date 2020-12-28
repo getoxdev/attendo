@@ -6,6 +6,7 @@ import com.attendo.data.model.Id;
 import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
+import com.attendo.data.model.ResponseClass;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -24,7 +25,7 @@ public interface  ApiService
     Call<ResponseBody> cancelReminder (@Path("reminderId") String id);
 
     @POST("api/class")
-    Call<CreateClass> createclass(@Body CreateClass createClass);
+    Call<ResponseClass> createclass(@Body CreateClass createClass);
 
     @POST("api/class/join")
     Call<JoinClass> joinclass(@Body JoinClass joinClass);

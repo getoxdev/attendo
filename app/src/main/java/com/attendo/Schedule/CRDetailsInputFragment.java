@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,9 +16,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.data.model.Class;
 import com.attendo.data.model.CreateClass;
 import com.attendo.viewmodel.CreateClassViewModel;
-import com.attendo.viewmodel.SubjectViewModel;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class CRDetailsInputFragment extends Fragment {
 
@@ -27,6 +28,7 @@ public class CRDetailsInputFragment extends Fragment {
     private Button create;
     private CreateClassViewModel createClassViewModel;
     private CrFragment crFragment;
+    private String class_code;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -73,6 +75,7 @@ public class CRDetailsInputFragment extends Fragment {
 
         create = view.findViewById(R.id.cr_create_class_btn);
 
+
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +84,7 @@ public class CRDetailsInputFragment extends Fragment {
                 String EmailId = Email.getText().toString();
                 String Class = ClassName.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
-                    SendDataToServer();
+                    class_code = SendDataToServer();
                 }
                 else{
                     Toast.makeText(getActivity(),"Please fill all the fields",Toast.LENGTH_SHORT).show();
@@ -89,22 +92,27 @@ public class CRDetailsInputFragment extends Fragment {
             }
         });
 
+
+
         return view;
     }
 
-    private void SendDataToServer() {
+    private String  SendDataToServer() {
         CreateClass createClass = new CreateClass(name.getText().toString(),Email.getText().toString(),ClassName.getText().toString(),scholarId.getText().toString());
-        createClassViewModel.setClassData(createClass);
+        createClassViewModel.setClassResponse(createClass);
         createClassViewModel.getClassResponse().observe(getActivity(), data -> {
             if (data == null) {
                 Toast.makeText(getActivity(),"Fail to Create",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
                 Log.i("ApiCall", "successFull");
-                Toast.makeText(getContext(),"Class Created",Toast.LENGTH_SHORT).show();
                 setFragment(crFragment);
+                class_code = data.get_class().getCode();
+                Toast.makeText(getContext(),"Class Created" + class_code,Toast.LENGTH_SHORT).show();
             }
         });
+
+        return class_code;
     }
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
