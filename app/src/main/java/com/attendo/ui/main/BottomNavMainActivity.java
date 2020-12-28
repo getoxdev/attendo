@@ -9,11 +9,17 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -161,30 +167,35 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.schedule_bottom_nav:
-                    String userid = mAuth.getCurrentUser().getUid();
-                    databaseReference.orderByKey().equalTo(userid).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.exists()) {
-                                joinas.setText(snapshot.child(userid).child("Join_As").getValue(String.class));
-                                String code = joinas.getText().toString();
-                                String crr = "Cr";
-                                if(code.equals(crr)){
-                                    setFragment(crFragment);
+                    if(!isConnected()){
+                        showCustomDialog();
+                    }else{
+                        String userid = mAuth.getCurrentUser().getUid();
+                        databaseReference.orderByKey().equalTo(userid).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()) {
+                                    joinas.setText(snapshot.child(userid).child("Join_As").getValue(String.class));
+                                    String code = joinas.getText().toString();
+                                    String crr = "Cr";
+                                    if(code.equals(crr)){
+                                        setFragment(crFragment);
+                                    }
+                                    else{
+                                        setFragment(studentFragment);
+                                    }
+                                } else {
+                                    CreateAndJoinClassBottomSheetDialogFragment joinAndCreateFragment = new CreateAndJoinClassBottomSheetDialogFragment();
+                                    joinAndCreateFragment.show(getSupportFragmentManager(), "Create Class and Join Class Fragment ");
                                 }
-                                else{
-                                    setFragment(studentFragment);
-                                }
-                            } else {
-                                CreateAndJoinClassBottomSheetDialogFragment joinAndCreateFragment = new CreateAndJoinClassBottomSheetDialogFragment();
-                                joinAndCreateFragment.show(getSupportFragmentManager(), "Create Class and Join Class Fragment ");
                             }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Toast.makeText(BottomNavMainActivity.this,""+error,Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(BottomNavMainActivity.this,""+error,Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
 
                     break;
 
@@ -288,6 +299,39 @@ public class BottomNavMainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container_frame,fragment);
         fragmentTransaction.commit();
+    }
+
+    private boolean isConnected(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        if((wifi != null && wifi.isConnected()) || (mobile != null && mobile.isConnected()) ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private void showCustomDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please connect to internet to get access to routine");
+        builder.setTitle("No Data Connection");
+        builder.setCancelable(false)
+                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+        builder.show();
     }
 
 }
