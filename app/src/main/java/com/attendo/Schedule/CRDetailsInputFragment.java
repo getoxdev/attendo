@@ -126,7 +126,7 @@ public class CRDetailsInputFragment extends Fragment {
                 String UserId = mAuth.getCurrentUser().getUid();
                 databaseReference.child(UserId).child("Class_Code").setValue(class_code);
                 databaseReference.child(UserId).child("Join_As").setValue("Cr");
-                Toast.makeText(getContext(),"Class Created" + class_code,Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"Class Created" +" "+ class_code,Toast.LENGTH_LONG).show();
             }
         });
 
