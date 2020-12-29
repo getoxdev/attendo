@@ -8,7 +8,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.attendo.data.api.ApiHelper;
-import com.attendo.data.model.Id;
 import com.attendo.data.model.Reminder;
 import com.attendo.data.model.Response;
 

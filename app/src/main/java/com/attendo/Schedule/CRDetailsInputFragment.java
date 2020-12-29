@@ -16,15 +16,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.attendo.R;
-import com.attendo.data.model.Class;
 import com.attendo.data.model.CreateClass;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.CreateClassViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 public class CRDetailsInputFragment extends Fragment {
 

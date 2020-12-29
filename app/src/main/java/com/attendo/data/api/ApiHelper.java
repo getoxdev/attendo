@@ -3,16 +3,21 @@ package com.attendo.data.api;
 import android.content.Context;
 
 import com.attendo.data.model.CreateClass;
+import com.attendo.data.model.GetSchedule;
 import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
 import com.attendo.data.model.ResponseCreateClass;
 import com.attendo.data.model.ResponseJoinClass;
+import com.attendo.data.model.ResponseSchedule;
+import com.attendo.data.model.Schedule;
+import com.attendo.data.model.ScheduleEdit;
 import com.attendo.retrofit.RetrofitProvider;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.POST;
 
 public class ApiHelper implements ApiService
 {
@@ -53,4 +58,20 @@ public class ApiHelper implements ApiService
     public Call<ResponseJoinClass> joinclass(@Body JoinClass joinClass){
         return api.joinclass(joinClass);
     }
+
+    @POST("schedule")
+    public Call<ResponseSchedule> createschedule(@Body Schedule schedule){
+        return api.createschedule(schedule);
+    }
+
+    @POST("schedule/edit")
+    public Call<ResponseSchedule> updateschedule(@Body ScheduleEdit scheduleEdit){
+        return api.updateschedule(scheduleEdit);
+    }
+
+    @POST("schedule")
+    public Call<ResponseSchedule> getschedule(@Body GetSchedule getSchedule){
+        return getschedule(getSchedule);
+    }
+
 }
