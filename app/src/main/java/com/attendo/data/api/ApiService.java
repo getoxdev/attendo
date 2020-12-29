@@ -1,11 +1,16 @@
 package com.attendo.data.api;
 
 import com.attendo.data.model.CreateClass;
+import com.attendo.data.model.GetSchedule;
 import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
 import com.attendo.data.model.ResponseCreateClass;
 import com.attendo.data.model.ResponseJoinClass;
+import com.attendo.data.model.ResponseSchedule;
+import com.attendo.data.model.Schedule;
+import com.attendo.data.model.ScheduleEdit;
+import com.attendo.data.model.schedule_list;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -26,5 +31,14 @@ public interface  ApiService
 
     @POST("api/class/join")
     Call<ResponseJoinClass> joinclass(@Body JoinClass joinClass);
+
+    @POST("schedule")
+    Call<ResponseSchedule> createschedule(@Body Schedule schedule);
+
+    @POST("schedule/edit")
+    Call<ResponseSchedule> updateschedule(@Body ScheduleEdit scheduleEdit);
+
+    @POST("schedule")
+    Call<ResponseSchedule> getschedule(@Body GetSchedule getSchedule);
 
 }

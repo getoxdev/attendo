@@ -52,4 +52,5 @@ public class Class {
     public void setV(Integer v) {
         this.v = v;
     }
+
 }

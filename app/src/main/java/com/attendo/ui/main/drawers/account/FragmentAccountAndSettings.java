@@ -85,6 +85,7 @@ public class FragmentAccountAndSettings extends Fragment {
     FirebaseStorage firebaseStorage;
     LottieAnimationView profileLottie;
 
+
     //database for schedule
     DatabaseReference scheduleReference;
 
@@ -389,7 +390,8 @@ public class FragmentAccountAndSettings extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
-                            String typeOfUser = snapshot.child(mAuth.getCurrentUser().getUid()).child("Join_As").getValue(String.class);
+                            String code = mAuth.getCurrentUser().getUid();
+                            String typeOfUser = snapshot.child(code).child("Join_As").getValue(String.class);
                             String crr = "Cr";
                             if(typeOfUser.equals(crr)){
                                 //set fragment for CR
@@ -402,7 +404,7 @@ public class FragmentAccountAndSettings extends Fragment {
                                 studetntSettingsFragment.show(getParentFragmentManager(), "Students Settings");
                             }
                         }else{
-                            Toast.makeText(getContext(), "Please join or create a class", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Please join or create a class", Toast.LENGTH_SHORT).show();
                         }
                     }
 

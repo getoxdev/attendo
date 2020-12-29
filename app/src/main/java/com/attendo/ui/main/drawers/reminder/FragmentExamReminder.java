@@ -24,9 +24,7 @@ import android.widget.Toast;
 
 import com.attendo.R;
 import com.attendo.data.api.ApiHelper;
-import com.attendo.data.model.Id;
 import com.attendo.data.model.Reminder;
-import com.attendo.data.model.Response;
 import com.attendo.viewmodel.ReminderViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
