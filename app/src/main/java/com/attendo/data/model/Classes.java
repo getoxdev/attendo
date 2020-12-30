@@ -1,16 +1,18 @@
 package com.attendo.data.model;
 
+import java.util.List;
+
 public class Classes {
 
-    private WeekDay monday;
-    private WeekDay tuesday;
-    private WeekDay wednesday;
-    private WeekDay thursday;
-    private WeekDay friday;
-    private WeekDay saturday;
-    private WeekDay sunday;
+    private List<SubjectDetails> monday;
+    private List<SubjectDetails> tuesday;
+    private List<SubjectDetails> wednesday;
+    private List<SubjectDetails> thursday;
+    private List<SubjectDetails> friday;
+    private List<SubjectDetails> saturday;
+    private List<SubjectDetails> sunday;
 
-    public Classes(WeekDay monday, WeekDay tuesday, WeekDay wednesday, WeekDay thursday, WeekDay friday, WeekDay saturday, WeekDay sunday) {
+    public Classes(List<SubjectDetails> monday, List<SubjectDetails> tuesday, List<SubjectDetails> wednesday, List<SubjectDetails> thursday, List<SubjectDetails> friday, List<SubjectDetails> saturday, List<SubjectDetails> sunday) {
         this.monday = monday;
         this.tuesday = tuesday;
         this.wednesday = wednesday;
@@ -20,59 +22,59 @@ public class Classes {
         this.sunday = sunday;
     }
 
-    public WeekDay getMonday() {
+    public List<SubjectDetails> getMonday() {
         return monday;
     }
 
-    public void setMonday(WeekDay monday) {
+    public void setMonday(List<SubjectDetails> monday) {
         this.monday = monday;
     }
 
-    public WeekDay getTuesday() {
+    public List<SubjectDetails> getTuesday() {
         return tuesday;
     }
 
-    public void setTuesday(WeekDay tuesday) {
+    public void setTuesday(List<SubjectDetails> tuesday) {
         this.tuesday = tuesday;
     }
 
-    public WeekDay getWednesday() {
+    public List<SubjectDetails> getWednesday() {
         return wednesday;
     }
 
-    public void setWednesday(WeekDay wednesday) {
+    public void setWednesday(List<SubjectDetails> wednesday) {
         this.wednesday = wednesday;
     }
 
-    public WeekDay getThursday() {
+    public List<SubjectDetails> getThursday() {
         return thursday;
     }
 
-    public void setThursday(WeekDay thursday) {
+    public void setThursday(List<SubjectDetails> thursday) {
         this.thursday = thursday;
     }
 
-    public WeekDay getFriday() {
+    public List<SubjectDetails> getFriday() {
         return friday;
     }
 
-    public void setFriday(WeekDay friday) {
+    public void setFriday(List<SubjectDetails> friday) {
         this.friday = friday;
     }
 
-    public WeekDay getSaturday() {
+    public List<SubjectDetails> getSaturday() {
         return saturday;
     }
 
-    public void setSaturday(WeekDay saturday) {
+    public void setSaturday(List<SubjectDetails> saturday) {
         this.saturday = saturday;
     }
 
-    public WeekDay getSunday() {
+    public List<SubjectDetails> getSunday() {
         return sunday;
     }
 
-    public void setSunday(WeekDay sunday) {
+    public void setSunday(List<SubjectDetails> sunday) {
         this.sunday = sunday;
     }
 }

@@ -1,13 +1,27 @@
 package com.attendo.data.model;
 
-public class WeekDay {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+public class SubjectDetails {
+
+    @SerializedName("_id")
+    @Expose
     private String _id;
+
+    @SerializedName("time")
+    @Expose
     private String time;
+
+    @SerializedName("subject")
+    @Expose
     private String subject;
+
+    @SerializedName("faculty")
+    @Expose
     private String faculty;
 
-    public WeekDay(String _id, String time, String subject, String faculty) {
+    public SubjectDetails(String _id, String time, String subject, String faculty) {
         this._id = _id;
         this.time = time;
         this.subject = subject;

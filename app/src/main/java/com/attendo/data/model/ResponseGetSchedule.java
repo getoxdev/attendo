@@ -1,11 +1,19 @@
 package com.attendo.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class ResponseGetSchedule {
 
+    @SerializedName("status")
+    @Expose
     private String status;
-    private WeekDay requiredSchedule;
 
-    public ResponseGetSchedule(String status, WeekDay requiredSchedule) {
+    @SerializedName("requiredSchedule")
+    @Expose
+    private SubjectDetails requiredSchedule;
+
+    public ResponseGetSchedule(String status, SubjectDetails requiredSchedule) {
         this.status = status;
         this.requiredSchedule = requiredSchedule;
     }
@@ -18,11 +26,11 @@ public class ResponseGetSchedule {
         this.status = status;
     }
 
-    public WeekDay getRequiredSchedule() {
+    public SubjectDetails getRequiredSchedule() {
         return requiredSchedule;
     }
 
-    public void setRequiredSchedule(WeekDay requiredSchedule) {
+    public void setRequiredSchedule(SubjectDetails requiredSchedule) {
         this.requiredSchedule = requiredSchedule;
     }
 }
