@@ -8,6 +8,7 @@ import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
 import com.attendo.data.model.ResponseCreateClass;
+import com.attendo.data.model.ResponseGetSchedule;
 import com.attendo.data.model.ResponseJoinClass;
 import com.attendo.data.model.ResponseSchedule;
 import com.attendo.data.model.Schedule;
@@ -70,7 +71,7 @@ public class ApiHelper implements ApiService
     }
 
     @POST("schedule")
-    public Call<ResponseSchedule> getschedule(@Body GetSchedule getSchedule){
+    public Call<ResponseGetSchedule> getschedule(@Body GetSchedule getSchedule){
         return getschedule(getSchedule);
     }
 

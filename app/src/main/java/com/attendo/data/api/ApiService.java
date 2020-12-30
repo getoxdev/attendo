@@ -6,6 +6,7 @@ import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
 import com.attendo.data.model.ResponseCreateClass;
+import com.attendo.data.model.ResponseGetSchedule;
 import com.attendo.data.model.ResponseJoinClass;
 import com.attendo.data.model.ResponseSchedule;
 import com.attendo.data.model.Schedule;
@@ -39,6 +40,6 @@ public interface  ApiService
     Call<ResponseSchedule> updateschedule(@Body ScheduleEdit scheduleEdit);
 
     @POST("schedule")
-    Call<ResponseSchedule> getschedule(@Body GetSchedule getSchedule);
+    Call<ResponseGetSchedule> getschedule(@Body GetSchedule getSchedule);
 
 }
