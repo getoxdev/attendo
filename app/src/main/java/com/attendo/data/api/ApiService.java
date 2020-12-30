@@ -16,6 +16,7 @@ import com.attendo.data.model.schedule_list;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -39,7 +40,7 @@ public interface  ApiService
     @POST("schedule/edit")
     Call<ResponseSchedule> updateschedule(@Body ScheduleEdit scheduleEdit);
 
-    @POST("schedule")
+    @GET("schedule")
     Call<ResponseGetSchedule> getschedule(@Body GetSchedule getSchedule);
 
 }
