@@ -36,7 +36,6 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
     }
 
 
-    // TODO: Rename and change types and number of parameters
     public static StudetntSettingsFragment newInstance(String param1, String param2) {
         StudetntSettingsFragment fragment = new StudetntSettingsFragment();
         Bundle args = new Bundle();

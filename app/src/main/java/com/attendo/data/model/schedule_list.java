@@ -7,13 +7,30 @@ import com.google.gson.annotations.SerializedName;
 
 public class schedule_list {
 
+    private Classes classes;
     private String _id;
+
     @SerializedName("class")
     @Expose
-    private Class _class;
-    private String day;
-    private String date;
+    private String _class;
 
+    private String __v;
+
+
+    public schedule_list(Classes classes, String _id, String _class, String __v) {
+        this.classes = classes;
+        this._id = _id;
+        this._class = _class;
+        this.__v = __v;
+    }
+
+    public Classes getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Classes classes) {
+        this.classes = classes;
+    }
 
     public String get_id() {
         return _id;
@@ -23,27 +40,19 @@ public class schedule_list {
         this._id = _id;
     }
 
-    public Class get_class() {
+    public String get_class() {
         return _class;
     }
 
-    public void set_class(Class _class) {
+    public void set_class(String _class) {
         this._class = _class;
     }
 
-    public String getDay() {
-        return day;
+    public String get__v() {
+        return __v;
     }
 
-    public void setDay(String day) {
-        this.day = day;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void set__v(String __v) {
+        this.__v = __v;
     }
 }

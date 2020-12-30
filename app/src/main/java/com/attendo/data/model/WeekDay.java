@@ -1,36 +1,25 @@
 package com.attendo.data.model;
 
-public class Schedule {
+public class WeekDay {
 
-    private String classId;
-    private String day;
+    private String _id;
     private String time;
     private String subject;
     private String faculty;
 
-
-    public Schedule(String classId, String day, String time, String subject, String faculty) {
-        this.classId = classId;
-        this.day = day;
+    public WeekDay(String _id, String time, String subject, String faculty) {
+        this._id = _id;
         this.time = time;
         this.subject = subject;
         this.faculty = faculty;
     }
 
-    public String getClassId() {
-        return classId;
+    public String get_id() {
+        return _id;
     }
 
-    public void setClassId(String classId) {
-        this.classId = classId;
-    }
-
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getTime() {

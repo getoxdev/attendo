@@ -35,6 +35,7 @@ import com.attendo.R;
 import com.attendo.Schedule.CRSettingsFragment;
 import com.attendo.Schedule.StudetntSettingsFragment;
 import com.attendo.ui.auth.AuthenticationActivity;
+import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.ui.main.drawers.FragmentAppRate;
 import com.attendo.ui.main.drawers.FragmentBug;
 import com.attendo.ui.main.drawers.FragmentEditAttendance;
@@ -88,7 +89,7 @@ public class FragmentAccountAndSettings extends Fragment {
 
     //database for schedule and necessary variables
     DatabaseReference scheduleReference;
-    private String typeOfUser = null;
+    private String typeOfUser;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -392,9 +393,10 @@ public class FragmentAccountAndSettings extends Fragment {
             @Override
             public void onClick(View view) {
                 if(typeOfUser == null){
-                    Toast.makeText(getContext(), "Please Wait !", Toast.LENGTH_SHORT).show();
-                }else{
-                    switch (typeOfUser){
+                    Toast.makeText(getActivity(), "Please wait !", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    switch (typeOfUser) {
                         case "Cr":
                             CRSettingsFragment settingsFragment = new CRSettingsFragment();
                             settingsFragment.show(getParentFragmentManager(), "Cr Settings");
@@ -408,7 +410,6 @@ public class FragmentAccountAndSettings extends Fragment {
                             break;
                     }
                 }
-
             }
         });
 

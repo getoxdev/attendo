@@ -2,11 +2,11 @@ package com.attendo.data.model;
 
 public class GetSchedule {
     private String ClassId;
-    private String date;
+    private String day;
 
-    public GetSchedule(String classId, String date) {
+    public GetSchedule(String classId, String day) {
         ClassId = classId;
-        this.date = date;
+        this.day = day;
     }
 
     public String getClassId() {
@@ -17,11 +17,11 @@ public class GetSchedule {
         ClassId = classId;
     }
 
-    public String getDate() {
-        return date;
+    public String getDay() {
+        return day;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDay(String date) {
+        this.day = day;
     }
 }

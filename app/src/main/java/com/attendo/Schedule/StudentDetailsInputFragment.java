@@ -113,13 +113,14 @@ public class StudentDetailsInputFragment extends Fragment {
         joinClassViewModel.getJoinResponse().observe(getActivity(), data -> {
             customLoadingDialog.dismissDialog();
             if (data == null) {
+                Toast.makeText(getActivity(),"Failed to join wrong class code",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
                 String UserId = mAuth.getCurrentUser().getUid();
                 databaseReference.child(UserId).child("Class_Code").setValue(classcode.getText().toString());
                 databaseReference.child(UserId).child("Join_As").setValue("Student");
                 Log.i("ApiCall", "successFull");
-                Toast.makeText(getContext(),"" + data.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"" + data.getMessage(),Toast.LENGTH_SHORT).show();
                 setFragment(studentFragment);
             }
         });
