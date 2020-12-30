@@ -125,6 +125,7 @@ public class FragmentAccountAndSettings extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account_and_settings, container, false);
         ButterKnife.bind(this, view);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Settings");
 
 
 
@@ -417,11 +418,6 @@ public class FragmentAccountAndSettings extends Fragment {
             }
         });
 
-
-
-
-
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Settings");
 
         //mobile ads
 

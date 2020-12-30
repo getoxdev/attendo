@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -20,6 +19,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -32,7 +32,6 @@ import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
 import com.attendo.Schedule.CrFragment;
 import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
-import com.attendo.Schedule.MultipleRecyclerViewFragment;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.data.database.SubDatabase;
 import com.attendo.ui.calendar.FragmentCalender;
@@ -41,7 +40,6 @@ import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
 import com.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
 import com.attendo.ui.main.menu.FragmentAbout;
 import com.attendo.ui.sub.Fragment_Subject;
-import com.firebase.client.Firebase;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -49,7 +47,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.android.material.transition.platform.MaterialFade;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -80,6 +77,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
     private CrFragment crFragment;
     private StudentFragment studentFragment;
     private EditText joinas;
+
+    private String joinasData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +120,32 @@ public class BottomNavMainActivity extends AppCompatActivity {
             System.out.println(e);
         }
 
+
+        //for checking the snapshot for user.
+        checkUserJoinedAs();
+
     }
+
+    private void checkUserJoinedAs() {
+        databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    joinasData = snapshot.child(mAuth.getCurrentUser().getUid()).child("Join_As").getValue(String.class);
+                    Log.d("Join", joinasData);
+
+                } else {
+                    joinasData = "nothing";
+                    Log.d("Join As Data", joinasData);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(BottomNavMainActivity.this,""+error,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private Fragment selectedFragment = null;
 
 
@@ -137,6 +161,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
             enter.setInterpolator(new AccelerateDecelerateInterpolator());
             exit.setDuration(400);
             exit.setInterpolator(new AccelerateDecelerateInterpolator());
+
+
 
 
             switch (item.getItemId()){
@@ -170,33 +196,23 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     if(!isConnected()){
                         showCustomDialog();
                     }else{
-                        String userid = mAuth.getCurrentUser().getUid();
-                        databaseReference.orderByKey().equalTo(userid).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists()) {
-                                    joinas.setText(snapshot.child(userid).child("Join_As").getValue(String.class));
-                                    String code = joinas.getText().toString();
-                                    String crr = "Cr";
-                                    if(code.equals(crr)){
-                                        setFragment(crFragment);
-                                    }
-                                    else{
-                                        setFragment(studentFragment);
-                                    }
-                                } else {
-                                    CreateAndJoinClassBottomSheetDialogFragment joinAndCreateFragment = new CreateAndJoinClassBottomSheetDialogFragment();
-                                    joinAndCreateFragment.show(getSupportFragmentManager(), "Create Class and Join Class Fragment ");
-                                }
-                            }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(BottomNavMainActivity.this,""+error,Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        Log.d("Join", joinasData);
+                        switch (joinasData){
+                            case "Cr":
+                                setFragment(crFragment);
+                                break;
+                            case "Student":
+                                setFragment(studentFragment);
+                                break;
+                            case "nothing":
+                                CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
+                                joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
+                                break;
+                            default:
+                                Toast.makeText(BottomNavMainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
-
-
                     break;
 
                 case R.id.calendar_bottom_nav:
