@@ -296,8 +296,17 @@ public class BottomNavMainActivity extends AppCompatActivity {
     }
 
     private void setFragment(Fragment fragment) {
+        MaterialSharedAxis enter = new MaterialSharedAxis(MaterialSharedAxis.Z, true);
+        MaterialSharedAxis exit = new MaterialSharedAxis(MaterialSharedAxis.Z, false);
+        enter.setDuration(400);
+        enter.setInterpolator(new AccelerateDecelerateInterpolator());
+        exit.setDuration(400);
+        exit.setInterpolator(new AccelerateDecelerateInterpolator());
+        fragment.setEnterTransition(enter);
+        fragment.setEnterTransition(exit);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container_frame,fragment);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.commit();
     }
 

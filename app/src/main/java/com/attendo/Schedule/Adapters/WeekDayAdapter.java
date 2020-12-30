@@ -3,11 +3,15 @@ package com.attendo.Schedule.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.DimenRes;
+import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -163,10 +167,11 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         });
 
         if(index == position){
-            holder.daycard.setBackgroundResource(R.drawable.selected_item);
-        }
-        else {
-            holder.daycard.setBackgroundResource(R.drawable.unselected_item);
+
+            holder.daycard.setStrokeWidth((int) 5f);
+        }else{
+
+            holder.daycard.setStrokeWidth((int) 0f);
         }
 
         if(check){

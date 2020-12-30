@@ -71,7 +71,7 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
                 String userId = mAuth.getCurrentUser().getUid();
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Schedule").child(userId);
                 ref.removeValue();
-                Toast.makeText(getActivity(),"You leaved the Schedule",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"You left the Schedule",Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });
