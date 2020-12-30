@@ -88,7 +88,7 @@ public class FragmentAccountAndSettings extends Fragment {
 
     //database for schedule and necessary variables
     DatabaseReference scheduleReference;
-    private String typeOfUser;
+    private String typeOfUser = null;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -391,19 +391,24 @@ public class FragmentAccountAndSettings extends Fragment {
         routine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (typeOfUser){
-                    case "Cr":
-                        CRSettingsFragment settingsFragment = new CRSettingsFragment();
-                        settingsFragment.show(getParentFragmentManager(), "Cr Settings");
-                        break;
-                    case "Student":
-                        StudetntSettingsFragment studetntSettingsFragment = new StudetntSettingsFragment();
-                        studetntSettingsFragment.show(getParentFragmentManager(), "Students Settings");
-                        break;
-                    case "nothing":
-                        Toast.makeText(getActivity(), "Please join or create a class", Toast.LENGTH_SHORT).show();
-                        break;
+                if(typeOfUser == null){
+                    Toast.makeText(getContext(), "Please Wait !", Toast.LENGTH_SHORT).show();
+                }else{
+                    switch (typeOfUser){
+                        case "Cr":
+                            CRSettingsFragment settingsFragment = new CRSettingsFragment();
+                            settingsFragment.show(getParentFragmentManager(), "Cr Settings");
+                            break;
+                        case "Student":
+                            StudetntSettingsFragment studetntSettingsFragment = new StudetntSettingsFragment();
+                            studetntSettingsFragment.show(getParentFragmentManager(), "Students Settings");
+                            break;
+                        case "nothing":
+                            Toast.makeText(getActivity(), "Please join or create a class", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
                 }
+
             }
         });
 

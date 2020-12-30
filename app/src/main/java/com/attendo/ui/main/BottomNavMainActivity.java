@@ -78,7 +78,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
     private StudentFragment studentFragment;
     private EditText joinas;
 
-    private String joinasData;
+    private String joinasData = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,21 +196,25 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     if(!isConnected()){
                         showCustomDialog();
                     }else{
-                        //Log.d("Join", joinasData);
-                        switch (joinasData){
-                            case "Cr":
-                                setFragment(crFragment);
-                                break;
-                            case "Student":
-                                setFragment(studentFragment);
-                                break;
-                            case "nothing":
-                                CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
-                                joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
-                                break;
-                            default:
-                                Toast.makeText(BottomNavMainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        if(joinasData == null){
+                            Toast.makeText(BottomNavMainActivity.this, "Please wait !", Toast.LENGTH_SHORT).show();
+                        }else{
+                            switch (joinasData){
+                                case "Cr":
+                                    setFragment(crFragment);
+                                    break;
+                                case "Student":
+                                    setFragment(studentFragment);
+                                    break;
+                                case "nothing":
+                                    CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
+                                    joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
+                                    break;
+                                default:
+                                    Toast.makeText(BottomNavMainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                            }
                         }
+
 
                     }
                     break;
