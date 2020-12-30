@@ -86,8 +86,9 @@ public class FragmentAccountAndSettings extends Fragment {
     LottieAnimationView profileLottie;
 
 
-    //database for schedule
+    //database for schedule and necessary variables
     DatabaseReference scheduleReference;
+    private String typeOfUser;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -152,6 +153,7 @@ public class FragmentAccountAndSettings extends Fragment {
 
         //schedule reference
         scheduleReference = FirebaseDatabase.getInstance().getReference("Schedule");
+        checkUserClass();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -172,6 +174,7 @@ public class FragmentAccountAndSettings extends Fragment {
 
             }
         });
+
 
 
         AppRate = view.findViewById(R.id.rate_app);
@@ -384,37 +387,23 @@ public class FragmentAccountAndSettings extends Fragment {
             }
         });
 
+
         routine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                scheduleReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
-                            String code = mAuth.getCurrentUser().getUid();
-                            String typeOfUser = snapshot.child(code).child("Join_As").getValue(String.class);
-                            String crr = "Cr";
-                            if(typeOfUser.equals(crr)){
-                                //set fragment for CR
-                                CRSettingsFragment settingsFragment = new CRSettingsFragment();
-                                settingsFragment.show(getParentFragmentManager(), "Cr Settings");
-
-                            }else{
-                                //set fragment for student
-                                StudetntSettingsFragment studetntSettingsFragment = new StudetntSettingsFragment();
-                                studetntSettingsFragment.show(getParentFragmentManager(), "Students Settings");
-                            }
-                        }else{
-                            Toast.makeText(getActivity(), "Please join or create a class", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(getContext(), "Oops! something went wrong", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
+                switch (typeOfUser){
+                    case "Cr":
+                        CRSettingsFragment settingsFragment = new CRSettingsFragment();
+                        settingsFragment.show(getParentFragmentManager(), "Cr Settings");
+                        break;
+                    case "Student":
+                        StudetntSettingsFragment studetntSettingsFragment = new StudetntSettingsFragment();
+                        studetntSettingsFragment.show(getParentFragmentManager(), "Students Settings");
+                        break;
+                    case "nothing":
+                        Toast.makeText(getActivity(), "Please join or create a class", Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         });
 
@@ -434,6 +423,27 @@ public class FragmentAccountAndSettings extends Fragment {
 
 
         return view;
+    }
+
+    private void checkUserClass() {
+        scheduleReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String code = mAuth.getCurrentUser().getUid();
+                    typeOfUser = snapshot.child(code).child("Join_As").getValue(String.class);
+                }else{
+
+                    typeOfUser = "nothing";
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Oops! something went wrong", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 

@@ -132,11 +132,11 @@ public class BottomNavMainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
                     joinasData = snapshot.child(mAuth.getCurrentUser().getUid()).child("Join_As").getValue(String.class);
-                    Log.d("Join", joinasData);
+                    //Log.d("Join", joinasData);
 
                 } else {
                     joinasData = "nothing";
-                    Log.d("Join As Data", joinasData);
+                    //Log.d("Join As Data", joinasData);
                 }
             }
             @Override
@@ -196,7 +196,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     if(!isConnected()){
                         showCustomDialog();
                     }else{
-                        Log.d("Join", joinasData);
+                        //Log.d("Join", joinasData);
                         switch (joinasData){
                             case "Cr":
                                 setFragment(crFragment);
