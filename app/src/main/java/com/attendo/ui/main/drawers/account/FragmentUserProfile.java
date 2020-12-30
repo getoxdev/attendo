@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.attendo.R;
 import com.attendo.ui.auth.AuthenticationActivity;
+import com.attendo.ui.main.BottomNavMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -65,9 +66,12 @@ public class FragmentUserProfile extends Fragment {
 
     private FragmentProfile fragment_profile;
     String user_id;
+    private TextView userjoinas;
+    private TextView usercode;
 
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
+    DatabaseReference databaseReference2;
     FirebaseStorage firebaseStorage;
     FirebaseStorage storage;
     StorageReference storageReference;
@@ -79,6 +83,9 @@ public class FragmentUserProfile extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Account Profile");
+
+        usercode = view.findViewById(R.id.USER_CLASSCODE);
+        userjoinas = view.findViewById(R.id.USER_JOINAS);
 
         ButterKnife.bind(this,view);
 
@@ -97,6 +104,9 @@ public class FragmentUserProfile extends Fragment {
         storage = FirebaseStorage.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("data");
         storageReference = firebaseStorage.getReference();
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("Schedule");
+
+        checkUserJoinedAs();
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,6 +175,28 @@ public class FragmentUserProfile extends Fragment {
             }
         });
         return view;
+    }
+
+    private void checkUserJoinedAs() {
+
+        databaseReference2.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+                    String xx = snapshot.child(mAuth.getCurrentUser().getUid()).child("Join_As").getValue(String.class);
+                    userjoinas.setText(xx);
+                    xx = snapshot.child(mAuth.getCurrentUser().getUid()).child("Class_Code").getValue(String.class);
+                    usercode.setText(xx);
+                } else {
+                    //Nothing to show here
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(),""+error,Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 
