@@ -7,7 +7,7 @@ public class Class {
 
     @SerializedName("_id")
     @Expose
-    private String _id;
+    private String _id; //this is the class id
 
     @SerializedName("code")
     @Expose
