@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_gravity="bottom"
     android:background="@drawable/bottom_sheet_background"
-    android:layout_height="420dp"
+    android:layout_height="480dp"
     android:backgroundTint="@color/bottom_sheet_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/CustomModalBottomSheet"
@@ -137,16 +137,37 @@
             app:layout_constraintTop_toBottomOf="@+id/add_faculty" />
 
 
-
     </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spinnerinput_Day"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_input_Time">
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/add_subject_btn"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="25dp"
         android:clickable="true"
@@ -163,7 +184,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_input_Time"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerinput_Day"
         app:layout_constraintVertical_bias="1.0"
         app:rippleColor="#AF91F4"
         app:strokeWidth="0dp" />
