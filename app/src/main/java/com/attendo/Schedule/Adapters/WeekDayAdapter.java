@@ -117,25 +117,25 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
                 notifyDataSetChanged();
 
                 if(position == 0){
-                    getRequestToServerAndSetRecyclerView("sunday", position);
+                    //getRequestToServerAndSetRecyclerView("sunday", position);
                 }
                 else if(position == 1 ){
-                    getRequestToServerAndSetRecyclerView("monday", position);
+                    //getRequestToServerAndSetRecyclerView("monday", position);
                 }
                 else if(position == 2){
-                    getRequestToServerAndSetRecyclerView("tuesday", position);
+                    //getRequestToServerAndSetRecyclerView("tuesday", position);
 
                 }else if(position == 3){
-                    getRequestToServerAndSetRecyclerView("wednesday", position);
+                    //getRequestToServerAndSetRecyclerView("wednesday", position);
 
                 }else if(position == 4){
-                    getRequestToServerAndSetRecyclerView("thursday", position);
+                    //getRequestToServerAndSetRecyclerView("thursday", position);
 
                 }else if(position == 5){
-                    getRequestToServerAndSetRecyclerView("friday", position);
+                    //getRequestToServerAndSetRecyclerView("friday", position);
 
                 }else if(position == 6){
-                    getRequestToServerAndSetRecyclerView("saturday", position);
+                    //getRequestToServerAndSetRecyclerView("saturday", position);
                 }
             }
         });
@@ -149,7 +149,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         }
 
         if(check){
-            getRequestToServerAndSetRecyclerView("sunday", position);
+            //getRequestToServerAndSetRecyclerView("sunday", position);
             check = false;
         }
     }
