@@ -11,6 +11,15 @@
     <string name="facebook_app_id">364140814904359</string>
     <string name="fb_login_protocol_scheme">fb364140814904359</string>
 
+    <string-array name="weekday">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
