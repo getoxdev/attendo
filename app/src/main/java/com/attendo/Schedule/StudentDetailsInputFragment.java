@@ -117,6 +117,8 @@ public class StudentDetailsInputFragment extends Fragment {
                 Log.i("ApiCall", "Failed");
             } else {
                 String UserId = mAuth.getCurrentUser().getUid();
+                String class_Id = data.get_class().get_id();
+                databaseReference.child(UserId).child("Class_Id").setValue(class_Id);
                 databaseReference.child(UserId).child("Class_Code").setValue(classcode.getText().toString());
                 databaseReference.child(UserId).child("Join_As").setValue("Student");
                 Log.i("ApiCall", "successFull");

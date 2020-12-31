@@ -10,9 +10,19 @@ public class ResponseJoinClass {
     @Expose
     private String status;
 
+    @SerializedName("class")
+    @Expose
+    private Class _class;
+
     @SerializedName("message")
     @Expose
     private String message;
+
+    public ResponseJoinClass(String status, Class _class, String message) {
+        this.status = status;
+        this._class = _class;
+        this.message = message;
+    }
 
     public String getStatus() {
         return status;
@@ -20,6 +30,14 @@ public class ResponseJoinClass {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Class get_class() {
+        return _class;
+    }
+
+    public void set_class(Class _class) {
+        this._class = _class;
     }
 
     public String getMessage() {

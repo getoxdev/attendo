@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName;
 public class ResponseCreateClass {
     @SerializedName("status")
     @Expose
-
     private String status;
 
     @SerializedName("class")

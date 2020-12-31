@@ -30,6 +30,7 @@ public class CRDetailsInputFragment extends Fragment {
     private CreateClassViewModel createClassViewModel;
     private CrFragment crFragment;
     private String class_code;
+    private String class_Id;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private CustomLoadingDialog customLoadingDialog;
@@ -118,12 +119,14 @@ public class CRDetailsInputFragment extends Fragment {
             } else {
                 customLoadingDialog.dismissDialog();
                 Log.i("ApiCall", "successFull");
-                setFragment(crFragment);
                 class_code = data.get_class().getCode();
+                class_Id = data.get_class().get_id();
                 String UserId = mAuth.getCurrentUser().getUid();
                 databaseReference.child(UserId).child("Class_Code").setValue(class_code);
+                databaseReference.child(UserId).child("Class_Id").setValue(class_Id);
                 databaseReference.child(UserId).child("Join_As").setValue("Cr");
                 Toast.makeText(getContext(),"Class Created" +" "+ class_code,Toast.LENGTH_LONG).show();
+                setFragment(crFragment);
             }
         });
 
