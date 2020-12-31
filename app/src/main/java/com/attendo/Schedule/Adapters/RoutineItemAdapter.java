@@ -12,17 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
 import com.attendo.Schedule.Model.SubjectRoutine;
+import com.attendo.data.model.SubjectDetails;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RoutineItemAdapter extends RecyclerView.Adapter<RoutineItemAdapter.RoutineItemAdapterHolder>{
 
-    private ArrayList<SubjectRoutine> items;
+    private List<SubjectDetails> items;
 
-    public RoutineItemAdapter(ArrayList<SubjectRoutine> items)
+    public RoutineItemAdapter(List<SubjectDetails> items)
     {
         this.items = items;
     }
@@ -37,9 +39,9 @@ public class RoutineItemAdapter extends RecyclerView.Adapter<RoutineItemAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RoutineItemAdapterHolder holder, int position) {
-        SubjectRoutine currentItem = items.get(position);
-        holder.subject.setText(currentItem.getSubjectName());
-        holder.faculty.setText(currentItem.getInstructor());
+        SubjectDetails currentItem = items.get(position);
+        holder.subject.setText(currentItem.getSubject());
+        holder.faculty.setText(currentItem.getFaculty());
         holder.time.setText(currentItem.getTime());
 
     }

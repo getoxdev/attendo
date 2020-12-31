@@ -5,21 +5,35 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.DimenRes;
 import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
+import com.attendo.data.model.GetSchedule;
+import com.attendo.data.model.SubjectDetails;
+import com.attendo.ui.main.BottomNavMainActivity;
+import com.attendo.viewmodel.GetScheduleViewModel;
 import com.google.android.material.card.MaterialCardView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +50,10 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
     Activity activity;
     boolean check = true;
     boolean select = true;
+    private GetScheduleViewModel getScheduleViewModel;
+    private DatabaseReference mReference;
+    private FirebaseAuth mAuth;
+    private String class_id;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -47,7 +65,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            //finding the items and storing them in viewholder
+            //finding the items and storing them in view holder
             ButterKnife.bind(this,itemView);
         }
     }
@@ -57,6 +75,28 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         this.day = day;
         this.activity = activity;
         this.updateRecyclerView = updateRecyclerView;
+
+        //view model for the api call
+        getScheduleViewModel = new ViewModelProvider((BottomNavMainActivity) context).get(GetScheduleViewModel.class);
+        mAuth = FirebaseAuth.getInstance();
+        mReference = FirebaseDatabase.getInstance().getReference("Schedule");
+        mReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    class_id = snapshot.child("Class_Id").getValue(String.class);
+                    Log.d("ClassIDMINE" , class_id);
+                }else {
+                    class_id = null;
+                    Log.d("ClassIDMINE" , class_id);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context, "Database Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @NonNull
@@ -77,91 +117,25 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
                 notifyDataSetChanged();
 
                 if(position == 0){
-                    ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
-                    routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-
-                    updateRecyclerView.callback(position, routines);
+                    getRequestToServerAndSetRecyclerView("sunday", position);
                 }
                 else if(position == 1 ){
-                    ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
-                    routines.add(new SubjectRoutine("English", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("English", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("English", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("English", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("English", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("English", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("English", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("English", "7:00 pm", "Jyotimoy"));
-
-                    updateRecyclerView.callback(position, routines);
+                    getRequestToServerAndSetRecyclerView("monday", position);
                 }
                 else if(position == 2){
-                    ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
-                    routines.add(new SubjectRoutine("Science", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Science", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Science", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Science", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Science", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Science", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Science", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Science", "7:00 pm", "Jyotimoy"));
+                    getRequestToServerAndSetRecyclerView("tuesday", position);
 
-                    updateRecyclerView.callback(position, routines);
                 }else if(position == 3){
-                    ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
-                    routines.add(new SubjectRoutine("Biology", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Biology", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Biology", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Biology", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Biology", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Biology", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Biology", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Biology", "7:00 pm", "Jyotimoy"));
+                    getRequestToServerAndSetRecyclerView("wednesday", position);
 
-                    updateRecyclerView.callback(position, routines);
                 }else if(position == 4){
-                    ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
-                    routines.add(new SubjectRoutine("Physics", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Physics", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Physics", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Physics", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Physics", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Physics", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Physics", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Physics", "7:00 pm", "Jyotimoy"));
+                    getRequestToServerAndSetRecyclerView("thursday", position);
 
-                    updateRecyclerView.callback(position, routines);
                 }else if(position == 5){
-                    ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
-                    routines.add(new SubjectRoutine("Hindi", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Hindi", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Hindi", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Hindi", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Hindi", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Hindi", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Hindi", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Hindi", "7:00 pm", "Jyotimoy"));
+                    getRequestToServerAndSetRecyclerView("friday", position);
 
-                    updateRecyclerView.callback(position, routines);
                 }else if(position == 6){
-                    ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
-                    routines.add(new SubjectRoutine("Chemistry", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Chemistry", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Chemistry", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Chemistry", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Chemistry", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Chemistry", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Chemistry", "7:00 pm", "Jyotimoy"));
-                    routines.add(new SubjectRoutine("Chemistry", "7:00 pm", "Jyotimoy"));
-
-                    updateRecyclerView.callback(position, routines);
+                    getRequestToServerAndSetRecyclerView("saturday", position);
                 }
             }
         });
@@ -175,17 +149,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         }
 
         if(check){
-            ArrayList<SubjectRoutine> routines = new ArrayList<SubjectRoutine>();
-            routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-            routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-            routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-            routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-            routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-            routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-            routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-            routines.add(new SubjectRoutine("Maths", "7:00 pm", "Jyotimoy"));
-
-            updateRecyclerView.callback(position, routines);
+            getRequestToServerAndSetRecyclerView("sunday", position);
             check = false;
         }
     }
@@ -193,6 +157,19 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
     @Override
     public int getItemCount() {
         return day.size();
+    }
+
+    private void getRequestToServerAndSetRecyclerView(String day, int position){
+        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, day));
+        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) activity, data ->{
+            if(data != null){
+                List<SubjectDetails> routines;
+                routines = data.getRequiredSchedule();
+                updateRecyclerView.callback(position, routines);
+            }else{
+                Toast.makeText(context, "Hurry! no class today", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

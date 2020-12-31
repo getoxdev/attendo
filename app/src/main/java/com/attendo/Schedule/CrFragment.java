@@ -11,17 +11,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.Schedule.Adapters.RoutineItemAdapter;
 import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
+import com.attendo.data.model.SubjectDetails;
 import com.attendo.ui.main.AddSubjectDetailsFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CrFragment extends Fragment implements UpdateRecyclerView {
 
@@ -29,7 +33,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     private WeekDayAdapter weekDayAdapter;
     private ArrayList<DayOfWeek> dayList;
     private RoutineItemAdapterCr routineItemAdapter;
-    private ArrayList<SubjectRoutine> subjectRoutines  = new ArrayList();
+    private List<SubjectDetails> subjectRoutines;
     private FloatingActionButton fb;
     private AddSubjectDetailsFragment addSubjectDetailsFragment;
 
@@ -106,8 +110,12 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     }
 
     @Override
-    public void callback(int position, ArrayList<SubjectRoutine> subjectRoutines) {
-        routineItemAdapter = new RoutineItemAdapterCr(subjectRoutines);
+    public void callback(int position, List<SubjectDetails> subjectRoutines) {
+        if(subjectRoutines == null){
+            Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
+        }else{
+            routineItemAdapter = new RoutineItemAdapterCr(subjectRoutines);
+        }
         routineItemAdapter.notifyDataSetChanged();
         subjectrecyclerView.setAdapter(routineItemAdapter);
     }

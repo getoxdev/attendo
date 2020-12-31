@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.RoutineItemAdapter;
@@ -17,6 +18,7 @@ import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
+import com.attendo.data.model.SubjectDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     private WeekDayAdapter weekDayAdapter;
     private List<DayOfWeek> dayList;
     private RoutineItemAdapter routineItemAdapter;
-    private ArrayList<SubjectRoutine> subjectRoutines  = new ArrayList();
+    private ArrayList<SubjectDetails> subjectRoutines  = new ArrayList();
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -89,8 +91,12 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     }
 
     @Override
-    public void callback(int position, ArrayList<SubjectRoutine> subjectRoutines) {
-        routineItemAdapter = new RoutineItemAdapter(subjectRoutines);
+    public void callback(int position, List<SubjectDetails> subjectRoutines) {
+        if(subjectRoutines == null){
+            Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
+        }else{
+            routineItemAdapter = new RoutineItemAdapter(subjectRoutines);
+        }
         routineItemAdapter.notifyDataSetChanged();
         subjectrecyclerView.setAdapter(routineItemAdapter);
     }
