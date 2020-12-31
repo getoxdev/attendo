@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_gravity="bottom"
     android:background="@drawable/bottom_sheet_background"
-    android:layout_height="420dp"
+    android:layout_height="wrap_content"
     android:backgroundTint="@color/bottom_sheet_bg"
     android:transitionName="add_subject_transition"
     app:layout_behavior="@string/bottom_sheet_behavior"
@@ -81,7 +81,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:id="@+id/add_faculty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_baseline_account_circle_24"
+            android:drawableStart="@drawable/account_icon_custom_dynamic"
             android:drawablePadding="10dp"
             android:elevation="0dp"
             android:layout_marginTop="5dp"
@@ -126,6 +126,36 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edittext_input_day"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_input_Time">
+
+        <EditText
+            android:id="@+id/add_day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_baseline_access_time_24"
+            android:drawablePadding="10dp"
+            android:elevation="0dp"
+            android:layout_marginTop="5dp"
+            android:hint="Day"
+            android:inputType="text"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_faculty" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/add_subject_btn"
         style="@style/Widget.MaterialComponents.Button"
@@ -149,7 +179,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_input_Time"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_input_day"
         app:layout_constraintVertical_bias="1.0"
         app:rippleColor="#AF91F4"
         app:strokeWidth="0dp" />
