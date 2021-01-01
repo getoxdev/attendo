@@ -150,7 +150,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
 
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -257,14 +256,14 @@ public class BottomNavMainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
 
-        String directory_path = Environment.getExternalStorageDirectory().getPath() + "/Backup/";
+        String directory_path = Environment.getExternalStorageDirectory().getPath() + "/Attendo/";
         File file = new File(directory_path);
         if (!file.exists()) {
             file.mkdirs();
         }
-
 
         Fragment aboutUs = new FragmentAbout();
 
@@ -273,7 +272,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
         aboutUs.setEnterTransition(enter);
         aboutUs.setExitTransition(exit);
-
 
         int id = item.getItemId();
 
@@ -292,8 +290,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
             case R.id.exporttoexcel :
                 ExportToExcel(directory_path);
                 break;
-
-
 
         }
 

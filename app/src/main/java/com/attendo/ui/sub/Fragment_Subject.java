@@ -55,9 +55,6 @@ public class Fragment_Subject extends Fragment {
     private List<SubEntity> mSubjects=new ArrayList<>();
 
 
-
-
-
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
 
