@@ -230,12 +230,7 @@
                 android:backgroundTint="#E3E1E1"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                app:layout_constraintTop_toBottomOf="@id/report_bug"
-
-
-
-
-                />
+                app:layout_constraintTop_toBottomOf="@id/report_bug" />
 
 
 

@@ -193,8 +193,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.schedule_bottom_nav:
-                    Fragment newfeatureFragment = new NewFeatureReleaseFragment();
-                    setFragment(newfeatureFragment);
+                    Fragment newFeatureFragment = new NewFeatureReleaseFragment();
+                    setFragment(newFeatureFragment);
 /*                    if(!isConnected()){
                         showCustomDialog();
                     }else{

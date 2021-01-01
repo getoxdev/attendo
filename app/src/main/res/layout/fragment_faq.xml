@@ -201,6 +201,26 @@ To delete your account: Click on the  ‘Edit Account’ button under account op
                 android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="11. Confused about where did the excel file go after it was exported?"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="To locate the excel file, just open your default file manager app on your phone and go to your internal storage of your device and there you can find a new folder called AttendO. Navigate inside that folder and you can see a file named student.xls."
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="30dp"/>
+
 
         </LinearLayout>
 
