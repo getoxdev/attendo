@@ -54,6 +54,7 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -487,11 +488,18 @@ public class FragmentAccountAndSettings extends Fragment {
             }
             @Override
             public void onCompleted(String filePath) {
-                Toast.makeText(getApplicationContext(),"Successfully Exported",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"Successfully Exported",Toast.LENGTH_SHORT).show();
+                Snackbar.make(getView(),"Successfully Exported. Please check the AttendO folder in your Internal Storage", Snackbar.LENGTH_LONG)
+                        .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
+                        .show();
+
             }
             @Override
             public void onError(Exception e) {
-                Toast.makeText(getApplicationContext(),"ERROR",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"ERROR",Toast.LENGTH_SHORT).show();
+                Snackbar.make(getView(), "Oops, something went wrong !", Snackbar.LENGTH_SHORT)
+                        .setAnimationMode(Snackbar.ANIMATION_MODE_SLIDE)
+                        .show();
             }
         });
     }
