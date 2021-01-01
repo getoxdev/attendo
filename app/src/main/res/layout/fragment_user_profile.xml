@@ -210,65 +210,7 @@
                         android:textSize="19dp" />
 
 
-                    <TextView
-                        android:id="@+id/joinas"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/USER_PHONE"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Class Join As"
-                        android:textColor="@color/text_color_secondary"
-                        android:textSize="10dp" />
 
-                    <TextView
-                        android:id="@+id/USER_JOINAS"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/joinas"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginRight="50dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:paddingRight="10dp"
-                        android:text=""
-                        android:hint="No Class Join"
-                        android:textAlignment="inherit"
-                        android:textColor="@color/text_color_primary"
-                        android:textSize="19dp" />
-
-                    <TextView
-                        android:id="@+id/classcode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/USER_JOINAS"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Class Code"
-                        android:textColor="@color/text_color_secondary"
-                        android:textSize="10dp" />
-
-                    <TextView
-                        android:id="@+id/USER_CLASSCODE"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/classcode"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginRight="50dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:paddingRight="10dp"
-                        android:text=""
-                        android:hint="No Class Join"
-                        android:textAlignment="inherit"
-                        android:textColor="@color/text_color_primary"
-                        android:textSize="19dp" />
 
                 </RelativeLayout>
 
