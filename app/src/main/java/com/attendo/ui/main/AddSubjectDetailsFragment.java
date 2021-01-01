@@ -1,4 +1,4 @@
-package com.attendo.ui.main;
+    package com.attendo.ui.main;
 
 import android.os.Bundle;
 
