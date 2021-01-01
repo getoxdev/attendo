@@ -152,7 +152,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                 if (snapshot.exists()) {
                     classid = snapshot.child(mAuth.getCurrentUser().getUid()).child("Class_Id").getValue(String.class);
                    Toast.makeText(getActivity(),""+classid+" & "+text+" & "+time.getText().toString()+" & "+subject.getText().toString()+" & "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
-                   /* Schedule schedule = new Schedule(classid, text, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
+                   Schedule schedule = new Schedule(classid, text, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
                     addScheduleViewModel.setScheduleResponse(schedule);
                     addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                         if (data == null) {
@@ -164,7 +164,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                             databaseReference.child(mAuth.getCurrentUser().getUid()).child("Schedule_Id").setValue(scheduleId);
                             Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
                         }
-                    });*/
+                    });
                 } else {
                     //Nothing to show here
                 }

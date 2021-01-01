@@ -287,9 +287,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 Uri uri = Uri.parse("https://attendo.flycricket.io/privacy.html");
                 startActivity(new Intent(Intent.ACTION_VIEW, uri));
                 break;
-            case R.id.exporttoexcel :
-                ExportToExcel(directory_path);
-                break;
+
 
         }
 

@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.transition.Explode;
 import android.transition.Fade;
@@ -31,9 +32,11 @@ import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
 import com.attendo.Schedule.CRSettingsFragment;
 import com.attendo.Schedule.StudetntSettingsFragment;
+import com.attendo.data.database.SubDatabase;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.ui.main.drawers.FragmentAppRate;
@@ -60,13 +63,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class FragmentAccountAndSettings extends Fragment {
 
-    @BindView(R.id.adView)
-    AdView adView;
+//    @BindView(R.id.adView)
+//    AdView adView;
 
 
     private FragmentUserProfile fragmentUserProfile;
@@ -77,7 +84,8 @@ public class FragmentAccountAndSettings extends Fragment {
     private FragmentEditAttendance fragmentEditAttendance;
     private FragmentFAQ fragmentFAQ;
     private FragmentInfo fragmentInfo;
-    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme, routine;
+    SubDatabase subDatabase;
+    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme, routine,excel;
     CardView Profile;
     BottomNavigationView bottomNavigationView;
 
@@ -186,6 +194,7 @@ public class FragmentAccountAndSettings extends Fragment {
         logout = view.findViewById(R.id.logout_settings);
         theme = view.findViewById(R.id.theme);
         routine = view.findViewById(R.id.routine_settings);
+        excel = view.findViewById(R.id.excel);
 
         Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.card_transition);
 
@@ -413,18 +422,34 @@ public class FragmentAccountAndSettings extends Fragment {
             }
         });
 
+        String directory_path = Environment.getExternalStorageDirectory().getPath() + "/Attendo/";
+        File file = new File(directory_path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
 
-        //mobile ads
 
-        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
+        excel.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-
+            public void onClick(View view) {
+                ExportToExcel(directory_path);
             }
         });
 
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
+
+
+
+        //mobile ads
+
+//        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
+//            @Override
+//            public void onInitializationComplete(InitializationStatus initializationStatus) {
+//
+//            }
+//        });
+//
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        adView.loadAd(adRequest);
 
 
 
@@ -451,6 +476,27 @@ public class FragmentAccountAndSettings extends Fragment {
             }
         });
     }
+
+    public void ExportToExcel(String path)
+    {
+        SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(getApplicationContext(),subDatabase.DATABASE_NAME,path);
+
+        sqLiteToExcel.exportSingleTable("SubjectName", "student.xls", new SQLiteToExcel.ExportListener() {
+            @Override
+            public void onStart() {
+            }
+            @Override
+            public void onCompleted(String filePath) {
+                Toast.makeText(getApplicationContext(),"Successfully Exported",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onError(Exception e) {
+                Toast.makeText(getApplicationContext(),"ERROR",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 
 
     private void setFragment(Fragment fragment) {
