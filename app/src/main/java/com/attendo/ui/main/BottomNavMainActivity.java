@@ -29,6 +29,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.ajts.androidmads.library.SQLiteToExcel;
+import com.attendo.NewFeatureReleaseFragment;
 import com.attendo.R;
 import com.attendo.Schedule.CrFragment;
 import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
@@ -192,7 +193,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.schedule_bottom_nav:
-                    if(!isConnected()){
+                    Fragment newfeatureFragment = new NewFeatureReleaseFragment();
+                    setFragment(newfeatureFragment);
+/*                    if(!isConnected()){
                         showCustomDialog();
                     }else{
                         if(joinasData == null){
@@ -215,7 +218,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                         }
 
 
-                    }
+                    }*/
                     break;
 
                 case R.id.calendar_bottom_nav:
