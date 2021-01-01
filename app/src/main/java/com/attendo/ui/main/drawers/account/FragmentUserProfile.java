@@ -84,8 +84,8 @@ public class FragmentUserProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Account Profile");
 
-        usercode = view.findViewById(R.id.USER_CLASSCODE);
-        userjoinas = view.findViewById(R.id.USER_JOINAS);
+        //usercode = view.findViewById(R.id.USER_CLASSCODE);
+        //userjoinas = view.findViewById(R.id.USER_JOINAS);
 
         ButterKnife.bind(this,view);
 
@@ -106,7 +106,7 @@ public class FragmentUserProfile extends Fragment {
         storageReference = firebaseStorage.getReference();
         databaseReference2 = FirebaseDatabase.getInstance().getReference("Schedule");
 
-        checkUserJoinedAs();
+       // checkUserJoinedAs();
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
