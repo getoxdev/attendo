@@ -215,6 +215,28 @@
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"/>
 
+            <TextView
+                android:id="@+id/excel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Export To Excel"
+                android:drawableLeft="@drawable/ic_baseline_import_export_24"
+                android:textAlignment="textStart"
+                android:paddingTop="15dp"
+                android:drawablePadding="15dp"
+                android:paddingLeft="25dp"
+                android:textSize="18dp"
+                android:paddingBottom="15dp"
+                android:backgroundTint="#E3E1E1"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:layout_constraintTop_toBottomOf="@id/report_bug"
+
+
+
+
+                />
+
 
 
         </LinearLayout>
@@ -222,19 +244,19 @@
     </ScrollView>
 
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-9078854947595165/8344596558"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:layout_constraintLeft_toLeftOf="parent"
-        ads:layout_constraintRight_toRightOf="parent">
-    </com.google.android.gms.ads.AdView>
+<!--    <com.google.android.gms.ads.AdView-->
+<!--        xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+<!--        android:id="@+id/adView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        ads:adSize="BANNER"-->
+<!--        ads:adUnitId="ca-app-pub-9078854947595165/8344596558"-->
+<!--        ads:layout_constraintBottom_toBottomOf="parent"-->
+<!--        ads:layout_constraintLeft_toLeftOf="parent"-->
+<!--        ads:layout_constraintRight_toRightOf="parent">-->
+<!--    </com.google.android.gms.ads.AdView>-->
 
 
 
