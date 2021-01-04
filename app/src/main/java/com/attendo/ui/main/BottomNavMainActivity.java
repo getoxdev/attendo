@@ -193,9 +193,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.schedule_bottom_nav:
-                    Fragment newFeatureFragment = new NewFeatureReleaseFragment();
-                    setFragment(newFeatureFragment);
-/*                    if(!isConnected()){
+                    if(!isConnected()){
                         showCustomDialog();
                     }else{
                         if(joinasData == null){
@@ -218,7 +216,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                         }
 
 
-                    }*/
+                    }
                     break;
 
                 case R.id.calendar_bottom_nav:

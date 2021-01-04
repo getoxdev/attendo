@@ -3,7 +3,9 @@ package com.attendo.Schedule;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +33,8 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     private List<DayOfWeek> dayList;
     private RoutineItemAdapter routineItemAdapter;
     private ArrayList<SubjectDetails> subjectRoutines  = new ArrayList();
+    private CardView notice;
+    private NoticeFragment noticeFragment;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -65,6 +69,15 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         View view = inflater.inflate(R.layout.fragment_student, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Routine");
 
+        noticeFragment = new NoticeFragment();
+        notice = view.findViewById(R.id.notice_card);
+        notice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFragment(noticeFragment);
+            }
+        });
+
         dayofWeekRecyclerView = view.findViewById(R.id.static_weekdays_recyclerview_student);
         subjectrecyclerView = view.findViewById(R.id.subjectsRecyclerView);
 
@@ -88,6 +101,13 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         dayofWeekRecyclerView.setAdapter(weekDayAdapter);
 
         return view;
+    }
+
+    private void setFragment(NoticeFragment fragment) {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container_frame,fragment);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.commit();
     }
 
     @Override

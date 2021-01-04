@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/subjectCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:clickable="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        app:cardCornerRadius="10dp"
+        android:stateListAnimator="@animator/card_pressed_animator"
+        app:cardBackgroundColor="@color/card_bg_color"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/SubjectName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subject"
+                android:textStyle="bold"
+                android:textSize="26dp"
+                android:textColor="@color/black"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="18dp"/>
+
+            <TextView
+                android:id="@+id/detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/SubjectName"
+                android:textSize="18dp"
+                android:layout_marginTop="8dp"
+                android:text="Notice detail"
+                android:textColor="@color/blue"
+                android:layout_marginStart="18dp"
+                android:layout_marginBottom="18dp"/>
+
+
+        </RelativeLayout>
+
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,12 +7,54 @@
     tools:context=".Schedule.StudentFragment"
     android:backgroundTint="@color/bg_login">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        app:cardBackgroundColor="@color/com_facebook_blue"
+        app:cardCornerRadius="10dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:text="SCHEDULE"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/notice_card"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        app:cardCornerRadius="10dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:text="NOTICE"/>
+
+
+    </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/static_weekdays_recyclerview_student"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         tools:listitem="@layout/weekday_card"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
