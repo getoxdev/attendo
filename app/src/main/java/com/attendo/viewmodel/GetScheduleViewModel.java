@@ -36,10 +36,10 @@ public class GetScheduleViewModel extends AndroidViewModel {
         apiHelper.getschedule(getSchedule).enqueue(new Callback<ResponseGetSchedule>() {
             @Override
             public void onResponse(Call<ResponseGetSchedule> call, Response<ResponseGetSchedule> response) {
-                if(response.code() < 300){
+                if(response.code() == 200 || response.code() == 201){
                     ResponseGetSchedule responseGetSchedule = response.body();
                     scheduleResponse.postValue(responseGetSchedule);
-                }else if(response.code() >= 400){
+                }else if(response.code() == 400 || response.code() == 404){
                     scheduleResponse.postValue(null);
                 }
 

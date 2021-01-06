@@ -18,6 +18,7 @@ import com.attendo.retrofit.RetrofitProvider;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public class ApiHelper implements ApiService
@@ -70,7 +71,7 @@ public class ApiHelper implements ApiService
         return api.updateschedule(scheduleEdit);
     }
 
-    @POST("schedule")
+    @Override
     public Call<ResponseGetSchedule> getschedule(@Body GetSchedule getSchedule){
         return getschedule(getSchedule);
     }

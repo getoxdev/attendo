@@ -96,7 +96,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         dayList.add(new DayOfWeek("FRI"));
         dayList.add(new DayOfWeek("SAT"));
 
-        weekDayAdapter = new WeekDayAdapter(getActivity(), dayList, getActivity(), this::callback);
+        weekDayAdapter = new WeekDayAdapter(getActivity(), dayList, getActivity(), this);
 
         dayofWeekRecyclerView.setAdapter(weekDayAdapter);
 
@@ -119,6 +119,11 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         }
         routineItemAdapter.notifyDataSetChanged();
         subjectrecyclerView.setAdapter(routineItemAdapter);
+    }
+
+    @Override
+    public void sendPosition(int position) {
+
     }
 
 }
