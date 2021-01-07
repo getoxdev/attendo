@@ -85,17 +85,30 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        getClassId();
+        getScheduleViewModel = new ViewModelProvider(this).get(GetScheduleViewModel.class);
+        if(class_id == null){
+            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
+        }else getAllData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(class_id == null){
+            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
+        }else getAllData();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        getClassId();
-        getScheduleViewModel = new ViewModelProvider(this).get(GetScheduleViewModel.class);
-        if(class_id == null){
-            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
-        }else getAllData();
 
     }
 

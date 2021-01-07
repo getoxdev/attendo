@@ -116,34 +116,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
                 index = position;
                 notifyDataSetChanged();
 
-                if(position == 0){
-                    //getRequestToServerAndSetRecyclerView("sunday", position);
-                    //updateRecyclerView.sendPosition(position);
-                }
-                else if(position == 1 ) {
-                    //getRequestToServerAndSetRecyclerView("monday", position);
-                    updateRecyclerView.sendPosition(position);
-                }
-                else if(position == 2){
-                    //getRequestToServerAndSetRecyclerView("tuesday", position);
-                    updateRecyclerView.sendPosition(position);
-
-                }else if(position == 3){
-                    //getRequestToServerAndSetRecyclerView("wednesday", position);
-                    updateRecyclerView.sendPosition(position);
-
-                }else if(position == 4){
-                    //getRequestToServerAndSetRecyclerView("thursday", position);
-                    updateRecyclerView.sendPosition(position);
-
-                }else if(position == 5){
-                    //getRequestToServerAndSetRecyclerView("friday", position);
-                    updateRecyclerView.sendPosition(position);
-
-                }else if(position == 6){
-                    //getRequestToServerAndSetRecyclerView("saturday", position);
-                    updateRecyclerView.sendPosition(position);
-                }
+                updateRecyclerView.sendPosition(position);
             }
         });
 

@@ -45,8 +45,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     private Button submit;
     private LottieAnimationView celebration;
     private Spinner spi;
-    public String text;
-    public String classid;
+    public String day;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private AddScheduleViewModel addScheduleViewModel;
@@ -56,6 +55,12 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
     private String mParam1;
     private String mParam2;
+
+    //class Id
+    private String class_Id;
+
+    //check if data is sent to server
+    private boolean check = false;
 
     public AddSubjectDetailsFragment() {
     }
@@ -70,12 +75,45 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        //initial setting of data
+        addScheduleViewModel = new ViewModelProvider(this).get(AddScheduleViewModel.class);
+        getClassId();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
+    }
+
+    private void getClassId(){
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
+        databaseReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    class_Id = snapshot.child("Class_Id").getValue(String.class);
+                    //Log.d("ClassIDMINE" , class_id);
+                }else {
+                    class_Id = null;
+                    // Log.d("ClassIDMINE" , class_id);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Database Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -84,9 +122,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_subject_details, container, false);
 
-        addScheduleViewModel = new ViewModelProvider(this).get(AddScheduleViewModel.class);
-        mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
+
 
         spi = view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.weekday, android.R.layout.simple_spinner_item);
@@ -108,18 +144,19 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                 String sub = subject.getText().toString();
                 String teacher = faculty.getText().toString();
                 String clock = time.getText().toString();
-                if (sub.length() > 0 && teacher.length() > 0 && clock.length() > 0 && text.length() > 0) {
-                    checkUser();
-                    celebration.setVisibility(View.VISIBLE);
-                    celebration.playAnimation();
-                    Handler mhandler = new Handler();
-                    mhandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            dismiss();
+                if (sub.length() > 0 && teacher.length() > 0 && clock.length() > 0 && day.length() > 0) {
+                    //checkUser();
+                    sendDataToServer();
+                    if(check){
+                        celebration.setVisibility(View.VISIBLE);
+                        celebration.playAnimation();
+                        dismiss();
+                        check = false;
+                    }else{
+                        Toast.makeText(getContext(), "Sending Data...", Toast.LENGTH_SHORT).show();
+                    }
 
-                        }
-                    }, 600);
+
                 } else {
                     Toast.makeText(getActivity(), "Please fill all details", Toast.LENGTH_SHORT).show();
                 }
@@ -132,7 +169,8 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        text = parent.getItemAtPosition(position).toString();
+        day = parent.getItemAtPosition(position).toString();
+        day = day.toLowerCase();
     }
 
     @Override
@@ -145,10 +183,10 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    classid = snapshot.child(mAuth.getCurrentUser().getUid()).child("Class_Id").getValue(String.class);
-                    Toast.makeText(getActivity(),""+classid+" & "+text+" & "+time.getText().toString()+" & "+subject.getText().toString()+" & "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
-                    Schedule schedule = new Schedule(classid, text, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
-                    addScheduleViewModel.setScheduleResponse(schedule);
+                    //classid = snapshot.child(mAuth.getCurrentUser().getUid()).child("Class_Id").getValue(String.class);
+                    //Toast.makeText(getActivity(),""+classid+" & "+text+" & "+time.getText().toString()+" & "+subject.getText().toString()+" & "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
+                    //Schedule schedule = new Schedule(classid, text, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
+                    //addScheduleViewModel.setScheduleResponse(schedule);
                     addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                         if (data == null) {
                             Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();
@@ -169,5 +207,30 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                 //Toast.makeText(getActivity(),""+error,Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void sendDataToServer(){
+        if(class_Id != null){
+            Schedule schedule = new Schedule(class_Id, day, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
+            addScheduleViewModel.setScheduleResponse(schedule);
+            addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
+                if (data == null) {
+
+                    Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();
+                    Log.i("ApiCall", "Failed");
+                    check = true;
+                } else {
+
+                    Log.i("ApiCall", "successFull");
+                    String scheduleId = data.getSchedule().get_id();
+                    databaseReference.child(mAuth.getCurrentUser().getUid()).child("Schedule_Id").setValue(scheduleId);
+                    Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
+                    check = true;
+                }
+            });
+        }else{
+            Toast.makeText(getContext(), "Please Wait!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
