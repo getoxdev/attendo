@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/subject_item_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="12dp"
+        android:clickable="true"
+        android:outlineAmbientShadowColor="#673AB7"
+        android:stateListAnimator="@animator/card_pressed_animator"
+        app:cardBackgroundColor="@color/card_bg_color"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/card_subject_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="20dp"
+                android:text="Subject"
+                android:textColor="@color/text_color_primary"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/percentage_subject_card_item"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/attend_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="-9dp"
+                android:text="Attendance: "
+                android:textColor="@color/text_color_secondary"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_subject_name" />
+
+            <TextView
+                android:id="@+id/status_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:paddingTop="8dp"
+                android:text="Status: "
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attend_txt" />
+
+            <TextView
+                android:id="@+id/status_counter_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="status_counter_of_attendance"
+                app:layout_constraintLeft_toRightOf="@id/status_txt"
+                app:layout_constraintTop_toBottomOf="@id/attend_txt" />
+
+            <TextView
+                android:id="@+id/question_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="6dp"
+                android:text="Have you attended today's class ? "
+                android:textColor="#9A9A9A"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/status_txt" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_card_item"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <TextView
+                android:id="@+id/percentage_subject_card_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:text="75%"
+                android:textColor="@color/text_color_primary"
+                android:textSize="22dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/present_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="14dp"
+                android:text="1"
+                android:textColor="@color/text_color_primary"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toRightOf="@id/attend_txt"
+                app:layout_constraintTop_toBottomOf="@id/card_subject_name" />
+
+            <TextView
+                android:id="@+id/out_of_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="14dp"
+                android:layout_toRightOf="@+id/tvPres"
+                android:text="out of"
+                android:textColor="#787878"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toRightOf="@id/present_txt"
+                app:layout_constraintTop_toBottomOf="@id/card_subject_name" />
+
+            <TextView
+                android:id="@+id/total_text_subject_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/subName"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="14dp"
+                android:text="2"
+                android:textColor="@color/text_color_primary"
+                android:textSize="15dp"
+                app:layout_constraintLeft_toRightOf="@id/out_of_text"
+                app:layout_constraintTop_toBottomOf="@id/card_subject_name" />
+
+            <Button
+                android:id="@+id/present_btn_card_item"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="15dp"
+                android:clickable="true"
+                android:stateListAnimator="@animator/button_pressed_animator"
+                android:text="Yes"
+                android:textAllCaps="false"
+                android:textColor="@color/btn_positive_text_color"
+                app:backgroundTint="@color/btn_tint_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/guideline_card_item"
+                app:layout_constraintTop_toBottomOf="@id/question_txt"
+                app:rippleColor="#AF91F4"
+                app:strokeWidth="0dp" />
+
+            <Button
+                android:id="@+id/absent_btn_card_item"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="130dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="15dp"
+                android:clickable="true"
+                android:stateListAnimator="@animator/button_pressed_animator"
+                android:text="No"
+                android:textAllCaps="false"
+                android:textColor="@color/btn_negative_text_color"
+                app:backgroundTint="@color/btn_tint_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/guideline_card_item"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/question_txt"
+                app:rippleColor="#AF91F4"
+                app:strokeWidth="0dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

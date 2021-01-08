@@ -66,7 +66,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     @NonNull
     @Override
     public SubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.sub_info, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.sub_card_new, parent, false);
         dateConverter = new DateConverter();
 
         return new SubViewHolder(view);
@@ -353,34 +353,34 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
     public class SubViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.subName)
+        @BindView(R.id.card_subject_name)
         TextView subItemView;
 
-        @BindView(R.id.tvTotal)
+        @BindView(R.id.total_text_subject_card)
         TextView tvTotal;
 
-        @BindView(R.id.tvPres)
+        @BindView(R.id.present_txt)
         TextView tvPres;
 
-        @BindView(R.id.percentage)
+        @BindView(R.id.percentage_subject_card_item)
         TextView percent;
 
-        @BindView(R.id.status_counter)
+        @BindView(R.id.status_counter_txt)
         TextView status;
 
         @BindView(R.id.textView10) @Nullable
         TextView criteria2;
 
-        @BindView(R.id.bAbsent)
+        @BindView(R.id.absent_btn_card_item)
         Button btnAbs;
 
-        @BindView(R.id.bPresent)
+        @BindView(R.id.present_btn_card_item)
         Button btnPres;
 
         @BindView(R.id.updateAttendance) @Nullable
         Button upadt;
 
-        @BindView(R.id.card1)
+        @BindView(R.id.subject_item_card)
         CardView card;
 
         public SubViewHolder(View itemView) {
