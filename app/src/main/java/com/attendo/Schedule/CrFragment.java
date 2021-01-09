@@ -15,18 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.attendo.R;
-import com.attendo.Schedule.Adapters.RoutineItemAdapter;
 import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.Schedule.Model.DayOfWeek;
-import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.data.model.GetSchedule;
 import com.attendo.data.model.SubjectDetails;
-import com.attendo.ui.main.AddSubjectDetailsFragment;
 import com.attendo.viewmodel.GetScheduleViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,12 +51,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     private FirebaseAuth mAuth;
     private String class_id;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
     //List for subjects
     List<SubjectDetails> monday;
     List<SubjectDetails> tuesday;
@@ -70,19 +60,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     List<SubjectDetails> saturday;
     List<SubjectDetails> sunday;
 
-    public CrFragment() {
-        // Required empty public constructor
-    }
-
-    // TODO: Rename and change types and number of parameters
-    public static CrFragment newInstance(String param1, String param2) {
-        CrFragment fragment = new CrFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onStart() {
@@ -100,16 +77,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
         if(class_id == null){
             Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
         }else getAllData();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
     }
 
     @Override

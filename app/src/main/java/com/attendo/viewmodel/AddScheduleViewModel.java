@@ -1,6 +1,7 @@
 package com.attendo.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -36,17 +37,17 @@ public class AddScheduleViewModel extends AndroidViewModel {
         apiHelper.createschedule(schedule).enqueue(new Callback<ResponseSchedule>() {
             @Override
             public void onResponse(Call<ResponseSchedule> call, Response<ResponseSchedule> response) {
-                if(response.code() < 200){
-                    ResponseSchedule responseSchedule = response.body();
-                    scheduleResponse.postValue(responseSchedule);
+                if(response.code() < 300){
+                    scheduleResponse.postValue(response.body());
                 }else if(response.code() >= 400){
+                    Log.e("onResponse: ", "NULL");
                     scheduleResponse.postValue(null);
                 }
-
             }
 
             @Override
             public void onFailure(Call<ResponseSchedule> call, Throwable t) {
+                Log.e("onFailure: ",t.getMessage());
                 scheduleResponse.postValue(null);
             }
         });

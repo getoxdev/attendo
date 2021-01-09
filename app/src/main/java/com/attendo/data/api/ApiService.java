@@ -34,13 +34,13 @@ public interface  ApiService
     @POST("api/class/join")
     Call<ResponseJoinClass> joinclass(@Body JoinClass joinClass);
 
-    @POST("schedule")
+    @POST("api/schedule")
     Call<ResponseSchedule> createschedule(@Body Schedule schedule);
 
-    @POST("schedule/edit")
+    @POST("api/schedule/edit")
     Call<ResponseSchedule> updateschedule(@Body ScheduleEdit scheduleEdit);
 
-    @GET("schedule")
+    @GET("api/schedule")
     Call<ResponseGetSchedule> getschedule(@Body GetSchedule getSchedule);
 
 }

@@ -1,4 +1,4 @@
-package com.attendo.ui.main;
+package com.attendo.Schedule;
 
 import android.os.Bundle;
 
@@ -50,29 +50,12 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     private DatabaseReference databaseReference;
     private AddScheduleViewModel addScheduleViewModel;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
     //class Id
     private String class_Id;
 
     //check if data is sent to server
     private boolean check = false;
 
-    public AddSubjectDetailsFragment() {
-    }
-
-    public static AddSubjectDetailsFragment newInstance(String param1, String param2) {
-        AddSubjectDetailsFragment fragment = new AddSubjectDetailsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onStart() {
@@ -82,17 +65,6 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         getClassId();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-
-
-    }
 
     private void getClassId(){
         mAuth = FirebaseAuth.getInstance();
@@ -178,36 +150,36 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
     }
 
-    private void checkUser() {
-        databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    //classid = snapshot.child(mAuth.getCurrentUser().getUid()).child("Class_Id").getValue(String.class);
-                    //Toast.makeText(getActivity(),""+classid+" & "+text+" & "+time.getText().toString()+" & "+subject.getText().toString()+" & "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
-                    //Schedule schedule = new Schedule(classid, text, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
-                    //addScheduleViewModel.setScheduleResponse(schedule);
-                    addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
-                        if (data == null) {
-                           // Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();
-                            Log.i("ApiCall", "Failed");
-                        } else {
-                            Log.i("ApiCall", "successFull");
-                            String scheduleId = data.getSchedule().get_id();
-                            databaseReference.child(mAuth.getCurrentUser().getUid()).child("Schedule_Id").setValue(scheduleId);
-                            Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                } else {
-                    //Nothing to show here
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                //Toast.makeText(getActivity(),""+error,Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    private void checkUser() {
+//        databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    //classid = snapshot.child(mAuth.getCurrentUser().getUid()).child("Class_Id").getValue(String.class);
+//                    //Toast.makeText(getActivity(),""+classid+" & "+text+" & "+time.getText().toString()+" & "+subject.getText().toString()+" & "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
+//                    //Schedule schedule = new Schedule(classid, text, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
+//                    //addScheduleViewModel.setScheduleResponse(schedule);
+//                    addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
+//                        if (data == null) {
+//                           // Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();
+//                            Log.i("ApiCall", "Failed");
+//                        } else {
+//                            Log.i("ApiCall", "successFull");
+//                            String scheduleId = data.getSchedule().get_id();
+//                            databaseReference.child(mAuth.getCurrentUser().getUid()).child("Schedule_Id").setValue(scheduleId);
+//                            Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                } else {
+//                    //Nothing to show here
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                //Toast.makeText(getActivity(),""+error,Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     private void sendDataToServer(){
         if(class_Id != null){
@@ -215,7 +187,6 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
             addScheduleViewModel.setScheduleResponse(schedule);
             addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                 if (data == null) {
-
                     Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();
                     Log.i("ApiCall", "Failed");
                     check = true;

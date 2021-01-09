@@ -8,7 +8,7 @@
     android:backgroundTint="@color/bottom_sheet_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/CustomModalBottomSheet"
-    tools:context=".ui.main.AddSubjectDetailsFragment">
+    tools:context=".Schedule.AddSubjectDetailsFragment">
 
 
     <ImageView
