@@ -92,6 +92,7 @@ public class FragmentAccountAndSettings extends Fragment {
     TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme, routine,excel;
     CardView Profile;
     BottomNavigationView bottomNavigationView;
+    private SharedPreferences sharedPreferences;
 
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
@@ -166,8 +167,8 @@ public class FragmentAccountAndSettings extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("data");
 
         //schedule reference
-        scheduleReference = FirebaseDatabase.getInstance().getReference("Schedule");
-        checkUserClass();
+        //scheduleReference = FirebaseDatabase.getInstance().getReference("Schedule");
+        //checkUserClass();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -406,20 +407,21 @@ public class FragmentAccountAndSettings extends Fragment {
         routine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updatesharepreference();
                 if(typeOfUser == null){
                     Toast.makeText(getActivity(), "Please wait !", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     switch (typeOfUser) {
-                        case "Cr":
+                        case "CR":
                             CRSettingsFragment settingsFragment = new CRSettingsFragment();
                             settingsFragment.show(getParentFragmentManager(), "Cr Settings");
                             break;
-                        case "Student":
+                        case "STUDENT":
                             StudetntSettingsFragment studetntSettingsFragment = new StudetntSettingsFragment();
                             studetntSettingsFragment.show(getParentFragmentManager(), "Students Settings");
                             break;
-                        case "nothing":
+                        case "----------":
                             Toast.makeText(getActivity(), "Please join or create a class", Toast.LENGTH_SHORT).show();
                             break;
                     }
@@ -461,7 +463,13 @@ public class FragmentAccountAndSettings extends Fragment {
         return view;
     }
 
-    private void checkUserClass() {
+    private void updatesharepreference() {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        typeOfUser = sharedPreferences.getString("Join_As","----------");
+    }
+
+   /* private void checkUserClass() {
         scheduleReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -480,7 +488,7 @@ public class FragmentAccountAndSettings extends Fragment {
 
             }
         });
-    }
+    }*/
 
     public void ExportToExcel(String path)
     {

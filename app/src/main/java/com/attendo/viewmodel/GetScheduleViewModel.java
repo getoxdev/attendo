@@ -37,8 +37,7 @@ public class GetScheduleViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<ResponseGetSchedule> call, Response<ResponseGetSchedule> response) {
                 if(response.code() == 200 || response.code() == 201){
-                    ResponseGetSchedule responseGetSchedule = response.body();
-                    scheduleResponse.postValue(responseGetSchedule);
+                    scheduleResponse.postValue(response.body());
                 }else if(response.code() == 400 || response.code() == 404){
                     scheduleResponse.postValue(null);
                 }

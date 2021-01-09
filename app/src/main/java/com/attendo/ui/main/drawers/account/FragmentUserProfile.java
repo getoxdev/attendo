@@ -2,6 +2,7 @@ package com.attendo.ui.main.drawers.account;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -41,6 +42,8 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentUserProfile extends Fragment {
 
@@ -86,6 +89,7 @@ public class FragmentUserProfile extends Fragment {
 
         usercode = view.findViewById(R.id.USER_CLASS_CODE);
         userjoinas = view.findViewById(R.id.USER_CLASS_JOIN_AS);
+        LoadsharedPreferences();
 
         ButterKnife.bind(this,view);
 
@@ -106,7 +110,6 @@ public class FragmentUserProfile extends Fragment {
         storageReference = firebaseStorage.getReference();
         databaseReference2 = FirebaseDatabase.getInstance().getReference("Schedule");
 
-        checkUserJoinedAs();
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,27 +180,14 @@ public class FragmentUserProfile extends Fragment {
         return view;
     }
 
-    private void checkUserJoinedAs() {
-
-        databaseReference2.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    String xx = snapshot.child(mAuth.getCurrentUser().getUid()).child("Join_As").getValue(String.class);
-                    userjoinas.setText(xx);
-                    xx = snapshot.child(mAuth.getCurrentUser().getUid()).child("Class_Code").getValue(String.class);
-                    usercode.setText(xx);
-                } else {
-                    //Nothing to show here
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                //Toast.makeText(getActivity(),""+error,Toast.LENGTH_SHORT).show();
-            }
-        });
-
+    private void LoadsharedPreferences() {
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
+        String joinx = sharedPreferences.getString("Join_As","----------");
+        userjoinas.setText(joinx);
+        String joiny = sharedPreferences.getString("Class_Code","----------");
+        usercode.setText(joiny);
     }
+
 
 
     private void setFragment(Fragment fragment) {

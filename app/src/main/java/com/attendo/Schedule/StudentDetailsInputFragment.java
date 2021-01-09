@@ -1,5 +1,6 @@
 package com.attendo.Schedule;
 
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 
@@ -28,15 +29,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class StudentDetailsInputFragment extends Fragment {
 
-
     private EditText name,scholarid,classcode;
     private Button btn;
     private StudentFragment studentFragment;
     private JoinClassViewModel joinClassViewModel;
     private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
     private CustomLoadingDialog customLoadingDialog;
-    private String userId ="";
+    private SharedPreferences sharedPreferences;
 
 
     @Override
@@ -47,7 +46,6 @@ public class StudentDetailsInputFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Join Class");
 
         mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
 
         studentFragment = new StudentFragment();
         joinClassViewModel = new ViewModelProvider(this).get(JoinClassViewModel.class);
@@ -88,11 +86,16 @@ public class StudentDetailsInputFragment extends Fragment {
                 Toast.makeText(getActivity(),"Failed to join wrong class code",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
-                String UserId = mAuth.getCurrentUser().getUid();
                 String class_Id = data.get_class().get_id();
-                databaseReference.child(UserId).child("Class_Id").setValue(class_Id);
-                databaseReference.child(UserId).child("Class_Code").setValue(classcode.getText().toString());
-                databaseReference.child(UserId).child("Join_As").setValue("Student");
+                sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Class_Code",classcode.getText().toString());
+                editor.putString("Class_Id",class_Id);
+                editor.putString("Join_As","STUDENT");
+                editor.apply();
+                //databaseReference.child(UserId).child("Class_Id").setValue(class_Id);
+                //databaseReference.child(UserId).child("Class_Code").setValue(classcode.getText().toString());
+                //databaseReference.child(UserId).child("Join_As").setValue("Student");
                 Log.i("ApiCall", "successFull");
                 Toast.makeText(getContext(),"" + data.getMessage(),Toast.LENGTH_SHORT).show();
                 setFragment(studentFragment);

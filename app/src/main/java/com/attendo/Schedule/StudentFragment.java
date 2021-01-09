@@ -1,5 +1,6 @@
 package com.attendo.Schedule;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.data.model.SubjectDetails;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     private List<DayOfWeek> dayList;
     private RoutineItemAdapter routineItemAdapter;
     private ArrayList<SubjectDetails> subjectRoutines  = new ArrayList();
+    private FirebaseAuth mAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +47,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         dayofWeekRecyclerView = view.findViewById(R.id.static_weekdays_recyclerview_student);
         subjectrecyclerView = view.findViewById(R.id.subjectsRecyclerView);
 
+        mAuth = FirebaseAuth.getInstance();
 
         subjectrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         routineItemAdapter = new RoutineItemAdapter(subjectRoutines);

@@ -1,5 +1,6 @@
 package com.attendo.Schedule;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,37 +33,9 @@ public class CRDetailsInputFragment extends Fragment {
     private String class_code;
     private String class_Id;
     private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
     private CustomLoadingDialog customLoadingDialog;
+    private SharedPreferences sharedPreferences;
 
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-    public CRDetailsInputFragment() {
-        // Required empty public constructor
-    }
-
-    public static CRDetailsInputFragment newInstance(String param1, String param2) {
-        CRDetailsInputFragment fragment = new CRDetailsInputFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,7 +45,6 @@ public class CRDetailsInputFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Create Class");
 
         mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
 
        createClassViewModel =  new ViewModelProvider(this).get(CreateClassViewModel.class);
        customLoadingDialog = new CustomLoadingDialog(getActivity());
@@ -120,10 +92,15 @@ public class CRDetailsInputFragment extends Fragment {
                 Log.i("ApiCall", "successFull");
                 class_code = data.get_class().getCode();
                 class_Id = data.get_class().get_id();
-                String UserId = mAuth.getCurrentUser().getUid();
-                databaseReference.child(UserId).child("Class_Code").setValue(class_code);
-                databaseReference.child(UserId).child("Class_Id").setValue(class_Id);
-                databaseReference.child(UserId).child("Join_As").setValue("Cr");
+                sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Class_Code",class_code);
+                editor.putString("Class_Id",class_Id);
+                editor.putString("Join_As","CR");
+                editor.apply();
+                //databaseReference.child(UserId).child("Class_Code").setValue(class_code);
+                //databaseReference.child(UserId).child("Class_Id").setValue(class_Id);
+                //databaseReference.child(UserId).child("Join_As").setValue("Cr");
                 Toast.makeText(getContext(),"Class Created" +" "+ class_code,Toast.LENGTH_LONG).show();
                 setFragment(crFragment);
             }

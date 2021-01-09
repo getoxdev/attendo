@@ -12,6 +12,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -58,6 +59,8 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static java.security.AccessController.getContext;
 
 public class BottomNavMainActivity extends AppCompatActivity {
 
@@ -193,7 +196,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.schedule_bottom_nav:
-                    if(!isConnected()){
+                        LoadsharedPreferences();
+                    /*if(!isConnected()){
                         showCustomDialog();
                     }else{
                         if(joinasData == null){
@@ -217,7 +221,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
 
                     }
-                    break;
+*/                    break;
 
                 case R.id.calendar_bottom_nav:
                     Fragment calendar = new FragmentCalender();
@@ -248,6 +252,23 @@ public class BottomNavMainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    private void LoadsharedPreferences() {
+        SharedPreferences sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
+        String text = sharedPreferences.getString("Join_As","null");
+        String student = "STUDENT";
+        String cr = "CR";
+        if(text.equals(student)){
+            setFragment(studentFragment);
+        }
+        else if(text.equals(cr)){
+            setFragment(crFragment);
+        }
+        else {
+            CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
+            joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
+        }
+    }
 
 
     @Override
