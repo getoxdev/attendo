@@ -33,8 +33,6 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     private List<DayOfWeek> dayList;
     private RoutineItemAdapter routineItemAdapter;
     private ArrayList<SubjectDetails> subjectRoutines  = new ArrayList();
-    private CardView notice;
-    private NoticeFragment noticeFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,15 +40,6 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_student, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Routine");
-
-        noticeFragment = new NoticeFragment();
-        notice = view.findViewById(R.id.notice_card);
-        notice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setFragment(noticeFragment);
-            }
-        });
 
         dayofWeekRecyclerView = view.findViewById(R.id.static_weekdays_recyclerview_student);
         subjectrecyclerView = view.findViewById(R.id.subjectsRecyclerView);
@@ -77,12 +66,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         return view;
     }
 
-    private void setFragment(NoticeFragment fragment) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container_frame,fragment);
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragmentTransaction.commit();
-    }
+
 
     @Override
     public void callback(int position, List<SubjectDetails> subjectRoutines) {

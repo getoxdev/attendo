@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -49,6 +50,8 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private AddScheduleViewModel addScheduleViewModel;
+
+    private ProgressBar PB;
 
     //class Id
     private String class_Id;
@@ -96,6 +99,8 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
 
 
+        PB = view.findViewById(R.id.progress_bar_add_subject_details);
+        PB.setVisibility(View.INVISIBLE);
         spi = view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.weekday, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -118,6 +123,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                 String clock = time.getText().toString();
                 if (sub.length() > 0 && teacher.length() > 0 && clock.length() > 0 && day.length() > 0) {
                     //checkUser();
+                    PB.setVisibility(View.VISIBLE);
                     sendDataToServer();
                     if(check){
                         celebration.setVisibility(View.VISIBLE);
@@ -130,6 +136,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
 
                 } else {
+                    PB.setVisibility(View.INVISIBLE);
                     Toast.makeText(getActivity(), "Please fill all details", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -189,14 +196,25 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                 if (data == null) {
                     Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();
                     Log.i("ApiCall", "Failed");
+                    PB.setVisibility(View.INVISIBLE);
                     check = true;
                 } else {
-
+                    PB.setVisibility(View.INVISIBLE);
                     Log.i("ApiCall", "successFull");
                     String scheduleId = data.getSchedule().get_id();
                     databaseReference.child(mAuth.getCurrentUser().getUid()).child("Schedule_Id").setValue(scheduleId);
                     Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
+                    celebration.setVisibility(View.VISIBLE);
+                    celebration.playAnimation();
                     check = true;
+                    Handler mhandler = new Handler();
+                    mhandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            dismiss();
+
+                        }
+                    },600);
                 }
             });
         }else{
