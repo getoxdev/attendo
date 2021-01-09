@@ -236,6 +236,23 @@
                 app:layout_constraintTop_toBottomOf="@id/report_bug"
                 />
 
+            <TextView
+                android:id="@+id/routine_settings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Leave Class"
+                android:drawableLeft="@drawable/ic_baseline_school_focused"
+                android:textAlignment="textStart"
+                android:paddingTop="15dp"
+                android:drawablePadding="15dp"
+                android:paddingLeft="25dp"
+                android:textSize="18dp"
+                android:paddingBottom="15dp"
+                android:backgroundTint="#E3E1E1"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:layout_constraintTop_toBottomOf="@id/report_bug"
+                />
 
 
         </LinearLayout>

@@ -198,7 +198,7 @@ public class FragmentAccountAndSettings extends Fragment {
         Help = view.findViewById(R.id.help_settings);
         logout = view.findViewById(R.id.logout_settings);
         theme = view.findViewById(R.id.theme);
-        //routine = view.findViewById(R.id.routine_settings);
+        routine = view.findViewById(R.id.routine_settings);
         excel = view.findViewById(R.id.excel);
 
         Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.card_transition);
@@ -403,7 +403,7 @@ public class FragmentAccountAndSettings extends Fragment {
         });
 
 
-        /*routine.setOnClickListener(new View.OnClickListener() {
+        routine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(typeOfUser == null){
@@ -425,7 +425,7 @@ public class FragmentAccountAndSettings extends Fragment {
                     }
                 }
             }
-        });*/
+        });
 
         String directory_path = Environment.getExternalStorageDirectory().getPath() + "/Attendo/";
         File file = new File(directory_path);

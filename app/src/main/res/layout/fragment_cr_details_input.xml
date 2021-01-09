@@ -86,30 +86,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/cr_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cr_class_name"
-        style="@style/CustomEditText">
-
-        <EditText
-            android:id="@+id/cr_email_edittext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="10dp"
-            android:hint="Email"
-            android:elevation="0dp"
-            android:inputType="text" />
-
-
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/cr_create_class_btn"

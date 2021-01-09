@@ -189,7 +189,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                     //addScheduleViewModel.setScheduleResponse(schedule);
                     addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                         if (data == null) {
-                            Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();
                             Log.i("ApiCall", "Failed");
                         } else {
                             Log.i("ApiCall", "successFull");
@@ -233,4 +233,5 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         }
 
     }
+
 }

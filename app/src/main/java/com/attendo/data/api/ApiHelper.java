@@ -61,7 +61,7 @@ public class ApiHelper implements ApiService
         return api.joinclass(joinClass);
     }
 
-    @POST("schedule")
+    @GET("schedule")
     public Call<ResponseSchedule> createschedule(@Body Schedule schedule){
         return api.createschedule(schedule);
     }

@@ -29,13 +29,14 @@ import com.google.firebase.database.FirebaseDatabase;
 public class StudentDetailsInputFragment extends Fragment {
 
 
-    private EditText name,scholarid,email,classcode;
+    private EditText name,scholarid,classcode;
     private Button btn;
     private StudentFragment studentFragment;
     private JoinClassViewModel joinClassViewModel;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private CustomLoadingDialog customLoadingDialog;
+    private String userId ="";
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -82,7 +83,6 @@ public class StudentDetailsInputFragment extends Fragment {
 
         name = view.findViewById(R.id.student_name_edittext);
         scholarid = view.findViewById(R.id.student_scholar_id_edittext);
-        email = view.findViewById(R.id.student_email_edittext);
         classcode = view.findViewById(R.id.student_class_code_edittext);
 
         btn = view.findViewById(R.id.student_join_class_btn);
@@ -92,7 +92,7 @@ public class StudentDetailsInputFragment extends Fragment {
             public void onClick(View v) {
                 String Name = name.getText().toString();
                 String Scholarid = scholarid.getText().toString();
-                String EmailId = email.getText().toString();
+                String EmailId = mAuth.getCurrentUser().getEmail().toString();
                 String Class = classcode.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
                     SendDataToServer();
@@ -108,7 +108,7 @@ public class StudentDetailsInputFragment extends Fragment {
     }
 
     private void SendDataToServer() {
-        JoinClass joinClass = new JoinClass(classcode.getText().toString(),name.getText().toString(),email.getText().toString(),scholarid.getText().toString());
+        JoinClass joinClass = new JoinClass(classcode.getText().toString(),name.getText().toString(),mAuth.getCurrentUser().getEmail().toString(),scholarid.getText().toString());
         joinClassViewModel.setJoinResponse(joinClass);
         joinClassViewModel.getJoinResponse().observe(getActivity(), data -> {
             customLoadingDialog.dismissDialog();

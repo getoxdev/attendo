@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class CRDetailsInputFragment extends Fragment {
 
-    private EditText name,scholarId,ClassName,Email;
+    private EditText name,scholarId,ClassName;
     private Button create;
     private CreateClassViewModel createClassViewModel;
     private CrFragment crFragment;
@@ -80,7 +80,6 @@ public class CRDetailsInputFragment extends Fragment {
         crFragment = new CrFragment();
         name = view.findViewById(R.id.cr_name_edittext);
         scholarId = view.findViewById(R.id.cr_scholar_id_edittext);
-        Email = view.findViewById(R.id.cr_email_edittext);
         ClassName = view.findViewById(R.id.cr_class_name_edittext);
 
         create = view.findViewById(R.id.cr_create_class_btn);
@@ -91,7 +90,7 @@ public class CRDetailsInputFragment extends Fragment {
             public void onClick(View v) {
                 String Name = name.getText().toString();
                 String Scholarid = scholarId.getText().toString();
-                String EmailId = Email.getText().toString();
+                String EmailId = mAuth.getCurrentUser().getEmail().toString();
                 String Class = ClassName.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
                     class_code = SendDataToServer();
@@ -109,7 +108,7 @@ public class CRDetailsInputFragment extends Fragment {
     }
 
     private String  SendDataToServer() {
-        CreateClass createClass = new CreateClass(name.getText().toString(),Email.getText().toString(),ClassName.getText().toString(),scholarId.getText().toString());
+        CreateClass createClass = new CreateClass(name.getText().toString(),mAuth.getCurrentUser().getEmail().toString(),ClassName.getText().toString(),scholarId.getText().toString());
         createClassViewModel.setClassResponse(createClass);
         createClassViewModel.getClassResponse().observe(getActivity(), data -> {
             if (data == null) {
