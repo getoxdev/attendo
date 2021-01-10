@@ -36,7 +36,6 @@ public class CRDetailsInputFragment extends Fragment {
     private String class_Id;
     private FirebaseAuth mAuth;
     private CustomLoadingDialog customLoadingDialog;
-    private SharedPreferences sharedPreferences;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
 
@@ -98,15 +97,6 @@ public class CRDetailsInputFragment extends Fragment {
                 firebaseScheduleViewModel.AddCLassCode(class_code);
                 firebaseScheduleViewModel.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddClassJoinAs("Cr");
-                //sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
-                //SharedPreferences.Editor editor = sharedPreferences.edit();
-                //editor.putString("Class_Code",class_code);
-                //editor.putString("Class_Id",class_Id);
-                //editor.putString("Join_As","CR");
-                //editor.apply();
-                //databaseReference.child(UserId).child("Class_Code").setValue(class_code);
-                //databaseReference.child(UserId).child("Class_Id").setValue(class_Id);
-                //databaseReference.child(UserId).child("Join_As").setValue("Cr");
                 Toast.makeText(getContext(),"Class Created" +" "+ class_code,Toast.LENGTH_LONG).show();
                 setFragment(crFragment);
             }

@@ -114,13 +114,6 @@ public class FragmentUserProfile extends Fragment {
         storageReference = firebaseStorage.getReference();
         databaseReference2 = FirebaseDatabase.getInstance().getReference("Schedule");
 
-        String join = firebaseScheduleViewModel.RetrieveClassJoinAs();
-        userjoinas.setText(join);
-        join = firebaseScheduleViewModel.RetrieveClassCode();
-        usercode.setText(join);
-        Toast.makeText(getActivity(),""+join,Toast.LENGTH_SHORT).show();
-
-
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +180,33 @@ public class FragmentUserProfile extends Fragment {
                 setFragment(fragment_profile);
             }
         });
+
+        LoadData();
+
         return view;
+    }
+
+    private void LoadData() {
+
+        databaseReference2.child(user_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.exists()) {
+                    userjoinas.setText(snapshot.child("Join_As").getValue().toString());
+                    usercode.setText(snapshot.child("Class_Code").getValue().toString());
+                }
+                else{
+                    //Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
+                    //pgb.setVisibility(View.INVISIBLE);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void setFragment(Fragment fragment) {

@@ -36,7 +36,6 @@ public class StudentDetailsInputFragment extends Fragment {
     private JoinClassViewModel joinClassViewModel;
     private FirebaseAuth mAuth;
     private CustomLoadingDialog customLoadingDialog;
-    private SharedPreferences sharedPreferences;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
 
@@ -57,7 +56,6 @@ public class StudentDetailsInputFragment extends Fragment {
         name = view.findViewById(R.id.student_name_edittext);
         scholarid = view.findViewById(R.id.student_scholar_id_edittext);
         classcode = view.findViewById(R.id.student_class_code_edittext);
-
         btn = view.findViewById(R.id.student_join_class_btn);
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -93,15 +91,6 @@ public class StudentDetailsInputFragment extends Fragment {
                 firebaseScheduleViewModel.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddClassJoinAs("Student");
                 firebaseScheduleViewModel.AddCLassCode(classcode.getText().toString());
-                //sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
-                //SharedPreferences.Editor editor = sharedPreferences.edit();
-                //editor.putString("Class_Code",classcode.getText().toString());
-                //editor.putString("Class_Id",class_Id);
-                //editor.putString("Join_As","STUDENT");
-                //editor.apply();
-                //databaseReference.child(UserId).child("Class_Id").setValue(class_Id);
-                //databaseReference.child(UserId).child("Class_Code").setValue(classcode.getText().toString());
-                //databaseReference.child(UserId).child("Join_As").setValue("Student");
                 Log.i("ApiCall", "successFull");
                 Toast.makeText(getContext(),"" + data.getMessage(),Toast.LENGTH_SHORT).show();
                 setFragment(studentFragment);
@@ -115,4 +104,4 @@ public class StudentDetailsInputFragment extends Fragment {
         fragmentTransaction.commit();
     }
 
-}//gE8PMS
+}

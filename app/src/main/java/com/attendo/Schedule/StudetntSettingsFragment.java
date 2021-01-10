@@ -25,8 +25,6 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
 
     private TextView text;
     private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
-    private SharedPreferences sharedPreferences;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
 
@@ -39,16 +37,12 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
-        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
         text = view.findViewById(R.id.leaveClass_student_settings);
 
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userId = mAuth.getCurrentUser().getUid();
                 deleteSharedpreference();
-               // DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Schedule").child(userId);
-                //ref.removeValue();
                 Toast.makeText(getActivity(),"You left the Schedule",Toast.LENGTH_SHORT).show();
                 dismiss();
             }
@@ -59,14 +53,6 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
 
     private void deleteSharedpreference() {
         firebaseScheduleViewModel.DeleteShedule();
-        //SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE)
-        // sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
-        //SharedPreferences.Editor editor = sharedPreferences.edit();
-        //editor.putString("Class_Code","----------");
-        //editor.putString("Class_Id","");
-        //editor.putString("Join_As","----------");
-        //editor.putString("Schedule_Id","");
-        //editor.apply();
     }
 
 }
