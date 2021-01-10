@@ -196,10 +196,7 @@ public class FragmentUserProfile extends Fragment {
                     userjoinas.setText(snapshot.child("Join_As").getValue().toString());
                     usercode.setText(snapshot.child("Class_Code").getValue().toString());
                 }
-                else{
-                    //Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
-                    //pgb.setVisibility(View.INVISIBLE);
-                }
+                else{ }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

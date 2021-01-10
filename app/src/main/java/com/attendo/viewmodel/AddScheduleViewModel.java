@@ -40,7 +40,7 @@ public class AddScheduleViewModel extends AndroidViewModel {
                 if(response.code() < 300){
                     scheduleResponse.postValue(response.body());
                 }else if(response.code() >= 400){
-                    Log.e("onResponse: ", "NULL");
+                    Log.e("onResponse: ", ""+response.code());
                     scheduleResponse.postValue(null);
                 }
             }

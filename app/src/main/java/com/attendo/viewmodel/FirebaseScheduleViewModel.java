@@ -64,11 +64,9 @@ public class FirebaseScheduleViewModel extends ViewModel {
                     Key = "nothing";
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Key = "Error";
-
             }
         });
         return Key;
@@ -87,11 +85,9 @@ public class FirebaseScheduleViewModel extends ViewModel {
                     Key = "nothing";
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Key = "Error";
-
             }
         });
         return Key;
@@ -107,11 +103,9 @@ public class FirebaseScheduleViewModel extends ViewModel {
                     String code = mAuth.getCurrentUser().getUid();
                     Key = snapshot.child(code).child("Class_Code").getValue(String.class);
                 }else{
-
                     Key = "nothing";
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Key = "Error";
@@ -131,15 +125,12 @@ public class FirebaseScheduleViewModel extends ViewModel {
                     String code = mAuth.getCurrentUser().getUid();
                     Key = snapshot.child(code).child("Schedule_Id").getValue(String.class);
                 }else{
-
                     Key = "nothing";
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Key = "Error";
-
             }
         });
         return Key;

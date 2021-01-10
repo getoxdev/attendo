@@ -49,8 +49,6 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     private LottieAnimationView celebration;
     private Spinner spi;
     public String day;
-    private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
     private AddScheduleViewModel addScheduleViewModel;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
@@ -79,7 +77,6 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         View view = inflater.inflate(R.layout.fragment_add_subject_details, container, false);
 
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
-
 
 
         PB = view.findViewById(R.id.progress_bar_add_subject_details);
@@ -113,7 +110,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                         dismiss();
                         check = false;
                     }else{
-                        Toast.makeText(getContext(), "Sending Data...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Saving please wait...", Toast.LENGTH_LONG).show();
                     }
 
 
@@ -172,8 +169,8 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
     private void sendDataToServer(){
         if(class_Id != null){
-            Schedule schedule = new Schedule(class_Id, day, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
-            addScheduleViewModel.setScheduleResponse(schedule);
+            Schedule schedule = new Schedule(firebaseScheduleViewModel.RetrieveClassId(), day, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
+            Toast.makeText(getActivity(),""+firebaseScheduleViewModel.RetrieveClassId()+" "+day+" "+time.getText().toString()+" "+subject.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
             addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                 if (data == null) {
                     Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();
