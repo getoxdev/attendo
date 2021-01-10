@@ -136,40 +136,12 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
     }
 
-//    private void checkUser() {
-//        databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()) {
-//                    //classid = snapshot.child(mAuth.getCurrentUser().getUid()).child("Class_Id").getValue(String.class);
-//                    //Toast.makeText(getActivity(),""+classid+" & "+text+" & "+time.getText().toString()+" & "+subject.getText().toString()+" & "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
-//                    //Schedule schedule = new Schedule(classid, text, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
-//                    //addScheduleViewModel.setScheduleResponse(schedule);
-//                    addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
-//                        if (data == null) {
-//                           // Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();
-//                            Log.i("ApiCall", "Failed");
-//                        } else {
-//                            Log.i("ApiCall", "successFull");
-//                            String scheduleId = data.getSchedule().get_id();
-//                            databaseReference.child(mAuth.getCurrentUser().getUid()).child("Schedule_Id").setValue(scheduleId);
-//                            Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//                } else {
-//                    //Nothing to show here
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                //Toast.makeText(getActivity(),""+error,Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+
 
     private void sendDataToServer(){
         if(class_Id != null){
             Schedule schedule = new Schedule(firebaseScheduleViewModel.RetrieveClassId(), day, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
+            addScheduleViewModel.setScheduleResponse(schedule);
             Toast.makeText(getActivity(),""+firebaseScheduleViewModel.RetrieveClassId()+" "+day+" "+time.getText().toString()+" "+subject.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
             addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                 if (data == null) {

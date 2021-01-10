@@ -37,9 +37,10 @@ public class AddScheduleViewModel extends AndroidViewModel {
         apiHelper.createschedule(schedule).enqueue(new Callback<ResponseSchedule>() {
             @Override
             public void onResponse(Call<ResponseSchedule> call, Response<ResponseSchedule> response) {
-                if(response.code() < 300){
+                if(response.code()==200 || response.code()==201){
                     scheduleResponse.postValue(response.body());
-                }else if(response.code() >= 400){
+                    Log.e("onResponse: ", ""+response.code());
+                }else if(response.code()==400 || response.code()==404){
                     Log.e("onResponse: ", ""+response.code());
                     scheduleResponse.postValue(null);
                 }
