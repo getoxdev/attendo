@@ -22,6 +22,7 @@ import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.JoinClass;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.CreateClassViewModel;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.JoinClassViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +37,7 @@ public class StudentDetailsInputFragment extends Fragment {
     private FirebaseAuth mAuth;
     private CustomLoadingDialog customLoadingDialog;
     private SharedPreferences sharedPreferences;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
 
     @Override
@@ -46,6 +48,7 @@ public class StudentDetailsInputFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Join Class");
 
         mAuth = FirebaseAuth.getInstance();
+        firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
 
         studentFragment = new StudentFragment();
         joinClassViewModel = new ViewModelProvider(this).get(JoinClassViewModel.class);
@@ -87,12 +90,15 @@ public class StudentDetailsInputFragment extends Fragment {
                 Log.i("ApiCall", "Failed");
             } else {
                 String class_Id = data.get_class().get_id();
-                sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Class_Code",classcode.getText().toString());
-                editor.putString("Class_Id",class_Id);
-                editor.putString("Join_As","STUDENT");
-                editor.apply();
+                firebaseScheduleViewModel.AddClassId(class_Id);
+                firebaseScheduleViewModel.AddClassJoinAs("Student");
+                firebaseScheduleViewModel.AddCLassCode(classcode.getText().toString());
+                //sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putString("Class_Code",classcode.getText().toString());
+                //editor.putString("Class_Id",class_Id);
+                //editor.putString("Join_As","STUDENT");
+                //editor.apply();
                 //databaseReference.child(UserId).child("Class_Id").setValue(class_Id);
                 //databaseReference.child(UserId).child("Class_Code").setValue(classcode.getText().toString());
                 //databaseReference.child(UserId).child("Join_As").setValue("Student");

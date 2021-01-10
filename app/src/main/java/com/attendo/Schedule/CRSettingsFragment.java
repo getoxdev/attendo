@@ -11,10 +11,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.attendo.R;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.ui.main.BottomNavMainActivity_ViewBinding;
 import com.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +29,7 @@ public class CRSettingsFragment extends BottomSheetDialogFragment {
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private SharedPreferences sharedPreferences;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +38,7 @@ public class CRSettingsFragment extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.fragment_c_r_settings, container, false);
 
         mAuth = FirebaseAuth.getInstance();
+        firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
         text = view.findViewById(R.id.cr_leave_class_settings);
 
@@ -53,13 +58,14 @@ public class CRSettingsFragment extends BottomSheetDialogFragment {
     }
 
     private void deleteSharedpreference() {
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
+        firebaseScheduleViewModel.DeleteShedule();
+       /* SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
         sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("Class_Code","----------");
         editor.putString("Class_Id","");
         editor.putString("Join_As","----------");
         editor.putString("Schedule_Id","");
-        editor.apply();
+        editor.apply();*/
     }
 }

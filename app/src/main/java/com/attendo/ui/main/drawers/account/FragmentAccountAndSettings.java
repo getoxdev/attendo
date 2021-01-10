@@ -28,6 +28,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
 
@@ -48,6 +49,7 @@ import com.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.attendo.ui.main.drawers.FragmentFAQ;
 import com.attendo.ui.main.drawers.FragmentHelp;
 import com.attendo.ui.main.drawers.FragmentInfo;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -89,10 +91,10 @@ public class FragmentAccountAndSettings extends Fragment {
     private FragmentFAQ fragmentFAQ;
     private FragmentInfo fragmentInfo;
     SubDatabase subDatabase;
-    TextView logout,Bug,Help,AppRate,AttCritaria,Att,name,college, aboutsettings, theme, routine,excel;
+    TextView logout,Bug,Help,AppRate,AttCritaria,name,college, theme, routine,excel;
     CardView Profile;
     BottomNavigationView bottomNavigationView;
-    private SharedPreferences sharedPreferences;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
@@ -100,39 +102,6 @@ public class FragmentAccountAndSettings extends Fragment {
     LottieAnimationView profileLottie;
 
 
-    //database for schedule and necessary variables
-    DatabaseReference scheduleReference;
-    private String typeOfUser;
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentAccountAndSettings() {
-        // Required empty public constructor
-    }
-
-
-    public static FragmentAccountAndSettings newInstance(String param1, String param2) {
-        FragmentAccountAndSettings fragment = new FragmentAccountAndSettings();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -141,8 +110,6 @@ public class FragmentAccountAndSettings extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account_and_settings, container, false);
         ButterKnife.bind(this, view);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Settings");
-
-
 
 
         fragmentAppRate = new FragmentAppRate();
@@ -162,13 +129,11 @@ public class FragmentAccountAndSettings extends Fragment {
         bottomNavigationView.setVisibility(View.VISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
+        firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         firebaseStorage = FirebaseStorage.getInstance();
         String user_id = mAuth.getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference("data");
 
-        //schedule reference
-        //scheduleReference = FirebaseDatabase.getInstance().getReference("Schedule");
-        //checkUserClass();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -407,23 +372,25 @@ public class FragmentAccountAndSettings extends Fragment {
         routine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updatesharepreference();
-                if(typeOfUser == null){
+                String type = firebaseScheduleViewModel.RetrieveClassJoinAs();
+                if(type == null){
                     Toast.makeText(getActivity(), "Please wait !", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    switch (typeOfUser) {
-                        case "CR":
+                    switch (type) {
+                        case "Cr":
                             CRSettingsFragment settingsFragment = new CRSettingsFragment();
                             settingsFragment.show(getParentFragmentManager(), "Cr Settings");
                             break;
-                        case "STUDENT":
+                        case "Student":
                             StudetntSettingsFragment studetntSettingsFragment = new StudetntSettingsFragment();
                             studetntSettingsFragment.show(getParentFragmentManager(), "Students Settings");
                             break;
-                        case "----------":
-                            Toast.makeText(getActivity(), "Please join or create a class", Toast.LENGTH_SHORT).show();
+                        case  "nothing":
+                            Toast.makeText(getActivity(), "Please join or create a class ", Toast.LENGTH_SHORT).show();
                             break;
+                        default:
+                            Toast.makeText(getActivity(), "Please wait !", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -462,33 +429,6 @@ public class FragmentAccountAndSettings extends Fragment {
 
         return view;
     }
-
-    private void updatesharepreference() {
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        typeOfUser = sharedPreferences.getString("Join_As","----------");
-    }
-
-   /* private void checkUserClass() {
-        scheduleReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    String code = mAuth.getCurrentUser().getUid();
-                    typeOfUser = snapshot.child(code).child("Join_As").getValue(String.class);
-                }else{
-
-                    typeOfUser = "nothing";
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Oops! something went wrong", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }*/
 
     public void ExportToExcel(String path)
     {

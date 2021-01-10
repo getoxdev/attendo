@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.attendo.R;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.main.BottomNavMainActivity;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -71,6 +73,7 @@ public class FragmentUserProfile extends Fragment {
     String user_id;
     private TextView userjoinas;
     private TextView usercode;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
@@ -89,7 +92,8 @@ public class FragmentUserProfile extends Fragment {
 
         usercode = view.findViewById(R.id.USER_CLASS_CODE);
         userjoinas = view.findViewById(R.id.USER_CLASS_JOIN_AS);
-        LoadsharedPreferences();
+        firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
+
 
         ButterKnife.bind(this,view);
 
@@ -109,6 +113,12 @@ public class FragmentUserProfile extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("data");
         storageReference = firebaseStorage.getReference();
         databaseReference2 = FirebaseDatabase.getInstance().getReference("Schedule");
+
+        String join = firebaseScheduleViewModel.RetrieveClassJoinAs();
+        userjoinas.setText(join);
+        join = firebaseScheduleViewModel.RetrieveClassCode();
+        usercode.setText(join);
+        Toast.makeText(getActivity(),""+join,Toast.LENGTH_SHORT).show();
 
 
         delete.setOnClickListener(new View.OnClickListener() {
@@ -180,16 +190,6 @@ public class FragmentUserProfile extends Fragment {
         return view;
     }
 
-    private void LoadsharedPreferences() {
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
-        String joinx = sharedPreferences.getString("Join_As","----------");
-        userjoinas.setText(joinx);
-        String joiny = sharedPreferences.getString("Class_Code","----------");
-        usercode.setText(joiny);
-    }
-
-
-
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container_frame,fragment);
@@ -213,6 +213,7 @@ public class FragmentUserProfile extends Fragment {
                         DatabaseReference refbugs = FirebaseDatabase.getInstance().getReference("Bugs").child(user_Id);
                         ref.removeValue();
                         refbugs.removeValue();
+                        firebaseScheduleViewModel.DeleteShedule();
                         storageReference = storage.getReference();
                         storageReference.child("images/" + user_Id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

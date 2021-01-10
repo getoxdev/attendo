@@ -28,6 +28,7 @@ import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.Schedule;
 import com.attendo.viewmodel.AddScheduleViewModel;
 import com.attendo.viewmodel.CreateClassViewModel;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.GetScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,7 +52,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private AddScheduleViewModel addScheduleViewModel;
-    private SharedPreferences sharedPreferences;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
     private ProgressBar PB;
 
@@ -67,37 +68,17 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         super.onStart();
         //initial setting of data
         addScheduleViewModel = new ViewModelProvider(this).get(AddScheduleViewModel.class);
-        getClassId();
+        class_Id = firebaseScheduleViewModel.RetrieveClassId();
     }
 
-
-    private void getClassId(){
-        mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
-        databaseReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    class_Id = snapshot.child("Class_Id").getValue(String.class);
-                    //Log.d("ClassIDMINE" , class_id);
-                }else {
-                    class_Id = null;
-                    // Log.d("ClassIDMINE" , class_id);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Database Error", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_subject_details, container, false);
+
+        firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
 
 
 
@@ -124,7 +105,6 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                 String teacher = faculty.getText().toString();
                 String clock = time.getText().toString();
                 if (sub.length() > 0 && teacher.length() > 0 && clock.length() > 0 && day.length() > 0) {
-                    //checkUser();
                     PB.setVisibility(View.VISIBLE);
                     sendDataToServer();
                     if(check){
@@ -204,10 +184,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                     PB.setVisibility(View.INVISIBLE);
                     Log.i("ApiCall", "successFull");
                     String scheduleId = data.getSchedule().get_id();
-                    sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("Schedule_Id",scheduleId);
-                    editor.apply();
+                    firebaseScheduleViewModel.AddClassScheduleId(scheduleId);
                     Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
                     celebration.setVisibility(View.VISIBLE);
                     celebration.playAnimation();

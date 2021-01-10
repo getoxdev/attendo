@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.attendo.R;
 import com.attendo.ui.main.BottomNavMainActivity;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +27,7 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private SharedPreferences sharedPreferences;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
 
 
@@ -35,6 +38,7 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.fragment_studetnt_settings, container, false);
 
         mAuth = FirebaseAuth.getInstance();
+        firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
         text = view.findViewById(R.id.leaveClass_student_settings);
 
@@ -54,14 +58,15 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
     }
 
     private void deleteSharedpreference() {
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
-        sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Class_Code","----------");
-        editor.putString("Class_Id","");
-        editor.putString("Join_As","----------");
-        editor.putString("Schedule_Id","");
-        editor.apply();
+        firebaseScheduleViewModel.DeleteShedule();
+        //SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE)
+        // sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
+        //SharedPreferences.Editor editor = sharedPreferences.edit();
+        //editor.putString("Class_Code","----------");
+        //editor.putString("Class_Id","");
+        //editor.putString("Join_As","----------");
+        //editor.putString("Schedule_Id","");
+        //editor.apply();
     }
 
 }

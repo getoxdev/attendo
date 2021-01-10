@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -42,6 +43,7 @@ import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
 import com.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
 import com.attendo.ui.main.menu.FragmentAbout;
 import com.attendo.ui.sub.Fragment_Subject;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -81,6 +83,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
     private CrFragment crFragment;
     private StudentFragment studentFragment;
     private EditText joinas;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
     private String joinasData = null;
 
@@ -101,6 +104,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
+        firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
         crFragment = new CrFragment();
         studentFragment = new StudentFragment();
@@ -196,8 +200,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.schedule_bottom_nav:
-                        LoadsharedPreferences();
-                    /*if(!isConnected()){
+                    joinasData = firebaseScheduleViewModel.RetrieveClassJoinAs();
+                        //LoadsharedPreferences();
+                    if(!isConnected()){
                         showCustomDialog();
                     }else{
                         if(joinasData == null){
@@ -215,13 +220,13 @@ public class BottomNavMainActivity extends AppCompatActivity {
                                     joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
                                     break;
                                 default:
-                                    Toast.makeText(BottomNavMainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(BottomNavMainActivity.this, "Please wait !", Toast.LENGTH_SHORT).show();
                             }
                         }
 
 
                     }
-*/                    break;
+                   break;
 
                 case R.id.calendar_bottom_nav:
                     Fragment calendar = new FragmentCalender();

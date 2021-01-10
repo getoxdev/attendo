@@ -19,7 +19,9 @@ import android.widget.Toast;
 import com.attendo.R;
 import com.attendo.data.model.CreateClass;
 import com.attendo.ui.CustomLoadingDialog;
+import com.attendo.viewmodel.AddScheduleViewModel;
 import com.attendo.viewmodel.CreateClassViewModel;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -35,6 +37,7 @@ public class CRDetailsInputFragment extends Fragment {
     private FirebaseAuth mAuth;
     private CustomLoadingDialog customLoadingDialog;
     private SharedPreferences sharedPreferences;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
 
     @Override
@@ -45,17 +48,17 @@ public class CRDetailsInputFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Create Class");
 
         mAuth = FirebaseAuth.getInstance();
+        firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
 
-       createClassViewModel =  new ViewModelProvider(this).get(CreateClassViewModel.class);
-       customLoadingDialog = new CustomLoadingDialog(getActivity());
+        createClassViewModel =  new ViewModelProvider(this).get(CreateClassViewModel.class);
 
+        customLoadingDialog = new CustomLoadingDialog(getActivity());
         crFragment = new CrFragment();
         name = view.findViewById(R.id.cr_name_edittext);
         scholarId = view.findViewById(R.id.cr_scholar_id_edittext);
         ClassName = view.findViewById(R.id.cr_class_name_edittext);
 
         create = view.findViewById(R.id.cr_create_class_btn);
-
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,12 +95,15 @@ public class CRDetailsInputFragment extends Fragment {
                 Log.i("ApiCall", "successFull");
                 class_code = data.get_class().getCode();
                 class_Id = data.get_class().get_id();
-                sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Class_Code",class_code);
-                editor.putString("Class_Id",class_Id);
-                editor.putString("Join_As","CR");
-                editor.apply();
+                firebaseScheduleViewModel.AddCLassCode(class_code);
+                firebaseScheduleViewModel.AddClassId(class_Id);
+                firebaseScheduleViewModel.AddClassJoinAs("Cr");
+                //sharedPreferences = this.getActivity().getSharedPreferences("User",getContext().MODE_PRIVATE);
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putString("Class_Code",class_code);
+                //editor.putString("Class_Id",class_Id);
+                //editor.putString("Join_As","CR");
+                //editor.apply();
                 //databaseReference.child(UserId).child("Class_Code").setValue(class_code);
                 //databaseReference.child(UserId).child("Class_Id").setValue(class_Id);
                 //databaseReference.child(UserId).child("Join_As").setValue("Cr");
