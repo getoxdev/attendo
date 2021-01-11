@@ -28,7 +28,6 @@ public class WednesdayCr extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_wednesday_cr, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Wednesday");
 
         addSubjectDetailsFragment = new AddSubjectDetailsFragment();
         fb = view.findViewById(R.id.Schedule_add_subject_Wednesday);

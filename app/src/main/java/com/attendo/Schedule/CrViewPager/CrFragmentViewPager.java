@@ -34,6 +34,8 @@ public class CrFragmentViewPager extends Fragment {
 
         viewPager2 = view.findViewById(R.id.view_pager_2_cr);
         viewPgaeradapterCr = new ViewPgaeradapterCr(getActivity());
+        viewPager2.setAdapter(viewPgaeradapterCr);
+
 
 
         return view;

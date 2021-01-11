@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
 import com.attendo.Schedule.CrFragment;
+import com.attendo.Schedule.CrViewPager.CrFragmentViewPager;
 import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.data.database.SubDatabase;
@@ -179,7 +180,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                         }else{
                             switch (joinasData){
                                 case "Cr":
-                                    setFragment(crFragment);
+                                    setFragment(new CrFragmentViewPager());
                                     break;
                                 case "Student":
                                     setFragment(studentFragment);

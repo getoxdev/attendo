@@ -30,7 +30,6 @@ public class MondayCr extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_monday_cr, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Monday");
 
         addSubjectDetailsFragment = new AddSubjectDetailsFragment();
 

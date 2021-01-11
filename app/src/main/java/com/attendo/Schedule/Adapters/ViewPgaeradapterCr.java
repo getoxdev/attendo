@@ -1,7 +1,10 @@
 package com.attendo.Schedule.Adapters;
 
+import android.app.Activity;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -24,9 +27,11 @@ import java.util.List;
 public class ViewPgaeradapterCr extends FragmentStateAdapter {
 
     private List<Fragment> fragmentList = new ArrayList<>();
+    Activity activity;
 
     public ViewPgaeradapterCr(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
+        activity = fragmentActivity;
     }
 
 
@@ -34,32 +39,31 @@ public class ViewPgaeradapterCr extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
 
-        Fragment selectedFragment = new Fragment();
         switch (position){
-            case 0:
-                selectedFragment = new SundayCr();
-                break;
             case 1:
-                selectedFragment = new MondayCr();
-                break;
+                ((AppCompatActivity) activity).getSupportActionBar().setTitle("Monday");
+                return new MondayCr();
             case 2:
-                selectedFragment =  new TuesdayCr();
-                break;
+                ((AppCompatActivity) activity).getSupportActionBar().setTitle("Tuesday");
+                return new TuesdayCr();
             case 3:
-                selectedFragment = new WednesdayCr();
-                break;
+                ((AppCompatActivity) activity).getSupportActionBar().setTitle("Wednesday");
+                return new WednesdayCr();
             case 4:
-                selectedFragment =  new ThursdayCr();
-                break;
+                ((AppCompatActivity) activity).getSupportActionBar().setTitle("Thursday");
+                return new ThursdayCr();
             case 5:
-                selectedFragment =  new FridayCr();
-                break;
+                ((AppCompatActivity) activity).getSupportActionBar().setTitle("Friday");
+                return new FridayCr();
             case 6:
-                selectedFragment =  new SaturdayCr();
-                break;
+                ((AppCompatActivity) activity).getSupportActionBar().setTitle("Saturday");
+                return new SaturdayCr();
+            default:
+                ((AppCompatActivity) activity).getSupportActionBar().setTitle("Sunday");
+                return new SundayCr();
         }
 
-        return selectedFragment;
+
     }
 
     @Override
