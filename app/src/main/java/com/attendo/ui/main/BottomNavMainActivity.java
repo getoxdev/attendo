@@ -128,31 +128,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
             System.out.println(e);
         }
 
-
-        //for checking the snapshot for user.
-        checkUserJoinedAs();
-
     }
 
-    private void checkUserJoinedAs() {
-        databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    joinasData = snapshot.child(mAuth.getCurrentUser().getUid()).child("Join_As").getValue(String.class);
-                    //Log.d("Join", joinasData);
 
-                } else {
-                    joinasData = "nothing";
-                    //Log.d("Join As Data", joinasData);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(BottomNavMainActivity.this,""+error,Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     private Fragment selectedFragment = null;
 
@@ -201,7 +179,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
                 case R.id.schedule_bottom_nav:
                     joinasData = firebaseScheduleViewModel.RetrieveClassJoinAs();
-                        //LoadsharedPreferences();
                     if(!isConnected()){
                         showCustomDialog();
                     }else{
@@ -257,23 +234,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
             return true;
         }
     };
-
-    private void LoadsharedPreferences() {
-        SharedPreferences sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
-        String text = sharedPreferences.getString("Join_As","null");
-        String student = "STUDENT";
-        String cr = "CR";
-        if(text.equals(student)){
-            setFragment(studentFragment);
-        }
-        else if(text.equals(cr)){
-            setFragment(crFragment);
-        }
-        else {
-            CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
-            joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
-        }
-    }
 
 
     @Override
