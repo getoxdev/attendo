@@ -26,34 +26,15 @@ public class CreateClassViewModel extends AndroidViewModel {
         return classResponse;
     }
 
-//    public void setClassData(CreateClass createClass){
-//        apiHelper.createclass(createClass).enqueue(new Callback<CreateClass>() {
-//            @Override
-//            public void onResponse(Call<CreateClass> call, retrofit2.Response<ResponseClass> response) {
-//                if(response.code()<300) {
-//                    ResponseClass createClass1 = response.body();
-//                    classResponse.postValue(createClass1);
-//                }
-//                else if(response.code()>=400) {
-//                    classResponse.postValue(null);
-//
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<CreateClass> call, Throwable t) {
-//                classResponse.postValue(null);
-//            }
-//        });
-//    }
 
     public void setClassResponse(CreateClass createClass){
         apiHelper.createclass(createClass).enqueue(new Callback<ResponseCreateClass>() {
             @Override
             public void onResponse(Call<ResponseCreateClass> call, Response<ResponseCreateClass> response) {
-                if(response.code() < 300){
+                if(response.code()==201||response.code()==200){
                     ResponseCreateClass responseCreateClass = response.body();
                     classResponse.postValue(responseCreateClass);
-                }else if(response.code() >= 400){
+                }else if(response.code()==400||response.code()==404){
                     classResponse.postValue(null);
                 }
 

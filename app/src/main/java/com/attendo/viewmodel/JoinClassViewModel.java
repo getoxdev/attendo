@@ -31,37 +31,15 @@ public class JoinClassViewModel extends AndroidViewModel {
         return joinResponse;
     }
 
-//    public void setClassData(JoinClass joinClass){
-//        apiHelper.joinclass(joinClass).enqueue(new Callback<JoinClass>() {
-//            @Override
-//            public void onResponse(Call<JoinClass> call, Response<JoinClass> response) {
-//                if(response.code()<300) {
-//
-//                    JoinClass joinClass1 = response.body();
-//                    joinResponse.postValue(joinClass1);
-//
-//                }
-//                else if(response.code()>=400) {
-//                    joinResponse.postValue(null);
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<JoinClass> call, Throwable t) {
-//                joinResponse.postValue(null);
-//            }
-//        });
-//    }
 
     public void setJoinResponse(JoinClass joinClass){
         apiHelper.joinclass(joinClass).enqueue(new Callback<ResponseJoinClass>() {
             @Override
             public void onResponse(Call<ResponseJoinClass> call, Response<ResponseJoinClass> response) {
-                if(response.code() < 300){
+                if(response.code()==200 || response.code()==201){
                     ResponseJoinClass responseJoinClass = response.body();
                     joinResponse.postValue(responseJoinClass);
-                }else if(response.code() >= 400){
+                }else if(response.code() == 400||response.code()==404){
                     joinResponse.postValue(null);
                 }
             }

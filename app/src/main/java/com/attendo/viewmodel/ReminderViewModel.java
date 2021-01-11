@@ -43,14 +43,14 @@ public class ReminderViewModel extends AndroidViewModel
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response)
             {
-                if(response.code()<300)
+                if(response.code() == 201 || response.code()==200)
                 {
                     Response response1=response.body();
                     reminderResponse.postValue(response1);
                     Log.i("response",Integer.toString(response.code()));
                     Log.i("ID",response1.getReminder().get_id());
                 }
-                else if(response.code()>=400)
+                else if(response.code()==400 || response.code()==404)
                 {
                     reminderResponse.postValue(null);
                     Log.i("responseNext", Integer.toString(response.code()));
