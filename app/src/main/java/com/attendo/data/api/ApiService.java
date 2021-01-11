@@ -40,7 +40,7 @@ public interface  ApiService
     @POST("api/schedule/edit")
     Call<ResponseSchedule> updateschedule(@Body ScheduleEdit scheduleEdit);
 
-    @GET("api/schedule")
-    Call<ResponseGetSchedule> getschedule(@Body GetSchedule getSchedule);
+    @GET("api/schedule/{classId}/{day}")
+    Call<ResponseGetSchedule> getschedule(@Path("classId") String class_Id, @Path("day") String day);
 
 }
