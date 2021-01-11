@@ -13,7 +13,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,7 +20,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -31,7 +29,6 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.ajts.androidmads.library.SQLiteToExcel;
-import com.attendo.NewFeatureReleaseFragment;
 import com.attendo.R;
 import com.attendo.Schedule.CrFragment;
 import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
@@ -51,18 +48,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.android.material.transition.platform.MaterialFade;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static java.security.AccessController.getContext;
 
 public class BottomNavMainActivity extends AppCompatActivity {
 
