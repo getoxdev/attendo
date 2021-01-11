@@ -12,7 +12,7 @@
         android:icon="@drawable/calendar_state_selector"/>
     <item
         android:id="@+id/schedule_bottom_nav"
-        android:title="New Feature"
+        android:title="Schedule"
         android:icon="@drawable/routine_state_selector"/>
     <item
         android:id="@+id/reminder_bottom_nav"

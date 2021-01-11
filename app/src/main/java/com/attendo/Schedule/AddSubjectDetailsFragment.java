@@ -26,6 +26,7 @@ import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.Schedule;
+import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.AddScheduleViewModel;
 import com.attendo.viewmodel.CreateClassViewModel;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
@@ -51,6 +52,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     public String day;
     private AddScheduleViewModel addScheduleViewModel;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
+    private CustomLoadingDialog customLoadingDialog;
 
     private ProgressBar PB;
 
@@ -76,8 +78,15 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_subject_details, container, false);
 
+       // Bundle bundle = this.getArguments();
+       // String day = bundle.getString("day");
+       // String edit-subject = bundle.getString("subject");
+        // String edit-faculty = bundle.getString("faculty");
+        // String edit-time = bundle.getString("time");
+
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
 
+        customLoadingDialog = new CustomLoadingDialog(getActivity());
 
         PB = view.findViewById(R.id.progress_bar_add_subject_details);
         PB.setVisibility(View.INVISIBLE);
@@ -102,7 +111,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                 String teacher = faculty.getText().toString();
                 String clock = time.getText().toString();
                 if (sub.length() > 0 && teacher.length() > 0 && clock.length() > 0 && day.length() > 0) {
-                    PB.setVisibility(View.VISIBLE);
+                    customLoadingDialog.startDialog(false);
                     sendDataToServer();
                     if(check){
                         celebration.setVisibility(View.VISIBLE);
@@ -110,12 +119,11 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                         dismiss();
                         check = false;
                     }else{
-                        Toast.makeText(getContext(), "Saving please wait...", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Saving Subject Details", Toast.LENGTH_LONG).show();
                     }
 
 
                 } else {
-                    PB.setVisibility(View.INVISIBLE);
                     Toast.makeText(getActivity(), "Please fill all details", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -136,21 +144,50 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
     }
 
-
+//    private void checkUser() {
+//        databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    //classid = snapshot.child(mAuth.getCurrentUser().getUid()).child("Class_Id").getValue(String.class);
+//                    //Toast.makeText(getActivity(),""+classid+" & "+text+" & "+time.getText().toString()+" & "+subject.getText().toString()+" & "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
+//                    //Schedule schedule = new Schedule(classid, text, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
+//                    //addScheduleViewModel.setScheduleResponse(schedule);
+//                    addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
+//                        if (data == null) {
+//                           // Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();
+//                            Log.i("ApiCall", "Failed");
+//                        } else {
+//                            Log.i("ApiCall", "successFull");
+//                            String scheduleId = data.getSchedule().get_id();
+//                            databaseReference.child(mAuth.getCurrentUser().getUid()).child("Schedule_Id").setValue(scheduleId);
+//                            Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                } else {
+//                    //Nothing to show here
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                //Toast.makeText(getActivity(),""+error,Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     private void sendDataToServer(){
         if(class_Id != null){
             Schedule schedule = new Schedule(firebaseScheduleViewModel.RetrieveClassId(), day, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
             addScheduleViewModel.setScheduleResponse(schedule);
-            Toast.makeText(getActivity(),""+firebaseScheduleViewModel.RetrieveClassId()+" "+day+" "+time.getText().toString()+" "+subject.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(),""+firebaseScheduleViewModel.RetrieveClassId()+" "+day+" "+time.getText().toString()+" "+subject.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
             addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                 if (data == null) {
+                    customLoadingDialog.dismissDialog();
                     Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();
                     Log.i("ApiCall", "Failed");
-                    PB.setVisibility(View.INVISIBLE);
                     check = true;
                 } else {
-                    PB.setVisibility(View.INVISIBLE);
+                    customLoadingDialog.dismissDialog();
                     Log.i("ApiCall", "successFull");
                     String scheduleId = data.getSchedule().get_id();
                     firebaseScheduleViewModel.AddClassScheduleId(scheduleId);

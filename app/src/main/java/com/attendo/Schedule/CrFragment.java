@@ -65,18 +65,18 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     public void onStart() {
         super.onStart();
         getClassId();
-        getScheduleViewModel = new ViewModelProvider(this).get(GetScheduleViewModel.class);
-        if(class_id == null){
-            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
-        }else getAllData();
+//        getScheduleViewModel = new ViewModelProvider(this).get(GetScheduleViewModel.class);
+//        if(class_id == null){
+//            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
+//        }else getAllData();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if(class_id == null){
-            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
-        }else getAllData();
+//        if(class_id == null){
+//            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
+//        }else getAllData();
     }
 
     @Override
@@ -167,63 +167,63 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
         fragmentTransaction.addToBackStack(null).commit();
     }
 
-    private void getAllData(){
-        //getting for monday
-        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "monday"));
-        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-            if(data != null){
-                monday = data.getRequiredSchedule();
-            }else monday = null;
-        });
-
-        //getting for tuesday
-        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "tuesday"));
-        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-            if(data != null){
-                tuesday = data.getRequiredSchedule();
-            }else tuesday = null;
-        });
-
-        //getting for wednesday
-        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "wednesday"));
-        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-            if(data != null){
-                wednesday = data.getRequiredSchedule();
-            }else wednesday = null;
-        });
-
-        //getting for thursday
-        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "thursday"));
-        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-            if(data != null){
-                thursday = data.getRequiredSchedule();
-            }else thursday = null;
-        });
-
-        //getting for friday
-        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "friday"));
-        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-            if(data != null){
-                friday = data.getRequiredSchedule();
-            }else friday = null;
-        });
-
-        //getting for saturday
-        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "saturday"));
-        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-            if(data != null){
-                saturday = data.getRequiredSchedule();
-            }else saturday = null;
-        });
-
-        //getting for sunday
-        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "sunday"));
-        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-            if(data != null){
-                sunday = data.getRequiredSchedule();
-            }else sunday = null;
-        });
-    }
+//    private void getAllData(){
+//        //getting for monday
+//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "monday"));
+//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
+//            if(data != null){
+//                monday = data.getRequiredSchedule();
+//            }else monday = null;
+//        });
+//
+//        //getting for tuesday
+//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "tuesday"));
+//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
+//            if(data != null){
+//                tuesday = data.getRequiredSchedule();
+//            }else tuesday = null;
+//        });
+//
+//        //getting for wednesday
+//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "wednesday"));
+//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
+//            if(data != null){
+//                wednesday = data.getRequiredSchedule();
+//            }else wednesday = null;
+//        });
+//
+//        //getting for thursday
+//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "thursday"));
+//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
+//            if(data != null){
+//                thursday = data.getRequiredSchedule();
+//            }else thursday = null;
+//        });
+//
+//        //getting for friday
+//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "friday"));
+//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
+//            if(data != null){
+//                friday = data.getRequiredSchedule();
+//            }else friday = null;
+//        });
+//
+//        //getting for saturday
+//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "saturday"));
+//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
+//            if(data != null){
+//                saturday = data.getRequiredSchedule();
+//            }else saturday = null;
+//        });
+//
+//        //getting for sunday
+//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "sunday"));
+//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
+//            if(data != null){
+//                sunday = data.getRequiredSchedule();
+//            }else sunday = null;
+//        });
+//    }
 
 
     private void getClassId(){

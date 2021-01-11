@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.Schedule.CrViewPager.CrFragmentViewPager;
 import com.attendo.data.model.CreateClass;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.AddScheduleViewModel;
@@ -98,7 +99,7 @@ public class CRDetailsInputFragment extends Fragment {
                 firebaseScheduleViewModel.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddClassJoinAs("Cr");
                 Toast.makeText(getContext(),"Class Created" +" "+ class_code,Toast.LENGTH_LONG).show();
-                setFragment(crFragment);
+                setFragment(new CrFragmentViewPager());
             }
         });
 

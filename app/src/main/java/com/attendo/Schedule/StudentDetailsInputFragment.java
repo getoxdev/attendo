@@ -82,7 +82,6 @@ public class StudentDetailsInputFragment extends Fragment {
         JoinClass joinClass = new JoinClass(classcode.getText().toString(),name.getText().toString(),mAuth.getCurrentUser().getEmail().toString(),scholarid.getText().toString());
         joinClassViewModel.setJoinResponse(joinClass);
         joinClassViewModel.getJoinResponse().observe(getActivity(), data -> {
-            customLoadingDialog.dismissDialog();
             if (data == null) {
                 Toast.makeText(getActivity(),"Failed to join wrong class code",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");

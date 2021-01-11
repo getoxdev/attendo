@@ -32,8 +32,8 @@ public class GetScheduleViewModel extends AndroidViewModel {
         return scheduleResponse;
     }
 
-    public void setScheduleGetResponse( GetSchedule getSchedule){
-        apiHelper.getschedule(getSchedule).enqueue(new Callback<ResponseGetSchedule>() {
+    public void setScheduleGetResponse(String classId, String day){
+        apiHelper.getschedule(classId, day).enqueue(new Callback<ResponseGetSchedule>() {
             @Override
             public void onResponse(Call<ResponseGetSchedule> call, Response<ResponseGetSchedule> response) {
                 if(response.code() == 200 || response.code() == 201){

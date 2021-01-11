@@ -36,12 +36,11 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
 import com.attendo.Schedule.CRSettingsFragment;
-import com.attendo.Schedule.NoticeFragment;
+import com.attendo.Schedule.CrViewPager.MondayCr;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.Schedule.StudetntSettingsFragment;
 import com.attendo.data.database.SubDatabase;
 import com.attendo.ui.auth.AuthenticationActivity;
-import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.ui.main.drawers.FragmentAppRate;
 import com.attendo.ui.main.drawers.FragmentBug;
 import com.attendo.ui.main.drawers.FragmentEditAttendance;
@@ -51,11 +50,6 @@ import com.attendo.ui.main.drawers.FragmentHelp;
 import com.attendo.ui.main.drawers.FragmentInfo;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.codemybrainsout.ratingdialog.RatingDialog;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
@@ -70,7 +64,6 @@ import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.File;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
@@ -85,6 +78,7 @@ public class FragmentAccountAndSettings extends Fragment {
     private StudentFragment studentFragment;
     private FragmentHelp fragmentHelp;
     private FragmentBug fragmentBug;
+    private MondayCr mondayCr;
     private FragmentAppRate fragmentAppRate;
     private FragmentEditAttendanceCriteria fragmentEditAttendanceCriteria;
     private FragmentEditAttendance fragmentEditAttendance;
@@ -112,6 +106,7 @@ public class FragmentAccountAndSettings extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Settings");
 
 
+        mondayCr = new MondayCr();
         fragmentAppRate = new FragmentAppRate();
         studentFragment = new StudentFragment();
         fragmentBug = new FragmentBug();

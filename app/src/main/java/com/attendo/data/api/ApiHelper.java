@@ -72,8 +72,8 @@ public class ApiHelper implements ApiService
     }
 
     @Override
-    public Call<ResponseGetSchedule> getschedule(@Body GetSchedule getSchedule){
-        return getschedule(getSchedule);
+    public Call<ResponseGetSchedule> getschedule(String classId, String day){
+        return getschedule(classId, day);
     }
 
 }

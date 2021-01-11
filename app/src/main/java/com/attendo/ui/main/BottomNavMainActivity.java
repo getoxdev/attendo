@@ -13,7 +13,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,7 +20,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -31,9 +29,9 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.ajts.androidmads.library.SQLiteToExcel;
-import com.attendo.NewFeatureReleaseFragment;
 import com.attendo.R;
 import com.attendo.Schedule.CrFragment;
+import com.attendo.Schedule.CrViewPager.CrFragmentViewPager;
 import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.data.database.SubDatabase;
@@ -51,18 +49,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.android.material.transition.platform.MaterialFade;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static java.security.AccessController.getContext;
 
 public class BottomNavMainActivity extends AppCompatActivity {
 
@@ -128,31 +121,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
             System.out.println(e);
         }
 
-
-        //for checking the snapshot for user.
-        checkUserJoinedAs();
-
     }
 
-    private void checkUserJoinedAs() {
-        databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    joinasData = snapshot.child(mAuth.getCurrentUser().getUid()).child("Join_As").getValue(String.class);
-                    //Log.d("Join", joinasData);
 
-                } else {
-                    joinasData = "nothing";
-                    //Log.d("Join As Data", joinasData);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(BottomNavMainActivity.this,""+error,Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     private Fragment selectedFragment = null;
 
@@ -201,7 +172,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
                 case R.id.schedule_bottom_nav:
                     joinasData = firebaseScheduleViewModel.RetrieveClassJoinAs();
-                        //LoadsharedPreferences();
                     if(!isConnected()){
                         showCustomDialog();
                     }else{
@@ -210,7 +180,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                         }else{
                             switch (joinasData){
                                 case "Cr":
-                                    setFragment(crFragment);
+                                    setFragment(new CrFragmentViewPager());
                                     break;
                                 case "Student":
                                     setFragment(studentFragment);
@@ -257,23 +227,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
             return true;
         }
     };
-
-    private void LoadsharedPreferences() {
-        SharedPreferences sharedPreferences = getSharedPreferences("User",MODE_PRIVATE);
-        String text = sharedPreferences.getString("Join_As","null");
-        String student = "STUDENT";
-        String cr = "CR";
-        if(text.equals(student)){
-            setFragment(studentFragment);
-        }
-        else if(text.equals(cr)){
-            setFragment(crFragment);
-        }
-        else {
-            CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
-            joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
-        }
-    }
 
 
     @Override
