@@ -25,7 +25,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
-
+/*
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService
 {
     public FirebaseMessagingService()
@@ -92,4 +92,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     }
 
     }
+
+ */
 
