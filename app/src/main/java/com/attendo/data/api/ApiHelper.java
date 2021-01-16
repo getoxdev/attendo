@@ -61,6 +61,11 @@ public class ApiHelper implements ApiService
         return api.joinclass(joinClass);
     }
 
+    @Override
+    public Call<ResponseGetSchedule> getschedule(String classId, String day){
+        return api.getschedule(classId, day);
+    }
+
     @GET("schedule")
     public Call<ResponseSchedule> createschedule(@Body Schedule schedule){
         return api.createschedule(schedule);
@@ -69,11 +74,6 @@ public class ApiHelper implements ApiService
     @POST("schedule/edit")
     public Call<ResponseSchedule> updateschedule(@Body ScheduleEdit scheduleEdit){
         return api.updateschedule(scheduleEdit);
-    }
-
-    @Override
-    public Call<ResponseGetSchedule> getschedule(String classId, String day){
-        return getschedule(classId, day);
     }
 
 }

@@ -2,6 +2,7 @@ package com.attendo.viewmodel;
 
 import android.app.Application;
 import android.util.AndroidException;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -36,16 +37,19 @@ public class GetScheduleViewModel extends AndroidViewModel {
         apiHelper.getschedule(classId, day).enqueue(new Callback<ResponseGetSchedule>() {
             @Override
             public void onResponse(Call<ResponseGetSchedule> call, Response<ResponseGetSchedule> response) {
-                if(response.code() == 200 || response.code() == 201){
+                if(response.code()<300){
                     scheduleResponse.postValue(response.body());
-                }else if(response.code() == 400 || response.code() == 404){
+                    Log.e("Get Schedule 300",response.message());
+                }else if(response.code()>=400){
                     scheduleResponse.postValue(null);
+                    Log.e("Get Schedule 400",response.message());
                 }
 
             }
 
             @Override
             public void onFailure(Call<ResponseGetSchedule> call, Throwable t) {
+                Log.e("Get Schedule Error",t.getMessage());
                 scheduleResponse.postValue(null);
             }
         });

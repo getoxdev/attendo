@@ -27,6 +27,7 @@ import java.util.Map;
 import static android.content.ContentValues.TAG;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
+
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -55,7 +56,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 
-    public void scheduleAlarm(String scheduledTimeString, String title, String message) throws ParseException {
+    public void scheduleAlarm(String scheduledTimeString, String title, String message) throws ParseException
+    {
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         Intent alarmIntent = new Intent(getApplicationContext(), NotificationBroadcastReceiver.class);
         alarmIntent.putExtra("notification_title", title);
