@@ -53,7 +53,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <service
+        <!--<service
             android:name=".service.FirebaseMessagingService"
             android:exported="false"
             tools:ignore="Instantiatable">
@@ -61,6 +61,17 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        -->
+
+        <service
+            android:name=".fcm.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".fcm.NotificationBroadcastReceiver" />
 
         <meta-data
             android:name="preloaded_fonts"
