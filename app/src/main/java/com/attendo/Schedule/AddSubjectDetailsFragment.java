@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -24,6 +25,9 @@ import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class AddSubjectDetailsFragment extends BottomSheetDialogFragment implements AdapterView.OnItemSelectedListener {
 
@@ -44,6 +48,9 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
     //check if data is sent to server
     private boolean check = false;
+
+    TimePicker timePicker;
+    String timePickerTime;
 
 
     @Override
@@ -86,13 +93,26 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         faculty = view.findViewById(R.id.add_faculty);
         time = view.findViewById(R.id.add_Time);
         submit = view.findViewById(R.id.add_subject_btn);
+        timePicker = view.findViewById(R.id.add_sub_details_time_picker);
+
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker timePicker, int hourOfTheDay, int minute) {
+                if(hourOfTheDay > 12){
+                    int hour = hourOfTheDay;
+                    timePickerTime = hour - 12 + ":" + minute + " " + "pm";
+                }else{
+                    timePickerTime = hourOfTheDay + ":" + minute + " " + "am";
+                }
+            }
+        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String sub = subject.getText().toString();
                 String teacher = faculty.getText().toString();
-                String clock = time.getText().toString();
+                String clock = timePickerTime;
                 if (sub.length() > 0 && teacher.length() > 0 && clock.length() > 0 && day.length() > 0) {
                     customLoadingDialog.startDialog(false);
                     sendDataToServer();
@@ -131,7 +151,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
     private void sendDataToServer(){
         if(class_Id != null){
-            Schedule schedule = new Schedule(firebaseScheduleViewModel.RetrieveClassId(), day, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
+            Schedule schedule = new Schedule(firebaseScheduleViewModel.RetrieveClassId(), day, timePickerTime, subject.getText().toString(), faculty.getText().toString());
             scheduleViewModel.setScheduleResponse(schedule);
             //Toast.makeText(getActivity(),""+firebaseScheduleViewModel.RetrieveClassId()+" "+day+" "+time.getText().toString()+" "+subject.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
             scheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
