@@ -64,8 +64,8 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
 
     @Override
     public int getItemCount() {
-        //return items.size();
-        return 0;
+        return items.size();
+
     }
 
     public class RoutineItemAdapterCrHolder extends RecyclerView.ViewHolder {

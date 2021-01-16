@@ -41,7 +41,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     private WeekDayAdapter weekDayAdapter;
     private ArrayList<DayOfWeek> dayList;
     private RoutineItemAdapterCr routineItemAdapter;
-    private List<SubjectDetails> subjectRoutines;
     private FloatingActionButton fb;
     private AddSubjectDetailsFragment addSubjectDetailsFragment;
     private ScheduleViewModel getScheduleViewModel;
@@ -87,8 +86,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
         subjectrecyclerView = view.findViewById(R.id.subjectsRecyclerViewCr);
 
         subjectrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        routineItemAdapter = new RoutineItemAdapterCr(subjectRoutines);
-        subjectrecyclerView.setAdapter(routineItemAdapter);
+
 
         dayList = new ArrayList<>();
 

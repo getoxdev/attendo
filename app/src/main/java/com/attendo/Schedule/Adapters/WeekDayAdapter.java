@@ -130,18 +130,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         return day.size();
     }
 
-//    private void getRequestToServerAndSetRecyclerView(String day, int position){
-//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, day));
-//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) activity, data ->{
-//            if(data != null){
-//                List<SubjectDetails> routines;
-//                routines = data.getRequiredSchedule();
-//                updateRecyclerView.callback(position, routines);
-//            }else{
-//                Toast.makeText(context, "Hurry! no class today", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+
 
 
 
