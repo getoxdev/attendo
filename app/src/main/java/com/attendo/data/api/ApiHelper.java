@@ -66,12 +66,12 @@ public class ApiHelper implements ApiService
         return api.getschedule(classId, day);
     }
 
-    @GET("schedule")
+    @Override
     public Call<ResponseSchedule> createschedule(@Body Schedule schedule){
         return api.createschedule(schedule);
     }
 
-    @POST("schedule/edit")
+    @Override
     public Call<ResponseSchedule> updateschedule(@Body ScheduleEdit scheduleEdit){
         return api.updateschedule(scheduleEdit);
     }
