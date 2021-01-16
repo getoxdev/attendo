@@ -14,8 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Adapters.WeekDayAdapter;
@@ -35,6 +37,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class CrFragment extends Fragment implements UpdateRecyclerView {
 
     private RecyclerView dayofWeekRecyclerView,subjectrecyclerView;
@@ -50,6 +55,9 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     private FirebaseAuth mAuth;
     private String class_id;
 
+
+    LottieAnimationView noClassRoutineLottie;
+    TextView noClassTextView;
 
 
 
@@ -73,6 +81,8 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
 
 
         fb = view.findViewById(R.id.Schedule_add_subject);
+        noClassRoutineLottie = view.findViewById(R.id.routine_lottie);
+        noClassTextView = view.findViewById(R.id.routine_txtView);
 
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,9 +193,20 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
                 if(data == null){
                     Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
                 }else{
-                    routineItemAdapter = new RoutineItemAdapterCr(data.getRequiredSchedule());
-                    routineItemAdapter.notifyDataSetChanged();
-                    subjectrecyclerView.setAdapter(routineItemAdapter);
+                    if(data.getRequiredSchedule().size() == 0){
+                        routineItemAdapter = new RoutineItemAdapterCr(data.getRequiredSchedule());
+                        routineItemAdapter.notifyDataSetChanged();
+                        subjectrecyclerView.setAdapter(routineItemAdapter);
+                        noClassRoutineLottie.setVisibility(View.VISIBLE);
+                        noClassTextView.setVisibility(View.VISIBLE);
+                    }else{
+                        noClassRoutineLottie.setVisibility(View.INVISIBLE);
+                        noClassTextView.setVisibility(View.INVISIBLE);
+                        routineItemAdapter = new RoutineItemAdapterCr(data.getRequiredSchedule());
+                        routineItemAdapter.notifyDataSetChanged();
+                        subjectrecyclerView.setAdapter(routineItemAdapter);
+                    }
+
                 }
             });
 
