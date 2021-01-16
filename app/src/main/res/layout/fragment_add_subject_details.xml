@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_gravity="bottom"
     android:background="@drawable/bottom_sheet_background"
-    android:layout_height="480dp"
+    android:layout_height="wrap_content"
     android:backgroundTint="@color/bottom_sheet_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/CustomModalBottomSheet"
@@ -63,7 +63,7 @@
         android:id="@+id/edittext_input_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_subject_id"
+        app:layout_constraintTop_toBottomOf="@id/add_sub_details_time_picker"
         android:layout_marginTop="10dp"
         android:layout_marginRight="24dp"
         android:layout_marginLeft="24dp"
@@ -117,7 +117,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
+    <!--
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edittext_input_Time"
         style="@style/CustomEditText"
@@ -146,7 +146,11 @@
             app:layout_constraintTop_toBottomOf="@+id/add_faculty" />
 
 
+
+
     </com.google.android.material.textfield.TextInputLayout>
+
+    -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/spinnerinput_Day"
         style="@style/CustomEditText"
@@ -157,7 +161,9 @@
         android:layout_marginTop="1dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_input_Time">
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_input_faculty"
+        app:layout_constraintBottom_toTopOf="@id/add_subject_btn">
 
     <Spinner
         android:id="@+id/spinner"
@@ -197,6 +203,14 @@
         app:layout_constraintVertical_bias="1.0"
         app:rippleColor="#AF91F4"
         app:strokeWidth="0dp" />
+
+    <TimePicker
+        android:id="@+id/add_sub_details_time_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"
+        app:layout_constraintTop_toBottomOf="@id/add_subject_id"
+        android:theme="@style/TimePickerStyle"/>
 
 
 

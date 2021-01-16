@@ -36,7 +36,6 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
 import com.attendo.Schedule.CRSettingsFragment;
-import com.attendo.Schedule.CrViewPager.MondayCr;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.Schedule.StudetntSettingsFragment;
 import com.attendo.data.database.SubDatabase;
@@ -78,7 +77,6 @@ public class FragmentAccountAndSettings extends Fragment {
     private StudentFragment studentFragment;
     private FragmentHelp fragmentHelp;
     private FragmentBug fragmentBug;
-    private MondayCr mondayCr;
     private FragmentAppRate fragmentAppRate;
     private FragmentEditAttendanceCriteria fragmentEditAttendanceCriteria;
     private FragmentEditAttendance fragmentEditAttendance;
@@ -106,7 +104,7 @@ public class FragmentAccountAndSettings extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Settings");
 
 
-        mondayCr = new MondayCr();
+
         fragmentAppRate = new FragmentAppRate();
         studentFragment = new StudentFragment();
         fragmentBug = new FragmentBug();
