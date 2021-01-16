@@ -57,16 +57,16 @@ public class MondayCr extends Fragment {
 
         classId = scheduleViewModel.RetrieveClassCode();
 
-//        if(classId != null){
-//            getScheduleViewModel.setScheduleGetResponse("5ffb2322e0500500174d1ccf", "monday");
-//            getScheduleViewModel.getScheduleGetResponse().observe(getActivity(), data ->{
-//                if(data != null){
-//                    mondayList = data.getRequiredSchedule();
-//                    routineItemAdapterCr = new RoutineItemAdapterCr(mondayList);
-//                    mondayRecyclerView.setAdapter(routineItemAdapterCr);
-//                }else Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
-//            });
-//        }else Toast.makeText(getContext(), "Please Wait", Toast.LENGTH_SHORT).show();
+        if(classId != null){
+            getScheduleViewModel.setScheduleGetResponse("5ffb2322e0500500174d1ccf", "monday");
+            getScheduleViewModel.getScheduleGetResponse().observe(getActivity(), data ->{
+                if(data != null){
+                    mondayList = data.getRequiredSchedule();
+                    routineItemAdapterCr = new RoutineItemAdapterCr(mondayList);
+                    mondayRecyclerView.setAdapter(routineItemAdapterCr);
+                }else Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+            });
+        }else Toast.makeText(getContext(), "Please Wait", Toast.LENGTH_SHORT).show();
 
 
 
