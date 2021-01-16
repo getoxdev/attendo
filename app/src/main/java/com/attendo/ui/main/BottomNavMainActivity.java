@@ -180,7 +180,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                         }else{
                             switch (joinasData){
                                 case "Cr":
-                                    setFragment(new CrFragmentViewPager());
+                                    setFragment(crFragment);
                                     break;
                                 case "Student":
                                     setFragment(studentFragment);

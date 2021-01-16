@@ -131,10 +131,10 @@ public class ScheduleViewModel extends AndroidViewModel {
             public void onResponse(Call<ResponseGetSchedule> call, Response<ResponseGetSchedule> response) {
                 if(response.code()<300){
                     getScheduleResponse.postValue(response.body());
-                    Log.e("Get Schedule 300",response.message());
+                    Log.e("Get_Schedule",response.message()+" data is there success");
                 }else if(response.code()>=400){
                     getScheduleResponse.postValue(null);
-                    Log.e("Get Schedule 400",response.message());
+                    Log.e("Get_Schedule",response.message()+ "no data bad request");
                 }
 
             }

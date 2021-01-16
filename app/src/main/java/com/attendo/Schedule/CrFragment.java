@@ -6,9 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 public class CrFragment extends Fragment implements UpdateRecyclerView {
 
@@ -48,33 +51,17 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     private FirebaseAuth mAuth;
     private String class_id;
 
-    //List for subjects
-    List<SubjectDetails> monday;
-    List<SubjectDetails> tuesday;
-    List<SubjectDetails> thursday;
-    List<SubjectDetails> wednesday;
-    List<SubjectDetails> friday;
-    List<SubjectDetails> saturday;
-    List<SubjectDetails> sunday;
+
 
 
     @Override
     public void onStart() {
         super.onStart();
         getClassId();
-//        getScheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
-//        if(class_id == null){
-//            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
-//        }else getAllData();
+        getScheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-//        if(class_id == null){
-//            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
-//        }else getAllData();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -135,25 +122,25 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     public void sendPosition(int position) {
         switch (position){
             case 0:
-                setAdapterAccordingToPosition(sunday);
+                setAdapterAccordingToPosition("sunday");
                 break;
             case 1:
-                setAdapterAccordingToPosition(monday);
+                setAdapterAccordingToPosition("monday");
                 break;
             case 2:
-                setAdapterAccordingToPosition(tuesday);
+                setAdapterAccordingToPosition("tuesday");
                 break;
             case 3:
-                setAdapterAccordingToPosition(wednesday);
+                setAdapterAccordingToPosition("wednesday");
                 break;
             case 4:
-                setAdapterAccordingToPosition(thursday);
+                setAdapterAccordingToPosition("thursday");
                 break;
             case 5:
-                setAdapterAccordingToPosition(friday);
+                setAdapterAccordingToPosition("friday");
                 break;
             case 6:
-                setAdapterAccordingToPosition(saturday);
+                setAdapterAccordingToPosition("saturday");
                 break;
         }
     }
@@ -163,64 +150,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
         fragmentTransaction.replace(R.id.container_frame,fragment);
         fragmentTransaction.addToBackStack(null).commit();
     }
-
-//    private void getAllData(){
-//        //getting for monday
-//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "monday"));
-//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-//            if(data != null){
-//                monday = data.getRequiredSchedule();
-//            }else monday = null;
-//        });
-//
-//        //getting for tuesday
-//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "tuesday"));
-//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-//            if(data != null){
-//                tuesday = data.getRequiredSchedule();
-//            }else tuesday = null;
-//        });
-//
-//        //getting for wednesday
-//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "wednesday"));
-//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-//            if(data != null){
-//                wednesday = data.getRequiredSchedule();
-//            }else wednesday = null;
-//        });
-//
-//        //getting for thursday
-//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "thursday"));
-//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-//            if(data != null){
-//                thursday = data.getRequiredSchedule();
-//            }else thursday = null;
-//        });
-//
-//        //getting for friday
-//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "friday"));
-//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-//            if(data != null){
-//                friday = data.getRequiredSchedule();
-//            }else friday = null;
-//        });
-//
-//        //getting for saturday
-//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "saturday"));
-//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-//            if(data != null){
-//                saturday = data.getRequiredSchedule();
-//            }else saturday = null;
-//        });
-//
-//        //getting for sunday
-//        getScheduleViewModel.setScheduleGetResponse(new GetSchedule(class_id, "sunday"));
-//        getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) getActivity(), data ->{
-//            if(data != null){
-//                sunday = data.getRequiredSchedule();
-//            }else sunday = null;
-//        });
-//    }
 
 
     private void getClassId(){
@@ -245,14 +174,28 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
         });
     }
 
-    private void setAdapterAccordingToPosition(List<SubjectDetails> dataList){
-        if(dataList == null){
-            Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
+    private void setAdapterAccordingToPosition(String day){
+        if(class_id == null){
+            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
+
         }else{
-            routineItemAdapter = new RoutineItemAdapterCr(dataList);
+            Log.d("classId", class_id);
+            getScheduleViewModel.setScheduleGetResponse(class_id, day);
+            getScheduleViewModel.getScheduleGetResponse().observe(this, data->{
+                if(data == null){
+                    Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
+                }else{
+                    routineItemAdapter = new RoutineItemAdapterCr(data.getRequiredSchedule());
+                    routineItemAdapter.notifyDataSetChanged();
+                    subjectrecyclerView.setAdapter(routineItemAdapter);
+                }
+            });
+
+
         }
-        routineItemAdapter.notifyDataSetChanged();
-        subjectrecyclerView.setAdapter(routineItemAdapter);
+
+
+
 
     }
 
