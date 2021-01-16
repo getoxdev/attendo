@@ -6,8 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,9 +19,8 @@ import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
-import com.attendo.data.model.GetSchedule;
 import com.attendo.data.model.SubjectDetails;
-import com.attendo.viewmodel.GetScheduleViewModel;
+import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +41,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     private List<SubjectDetails> subjectRoutines;
     private FloatingActionButton fb;
     private AddSubjectDetailsFragment addSubjectDetailsFragment;
-    private GetScheduleViewModel getScheduleViewModel;
+    private ScheduleViewModel getScheduleViewModel;
 
     //firebase references
     private DatabaseReference mReference;
@@ -65,7 +62,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     public void onStart() {
         super.onStart();
         getClassId();
-//        getScheduleViewModel = new ViewModelProvider(this).get(GetScheduleViewModel.class);
+//        getScheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
 //        if(class_id == null){
 //            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
 //        }else getAllData();

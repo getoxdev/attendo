@@ -1,7 +1,5 @@
 package com.attendo.Schedule;
 
-import android.content.SharedPreferences;
-import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,22 +16,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.attendo.R;
-import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.JoinClass;
 import com.attendo.ui.CustomLoadingDialog;
-import com.attendo.viewmodel.CreateClassViewModel;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
-import com.attendo.viewmodel.JoinClassViewModel;
+import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class StudentDetailsInputFragment extends Fragment {
 
     private EditText name,scholarid,classcode;
     private Button btn;
     private StudentFragment studentFragment;
-    private JoinClassViewModel joinClassViewModel;
+    private ScheduleViewModel scheduleViewModel;
     private FirebaseAuth mAuth;
     private CustomLoadingDialog customLoadingDialog;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
@@ -50,7 +44,7 @@ public class StudentDetailsInputFragment extends Fragment {
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
 
         studentFragment = new StudentFragment();
-        joinClassViewModel = new ViewModelProvider(this).get(JoinClassViewModel.class);
+        scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
         customLoadingDialog = new CustomLoadingDialog(getActivity());
 
         name = view.findViewById(R.id.student_name_edittext);
@@ -80,8 +74,8 @@ public class StudentDetailsInputFragment extends Fragment {
 
     private void SendDataToServer() {
         JoinClass joinClass = new JoinClass(classcode.getText().toString(),name.getText().toString(),mAuth.getCurrentUser().getEmail().toString(),scholarid.getText().toString());
-        joinClassViewModel.setJoinResponse(joinClass);
-        joinClassViewModel.getJoinResponse().observe(getActivity(), data -> {
+        scheduleViewModel.setJoinResponse(joinClass);
+        scheduleViewModel.getJoinResponse().observe(getActivity(), data -> {
             if (data == null) {
                 Toast.makeText(getActivity(),"Failed to join wrong class code",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");

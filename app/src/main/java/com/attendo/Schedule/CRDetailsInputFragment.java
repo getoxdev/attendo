@@ -1,6 +1,5 @@
 package com.attendo.Schedule;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,18 +19,15 @@ import com.attendo.R;
 import com.attendo.Schedule.CrViewPager.CrFragmentViewPager;
 import com.attendo.data.model.CreateClass;
 import com.attendo.ui.CustomLoadingDialog;
-import com.attendo.viewmodel.AddScheduleViewModel;
-import com.attendo.viewmodel.CreateClassViewModel;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
+import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class CRDetailsInputFragment extends Fragment {
 
     private EditText name,scholarId,ClassName;
     private Button create;
-    private CreateClassViewModel createClassViewModel;
+    private ScheduleViewModel scheduleViewModel;
     private CrFragment crFragment;
     private String class_code;
     private String class_Id;
@@ -50,7 +46,7 @@ public class CRDetailsInputFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
 
-        createClassViewModel =  new ViewModelProvider(this).get(CreateClassViewModel.class);
+        scheduleViewModel =  new ViewModelProvider(this).get(ScheduleViewModel.class);
 
         customLoadingDialog = new CustomLoadingDialog(getActivity());
         crFragment = new CrFragment();
@@ -84,8 +80,8 @@ public class CRDetailsInputFragment extends Fragment {
 
     private String  SendDataToServer() {
         CreateClass createClass = new CreateClass(name.getText().toString(),mAuth.getCurrentUser().getEmail().toString(),ClassName.getText().toString(),scholarId.getText().toString());
-        createClassViewModel.setClassResponse(createClass);
-        createClassViewModel.getClassResponse().observe(getActivity(), data -> {
+        scheduleViewModel.setClassResponse(createClass);
+        scheduleViewModel.getClassResponse().observe(getActivity(), data -> {
             if (data == null) {
                 customLoadingDialog.dismissDialog();
                 Toast.makeText(getActivity(),"Fail to Create",Toast.LENGTH_SHORT).show();

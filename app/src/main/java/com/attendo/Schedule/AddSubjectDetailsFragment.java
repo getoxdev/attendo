@@ -1,10 +1,7 @@
 package com.attendo.Schedule;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Handler;
@@ -22,25 +19,11 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
-import com.attendo.Schedule.Interface.UpdateRecyclerView;
-import com.attendo.Schedule.Model.SubjectRoutine;
-import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.Schedule;
 import com.attendo.ui.CustomLoadingDialog;
-import com.attendo.viewmodel.AddScheduleViewModel;
-import com.attendo.viewmodel.CreateClassViewModel;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
-import com.attendo.viewmodel.GetScheduleViewModel;
+import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class AddSubjectDetailsFragment extends BottomSheetDialogFragment implements AdapterView.OnItemSelectedListener {
 
@@ -50,7 +33,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     private LottieAnimationView celebration;
     private Spinner spi;
     public String day;
-    private AddScheduleViewModel addScheduleViewModel;
+    private ScheduleViewModel scheduleViewModel;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private CustomLoadingDialog customLoadingDialog;
 
@@ -67,7 +50,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     public void onStart() {
         super.onStart();
         //initial setting of data
-        addScheduleViewModel = new ViewModelProvider(this).get(AddScheduleViewModel.class);
+        scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
         class_Id = firebaseScheduleViewModel.RetrieveClassId();
     }
 
@@ -149,9 +132,9 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     private void sendDataToServer(){
         if(class_Id != null){
             Schedule schedule = new Schedule(firebaseScheduleViewModel.RetrieveClassId(), day, time.getText().toString(), subject.getText().toString(), faculty.getText().toString());
-            addScheduleViewModel.setScheduleResponse(schedule);
+            scheduleViewModel.setScheduleResponse(schedule);
             //Toast.makeText(getActivity(),""+firebaseScheduleViewModel.RetrieveClassId()+" "+day+" "+time.getText().toString()+" "+subject.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
-            addScheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
+            scheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                 if (data == null) {
                     customLoadingDialog.dismissDialog();
                     Toast.makeText(getActivity(),"Fail to Add Schedule",Toast.LENGTH_SHORT).show();

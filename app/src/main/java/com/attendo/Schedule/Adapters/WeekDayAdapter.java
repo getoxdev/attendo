@@ -3,30 +3,21 @@ package com.attendo.Schedule.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.DimenRes;
-import androidx.annotation.Dimension;
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
 import com.attendo.Schedule.Model.DayOfWeek;
-import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
-import com.attendo.data.model.GetSchedule;
-import com.attendo.data.model.SubjectDetails;
 import com.attendo.ui.main.BottomNavMainActivity;
-import com.attendo.viewmodel.GetScheduleViewModel;
+import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -35,7 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,7 +40,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
     Activity activity;
     boolean check = true;
     boolean select = true;
-    private GetScheduleViewModel getScheduleViewModel;
+    private ScheduleViewModel getScheduleViewModel;
     private DatabaseReference mReference;
     private FirebaseAuth mAuth;
     private String class_id;
@@ -77,7 +67,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         this.updateRecyclerView = updateRecyclerView;
 
         //view model for the api call
-        getScheduleViewModel = new ViewModelProvider((BottomNavMainActivity) context).get(GetScheduleViewModel.class);
+        getScheduleViewModel = new ViewModelProvider((BottomNavMainActivity) context).get(ScheduleViewModel.class);
         mAuth = FirebaseAuth.getInstance();
         mReference = FirebaseDatabase.getInstance().getReference("Schedule");
         mReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
