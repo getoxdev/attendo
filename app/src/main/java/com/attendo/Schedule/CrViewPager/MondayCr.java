@@ -2,6 +2,8 @@ package com.attendo.Schedule.CrViewPager;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -24,11 +26,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 public class MondayCr extends Fragment {
 
     private AddSubjectDetailsFragment addSubjectDetailsFragment;
     private FloatingActionButton fb;
-    private RecyclerView mondayRecyclerView;
     private FirebaseScheduleViewModel scheduleViewModel;
     private String classId;
     private RoutineItemAdapterCr routineItemAdapterCr;
@@ -40,11 +43,8 @@ public class MondayCr extends Fragment {
         return mondayCr;
     }
 
-    @Override
-    public void onStart() {
-
-        super.onStart();
-    }
+    @BindView(R.id.monday_recyclerView)
+    RecyclerView mondayRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,19 +56,20 @@ public class MondayCr extends Fragment {
         getScheduleViewModel = new ViewModelProvider(this).get(GetScheduleViewModel.class);
 
         classId = scheduleViewModel.RetrieveClassCode();
-
-        if(classId != null){
-            getScheduleViewModel.setScheduleGetResponse("5ffb2322e0500500174d1ccf", "monday");
-            getScheduleViewModel.getScheduleGetResponse().observe(getActivity(), data ->{
+        if(classId != null)
+        {
+            getScheduleViewModel.setScheduleGetResponse(classId, "monday");
+            getScheduleViewModel.getScheduleGetResponse().observe(getViewLifecycleOwner(), data ->
+            {
                 if(data != null){
                     mondayList = data.getRequiredSchedule();
                     routineItemAdapterCr = new RoutineItemAdapterCr(mondayList);
                     mondayRecyclerView.setAdapter(routineItemAdapterCr);
-                }else Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                }
+                else Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
             });
-        }else Toast.makeText(getContext(), "Please Wait", Toast.LENGTH_SHORT).show();
-
-
+        }
+        else Toast.makeText(getContext(), "Please Wait", Toast.LENGTH_SHORT).show();
 
         addSubjectDetailsFragment = new AddSubjectDetailsFragment();
 
@@ -79,15 +80,32 @@ public class MondayCr extends Fragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("day","Monday");
-                AddSubjectDetailsFragment addSubjectDetailsFragment = new AddSubjectDetailsFragment();
                 addSubjectDetailsFragment.setArguments(bundle);
                 addSubjectDetailsFragment.show(getParentFragmentManager(),"Subject_Details");
             }
         });
 
-
-
-
         return  view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        classId = scheduleViewModel.RetrieveClassCode();
+        if(classId != null)
+        {
+            getScheduleViewModel.setScheduleGetResponse(classId, "monday");
+            getScheduleViewModel.getScheduleGetResponse().observe(getViewLifecycleOwner(), data ->
+            {
+                if(data != null){
+                    mondayList = data.getRequiredSchedule();
+                    routineItemAdapterCr = new RoutineItemAdapterCr(mondayList);
+                    mondayRecyclerView.setAdapter(routineItemAdapterCr);
+                }
+                else Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+            });
+        }
+        else Toast.makeText(getContext(), "Please Wait", Toast.LENGTH_SHORT).show();
     }
 }
