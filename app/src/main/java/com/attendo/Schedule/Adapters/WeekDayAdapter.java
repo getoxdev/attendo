@@ -47,7 +47,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
     private DatabaseReference mReference;
     private FirebaseAuth mAuth;
     private String class_id;
-    private FirebaseScheduleViewModel viewModelFirebase;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -61,6 +61,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
             super(itemView);
             //finding the items and storing them in view holder
             ButterKnife.bind(this,itemView);
+
         }
     }
 
@@ -69,14 +70,29 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         this.day = day;
         this.activity = activity;
         this.updateRecyclerView = updateRecyclerView;
-        this.class_id = class_id;
 
         //view model for the api call
-        getScheduleViewModel = new ViewModelProvider((BottomNavMainActivity) context).get(ScheduleViewModel.class);
-        viewModelFirebase = new ViewModelProvider((BottomNavMainActivity)context).get(FirebaseScheduleViewModel.class);
-        class_id = viewModelFirebase.RetrieveClassId();
 
-        Log.d("ClassIdRVWEEKDAY", class_id + "  :retrieved");
+        getScheduleViewModel = new ViewModelProvider((BottomNavMainActivity)context).get(ScheduleViewModel.class);
+        mAuth = FirebaseAuth.getInstance();
+        mReference = FirebaseDatabase.getInstance().getReference("Schedule");
+        mReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    class_id = snapshot.child("Class_Id").getValue(String.class);
+                    Log.d("ClassIDMINE" , class_id);
+                }else {
+                    class_id = null;
+                    Log.d("ClassIDMINE" , class_id);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(context, "Database Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @NonNull
@@ -109,12 +125,17 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         }
 
         if(check){
-            getScheduleViewModel.setScheduleGetResponse(class_id, "sunday");
-            getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) activity, data->{
-                if(data == null){
-                    Toast.makeText(context, "No data", Toast.LENGTH_SHORT).show();
-                }else{
-                    updateRecyclerView.callback(0, data.getRequiredSchedule());
+            //getRequestToServerAndSetRecyclerView("sunday", position);if
+            getScheduleViewModel.setScheduleGetResponse(class_id,"sunday");
+            getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) activity, data->
+            {
+                if(data==null)
+                {
+                    Toast.makeText(context,"No data",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    updateRecyclerView.callback(0,data.getRequiredSchedule());
                 }
             });
             check = false;

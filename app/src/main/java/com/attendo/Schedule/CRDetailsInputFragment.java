@@ -91,6 +91,7 @@ public class CRDetailsInputFragment extends Fragment {
                 Log.i("ApiCall", "successFull");
                 class_code = data.get_class().getCode();
                 class_Id = data.get_class().get_id();
+                Log.i("classid",class_Id);
                 firebaseScheduleViewModel.AddCLassCode(class_code);
                 firebaseScheduleViewModel.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddClassJoinAs("Cr");

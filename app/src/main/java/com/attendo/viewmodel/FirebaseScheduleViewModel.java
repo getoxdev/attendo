@@ -1,5 +1,7 @@
 package com.attendo.viewmodel;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
@@ -59,6 +61,7 @@ public class FirebaseScheduleViewModel extends ViewModel {
                 if(snapshot.exists()){
                     String code = mAuth.getCurrentUser().getUid();
                     Key = snapshot.child(code).child("Class_Id").getValue(String.class);
+
                 }else{
 
                     Key = "nothing";
