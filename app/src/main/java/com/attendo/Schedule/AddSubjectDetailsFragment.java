@@ -26,6 +26,10 @@ import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -98,12 +102,26 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hourOfTheDay, int minute) {
-                if(hourOfTheDay > 12){
-                    int hour = hourOfTheDay;
-                    timePickerTime = hour - 12 + ":" + minute + " " + "pm";
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR, hourOfTheDay);
+                calendar.set(Calendar.MINUTE, minute);
+                if(hourOfTheDay >= 12){
+                    Date time = calendar.getTime();
+                    timePickerTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(time);
+                    Log.d("TimeFormatPM", timePickerTime);
                 }else{
-                    timePickerTime = hourOfTheDay + ":" + minute + " " + "am";
+                    Date time = calendar.getTime();
+                    timePickerTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(time);
+                    Log.d("TimeFormatAM", timePickerTime);
                 }
+
+
+//                if(hourOfTheDay > 12){
+//                    int hour = hourOfTheDay;
+//                    timePickerTime = hour - 12 + ":" + minute + " " + "pm";
+//                }else{
+//                    timePickerTime = hourOfTheDay + ":" + minute + " " + "am";
+//                }
             }
         });
 

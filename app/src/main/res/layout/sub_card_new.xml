@@ -26,7 +26,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/card_bg_color"
+            android:backgroundTint="@color/card_bg_color">
 
             <TextView
                 android:id="@+id/card_subject_name"
