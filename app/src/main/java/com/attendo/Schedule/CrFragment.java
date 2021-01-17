@@ -53,7 +53,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     //firebase references
     private DatabaseReference mReference;
     private FirebaseAuth mAuth;
-    private String class_id;
+    private String class_id = null;
 
 
     LottieAnimationView noClassRoutineLottie;
@@ -110,16 +110,26 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
 
         weekDayAdapter = new WeekDayAdapter(getActivity(), dayList, getActivity(), this);
 
+
+
         dayofWeekRecyclerView.setAdapter(weekDayAdapter);
+
+        //setting up the recycler view for sunday
+        setAdapterAccordingToPosition("sunday");
 
         return view;
     }
 
     @Override
     public void callback(int position, List<SubjectDetails> subjectRoutines) {
-        if(subjectRoutines == null){
+        if(subjectRoutines.size() == 0){
             Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
+            noClassRoutineLottie.setVisibility(View.VISIBLE);
+            noClassTextView.setVisibility(View.VISIBLE);
+
         }else{
+            noClassRoutineLottie.setVisibility(View.INVISIBLE);
+            noClassTextView.setVisibility(View.INVISIBLE);
             routineItemAdapter = new RoutineItemAdapterCr(subjectRoutines);
         }
         routineItemAdapter.notifyDataSetChanged();
@@ -189,7 +199,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
         }else{
             Log.d("classId", class_id);
             getScheduleViewModel.setScheduleGetResponse(class_id, day);
-            getScheduleViewModel.getScheduleGetResponse().observe(this, data->{
+            getScheduleViewModel.getScheduleGetResponse().observe(getViewLifecycleOwner(), data->{
                 if(data == null){
                     Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
                 }else{
