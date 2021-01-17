@@ -182,6 +182,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                     customLoadingDialog.dismissDialog();
                     Log.i("ApiCall", "successFull");
                     String scheduleId = data.getSchedule().get_id();
+                    Log.i("schedule id ",scheduleId);
                     firebaseScheduleViewModel.AddClassScheduleId(scheduleId);
                     Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
                     celebration.setVisibility(View.VISIBLE);

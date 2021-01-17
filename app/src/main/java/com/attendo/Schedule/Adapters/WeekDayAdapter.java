@@ -3,6 +3,7 @@ package com.attendo.Schedule.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,7 @@ import com.attendo.R;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.ui.main.BottomNavMainActivity;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +47,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
     private DatabaseReference mReference;
     private FirebaseAuth mAuth;
     private String class_id;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -57,6 +61,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
             super(itemView);
             //finding the items and storing them in view holder
             ButterKnife.bind(this,itemView);
+
         }
     }
 
@@ -67,7 +72,8 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         this.updateRecyclerView = updateRecyclerView;
 
         //view model for the api call
-        getScheduleViewModel = new ViewModelProvider((BottomNavMainActivity) context).get(ScheduleViewModel.class);
+
+        getScheduleViewModel = new ViewModelProvider((BottomNavMainActivity)context).get(ScheduleViewModel.class);
         mAuth = FirebaseAuth.getInstance();
         mReference = FirebaseDatabase.getInstance().getReference("Schedule");
         mReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
@@ -75,10 +81,10 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     class_id = snapshot.child("Class_Id").getValue(String.class);
-                    //Log.d("ClassIDMINE" , class_id);
+                    Log.d("ClassIDMINE" , class_id);
                 }else {
                     class_id = null;
-                   // Log.d("ClassIDMINE" , class_id);
+                    Log.d("ClassIDMINE" , class_id);
                 }
             }
 
@@ -119,8 +125,19 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         }
 
         if(check){
-            //getRequestToServerAndSetRecyclerView("sunday", position);
-            updateRecyclerView.sendPosition(0);
+            //getRequestToServerAndSetRecyclerView("sunday", position);if
+            getScheduleViewModel.setScheduleGetResponse(class_id,"sunday");
+            getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) activity, data->
+            {
+                if(data==null)
+                {
+                    Toast.makeText(context,"No data",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    updateRecyclerView.callback(0,data.getRequiredSchedule());
+                }
+            });
             check = false;
         }
     }

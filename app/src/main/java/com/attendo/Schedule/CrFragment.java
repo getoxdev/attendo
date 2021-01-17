@@ -24,8 +24,10 @@ import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.data.model.SubjectDetails;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.FirebaseApiNotAvailableException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +51,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     private FloatingActionButton fb;
     private AddSubjectDetailsFragment addSubjectDetailsFragment;
     private ScheduleViewModel getScheduleViewModel;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
     //firebase references
     private DatabaseReference mReference;
@@ -66,6 +69,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
         super.onStart();
         getClassId();
         getScheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+        firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
 
     }
 
@@ -119,7 +123,11 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     public void callback(int position, List<SubjectDetails> subjectRoutines) {
         if(subjectRoutines == null){
             Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
+            noClassRoutineLottie.setVisibility(View.VISIBLE);
+            noClassTextView.setVisibility(View.VISIBLE);
         }else{
+            noClassRoutineLottie.setVisibility(View.INVISIBLE);
+            noClassTextView.setVisibility(View.INVISIBLE);
             routineItemAdapter = new RoutineItemAdapterCr(subjectRoutines);
         }
         routineItemAdapter.notifyDataSetChanged();
@@ -187,7 +195,9 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
             Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
 
         }else{
-            Log.d("classId", class_id);
+            String cid = firebaseScheduleViewModel.RetrieveClassId();
+            Log.d("classId", cid);
+
             getScheduleViewModel.setScheduleGetResponse(class_id, day);
             getScheduleViewModel.getScheduleGetResponse().observe(this, data->{
                 if(data == null){

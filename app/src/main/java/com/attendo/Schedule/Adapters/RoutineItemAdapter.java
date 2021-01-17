@@ -27,6 +27,8 @@ public class RoutineItemAdapter extends RecyclerView.Adapter<RoutineItemAdapter.
     public RoutineItemAdapter(List<SubjectDetails> items)
     {
         this.items = items;
+
+
     }
 
     @NonNull

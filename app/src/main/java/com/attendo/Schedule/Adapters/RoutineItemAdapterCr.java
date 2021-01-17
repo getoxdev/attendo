@@ -2,6 +2,7 @@ package com.attendo.Schedule.Adapters;
 
 import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,12 @@ import com.attendo.R;
 import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.data.model.SubjectDetails;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +37,11 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
     private List<SubjectDetails> items;
 
 
+
     public RoutineItemAdapterCr(List<SubjectDetails> items)
     {
         this.items = items;
+
     }
 
 
@@ -50,6 +59,9 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
         holder.subject.setText(currentItem.getSubject());
         holder.faculty.setText(currentItem.getFaculty());
         holder.time.setText(currentItem.getTime());
+
+
+
 
 
 
