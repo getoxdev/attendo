@@ -1,6 +1,6 @@
 package com.attendo.Schedule.Preference;
 
-public interface sharedpreHelper {
+public interface SharedPreferencesHelper {
 
     void AddClassId(String id);
     void AddClassJoinAs(String id);

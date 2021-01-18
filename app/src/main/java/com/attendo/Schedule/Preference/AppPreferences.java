@@ -6,10 +6,10 @@ import android.preference.PreferenceManager;
 
 import com.attendo.data.api.ApiHelper;
 
-public class sharedpre implements sharedpreHelper{
+public class AppPreferences implements SharedPreferencesHelper {
 
     private Context context;
-    private  static sharedpre instance;
+    private  static AppPreferences instance;
 
     public static final String Class_ID_KEY = null;
     public static final String Class_Join_As_KEY = null;
@@ -17,19 +17,15 @@ public class sharedpre implements sharedpreHelper{
 
     private SharedPreferences sharedPrefs;
 
-    public sharedpre(Context context) {
+    public AppPreferences(Context context) {
         this.context=context;
         sharedPrefs= PreferenceManager.getDefaultSharedPreferences(context);
     }
 
 
-    public static sharedpre getInstance(Context context){
+    public static AppPreferences getInstance(Context context){
         if(instance == null){
-            synchronized (ApiHelper.class){
-                if(instance == null){
-                    instance = new sharedpre(context);
-                }
-            }
+            instance = new AppPreferences(context);
         }
         return instance;
     }

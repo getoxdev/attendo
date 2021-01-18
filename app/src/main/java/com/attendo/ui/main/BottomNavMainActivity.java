@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -33,6 +34,7 @@ import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
 import com.attendo.Schedule.CrFragment;
 import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.data.database.SubDatabase;
 import com.attendo.ui.calendar.FragmentCalender;
@@ -81,6 +83,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
 
     private String joinasData = null;
+    private AppPreferences appPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +104,10 @@ public class BottomNavMainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
+        appPreferences = AppPreferences.getInstance(this);
+        joinasData = firebaseScheduleViewModel.RetrieveClassJoinAs();
+        Log.d("joinAsData" , joinasData);
+        //setJoinAsData();
         crFragment = new CrFragment();
         studentFragment = new StudentFragment();
         joinas = findViewById(R.id.Join_As);
@@ -173,16 +180,15 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.schedule_bottom_nav:
-                    boolean ans = RetrieveSharedPreferenceData();
-                    if(ans){
-                    joinasData = firebaseScheduleViewModel.RetrieveClassJoinAs();
                     if(!isConnected()){
                         showCustomDialog();
                     }else {
-                        if (joinasData == null) {
+                        //TODO: temporary code
+                        if (firebaseScheduleViewModel.RetrieveClassJoinAs() == null) {
                             Toast.makeText(BottomNavMainActivity.this, "Please wait!", Toast.LENGTH_SHORT).show();
                         } else {
-                            switch (joinasData) {
+                            //TODO: temporary code
+                            switch (firebaseScheduleViewModel.RetrieveClassJoinAs()) {
                                 case "Cr":
                                     SetDataSharedPreference("Cr");
                                     setFragment(crFragment);
@@ -201,7 +207,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                         }
 
                     }
-                    }
+
                    break;
 
                 case R.id.calendar_bottom_nav:
@@ -370,6 +376,18 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"ERROR",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void setJoinAsData(){
+        String classJoinAs = firebaseScheduleViewModel.RetrieveClassJoinAs();
+        if(appPreferences.RetrieveClassJoinAs() == null){
+            if(classJoinAs == null){
+                appPreferences.AddClassJoinAs("nothing");
+            }else{
+                appPreferences.AddClassJoinAs(classJoinAs);
+            }
+        }
+
     }
 
 }

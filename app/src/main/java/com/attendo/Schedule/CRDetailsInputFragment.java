@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.attendo.R;
 
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.CreateClass;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
@@ -35,6 +36,7 @@ public class CRDetailsInputFragment extends Fragment {
     private FirebaseAuth mAuth;
     private CustomLoadingDialog customLoadingDialog;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
+    private AppPreferences appPreferences;
 
 
     @Override
@@ -46,6 +48,7 @@ public class CRDetailsInputFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
+        appPreferences = AppPreferences.getInstance(getContext());
 
         scheduleViewModel =  new ViewModelProvider(this).get(ScheduleViewModel.class);
 
@@ -96,7 +99,9 @@ public class CRDetailsInputFragment extends Fragment {
                 Log.i("classid",class_Id);
                 firebaseScheduleViewModel.AddCLassCode(class_code);
                 firebaseScheduleViewModel.AddClassId(class_Id);
+                appPreferences.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddClassJoinAs("Cr");
+                appPreferences.AddClassJoinAs("Cr");
                 Toast.makeText(getContext(),"Class Created" +" "+ class_code,Toast.LENGTH_LONG).show();
                 setFragment(crFragment);
             }

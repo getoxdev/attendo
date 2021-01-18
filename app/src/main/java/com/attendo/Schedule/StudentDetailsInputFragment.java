@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.JoinClass;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
@@ -32,6 +33,7 @@ public class StudentDetailsInputFragment extends Fragment {
     private FirebaseAuth mAuth;
     private CustomLoadingDialog customLoadingDialog;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
+    private AppPreferences appPreferences;
 
 
     @Override
@@ -43,6 +45,7 @@ public class StudentDetailsInputFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
+        appPreferences = AppPreferences.getInstance(getContext());
 
         studentFragment = new StudentFragment();
         scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
@@ -83,10 +86,12 @@ public class StudentDetailsInputFragment extends Fragment {
             } else {
                 String class_Id = data.get_class().get_id();
                 firebaseScheduleViewModel.AddClassId(class_Id);
+                appPreferences.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddClassJoinAs("Student");
+                appPreferences.AddClassJoinAs("Student");
                 firebaseScheduleViewModel.AddCLassCode(classcode.getText().toString());
                 Log.i("ApiCall", "successFull");
-                SetSharedPreferenceData();
+                //SetSharedPreferenceData();
                 customLoadingDialog.dismissDialog();
                 Toast.makeText(getContext(),"" + data.getMessage(),Toast.LENGTH_SHORT).show();
                 setFragment(studentFragment);

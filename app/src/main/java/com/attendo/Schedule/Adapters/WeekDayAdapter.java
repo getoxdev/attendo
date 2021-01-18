@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.attendo.R;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
@@ -48,6 +49,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
     private FirebaseAuth mAuth;
     private String class_id;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
+    private AppPreferences appPreferences;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -70,6 +72,8 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         this.day = day;
         this.activity = activity;
         this.updateRecyclerView = updateRecyclerView;
+
+        appPreferences = AppPreferences.getInstance(context);
 
         //view model for the api call
 
