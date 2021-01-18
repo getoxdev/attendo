@@ -127,7 +127,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
         }else{
             noClassRoutineLottie.setVisibility(View.INVISIBLE);
             noClassTextView.setVisibility(View.INVISIBLE);
-            routineItemAdapter = new RoutineItemAdapterCr(getActivity(),subjectRoutines);
+            routineItemAdapter = new RoutineItemAdapterCr(getActivity(),subjectRoutines,getActivity());
         }
         routineItemAdapter.notifyDataSetChanged();
         subjectrecyclerView.setAdapter(routineItemAdapter);
@@ -203,7 +203,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
                     Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
                 }else{
                     if(data.getRequiredSchedule().size() == 0){
-                        routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule());
+                        routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity());
                         routineItemAdapter.notifyDataSetChanged();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
                         noClassRoutineLottie.setVisibility(View.VISIBLE);
@@ -211,7 +211,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
                     }else{
                         noClassRoutineLottie.setVisibility(View.INVISIBLE);
                         noClassTextView.setVisibility(View.INVISIBLE);
-                        routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule());
+                        routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity());
                         routineItemAdapter.notifyDataSetChanged();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
                     }

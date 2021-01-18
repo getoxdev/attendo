@@ -6,10 +6,12 @@ import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
 import com.attendo.data.model.ResponseCreateClass;
+import com.attendo.data.model.ResponseDeleteSchedule;
 import com.attendo.data.model.ResponseGetSchedule;
 import com.attendo.data.model.ResponseJoinClass;
 import com.attendo.data.model.ResponseSchedule;
 import com.attendo.data.model.Schedule;
+import com.attendo.data.model.ScheduleDelete;
 import com.attendo.data.model.ScheduleEdit;
 import com.attendo.data.model.schedule_list;
 
@@ -39,6 +41,9 @@ public interface  ApiService
 
     @POST("api/schedule/edit")
     Call<ResponseSchedule> updateschedule(@Body ScheduleEdit scheduleEdit);
+
+    @POST("api/schedule/delete")
+    Call<ResponseDeleteSchedule> DeleteSchedule(@Body ScheduleDelete scheduleDelete);
 
     @GET("api/schedule/{classId}/{day}")
     Call<ResponseGetSchedule> getschedule(@Path("classId") String class_Id, @Path("day") String day);

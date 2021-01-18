@@ -11,10 +11,12 @@ import com.attendo.data.api.ApiHelper;
 import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.ResponseCreateClass;
+import com.attendo.data.model.ResponseDeleteSchedule;
 import com.attendo.data.model.ResponseGetSchedule;
 import com.attendo.data.model.ResponseJoinClass;
 import com.attendo.data.model.ResponseSchedule;
 import com.attendo.data.model.Schedule;
+import com.attendo.data.model.ScheduleDelete;
 import com.attendo.data.model.ScheduleEdit;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +31,8 @@ public class ScheduleViewModel extends AndroidViewModel {
       private MutableLiveData<ResponseJoinClass> joinResponse;
       private MutableLiveData<ResponseSchedule> scheduleResponse ,editResponse;
       private MutableLiveData<ResponseGetSchedule> getScheduleResponse;
+      private MutableLiveData<ResponseDeleteSchedule> deleteResponse;
+
 
       public ScheduleViewModel(@NonNull Application application) {
         super(application);
@@ -38,6 +42,7 @@ public class ScheduleViewModel extends AndroidViewModel {
         scheduleResponse = new MutableLiveData<ResponseSchedule>();
         editResponse=new MutableLiveData<ResponseSchedule>();
         getScheduleResponse = new MutableLiveData<ResponseGetSchedule>();
+        deleteResponse = new MutableLiveData<ResponseDeleteSchedule>();
     }
 
     public MutableLiveData<ResponseCreateClass> getClassResponse(){
@@ -54,6 +59,10 @@ public class ScheduleViewModel extends AndroidViewModel {
 
     public MutableLiveData<ResponseGetSchedule> getScheduleGetResponse(){
         return getScheduleResponse;
+    }
+
+    public MutableLiveData<ResponseDeleteSchedule> getDeleteResponse(){
+          return  deleteResponse;
     }
 
     public MutableLiveData<ResponseSchedule> editScheduleResponse(){
@@ -154,8 +163,7 @@ public class ScheduleViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<ResponseSchedule> call, Response<ResponseSchedule> response) {
                 if(response.code()==200||response.code()==201){
-                    ResponseSchedule responseSchedule = response.body();
-                    editResponse.postValue(responseSchedule);
+                    editResponse.postValue(response.body());
                 }else if(response.code()==400||response.code()==404){
                     editResponse.postValue(null);
                 }
@@ -169,4 +177,27 @@ public class ScheduleViewModel extends AndroidViewModel {
         });
     }
 
+    //DELETE SCHEDULE
+    public void DeleteSchedule(ScheduleDelete scheduleDelete)
+    {
+        apiHelper.DeleteSchedule(scheduleDelete).enqueue(new Callback<ResponseDeleteSchedule>() {
+            @Override
+            public void onResponse(Call<ResponseDeleteSchedule> call, Response<ResponseDeleteSchedule> response) {
+                if(response.code()==200||response.code()==201){
+                    deleteResponse.postValue(response.body());
+                    Log.e("delete schedule",response.message()+response.code()+"succesfull");
+
+                }else if(response.code()==400||response.code()==404){
+                    deleteResponse.postValue(null);
+                    Log.e("delete schedule",response.message()+response.code()+"fail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDeleteSchedule> call, Throwable t) {
+                editResponse.postValue(null);
+
+            }
+        });
+    }
 }

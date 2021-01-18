@@ -1,11 +1,13 @@
 package com.attendo.Schedule.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -18,12 +20,21 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
+import com.attendo.Schedule.CRSettingsFragment;
+import com.attendo.Schedule.Delete_fragment;
 import com.attendo.Schedule.Model.SubjectRoutine;
+import com.attendo.data.model.ScheduleDelete;
+import com.attendo.data.model.ScheduleEdit;
 import com.attendo.data.model.SubjectDetails;
+import com.attendo.ui.main.BottomNavMainActivity;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
+import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +43,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,13 +56,24 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
 
     private List<SubjectDetails> items;
     private Context mContext;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
+    private ScheduleViewModel scheduleViewModel;
+    String timePickerTime;
+    Activity activity;
+    private Delete_fragment delete_fragment;
 
 
 
-    public RoutineItemAdapterCr(Context mContext,List<SubjectDetails> items)
+
+
+    public RoutineItemAdapterCr(Context mContext,List<SubjectDetails> items,Activity activity)
     {
         this.items = items;
         this.mContext = mContext;
+        this.activity = activity;
+        firebaseScheduleViewModel = new ViewModelProvider((BottomNavMainActivity) mContext).get(FirebaseScheduleViewModel.class);
+        scheduleViewModel = new ViewModelProvider((BottomNavMainActivity) mContext).get(ScheduleViewModel.class);
+
 
     }
 
@@ -68,6 +93,8 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
         holder.faculty.setText(currentItem.getFaculty());
         holder.time.setText(currentItem.getTime());
         String scheduleclassid = currentItem.get_id();
+        String scheduleid = firebaseScheduleViewModel.RetrieveSchdeuleId();
+
         Log.e("scheduleclassid",scheduleclassid);
 
 
@@ -86,6 +113,10 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
         holder.subjectCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                String sclassid = currentItem.get_id();
+                Log.e("scheduleclassid",sclassid);
+
+
                 vibrator.vibrate(100);
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
                 View bottomsheet = LayoutInflater.from(mContext).inflate(R.layout.bottom_sheet_options_schedule,
@@ -105,20 +136,10 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                 deleteSchedule.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        BottomSheetDialog deletebottomsheet = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
-                        View deletesheet = LayoutInflater.from(mContext).inflate(R.layout.deleteschedule_bottom_sheet,
-                                (ConstraintLayout) holder.itemView.findViewById(R.id.delete_schedule_bottom_sheet));
+                        delete_fragment = new Delete_fragment();
 
-                        bottomSheetDialog.dismiss();
 
-                        deletebottomsheet.setContentView(deletesheet);
-                        deletebottomsheet.setDismissWithAnimation(true);
-                        deletebottomsheet.show();
 
-                        Button delete = deletebottomsheet.findViewById(R.id.delete_button);
-                        LottieAnimationView deleteanim = deletebottomsheet.findViewById(R.id.lottieAnimationView);
-
-                        deleteanim.setAnimation(R.raw.delete_animation);
                     }
                 });
 
@@ -140,8 +161,47 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                         Button update = bottomSheetDialogedit.findViewById(R.id.edit_subject_btn);
                         EditText faculty = bottomSheetDialogedit.findViewById(R.id.update_faculty);
                         TimePicker timePicker = bottomSheetDialogedit.findViewById(R.id.edit_sub_details_time_picker);
-                        Spinner spinner = bottomSheetDialog.findViewById(R.id.spinner_schedule);
-                        LottieAnimationView animation = bottomSheetDialogedit.findViewById(R.id.lottie_animation_edit_subject_details);
+
+
+
+//                        subjectName.getText().toString();
+//                        faculty.getText().toString();
+
+                        update.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                ScheduleEdit scheduleEdit = new ScheduleEdit(scheduleid,scheduleclassid,"monday","9:00","analog","anuapl");
+                                scheduleViewModel.editScheduleResponse(scheduleEdit);
+                                scheduleViewModel.getScheduleResponse().observe((LifecycleOwner) activity, data->
+                                {
+                                    if (data == null) {
+                                        Toast.makeText(mContext,"Fail to edit Schedule",Toast.LENGTH_SHORT).show();
+                                        Log.i("ApiCall", "Failed");
+
+                                    } else {
+
+                                        Log.i("ApiCall", "edit successFull");}
+                                });
+                            }
+                        });
+
+//                        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+//                            @Override
+//                            public void onTimeChanged(TimePicker timePicker, int hourOfTheDay, int minute) {
+//                                Calendar calendar = Calendar.getInstance();
+//                                calendar.set(Calendar.HOUR, hourOfTheDay);
+//                                calendar.set(Calendar.MINUTE, minute);
+//                                if(hourOfTheDay >= 12){
+//                                    Date time = calendar.getTime();
+//                                    timePickerTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(time);
+//                                    Log.d("TimeFormatPM", timePickerTime);
+//                                }else{
+//                                    Date time = calendar.getTime();
+//                                    timePickerTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(time);
+//                                    Log.d("TimeFormatAM", timePickerTime);
+//                                }
+
+
 
 
 
@@ -179,6 +239,8 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
            ButterKnife.bind(this,itemView);
             mview = itemView;
         }
+
+
     }
 
 }
