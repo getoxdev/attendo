@@ -289,12 +289,15 @@ public class FragmentAccountAndSettings extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                NullSharedPreferenceDataNUll();
                 Toast.makeText(getActivity(),"Logout",Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
                 Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
+
+
         });
 
 
@@ -365,6 +368,8 @@ public class FragmentAccountAndSettings extends Fragment {
         routine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean ans = RetrieveSharedPreferenceData();
+                if(ans){
                 String type = firebaseScheduleViewModel.RetrieveClassJoinAs();
                 if(type == null){
                     Toast.makeText(getActivity(), "Please wait !", Toast.LENGTH_SHORT).show();
@@ -379,12 +384,13 @@ public class FragmentAccountAndSettings extends Fragment {
                             StudetntSettingsFragment studetntSettingsFragment = new StudetntSettingsFragment();
                             studetntSettingsFragment.show(getParentFragmentManager(), "Students Settings");
                             break;
-                        case  "nothing":
+                        case "nothing":
                             Toast.makeText(getActivity(), "Please join or create a class ", Toast.LENGTH_SHORT).show();
                             break;
                         default:
                             Toast.makeText(getActivity(), "Please wait !", Toast.LENGTH_SHORT).show();
                     }
+                }
                 }
             }
         });
@@ -422,6 +428,33 @@ public class FragmentAccountAndSettings extends Fragment {
 
         return view;
     }
+
+    private boolean RetrieveSharedPreferenceData() {
+        SharedPreferences pref = getActivity().getSharedPreferences("MyPref", 0);
+        String JOIN =pref.getString("Class_Join_As",null);
+        if(JOIN == null)
+            return true;
+        switch (JOIN) {
+            case "Cr":
+                CRSettingsFragment settingsFragment = new CRSettingsFragment();
+                settingsFragment.show(getParentFragmentManager(), "Cr Settings");
+                break;
+            case "Student":
+                StudetntSettingsFragment studetntSettingsFragment = new StudetntSettingsFragment();
+                studetntSettingsFragment.show(getParentFragmentManager(), "Students Settings");
+                break;
+        }
+        return false;
+    }
+
+    private void NullSharedPreferenceDataNUll() {
+        SharedPreferences pref = this.getActivity().getSharedPreferences("MyPref", 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("Class_Id",null);
+        editor.putString("Class_Join_As",null);
+        editor.commit();
+    }
+
 
     public void ExportToExcel(String path)
     {

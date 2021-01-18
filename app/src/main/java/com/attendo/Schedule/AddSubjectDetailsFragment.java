@@ -1,5 +1,6 @@
 package com.attendo.Schedule;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -79,7 +80,6 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         // String edit-time = bundle.getString("time");
 
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
-
         customLoadingDialog = new CustomLoadingDialog(getActivity());
 
         PB = view.findViewById(R.id.progress_bar_add_subject_details);
@@ -183,6 +183,10 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                     Log.i("ApiCall", "successFull");
                     String scheduleId = data.getSchedule().get_id();
                     firebaseScheduleViewModel.AddClassScheduleId(scheduleId);
+                    SharedPreferences pref = getActivity().getSharedPreferences("MyPref", 0);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("Schedule_Id",scheduleId);
+                    editor.commit();
                     Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
                     celebration.setVisibility(View.VISIBLE);
                     celebration.playAnimation();

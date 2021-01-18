@@ -1,5 +1,6 @@
 package com.attendo.Schedule;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -89,6 +90,7 @@ public class CRDetailsInputFragment extends Fragment {
             } else {
                 customLoadingDialog.dismissDialog();
                 Log.i("ApiCall", "successFull");
+                SetSharedPreferenceData();
                 class_code = data.get_class().getCode();
                 class_Id = data.get_class().get_id();
                 firebaseScheduleViewModel.AddCLassCode(class_code);
@@ -101,6 +103,15 @@ public class CRDetailsInputFragment extends Fragment {
 
         return class_code;
     }
+
+    private void SetSharedPreferenceData() {
+        SharedPreferences pref = getActivity().getSharedPreferences("MyPref", 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("Class_Id",firebaseScheduleViewModel.RetrieveClassId());
+        editor.putString("Class_Join_As","Cr");
+        editor.commit();
+    }
+
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container_frame,fragment);

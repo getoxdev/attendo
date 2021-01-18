@@ -79,7 +79,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
 
         addSubjectDetailsFragment = new AddSubjectDetailsFragment();
 
-
         fb = view.findViewById(R.id.Schedule_add_subject);
         noClassRoutineLottie = view.findViewById(R.id.routine_lottie);
         noClassTextView = view.findViewById(R.id.routine_txtView);

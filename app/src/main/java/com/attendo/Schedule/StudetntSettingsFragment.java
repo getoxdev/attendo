@@ -43,12 +43,21 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 deleteSharedpreference();
+                setsharedpreferenceNull();
                 Toast.makeText(getActivity(),"You left the Schedule",Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });
 
         return view;
+    }
+
+    private void setsharedpreferenceNull() {
+        SharedPreferences pref = this.getActivity().getSharedPreferences("MyPref", 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("Class_Id",null);
+        editor.putString("Class_Join_As",null);
+        editor.commit();
     }
 
     private void deleteSharedpreference() {
