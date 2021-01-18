@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.Schedule;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
@@ -45,6 +46,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     private ScheduleViewModel scheduleViewModel;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private CustomLoadingDialog customLoadingDialog;
+    private AppPreferences appPreferences;
 
     private ProgressBar PB;
 
@@ -81,6 +83,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         customLoadingDialog = new CustomLoadingDialog(getActivity());
+        appPreferences = AppPreferences.getInstance(getContext());
 
         PB = view.findViewById(R.id.progress_bar_add_subject_details);
         PB.setVisibility(View.INVISIBLE);
@@ -186,10 +189,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                     String scheduleId = data.getSchedule().get_id();
                     Log.i("schedule id ",scheduleId);
                     firebaseScheduleViewModel.AddClassScheduleId(scheduleId);
-                    SharedPreferences pref = getActivity().getSharedPreferences("MyPref", 0);
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putString("Schedule_Id",scheduleId);
-                    editor.commit();
+                    appPreferences.AddClassScheduleId(data.getSchedule().get_id());
                     Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
                     celebration.setVisibility(View.VISIBLE);
                     celebration.playAnimation();

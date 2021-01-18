@@ -188,11 +188,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     if(!isConnected()){
                         showCustomDialog();
                     }else {
-                        //TODO: temporary code
                         if (joinasData == null) {
                             Toast.makeText(BottomNavMainActivity.this, "Please wait!", Toast.LENGTH_SHORT).show();
                         } else {
-                            //TODO: temporary code
                             switch (joinasData) {
                                 case "Cr":
                                     setFragment(crFragment);
@@ -381,7 +379,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
         });
     }
 
-
+    //TODO:Needs to optimize
     public void getJoinAsData(){
         databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -400,6 +398,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
         });
     }
 
+    //TODO:Needs to optimize
     public void getClassId(){
         classIdReference = FirebaseDatabase.getInstance().getReference("Schedule");
         classIdReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
