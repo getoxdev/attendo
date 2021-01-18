@@ -85,6 +85,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         PB = view.findViewById(R.id.progress_bar_add_subject_details);
         PB.setVisibility(View.INVISIBLE);
 
+
         spi = view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.weekday, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

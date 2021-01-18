@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,6 +29,8 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.CRSettingsFragment;
 import com.attendo.Schedule.Delete_fragment;
+import com.attendo.Schedule.Edit_schedule_fragment;
+import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.data.model.ScheduleDelete;
 import com.attendo.data.model.ScheduleEdit;
@@ -55,22 +58,27 @@ import butterknife.ButterKnife;
 public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapterCr.RoutineItemAdapterCrHolder> {
 
     private List<SubjectDetails> items;
+    int index=0;
     private Context mContext;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private ScheduleViewModel scheduleViewModel;
     String timePickerTime;
     Activity activity;
-    private Delete_fragment delete_fragment;
+
+    UpdateRecyclerView updateRecyclerView;
 
 
 
 
 
-    public RoutineItemAdapterCr(Context mContext,List<SubjectDetails> items,Activity activity)
+
+    public RoutineItemAdapterCr(Context mContext,List<SubjectDetails> items,Activity activity,UpdateRecyclerView updateRecyclerView)
     {
         this.items = items;
         this.mContext = mContext;
         this.activity = activity;
+        this.updateRecyclerView = updateRecyclerView;
+
         firebaseScheduleViewModel = new ViewModelProvider((BottomNavMainActivity) mContext).get(FirebaseScheduleViewModel.class);
         scheduleViewModel = new ViewModelProvider((BottomNavMainActivity) mContext).get(ScheduleViewModel.class);
 
@@ -113,6 +121,10 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
         holder.subjectCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+
+                index = position;
+                updateRecyclerView.sendPosition(position);
+                updateRecyclerView.getscheduleClassId(scheduleclassid);
                 String sclassid = currentItem.get_id();
                 Log.e("scheduleclassid",sclassid);
 
@@ -136,7 +148,12 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                 deleteSchedule.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        delete_fragment = new Delete_fragment();
+
+//                        Delete_fragment delete_fragment = new Delete_fragment();
+//                        FragmentManager fragmentManager = mContext.getSupportFragmentManager();
+//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
 
 
 
@@ -147,65 +164,7 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                     @Override
                     public void onClick(View view) {
 
-                        BottomSheetDialog bottomSheetDialogedit = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
-                        View bottomsheet = LayoutInflater.from(mContext).inflate(R.layout.updateschedule_bottomsheet,
-                                (ConstraintLayout) holder.itemView.findViewById(R.id.update_schedule));
-
-                        bottomSheetDialogedit.setContentView(bottomsheet);
-                        bottomSheetDialogedit.setDismissWithAnimation(true);
-                        bottomSheetDialogedit.show();
-
-                        bottomSheetDialog.dismiss();
-
-                        EditText subjectName = bottomSheetDialogedit.findViewById(R.id.edit_subject_bottom_sheet);
-                        Button update = bottomSheetDialogedit.findViewById(R.id.edit_subject_btn);
-                        EditText faculty = bottomSheetDialogedit.findViewById(R.id.update_faculty);
-                        TimePicker timePicker = bottomSheetDialogedit.findViewById(R.id.edit_sub_details_time_picker);
-
-
-
-//                        subjectName.getText().toString();
-//                        faculty.getText().toString();
-
-                        update.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                ScheduleEdit scheduleEdit = new ScheduleEdit(scheduleid,scheduleclassid,"monday","9:00","analog","anuapl");
-                                scheduleViewModel.editScheduleResponse(scheduleEdit);
-                                scheduleViewModel.getScheduleResponse().observe((LifecycleOwner) activity, data->
-                                {
-                                    if (data == null) {
-                                        Toast.makeText(mContext,"Fail to edit Schedule",Toast.LENGTH_SHORT).show();
-                                        Log.i("ApiCall", "Failed");
-
-                                    } else {
-
-                                        Log.i("ApiCall", "edit successFull");}
-                                });
-                            }
-                        });
-
-//                        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-//                            @Override
-//                            public void onTimeChanged(TimePicker timePicker, int hourOfTheDay, int minute) {
-//                                Calendar calendar = Calendar.getInstance();
-//                                calendar.set(Calendar.HOUR, hourOfTheDay);
-//                                calendar.set(Calendar.MINUTE, minute);
-//                                if(hourOfTheDay >= 12){
-//                                    Date time = calendar.getTime();
-//                                    timePickerTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(time);
-//                                    Log.d("TimeFormatPM", timePickerTime);
-//                                }else{
-//                                    Date time = calendar.getTime();
-//                                    timePickerTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(time);
-//                                    Log.d("TimeFormatAM", timePickerTime);
-//                                }
-
-
-
-
-
-
+                        Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment();
 
                     }
                 });

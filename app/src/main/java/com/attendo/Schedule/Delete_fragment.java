@@ -9,21 +9,32 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
+import com.attendo.Schedule.Interface.UpdateRecyclerView;
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.ScheduleDelete;
+import com.attendo.data.model.SubjectDetails;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.util.List;
 
-public class Delete_fragment extends BottomSheetDialogFragment {
+
+public class Delete_fragment extends BottomSheetDialogFragment implements UpdateRecyclerView {
 
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private ScheduleViewModel scheduleViewModel;
-    String scheduleId;
+    String scheduleId,sclassId,day;
+    Button delete_btn;
+    private AppPreferences appPreferences;
+
+
+
 
 
     @Override
@@ -34,12 +45,83 @@ public class Delete_fragment extends BottomSheetDialogFragment {
 
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+        delete_btn = view.findViewById(R.id.delete_button);
 
-        scheduleId = firebaseScheduleViewModel.RetrieveSchdeuleId();
+
+        appPreferences = new AppPreferences(getActivity());
+        scheduleId = appPreferences.RetrieveClassScheduleId();
+
+
+
+
+        delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               delete_schedule();
+
+            }
+        });
+
 
 
         return view;
     }
 
 
+    @Override
+    public void callback(int position, List<SubjectDetails> subjectRoutines) {
+
+    }
+
+    @Override
+    public void sendPosition(int position) {
+        switch (position){
+            case 0:
+                day = "sunday";
+                break;
+            case 1:
+                 day = "monday";
+                break;
+            case 2:
+                 day = "tuesday";
+                break;
+            case 3:
+                day = "wednesday";
+                break;
+            case 4:
+                day = "thursday";
+                break;
+            case 5:
+                day = "friday";
+                break;
+            case 6:
+                day = "saturday";
+                break;
+        }
+
+    }
+
+    @Override
+    public void   getscheduleClassId(String scheduleClassId) {
+        //return scheduleClassId;
+        sclassId = scheduleClassId;
+
+    }
+
+    public void delete_schedule()
+    {
+        ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleId,day,sclassId);
+        scheduleViewModel.DeleteSchedule(scheduleDelete);
+        scheduleViewModel.getDeleteResponse().observe(this, data->
+        {
+            if (data == null) {
+                Toast.makeText(getActivity(),"Fail to delete Schedule",Toast.LENGTH_SHORT).show();
+                Log.i("ApiCall", "Failed");
+
+            } else {
+
+                Log.i("ApiCall", "delete successFull");}
+        });
+
+    }
 }
