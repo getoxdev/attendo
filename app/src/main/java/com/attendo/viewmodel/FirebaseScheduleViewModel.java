@@ -1,10 +1,13 @@
 package com.attendo.viewmodel;
 
+import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -15,11 +18,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class FirebaseScheduleViewModel extends ViewModel {
+public class FirebaseScheduleViewModel extends AndroidViewModel {
 
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private String Key = "";
+    private String joinAs = null;
+    private String class_id = null;
+    private String schedule_id = null;
+    private String class_code = null;
+
+    private AppPreferences appPreferences;
+
+    public FirebaseScheduleViewModel(@NonNull Application application) {
+        super(application);
+
+        mAuth = FirebaseAuth.getInstance();
+        appPreferences = AppPreferences.getInstance(application);
+    }
 
     // Four Mrthods for adding classid,classcode,classjoinas and scheduleid.....
     public void AddClassId(String id){
@@ -51,7 +67,7 @@ public class FirebaseScheduleViewModel extends ViewModel {
     }
 
 
-    // Four Mrthods for retrieving classid,classcode,classjoinas and scheduleid.....
+    // Four Methods for retrieving classid,classcode,classjoinas and scheduleid.....
     public String RetrieveClassId(){
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
@@ -60,19 +76,20 @@ public class FirebaseScheduleViewModel extends ViewModel {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     String code = mAuth.getCurrentUser().getUid();
-                    Key = snapshot.child(code).child("Class_Id").getValue(String.class);
+                    class_id = snapshot.child(code).child("Class_Id").getValue(String.class);
+                    //appPreferences.AddClassId(snapshot.child(code).child("Class_Id").getValue(String.class));
 
                 }else{
 
-                    Key = "nothing";
+                    class_id = "nothing";
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Key = "Error";
+                class_id = "Error";
             }
         });
-        return Key;
+        return class_id;
     }
 
     public String RetrieveClassJoinAs(){
@@ -83,17 +100,19 @@ public class FirebaseScheduleViewModel extends ViewModel {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     String code = mAuth.getCurrentUser().getUid();
-                    Key = snapshot.child(code).child("Join_As").getValue(String.class);
+                    joinAs = snapshot.child(code).child("Join_As").getValue(String.class);
+                    //appPreferences.AddClassJoinAs(snapshot.child(code).child("Join_As").getValue(String.class));
                 }else{
-                    Key = "nothing";
+                    joinAs = "nothing";
+                    //appPreferences.AddClassJoinAs(joinAs);
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Key = "Error";
+                joinAs = "Error";
             }
         });
-        return Key;
+        return joinAs;
     }
 
     public String RetrieveClassCode(){
@@ -104,18 +123,18 @@ public class FirebaseScheduleViewModel extends ViewModel {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     String code = mAuth.getCurrentUser().getUid();
-                    Key = snapshot.child(code).child("Class_Code").getValue(String.class);
+                    class_code = snapshot.child(code).child("Class_Code").getValue(String.class);
                 }else{
-                    Key = "nothing";
+                    class_code = "nothing";
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Key = "Error";
+                class_code = "Error";
 
             }
         });
-        return Key;
+        return class_code;
     }
 
     public String RetrieveSchdeuleId(){
@@ -126,17 +145,19 @@ public class FirebaseScheduleViewModel extends ViewModel {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     String code = mAuth.getCurrentUser().getUid();
-                    Key = snapshot.child(code).child("Schedule_Id").getValue(String.class);
+                    schedule_id = snapshot.child(code).child("Schedule_Id").getValue(String.class);
+                    //appPreferences.AddClassScheduleId(snapshot.child(code).child("Schedule_Id").getValue(String.class));
                 }else{
-                    Key = "nothing";
+                    schedule_id = "nothing";
+                    //appPreferences.AddClassScheduleId(schedule_id);
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Key = "Error";
+                schedule_id = "Error";
             }
         });
-        return Key;
+        return schedule_id;
     }
 
 

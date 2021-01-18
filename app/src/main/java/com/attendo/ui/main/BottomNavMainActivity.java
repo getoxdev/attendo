@@ -51,8 +51,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.android.material.transition.platform.MaterialFade;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 
@@ -84,6 +87,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
     private String joinasData = null;
     private AppPreferences appPreferences;
+    private DatabaseReference classIdReference;
+    private String class_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,9 +110,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
         appPreferences = AppPreferences.getInstance(this);
-        joinasData = firebaseScheduleViewModel.RetrieveClassJoinAs();
-        Log.d("joinAsData" , joinasData);
-        //setJoinAsData();
+        getJoinAsData();getClassId();
+        firebaseScheduleViewModel.RetrieveClassJoinAs();
+        firebaseScheduleViewModel.RetrieveClassId();
         crFragment = new CrFragment();
         studentFragment = new StudentFragment();
         joinas = findViewById(R.id.Join_As);
@@ -184,17 +189,15 @@ public class BottomNavMainActivity extends AppCompatActivity {
                         showCustomDialog();
                     }else {
                         //TODO: temporary code
-                        if (firebaseScheduleViewModel.RetrieveClassJoinAs() == null) {
+                        if (joinasData == null) {
                             Toast.makeText(BottomNavMainActivity.this, "Please wait!", Toast.LENGTH_SHORT).show();
                         } else {
                             //TODO: temporary code
-                            switch (firebaseScheduleViewModel.RetrieveClassJoinAs()) {
+                            switch (joinasData) {
                                 case "Cr":
-                                    SetDataSharedPreference("Cr");
                                     setFragment(crFragment);
                                     break;
                                 case "Student":
-                                    SetDataSharedPreference("Student");
                                     setFragment(studentFragment);
                                     break;
                                 case "nothing":
@@ -378,16 +381,46 @@ public class BottomNavMainActivity extends AppCompatActivity {
         });
     }
 
-    public void setJoinAsData(){
-        String classJoinAs = firebaseScheduleViewModel.RetrieveClassJoinAs();
-        if(appPreferences.RetrieveClassJoinAs() == null){
-            if(classJoinAs == null){
-                appPreferences.AddClassJoinAs("nothing");
-            }else{
-                appPreferences.AddClassJoinAs(classJoinAs);
-            }
-        }
 
+    public void getJoinAsData(){
+        databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String code = mAuth.getCurrentUser().getUid();
+                    joinasData = snapshot.child(code).child("Join_As").getValue(String.class);
+                }else{
+                    joinasData = "nothing";
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                joinasData = "Error";
+            }
+        });
+    }
+
+    public void getClassId(){
+        classIdReference = FirebaseDatabase.getInstance().getReference("Schedule");
+        classIdReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String code = mAuth.getCurrentUser().getUid();
+                    class_id = snapshot.child(code).child("Class_Id").getValue(String.class);
+                    appPreferences.AddClassId(class_id);
+
+                }else{
+
+                    class_id = "nothing";
+                    appPreferences.AddClassId(class_id);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                class_id = "Error";
+            }
+        });
     }
 
 }
