@@ -13,6 +13,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -55,6 +56,8 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static java.security.AccessController.getContext;
 
 public class BottomNavMainActivity extends AppCompatActivity {
 
@@ -170,18 +173,22 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.schedule_bottom_nav:
+                    boolean ans = RetrieveSharedPreferenceData();
+                    if(ans){
                     joinasData = firebaseScheduleViewModel.RetrieveClassJoinAs();
                     if(!isConnected()){
                         showCustomDialog();
-                    }else{
-                        if(joinasData == null){
-                            Toast.makeText(BottomNavMainActivity.this, "Please wait !", Toast.LENGTH_SHORT).show();
-                        }else{
-                            switch (joinasData){
+                    }else {
+                        if (joinasData == null) {
+                            Toast.makeText(BottomNavMainActivity.this, "Please wait!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            switch (joinasData) {
                                 case "Cr":
+                                    SetDataSharedPreference("Cr");
                                     setFragment(crFragment);
                                     break;
                                 case "Student":
+                                    SetDataSharedPreference("Student");
                                     setFragment(studentFragment);
                                     break;
                                 case "nothing":
@@ -193,7 +200,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             }
                         }
 
-
+                    }
                     }
                    break;
 
@@ -226,6 +233,30 @@ public class BottomNavMainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    private boolean RetrieveSharedPreferenceData() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        String JOIN =pref.getString("Class_Join_As",null);
+        if(JOIN == null)
+            return true;
+        switch (JOIN) {
+            case "Cr":
+                setFragment(crFragment);
+                break;
+            case "Student":
+                setFragment(studentFragment);
+                break;
+        }
+        return false;
+    }
+
+    private void SetDataSharedPreference(String classjoinas) {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("Class_Id",firebaseScheduleViewModel.RetrieveClassId());
+        editor.putString("Class_Join_As",classjoinas);
+        editor.commit();
+    }
 
 
     @Override

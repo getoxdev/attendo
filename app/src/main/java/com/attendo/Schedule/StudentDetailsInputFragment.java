@@ -1,5 +1,6 @@
 package com.attendo.Schedule;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -85,10 +86,20 @@ public class StudentDetailsInputFragment extends Fragment {
                 firebaseScheduleViewModel.AddClassJoinAs("Student");
                 firebaseScheduleViewModel.AddCLassCode(classcode.getText().toString());
                 Log.i("ApiCall", "successFull");
+                SetSharedPreferenceData();
+                customLoadingDialog.dismissDialog();
                 Toast.makeText(getContext(),"" + data.getMessage(),Toast.LENGTH_SHORT).show();
                 setFragment(studentFragment);
             }
         });
+    }
+
+    private void SetSharedPreferenceData() {
+            SharedPreferences pref = getActivity().getSharedPreferences("MyPref", 0);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("Class_Id",firebaseScheduleViewModel.RetrieveClassId());
+            editor.putString("Class_Join_As","Student");
+            editor.commit();
     }
 
     private void setFragment(Fragment fragment) {

@@ -229,6 +229,7 @@ public class FragmentUserProfile extends Fragment {
                         DatabaseReference refbugs = FirebaseDatabase.getInstance().getReference("Bugs").child(user_Id);
                         ref.removeValue();
                         refbugs.removeValue();
+                        NullSharedPreferenceData();
                         firebaseScheduleViewModel.DeleteShedule();
                         storageReference = storage.getReference();
                         storageReference.child("images/" + user_Id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -276,7 +277,16 @@ public class FragmentUserProfile extends Fragment {
                 AlertDialog alertDialog = dialog.create();
                 alertDialog.show();
             }
-                }
+
+    private void NullSharedPreferenceData() {
+        SharedPreferences pref = this.getActivity().getSharedPreferences("MyPref", 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("Class_Id",null);
+        editor.putString("Class_Join_As",null);
+        editor.putString("Schedule_Id",null);
+        editor.commit();
+    }
+}
 
 
 
