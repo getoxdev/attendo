@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
 
@@ -41,8 +42,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             return;
         }
 
-        String isScheduled = data.get("isScheduled");
-        if (isScheduled == "true") {
+        //String isScheduled = data.get("isScheduled");
+        if (data.get("isScheduled").equals("true")) {
             String scheduledTime = data.get("scheduledTime");
             try {
                 scheduleAlarm(scheduledTime, title, message);
@@ -58,14 +59,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public void scheduleAlarm(String scheduledTimeString, String title, String message) throws ParseException
     {
+        Log.d("justBeforeAM","Alarm manager start");
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         Intent alarmIntent = new Intent(getApplicationContext(), NotificationBroadcastReceiver.class);
         alarmIntent.putExtra("notification_title", title);
         alarmIntent.putExtra("notification_message", message);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarmIntent, 0);
 
-        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        sd.setTimeZone(TimeZone.getTimeZone("GMT"));
         Date scheduledTime = sd.parse(scheduledTimeString);
+        Log.d("ScheduledTime", String.valueOf(scheduledTime.getTime()));
+        Log.d("SystemTime", String.valueOf(System.currentTimeMillis()));
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, scheduledTime.getTime(), pendingIntent);
 
