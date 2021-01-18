@@ -9,11 +9,12 @@
     android:backgroundTint="@color/bottom_sheet_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/CustomModalBottomSheet"
-    tools:context=".Schedule.AddSubjectDetailsFragment">
+    android:id="@+id/update_schedule"
+    >
 
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/image_view2"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -24,7 +25,7 @@
 
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie_animation_add_subject_details"
+        android:id="@+id/lottie_animation_edit_subject_details"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,21 +39,21 @@
         android:id="@+id/progress_bar_add_subject_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/lottie_animation_add_subject_details"
+        app:layout_constraintBottom_toBottomOf="@+id/lottie_animation_edit_subject_details"
         app:layout_constraintEnd_toEndOf="parent"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_input_faculty" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_faculty" />
 
     <TextView
-        android:id="@+id/add_subject_id"
+        android:id="@+id/edit_subject_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_light"
         android:padding="10dp"
-        android:text="Add Subject Details"
+        android:text="Edit Subject Details"
         android:textColor="@color/text_color_primary"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,10 +62,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edittext_input_subject"
+        android:id="@+id/edit_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/add_sub_details_time_picker"
+        app:layout_constraintTop_toBottomOf="@id/edit_sub_details_time_picker"
         android:layout_marginTop="10dp"
         android:layout_marginRight="24dp"
         android:layout_marginLeft="24dp"
@@ -73,7 +74,7 @@
         style="@style/CustomEditText">
 
         <EditText
-            android:id="@+id/add_subject_bottomsheet"
+            android:id="@+id/edit_subject_bottomsheet"
             android:layout_width="match_parent"
             android:layout_height="57dp"
             android:drawableStart="@drawable/book_icon_custom_dynamic"
@@ -84,12 +85,12 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_subject_id" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_subject_id" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edittext_input_faculty"
+        android:id="@+id/edit_faculty"
         style="@style/CustomEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -98,10 +99,10 @@
         android:layout_marginTop="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_input_subject">
+        app:layout_constraintTop_toBottomOf="@+id/edit_subject">
 
         <EditText
-            android:id="@+id/add_faculty"
+            android:id="@+id/update_faculty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_baseline_account_circle_24"
@@ -113,45 +114,12 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_subject_bottomshee" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_subject_bottomshee" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!--
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edittext_input_Time"
-        style="@style/CustomEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_input_faculty">
 
-        <EditText
-            android:id="@+id/add_Time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_baseline_access_time_24"
-            android:drawablePadding="10dp"
-            android:elevation="0dp"
-            android:layout_marginTop="5dp"
-            android:hint="Class Time"
-            android:inputType="text"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_faculty" />
-
-
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/spinnerinput_Day"
         style="@style/CustomEditText"
@@ -163,22 +131,22 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_input_faculty"
-        app:layout_constraintBottom_toTopOf="@id/add_subject_btn">
+        app:layout_constraintTop_toBottomOf="@+id/edit_faculty"
+        app:layout_constraintBottom_toTopOf="@id/edit_subject_btn">
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="2dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        />
+        <Spinner
+            android:id="@+id/spinner_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="2dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
     </com.google.android.material.textfield.TextInputLayout>
     <Button
-        android:id="@+id/add_subject_btn"
+        android:id="@+id/edit_subject_btn"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -191,7 +159,7 @@
         android:enabled="true"
         android:fontFamily="@font/roboto_bold"
         android:stateListAnimator="@animator/button_pressed_animator"
-        android:text="Add"
+        android:text="Update"
         android:textAllCaps="false"
         android:textColor="@color/btn_positive_text_color"
         android:textSize="17dp"
@@ -206,11 +174,11 @@
         app:strokeWidth="0dp" />
 
     <TimePicker
-        android:id="@+id/add_sub_details_time_picker"
+        android:id="@+id/edit_sub_details_time_picker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:timePickerMode="spinner"
-        app:layout_constraintTop_toBottomOf="@id/add_subject_id"
+        app:layout_constraintTop_toBottomOf="@id/edit_subject_id"
         android:theme="@style/TimePickerStyle"/>
 
 
