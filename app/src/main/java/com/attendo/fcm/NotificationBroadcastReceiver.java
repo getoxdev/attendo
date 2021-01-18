@@ -30,7 +30,7 @@ public  class NotificationBroadcastReceiver extends BroadcastReceiver {
                 .build();
 
         //start worker
-        WorkManager.getInstance().beginWith(work).enqueue();
+        WorkManager.getInstance(context).beginWith(work).enqueue();
 
         Log.d("start worker", "WorkManager is Enqueued.");
 
