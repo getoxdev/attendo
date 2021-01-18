@@ -194,9 +194,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
             Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
 
         }else{
-            String cid = firebaseScheduleViewModel.RetrieveClassId();
-            Log.d("classId", cid);
-
             getScheduleViewModel.setScheduleGetResponse(class_id, day);
             getScheduleViewModel.getScheduleGetResponse().observe(this, data->{
                 if(data == null){

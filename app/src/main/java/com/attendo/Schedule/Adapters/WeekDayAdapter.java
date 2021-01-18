@@ -130,7 +130,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
 
         if(check){
             //getRequestToServerAndSetRecyclerView("sunday", position);if
-            getScheduleViewModel.setScheduleGetResponse(class_id,"sunday");
+            getScheduleViewModel.setScheduleGetResponse(appPreferences.RetrieveClassId(),"sunday");
             getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) activity, data->
             {
                 if(data==null)

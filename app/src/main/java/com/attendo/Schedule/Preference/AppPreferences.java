@@ -25,7 +25,12 @@ public class AppPreferences implements SharedPreferencesHelper {
 
     public static AppPreferences getInstance(Context context){
         if(instance == null){
-            instance = new AppPreferences(context);
+            synchronized (ApiHelper.class){
+                if(instance == null){
+                    instance = new AppPreferences(context);
+                }
+            }
+
         }
         return instance;
     }
