@@ -62,6 +62,8 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
     private Context mContext;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private ScheduleViewModel scheduleViewModel;
+    private Delete_fragment delete_fragment;
+    private Edit_schedule_fragment edit_schedule_fragment;
     String timePickerTime;
     Activity activity;
 
@@ -102,6 +104,9 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
         holder.time.setText(currentItem.getTime());
         String scheduleclassid = currentItem.get_id();
         String scheduleid = firebaseScheduleViewModel.RetrieveSchdeuleId();
+
+
+
 
         Log.e("scheduleclassid",scheduleclassid);
 
@@ -149,13 +154,6 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                     @Override
                     public void onClick(View view) {
 
-//                        Delete_fragment delete_fragment = new Delete_fragment();
-//                        FragmentManager fragmentManager = mContext.getSupportFragmentManager();
-//                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-
-
-
 
                     }
                 });
@@ -164,7 +162,6 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                     @Override
                     public void onClick(View view) {
 
-                        Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment();
 
                     }
                 });

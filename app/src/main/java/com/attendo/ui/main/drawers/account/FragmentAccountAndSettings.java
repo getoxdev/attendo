@@ -199,6 +199,8 @@ public class FragmentAccountAndSettings extends Fragment {
         fragmentInfo.setExitTransition(exit);
 
 
+
+
         Drawable drawable = getActivity().getDrawable(R.drawable.app_icon_middle_portion_removed);
 
         AppRate.setOnClickListener(new View.OnClickListener() {
