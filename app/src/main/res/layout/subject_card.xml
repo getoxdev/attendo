@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/subjectCard"
         android:layout_width="0dp"
@@ -60,6 +61,7 @@
 
 
         </RelativeLayout>
+
 
 
 

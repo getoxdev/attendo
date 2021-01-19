@@ -26,6 +26,7 @@ import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.data.model.SubjectDetails;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApiNotAvailableException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -61,6 +62,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
 
     LottieAnimationView noClassRoutineLottie;
     TextView noClassTextView;
+    ShimmerFrameLayout shimmerFrameLayout;
 
 
 
@@ -86,6 +88,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
         fb = view.findViewById(R.id.Schedule_add_subject);
         noClassRoutineLottie = view.findViewById(R.id.routine_lottie);
         noClassTextView = view.findViewById(R.id.routine_txtView);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_parent_layout);
 
         fb.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -46,6 +46,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
 public class Fragment_Subject extends Fragment {
 
     private static final int NEW_SUBJECT_ACTIVITY_REQUEST_CODE = 1;

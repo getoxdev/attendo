@@ -2,6 +2,7 @@ package com.attendo.Schedule.Adapters;
 
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +22,7 @@ import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.ui.main.BottomNavMainActivity;
+import com.attendo.ui.sub.AddSubjectBottomSheetDialogFragment;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.card.MaterialCardView;
@@ -119,6 +122,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
                 updateRecyclerView.sendPosition(position);
             }
         });
+
 
         if(index == position){
 

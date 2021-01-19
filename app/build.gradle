@@ -92,4 +92,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+    //facebook shimmer animation
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+
 }
