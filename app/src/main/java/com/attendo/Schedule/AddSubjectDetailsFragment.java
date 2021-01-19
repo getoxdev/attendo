@@ -73,11 +73,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_subject_details, container, false);
 
-        // Bundle bundle = this.getArguments();
-        // String day = bundle.getString("day");
-        // String edit-subject = bundle.getString("subject");
-        // String edit-faculty = bundle.getString("faculty");
-        // String edit-time = bundle.getString("time");
+
 
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         customLoadingDialog = new CustomLoadingDialog(getActivity());

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,11 @@ import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,7 +81,6 @@ public class FragmentBug extends Fragment{
                 details.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         new AlertDialog.Builder(getContext())
                                 .setTitle("Sent Details :")
                                 .setMessage("" + msg).show();
@@ -88,4 +91,6 @@ public class FragmentBug extends Fragment{
         });
         return view;
     }
+
+
 }

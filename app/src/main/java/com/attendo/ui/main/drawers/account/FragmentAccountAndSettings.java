@@ -36,6 +36,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
 import com.attendo.Schedule.CRSettingsFragment;
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.Schedule.StudetntSettingsFragment;
 import com.attendo.data.database.SubDatabase;
@@ -92,6 +93,7 @@ public class FragmentAccountAndSettings extends Fragment {
     DatabaseReference databaseReference;
     FirebaseStorage firebaseStorage;
     LottieAnimationView profileLottie;
+    private AppPreferences appPreferences;
 
 
 
@@ -105,6 +107,7 @@ public class FragmentAccountAndSettings extends Fragment {
 
 
 
+        appPreferences = AppPreferences.getInstance(getContext());
         fragmentAppRate = new FragmentAppRate();
         studentFragment = new StudentFragment();
         fragmentBug = new FragmentBug();
@@ -432,11 +435,13 @@ public class FragmentAccountAndSettings extends Fragment {
     }
 
     private boolean RetrieveSharedPreferenceData() {
-        SharedPreferences pref = getActivity().getSharedPreferences("MyPref", 0);
-        String JOIN =pref.getString("Class_Join_As",null);
-        if(JOIN == null)
+       /* SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("Mypref",getContext().MODE_PRIVATE);
+        String type = sharedPreferences.getString("joinas",null);*/
+        String type = appPreferences.RetrieveJoinAs();
+        Toast.makeText(getActivity(),""+type,Toast.LENGTH_SHORT).show();
+        if(type == null)
             return true;
-        switch (JOIN) {
+        switch (type) {
             case "Cr":
                 CRSettingsFragment settingsFragment = new CRSettingsFragment();
                 settingsFragment.show(getParentFragmentManager(), "Cr Settings");
@@ -450,11 +455,9 @@ public class FragmentAccountAndSettings extends Fragment {
     }
 
     private void NullSharedPreferenceDataNUll() {
-        SharedPreferences pref = this.getActivity().getSharedPreferences("MyPref", 0);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("Class_Id",null);
-        editor.putString("Class_Join_As",null);
-        editor.commit();
+        appPreferences.AddClassId(null);
+        appPreferences.AddClassJoinAs(null);
+        appPreferences.AddJoinAs(null);
     }
 
 

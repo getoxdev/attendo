@@ -189,6 +189,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                         showCustomDialog();
                     }else {
                         //TODO: temporary code
+                        if(RetrieveSharedPreferenceData()){
                         if (joinasData == null) {
                             Toast.makeText(BottomNavMainActivity.this, "Please wait!", Toast.LENGTH_SHORT).show();
                         } else {
@@ -208,7 +209,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                                     Toast.makeText(BottomNavMainActivity.this, "Please wait !", Toast.LENGTH_SHORT).show();
                             }
                         }
-
+                        }
                     }
 
                    break;
@@ -244,8 +245,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
     };
 
     private boolean RetrieveSharedPreferenceData() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-        String JOIN =pref.getString("Class_Join_As",null);
+        String JOIN = appPreferences.RetrieveJoinAs();
         if(JOIN == null)
             return true;
         switch (JOIN) {
@@ -259,14 +259,14 @@ public class BottomNavMainActivity extends AppCompatActivity {
         return false;
     }
 
-    private void SetDataSharedPreference(String classjoinas) {
+  /*  private void SetDataSharedPreference(String classjoinas) {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("Class_Id",firebaseScheduleViewModel.RetrieveClassId());
         editor.putString("Class_Join_As",classjoinas);
         editor.commit();
     }
-
+*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -388,8 +388,11 @@ public class BottomNavMainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     String code = mAuth.getCurrentUser().getUid();
-                    joinasData = snapshot.child(code).child("Join_As").getValue(String.class);
-                }else{
+                    String d= snapshot.child(code).child("Join_As").getValue(String.class);
+                    appPreferences.AddJoinAs(d);
+                    joinasData = d;
+                     }
+                else{
                     joinasData = "nothing";
                 }
             }
@@ -409,7 +412,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     String code = mAuth.getCurrentUser().getUid();
                     class_id = snapshot.child(code).child("Class_Id").getValue(String.class);
                     appPreferences.AddClassId(class_id);
-
                 }else{
 
                     class_id = "nothing";
