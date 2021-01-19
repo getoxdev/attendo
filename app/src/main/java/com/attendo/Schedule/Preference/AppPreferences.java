@@ -63,7 +63,8 @@ public class AppPreferences implements SharedPreferencesHelper {
     }
 
     @Override
-    public String RetrieveClassJoinAs() {
+    public String RetrieveClassJoinAs()
+    {
         return sharedPrefs.getString(Class_Join_As_KEY , null);
     }
 

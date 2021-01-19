@@ -243,7 +243,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
         }
     };
 
-    private boolean RetrieveSharedPreferenceData() {
+  /*  private boolean RetrieveSharedPreferenceData() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         String JOIN =pref.getString("Class_Join_As",null);
         if(JOIN == null)
@@ -266,7 +266,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
         editor.putString("Class_Join_As",classjoinas);
         editor.commit();
     }
-
+*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -389,7 +389,14 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 if(snapshot.exists()){
                     String code = mAuth.getCurrentUser().getUid();
                     joinasData = snapshot.child(code).child("Join_As").getValue(String.class);
-                }else{
+                    appPreferences.AddClassJoinAs(joinasData);
+                    SharedPreferences sharedPreferences;
+                    sharedPreferences = getSharedPreferences("Mypref",Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("joinas",joinasData);
+                    editor.apply();
+                     }
+                else{
                     joinasData = "nothing";
                 }
             }
@@ -409,7 +416,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     String code = mAuth.getCurrentUser().getUid();
                     class_id = snapshot.child(code).child("Class_Id").getValue(String.class);
                     appPreferences.AddClassId(class_id);
-
                 }else{
 
                     class_id = "nothing";
