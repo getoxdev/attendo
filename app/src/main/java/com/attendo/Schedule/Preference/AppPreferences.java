@@ -51,6 +51,13 @@ public class AppPreferences implements SharedPreferencesHelper {
     }
 
     @Override
+    public void AddJoinAs(String join) {
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putString("CLASS_JOIN_AS", join);
+        editor.apply();
+    }
+
+    @Override
     public void AddClassScheduleId(String id) {
         SharedPreferences.Editor editor = sharedPrefs.edit();
         editor.putString(Class_Schedule_ID_KEY, id);
@@ -71,5 +78,10 @@ public class AppPreferences implements SharedPreferencesHelper {
     @Override
     public String RetrieveClassScheduleId() {
         return sharedPrefs.getString(Class_Schedule_ID_KEY , null);
+    }
+
+    @Override
+    public String RetrieveJoinAs() {
+        return sharedPrefs.getString("CLASS_JOIN_AS" , null);
     }
 }

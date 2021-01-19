@@ -433,8 +433,9 @@ public class FragmentAccountAndSettings extends Fragment {
     }
 
     private boolean RetrieveSharedPreferenceData() {
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("Mypref",getContext().MODE_PRIVATE);
-        String type = sharedPreferences.getString("joinas",null);
+       /* SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("Mypref",getContext().MODE_PRIVATE);
+        String type = sharedPreferences.getString("joinas",null);*/
+        String type = appPreferences.RetrieveJoinAs();
         Toast.makeText(getActivity(),""+type,Toast.LENGTH_SHORT).show();
         if(type == null)
             return true;
@@ -454,10 +455,7 @@ public class FragmentAccountAndSettings extends Fragment {
     private void NullSharedPreferenceDataNUll() {
         appPreferences.AddClassId(null);
         appPreferences.AddClassJoinAs(null);
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("Mypref",getContext().MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("joinas",null);
-        editor.commit();
+        appPreferences.AddJoinAs(null);
     }
 
 
