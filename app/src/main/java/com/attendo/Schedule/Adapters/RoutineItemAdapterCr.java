@@ -16,6 +16,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -153,16 +154,15 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                 deleteSchedule.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-
                     }
                 });
 
                 editSchedule.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-
+                        //example to open bottom sheet dialog fragment from adapter itself
+                        Edit_schedule_fragment schedule_fragment = new Edit_schedule_fragment();
+                        schedule_fragment.show(((AppCompatActivity) activity).getSupportFragmentManager(), "Edit");
                     }
                 });
                 return false;
