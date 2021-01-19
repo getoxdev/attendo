@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.attendo.R;
@@ -26,13 +27,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.apache.poi.ss.formula.functions.T;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class FragmentBug extends Fragment{
     @BindView(R.id.msgData)
-    EditText msgdata;
+    EditText TextMsg;
     @BindView(R.id.btn_send)
     Button send;
     @BindView(R.id.btn_details)
@@ -40,54 +43,72 @@ public class FragmentBug extends Fragment{
 
     DatabaseReference databaseReference;
     FirebaseAuth mAuth;
-    String user;
+    ProgressBar Pb;
+    int found = 0;
+    String value = "No Data Found";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        Firebase firebase;
-        // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_bug, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Report Bug");
         ButterKnife.bind(this,view);
 
         mAuth=FirebaseAuth.getInstance();
-        user=mAuth.getCurrentUser().getUid();
-        databaseReference= FirebaseDatabase.getInstance().getReference("Bugs").child(user);
+        databaseReference= FirebaseDatabase.getInstance().getReference("Bugs");
+        Pb = view.findViewById(R.id.detail_progress);
+
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                details.setEnabled(true);
-                send.setEnabled(true);
-
-              String msg = msgdata.getText().toString().trim();
-
-                if (msg.isEmpty()) {
-                    msgdata.setError("this is a required field");
-                    //send.setEnabled(false);
-                } else {
-                    msgdata.setError(null);
-                    send.setEnabled(true);
-                    databaseReference.child("Bug").setValue(msg).addOnCompleteListener(new OnCompleteListener<Void>() {
+                String text = TextMsg.getText().toString().trim();
+                if(text.length()>0){
+                    databaseReference.child(mAuth.getCurrentUser().getUid()).child("Bug").setValue(text).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(getContext(), "Your data is sent to server", Toast.LENGTH_SHORT).show();
+                           if(task.isSuccessful()){
+                               Toast.makeText(getActivity(),"Your response send",Toast.LENGTH_SHORT).show();
+                           }
+                           else{
+                               Toast.makeText(getActivity(),"something went wrong!",Toast.LENGTH_SHORT).show();
+                           }
                         }
                     });
-
                 }
+                else{
+                    Toast.makeText(getActivity(),"Please enter your Message",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-                details.setOnClickListener(new View.OnClickListener() {
+        details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Pb.setVisibility(View.VISIBLE);
+                databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onClick(View v) {
-                        new AlertDialog.Builder(getContext())
-                                .setTitle("Sent Details :")
-                                .setMessage("" + msg).show();
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            Pb.setVisibility(View.INVISIBLE);
+                            found = 1;
+                            value = snapshot.child(mAuth.getCurrentUser().getUid()).child("Bug").getValue(String.class);
+                        }
+                        else{
 
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getActivity(),""+error, Toast.LENGTH_SHORT).show();
                     }
                 });
+                    new AlertDialog.Builder(getContext())
+                            .setTitle("Sent Details :")
+                            .setMessage(""+value).show();
+                Pb.setVisibility(View.INVISIBLE);
             }
+
         });
         return view;
     }
