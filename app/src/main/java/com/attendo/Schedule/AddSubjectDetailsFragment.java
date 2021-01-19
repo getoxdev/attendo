@@ -75,11 +75,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_subject_details, container, false);
 
-        // Bundle bundle = this.getArguments();
-        // String day = bundle.getString("day");
-        // String edit-subject = bundle.getString("subject");
-        // String edit-faculty = bundle.getString("faculty");
-        // String edit-time = bundle.getString("time");
+
 
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         customLoadingDialog = new CustomLoadingDialog(getActivity());
@@ -87,6 +83,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
         PB = view.findViewById(R.id.progress_bar_add_subject_details);
         PB.setVisibility(View.INVISIBLE);
+
 
         spi = view.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.weekday, android.R.layout.simple_spinner_item);
@@ -187,7 +184,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                     customLoadingDialog.dismissDialog();
                     Log.i("ApiCall", "successFull");
                     String scheduleId = data.getSchedule().get_id();
-                    Log.i("schedule id ",scheduleId);
+                    Log.e("schedule id ",scheduleId);
                     firebaseScheduleViewModel.AddClassScheduleId(scheduleId);
                     appPreferences.AddClassScheduleId(data.getSchedule().get_id());
                     Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();

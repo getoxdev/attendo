@@ -88,4 +88,9 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
     }
 
+    @Override
+    public void getscheduleClassId(String scheduleClassId) {
+
+    }
+
 }

@@ -8,10 +8,12 @@ import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
 import com.attendo.data.model.ResponseCreateClass;
+import com.attendo.data.model.ResponseDeleteSchedule;
 import com.attendo.data.model.ResponseGetSchedule;
 import com.attendo.data.model.ResponseJoinClass;
 import com.attendo.data.model.ResponseSchedule;
 import com.attendo.data.model.Schedule;
+import com.attendo.data.model.ScheduleDelete;
 import com.attendo.data.model.ScheduleEdit;
 import com.attendo.retrofit.RetrofitProvider;
 
@@ -74,6 +76,11 @@ public class ApiHelper implements ApiService
     @Override
     public Call<ResponseSchedule> updateschedule(@Body ScheduleEdit scheduleEdit){
         return api.updateschedule(scheduleEdit);
+    }
+
+    @Override
+    public Call<ResponseDeleteSchedule> DeleteSchedule(ScheduleDelete scheduleDelete) {
+        return api.DeleteSchedule(scheduleDelete);
     }
 
 }

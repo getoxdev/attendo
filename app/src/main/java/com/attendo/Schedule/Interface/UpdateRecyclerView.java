@@ -9,4 +9,5 @@ import java.util.List;
 public interface UpdateRecyclerView {
     public void callback(int position, List<SubjectDetails> subjectRoutines);
     public void sendPosition(int position);
+    public void getscheduleClassId(String scheduleClassId);
 }

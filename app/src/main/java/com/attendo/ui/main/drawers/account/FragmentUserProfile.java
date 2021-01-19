@@ -281,9 +281,9 @@ public class FragmentUserProfile extends Fragment {
     private void NullSharedPreferenceData() {
         SharedPreferences pref = this.getActivity().getSharedPreferences("MyPref", 0);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString("Class_Id",null);
-        editor.putString("Class_Join_As",null);
-        editor.putString("Schedule_Id",null);
+        editor.putString("Class_ID_KEY",null);
+        editor.putString("CLASS_JOIN_AS",null);
+        editor.putString("Class_Schedule_ID_KEY",null);
         editor.commit();
     }
 }
