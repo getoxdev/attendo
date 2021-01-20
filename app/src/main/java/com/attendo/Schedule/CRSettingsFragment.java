@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.attendo.R;
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.ui.main.BottomNavMainActivity_ViewBinding;
 import com.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
@@ -51,11 +52,10 @@ public class CRSettingsFragment extends BottomSheetDialogFragment {
     }
 
     private void setsharedpreferenceNull() {
-        SharedPreferences pref = this.getActivity().getSharedPreferences("MyPref", 0);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("Class_Id",null);
-        editor.putString("Class_Join_As",null);
-        editor.commit();
+        AppPreferences appPreferences = new AppPreferences(getContext());
+        appPreferences.AddClassId(null);
+        appPreferences.AddJoinAs(null);
+        appPreferences.AddClassScheduleId(null);
     }
 
     private void deleteSharedpreference() {

@@ -86,9 +86,9 @@ public class StudentDetailsInputFragment extends Fragment {
             } else {
                 String class_Id = data.get_class().get_id();
                 firebaseScheduleViewModel.AddClassId(class_Id);
-                appPreferences.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddClassJoinAs("Student");
-                appPreferences.AddClassJoinAs("Student");
+                appPreferences.AddJoinAs("Student");
+                appPreferences.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddCLassCode(classcode.getText().toString());
                 Log.i("ApiCall", "successFull");
                 //SetSharedPreferenceData();
@@ -99,13 +99,6 @@ public class StudentDetailsInputFragment extends Fragment {
         });
     }
 
-    private void SetSharedPreferenceData() {
-            SharedPreferences pref = getActivity().getSharedPreferences("MyPref", 0);
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putString("Class_Id",firebaseScheduleViewModel.RetrieveClassId());
-            editor.putString("Class_Join_As","Student");
-            editor.commit();
-    }
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();

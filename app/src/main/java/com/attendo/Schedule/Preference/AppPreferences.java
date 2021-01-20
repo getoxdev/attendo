@@ -12,7 +12,7 @@ public class AppPreferences implements SharedPreferencesHelper {
     private  static AppPreferences instance;
 
     public static final String Class_ID_KEY = null;
-    public static final String Class_Join_As_KEY = null;
+    public static final String Class_Schedule_Class_Id_KEY = null;
     public static final String Class_Schedule_ID_KEY = null;
 
     private SharedPreferences sharedPrefs;
@@ -43,12 +43,6 @@ public class AppPreferences implements SharedPreferencesHelper {
         editor.apply();
     }
 
-    @Override
-    public void AddClassJoinAs(String id) {
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-        editor.putString(Class_Join_As_KEY, id);
-        editor.apply();
-    }
 
     @Override
     public void AddJoinAs(String join) {
@@ -65,14 +59,15 @@ public class AppPreferences implements SharedPreferencesHelper {
     }
 
     @Override
-    public String RetrieveClassId() {
-        return sharedPrefs.getString(Class_ID_KEY , null);
+    public void AddScheduleClassId(String scheduleclassid) {
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putString(Class_Schedule_Class_Id_KEY, scheduleclassid);
+        editor.apply();
     }
 
     @Override
-    public String RetrieveClassJoinAs()
-    {
-        return sharedPrefs.getString(Class_Join_As_KEY , null);
+    public String RetrieveClassId() {
+        return sharedPrefs.getString(Class_ID_KEY , null);
     }
 
     @Override
@@ -83,5 +78,10 @@ public class AppPreferences implements SharedPreferencesHelper {
     @Override
     public String RetrieveJoinAs() {
         return sharedPrefs.getString("CLASS_JOIN_AS" , null);
+    }
+
+    @Override
+    public String RetrieveScheduleClassId() {
+        return sharedPrefs.getString(Class_Schedule_Class_Id_KEY , null);
     }
 }
