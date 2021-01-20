@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:backgroundTint="@color/bg_login"
+    android:background="@color/bg_login"
+    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+    tools:context=".ui.main.drawers.reminder.FragmentExamReminder">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_reminder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25"/>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/alarm_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_margin="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideline_reminder"
+        app:cardBackgroundColor="@color/card_bg_color"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="12dp"
+        android:stateListAnimator="@animator/button_pressed_animator"
+        android:outlineAmbientShadowColor="@color/theme_shadow_color"
+        android:outlineSpotShadowColor="#CAA6EF"
+        android:foreground="?android:selectableItemBackground"
+        android:clickable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/card_bg_color"
+            android:background="@color/card_bg_color">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:text="Set your Reminder"
+                android:visibility="invisible"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="19dp"
+                android:textSize="15dp"
+                android:fontFamily="@font/roboto_light"/>
+
+            <TextView
+                android:id="@+id/time_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="35dp"
+                android:text="Reminder Time"
+                android:layout_marginStart="19dp"
+                android:textSize="24dp"
+                android:fontFamily="@font/roboto_bold"/>
+
+            <TextView
+                android:id="@+id/label_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="23dp"
+                android:text="Alarm Name"
+                android:textSize="23dp"
+                android:fontFamily="@font/roboto_light"/>
+
+            <Button
+                android:id="@+id/cancel_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:elevation="0dp"
+                android:textColor="@color/btn_positive_text_color"
+                android:textSize="15dp"
+                android:stateListAnimator="@animator/card_pressed_animator"
+                android:clickable="true"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:strokeWidth="1dp"
+                app:strokeColor="#6333D3"
+                app:rippleColor="#AF91F4"
+                android:paddingBottom="4dp"
+                android:textAllCaps="false"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:text="Cancel"/>
+
+
+
+        </RelativeLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
