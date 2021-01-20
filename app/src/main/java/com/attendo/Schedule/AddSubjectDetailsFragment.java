@@ -117,13 +117,6 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                     Log.d("TimeFormatAM", timePickerTime);
                 }
 
-
-//                if(hourOfTheDay > 12){
-//                    int hour = hourOfTheDay;
-//                    timePickerTime = hour - 12 + ":" + minute + " " + "pm";
-//                }else{
-//                    timePickerTime = hourOfTheDay + ":" + minute + " " + "am";
-//                }
             }
         });
 

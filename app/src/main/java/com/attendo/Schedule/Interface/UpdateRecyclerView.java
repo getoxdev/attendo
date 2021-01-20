@@ -1,6 +1,8 @@
 package com.attendo.Schedule.Interface;
 
 import com.attendo.Schedule.Model.SubjectRoutine;
+import com.attendo.data.model.Schedule;
+import com.attendo.data.model.ScheduleEdit;
 import com.attendo.data.model.SubjectDetails;
 
 import java.util.ArrayList;
@@ -9,5 +11,5 @@ import java.util.List;
 public interface UpdateRecyclerView {
     public void callback(int position, List<SubjectDetails> subjectRoutines);
     public void sendPosition(int position);
-    public void getscheduleClassId(String scheduleClassId);
+    public void getscheduleClassId(String subject,String scheduleclassid,String faculty);
 }

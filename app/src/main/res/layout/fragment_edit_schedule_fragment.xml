@@ -74,7 +74,7 @@
         style="@style/CustomEditText">
 
         <EditText
-            android:id="@+id/edit_subject_bottomsheet"
+            android:id="@+id/edit_sub_BottomSheet"
             android:layout_width="match_parent"
             android:layout_height="57dp"
             android:drawableStart="@drawable/book_icon_custom_dynamic"

@@ -25,13 +25,17 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.util.List;
 
 
-public class Delete_fragment extends BottomSheetDialogFragment implements UpdateRecyclerView {
+public class Delete_fragment extends BottomSheetDialogFragment  {
 
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private ScheduleViewModel scheduleViewModel;
-    String scheduleId,sclassId,day;
+    String scheduleId,id,day,fac,sub,time;
     Button delete_btn;
     private AppPreferences appPreferences;
+    private RoutineItemAdapterCr routineItemAdapterCr;
+    String ScheduleClassId;
+    private CrFragment crFragment;
+
 
 
 
@@ -51,13 +55,17 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
         appPreferences = new AppPreferences(getActivity());
         scheduleId = appPreferences.RetrieveClassScheduleId();
 
+         Bundle bundle = getArguments();
+         id= bundle.getString("ScheduleClassId");
+         day = bundle.getString("day");
+
 
 
 
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               delete_schedule();
+               delete_schedule(ScheduleClassId);
 
             }
         });
@@ -68,51 +76,13 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
     }
 
 
-    @Override
-    public void callback(int position, List<SubjectDetails> subjectRoutines) {
 
-    }
 
-    @Override
-    public void sendPosition(int position) {
-        switch (position){
-            case 0:
-                day = "sunday";
-                break;
-            case 1:
-                 day = "monday";
-                break;
-            case 2:
-                 day = "tuesday";
-                break;
-            case 3:
-                day = "wednesday";
-                break;
-            case 4:
-                day = "thursday";
-                break;
-            case 5:
-                day = "friday";
-                break;
-            case 6:
-                day = "saturday";
-                break;
-        }
-
-    }
-
-    @Override
-    public void   getscheduleClassId(String scheduleClassId) {
-        //return scheduleClassId;
-        sclassId = scheduleClassId;
-
-    }
-
-    public void delete_schedule()
+    public void delete_schedule(String scheduleClassId)
     {
-        ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleId,day,sclassId);
+        ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleId,day,id);
         scheduleViewModel.DeleteSchedule(scheduleDelete);
-        scheduleViewModel.getDeleteResponse().observe(this, data->
+        scheduleViewModel.getScheduleGetResponse().observe(getActivity(), data->
         {
             if (data == null) {
                 Toast.makeText(getActivity(),"Fail to delete Schedule",Toast.LENGTH_SHORT).show();

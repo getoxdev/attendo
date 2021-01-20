@@ -15,6 +15,8 @@ public class AppPreferences implements SharedPreferencesHelper {
     public static final String Class_Join_As_KEY = null;
     public static final String Class_Schedule_ID_KEY = null;
 
+
+
     private SharedPreferences sharedPrefs;
 
     public AppPreferences(Context context) {

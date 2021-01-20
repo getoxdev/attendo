@@ -2,6 +2,7 @@ package com.attendo.Schedule.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ import com.attendo.Schedule.Delete_fragment;
 import com.attendo.Schedule.Edit_schedule_fragment;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Model.SubjectRoutine;
+import com.attendo.data.model.Schedule;
 import com.attendo.data.model.ScheduleDelete;
 import com.attendo.data.model.ScheduleEdit;
 import com.attendo.data.model.SubjectDetails;
@@ -67,6 +69,7 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
     private Edit_schedule_fragment edit_schedule_fragment;
     String timePickerTime;
     Activity activity;
+
 
     UpdateRecyclerView updateRecyclerView;
 
@@ -104,12 +107,22 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
         holder.faculty.setText(currentItem.getFaculty());
         holder.time.setText(currentItem.getTime());
         String scheduleclassid = currentItem.get_id();
+
+        updateRecyclerView.getscheduleClassId(currentItem.getSubject(),scheduleclassid,currentItem.getFaculty());
         String scheduleid = firebaseScheduleViewModel.RetrieveSchdeuleId();
 
+        Bundle bundle = new Bundle();
+        bundle.putString("ScheduleClassId",scheduleclassid);
+        Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment();
+        Delete_fragment delete_fragment = new Delete_fragment();
+        edit_schedule_fragment.setArguments(bundle);
+        delete_fragment.setArguments(bundle);
 
 
 
-        Log.e("scheduleclassid",scheduleclassid);
+
+
+        Log.e("scheduleclassid11",scheduleclassid);
 
 
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
@@ -130,9 +143,17 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
 
                 index = position;
                 updateRecyclerView.sendPosition(position);
-                updateRecyclerView.getscheduleClassId(scheduleclassid);
+
                 String sclassid = currentItem.get_id();
-                Log.e("scheduleclassid",sclassid);
+                Log.e("scheduleclassid22",sclassid);
+
+
+//                Bundle bundle = new Bundle();
+//                bundle.putString("ScheduleClassId",scheduleclassid);
+//                Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment();
+//                Delete_fragment delete_fragment = new Delete_fragment();
+//                edit_schedule_fragment.setArguments(bundle);
+//                delete_fragment.setArguments(bundle);
 
 
                 vibrator.vibrate(100);
@@ -154,6 +175,8 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                 deleteSchedule.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Delete_fragment delete_fragment = new Delete_fragment();
+                        delete_fragment.show(((AppCompatActivity) activity).getSupportFragmentManager(), "Delete");
                     }
                 });
 
@@ -175,6 +198,7 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
         return items.size();
 
     }
+
 
     public class RoutineItemAdapterCrHolder extends RecyclerView.ViewHolder {
 

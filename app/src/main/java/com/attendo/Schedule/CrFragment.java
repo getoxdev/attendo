@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,10 +24,11 @@ import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
+import com.attendo.data.model.ScheduleEdit;
 import com.attendo.data.model.SubjectDetails;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
-import com.facebook.shimmer.ShimmerFrameLayout;
+//import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApiNotAvailableException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -60,9 +62,10 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     private String class_id;
 
 
+
     LottieAnimationView noClassRoutineLottie;
     TextView noClassTextView;
-    ShimmerFrameLayout shimmerFrameLayout;
+    //ShimmerFrameLayout shimmerFrameLayout;
 
 
 
@@ -88,7 +91,9 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
         fb = view.findViewById(R.id.Schedule_add_subject);
         noClassRoutineLottie = view.findViewById(R.id.routine_lottie);
         noClassTextView = view.findViewById(R.id.routine_txtView);
-        shimmerFrameLayout = view.findViewById(R.id.shimmer_parent_layout);
+
+
+        //shimmerFrameLayout = view.findViewById(R.id.shimmer_parent_layout);
 
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,10 +169,25 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     }
 
     @Override
-    public void getscheduleClassId(String scheduleClassId) {
+    public void getscheduleClassId(String subject, String scheduleclassid, String faculty) {
+        Bundle bundle = new Bundle();
+        bundle.putString("Subject",subject);
+        bundle.putString("ScheduleClassId",scheduleclassid);
+        bundle.putString("Faculty",faculty);
+        Log.e("subject",subject);
+        Log.e("id",scheduleclassid);
+        Log.e("f",faculty);
+        Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment();
+        Delete_fragment delete_fragment = new Delete_fragment();
+        edit_schedule_fragment.setArguments(bundle);
+        delete_fragment.setArguments(bundle);
+
 
 
     }
+
+
+
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -199,6 +219,12 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     }
 
     private void setAdapterAccordingToPosition(String day){
+        Bundle bundle = new Bundle();
+        bundle.putString("day",day);
+        Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment();
+        Delete_fragment delete_fragment = new Delete_fragment();
+        edit_schedule_fragment.setArguments(bundle);
+        delete_fragment.setArguments(bundle);
         if(class_id == null){
             Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
 

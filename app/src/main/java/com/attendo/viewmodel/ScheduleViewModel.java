@@ -164,8 +164,11 @@ public class ScheduleViewModel extends AndroidViewModel {
             public void onResponse(Call<ResponseSchedule> call, Response<ResponseSchedule> response) {
                 if(response.code()==200||response.code()==201){
                     editResponse.postValue(response.body());
+                    Log.e("edit schedule",response.message()+response.code()+"succesfull");
                 }else if(response.code()==400||response.code()==404){
                     editResponse.postValue(null);
+                    Log.e("edit schedule",response.message()+response.code()+"fail");
+
                 }
 
             }
