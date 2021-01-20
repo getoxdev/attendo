@@ -69,6 +69,8 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
     private Edit_schedule_fragment edit_schedule_fragment;
     String timePickerTime;
     Activity activity;
+    OnCardClick onCardClick;
+
 
 
     UpdateRecyclerView updateRecyclerView;
@@ -78,12 +80,13 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
 
 
 
-    public RoutineItemAdapterCr(Context mContext,List<SubjectDetails> items,Activity activity,UpdateRecyclerView updateRecyclerView)
+    public RoutineItemAdapterCr(Context mContext,List<SubjectDetails> items,Activity activity,UpdateRecyclerView updateRecyclerView,OnCardClick onCardClick)
     {
         this.items = items;
         this.mContext = mContext;
         this.activity = activity;
         this.updateRecyclerView = updateRecyclerView;
+        this.onCardClick = onCardClick;
 
         firebaseScheduleViewModel = new ViewModelProvider((BottomNavMainActivity) mContext).get(FirebaseScheduleViewModel.class);
         scheduleViewModel = new ViewModelProvider((BottomNavMainActivity) mContext).get(ScheduleViewModel.class);
@@ -107,30 +110,9 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
         holder.faculty.setText(currentItem.getFaculty());
         holder.time.setText(currentItem.getTime());
         String scheduleclassid = currentItem.get_id();
-
-        updateRecyclerView.getscheduleClassId(currentItem.getSubject(),scheduleclassid,currentItem.getFaculty());
-        String scheduleid = firebaseScheduleViewModel.RetrieveSchdeuleId();
-
-        Bundle bundle = new Bundle();
-        bundle.putString("ScheduleClassId",scheduleclassid);
-        Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment();
-        Delete_fragment delete_fragment = new Delete_fragment();
-        edit_schedule_fragment.setArguments(bundle);
-        delete_fragment.setArguments(bundle);
-
-
-
-
-
         Log.e("scheduleclassid11",scheduleclassid);
-
-
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
-
-
-
-
-        //long pressed....
+        //long pressed...
         holder.mview.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) { return true;
@@ -140,6 +122,7 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
         holder.subjectCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                onCardClick.onItemClick(position,currentItem);
 
                 index = position;
                 updateRecyclerView.sendPosition(position);
@@ -148,12 +131,6 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                 Log.e("scheduleclassid22",sclassid);
 
 
-//                Bundle bundle = new Bundle();
-//                bundle.putString("ScheduleClassId",scheduleclassid);
-//                Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment();
-//                Delete_fragment delete_fragment = new Delete_fragment();
-//                edit_schedule_fragment.setArguments(bundle);
-//                delete_fragment.setArguments(bundle);
 
 
                 vibrator.vibrate(100);
@@ -222,5 +199,11 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
 
 
     }
+
+    public interface OnCardClick
+    {
+        public void onItemClick(int position,SubjectDetails subjectDetails);
+    }
+
 
 }

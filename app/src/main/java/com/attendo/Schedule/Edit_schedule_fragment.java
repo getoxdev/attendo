@@ -2,8 +2,6 @@ package com.attendo.Schedule;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Handler;
@@ -24,13 +22,14 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
-import com.attendo.data.model.Schedule;
 import com.attendo.data.model.ScheduleEdit;
 import com.attendo.data.model.SubjectDetails;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import org.apache.poi.ss.formula.functions.EDate;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -55,7 +54,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
     private ProgressBar PB;
 
     //schdule class Id
-    private String ScheduleClassId;
+    private String ScheduleClassId,subject_name,time,prof;
 
     private String class_id;
 
@@ -82,6 +81,27 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
     Button update;
 
 
+
+    public static Edit_schedule_fragment newInstance(String subject_name, String prof,String scheduleClassId,String time) {
+        Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment();
+        Bundle args = new Bundle();
+        args.putString("SUBJECT", subject_name);
+        args.putString("PROF", prof);
+        args.putString("SCHEDULE_CLASS_ID",scheduleClassId);
+        args.putString("TIME",time);
+        edit_schedule_fragment.setArguments(args);
+        return edit_schedule_fragment;
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            ScheduleClassId = getArguments().getString("SCHEDULE_CLASS_ID");
+            subject_name = getArguments().getString("SUBJECT");
+            prof = getArguments().getString("PROF");
+            time = getArguments().getString("TIME");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -183,10 +203,6 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
 
     }
 
-    @Override
-    public void getscheduleClassId(String subject, String scheduleclassid, String faculty) {
-
-    }
 
 
     public void edit_schedule(String scheduleClassId)

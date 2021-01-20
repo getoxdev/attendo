@@ -1,17 +1,20 @@
 package com.attendo.Schedule;
 
+import android.database.DatabaseErrorHandler;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
@@ -25,21 +28,38 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import java.util.List;
 
 
-public class Delete_fragment extends BottomSheetDialogFragment  {
+public class Delete_fragment extends BottomSheetDialogFragment implements UpdateRecyclerView {
 
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private ScheduleViewModel scheduleViewModel;
-    String scheduleId,id,day,fac,sub,time;
+    String scheduleId;
     Button delete_btn;
     private AppPreferences appPreferences;
-    private RoutineItemAdapterCr routineItemAdapterCr;
-    String ScheduleClassId;
-    private CrFragment crFragment;
+
+    String ScheduleClassId,class_id,day;
 
 
 
 
 
+
+
+    public static Delete_fragment newInstance(String scheduleClassId) {
+        Delete_fragment delete_fragment = new Delete_fragment();
+        Bundle args = new Bundle();
+        args.putString("SCHEDULE_CLASS_ID",scheduleClassId);
+        delete_fragment.setArguments(args);
+        return delete_fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            ScheduleClassId = getArguments().getString("SCHEDULE_CLASS_ID");
+
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,10 +74,9 @@ public class Delete_fragment extends BottomSheetDialogFragment  {
 
         appPreferences = new AppPreferences(getActivity());
         scheduleId = appPreferences.RetrieveClassScheduleId();
+        class_id = appPreferences.RetrieveClassId();
 
-         Bundle bundle = getArguments();
-         id= bundle.getString("ScheduleClassId");
-         day = bundle.getString("day");
+
 
 
 
@@ -75,14 +94,44 @@ public class Delete_fragment extends BottomSheetDialogFragment  {
         return view;
     }
 
+    @Override
+    public void sendPosition(int position) {
+        switch (position){
+            case 0:
+                day = "sunday";
+                break;
+            case 1:
+                day = "monday";
+                break;
+            case 2:
+                day = "tuesday";
+                break;
+            case 3:
+                day = "wednesday";
+                break;
+            case 4:
+                day = "thursday";
+                break;
+            case 5:
+                day = "friday";
+                break;
+            case 6:
+                day = "saturday";
+                break;
+        }
+
+
+    }
+
+
 
 
 
     public void delete_schedule(String scheduleClassId)
     {
-        ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleId,day,id);
+        ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleId,day,scheduleClassId);
         scheduleViewModel.DeleteSchedule(scheduleDelete);
-        scheduleViewModel.getScheduleGetResponse().observe(getActivity(), data->
+        scheduleViewModel.getDeleteResponse().observe(getActivity(), data->
         {
             if (data == null) {
                 Toast.makeText(getActivity(),"Fail to delete Schedule",Toast.LENGTH_SHORT).show();
@@ -93,5 +142,14 @@ public class Delete_fragment extends BottomSheetDialogFragment  {
                 Log.i("ApiCall", "delete successFull");}
         });
 
+
     }
+
+
+    @Override
+    public void callback(int position, List<SubjectDetails> subjectRoutines) {
+
+    }
+
+
 }

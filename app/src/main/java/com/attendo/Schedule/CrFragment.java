@@ -45,7 +45,7 @@ import java.util.Observer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CrFragment extends Fragment implements UpdateRecyclerView {
+public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineItemAdapterCr.OnCardClick {
 
     private RecyclerView dayofWeekRecyclerView,subjectrecyclerView;
     private WeekDayAdapter weekDayAdapter;
@@ -135,7 +135,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
         }else{
             noClassRoutineLottie.setVisibility(View.INVISIBLE);
             noClassTextView.setVisibility(View.INVISIBLE);
-            routineItemAdapter = new RoutineItemAdapterCr(getActivity(),subjectRoutines,getActivity(),this);
+            routineItemAdapter = new RoutineItemAdapterCr(getActivity(),subjectRoutines,getActivity(),this,this::onItemClick);
         }
         routineItemAdapter.notifyDataSetChanged();
         subjectrecyclerView.setAdapter(routineItemAdapter);
@@ -168,23 +168,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
         }
     }
 
-    @Override
-    public void getscheduleClassId(String subject, String scheduleclassid, String faculty) {
-        Bundle bundle = new Bundle();
-        bundle.putString("Subject",subject);
-        bundle.putString("ScheduleClassId",scheduleclassid);
-        bundle.putString("Faculty",faculty);
-        Log.e("subject",subject);
-        Log.e("id",scheduleclassid);
-        Log.e("f",faculty);
-        Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment();
-        Delete_fragment delete_fragment = new Delete_fragment();
-        edit_schedule_fragment.setArguments(bundle);
-        delete_fragment.setArguments(bundle);
-
-
-
-    }
 
 
 
@@ -219,12 +202,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
     }
 
     private void setAdapterAccordingToPosition(String day){
-        Bundle bundle = new Bundle();
-        bundle.putString("day",day);
-        Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment();
-        Delete_fragment delete_fragment = new Delete_fragment();
-        edit_schedule_fragment.setArguments(bundle);
-        delete_fragment.setArguments(bundle);
         if(class_id == null){
             Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
 
@@ -235,7 +212,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
                     Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
                 }else{
                     if(data.getRequiredSchedule().size() == 0){
-                        routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity(),this);
+                        routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity(),this,this::onItemClick);
                         routineItemAdapter.notifyDataSetChanged();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
                         noClassRoutineLottie.setVisibility(View.VISIBLE);
@@ -243,7 +220,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
                     }else{
                         noClassRoutineLottie.setVisibility(View.INVISIBLE);
                         noClassTextView.setVisibility(View.INVISIBLE);
-                        routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity(),this);
+                        routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity(),this,this::onItemClick);
                         routineItemAdapter.notifyDataSetChanged();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
                     }
@@ -259,4 +236,12 @@ public class CrFragment extends Fragment implements UpdateRecyclerView {
 
     }
 
+    @Override
+    public void onItemClick(int position, SubjectDetails subjectDetails) {
+
+        Delete_fragment delete_fragment = Delete_fragment.newInstance(subjectDetails.get_id());
+        Edit_schedule_fragment edit_schedule_fragment = Edit_schedule_fragment.newInstance(subjectDetails.getSubject(),subjectDetails.getFaculty(),subjectDetails.get_id(),subjectDetails.getTime());
+        Log.i("id",subjectDetails.get_id());
+
+    }
 }

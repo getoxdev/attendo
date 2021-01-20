@@ -1,10 +1,22 @@
 package com.attendo.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class ScheduleDelete {
 
+    @SerializedName("scheduleId")
+    @Expose
     private String scheduleId;
-    private String scheduleClassId;
+
+    @SerializedName("day")
+    @Expose
     private String day;
+
+    @SerializedName("scheduleClassId")
+    @Expose
+    private String scheduleClassId;
+
 
     public ScheduleDelete(String scheduleId, String day,String scheduleClassId) {
         this.scheduleId = scheduleId;
