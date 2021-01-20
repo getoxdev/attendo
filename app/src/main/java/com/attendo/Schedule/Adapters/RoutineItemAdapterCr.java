@@ -112,20 +112,12 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
         String scheduleclassid = currentItem.get_id();
         Log.e("scheduleclassid11",scheduleclassid);
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
-        //long pressed...
-        holder.mview.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) { return true;
-            }
-        });
 
         holder.subjectCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                onCardClick.onItemClick(position,currentItem);
 
                 index = position;
-                updateRecyclerView.sendPosition(position);
 
                 String sclassid = currentItem.get_id();
                 Log.e("scheduleclassid22",sclassid);
@@ -152,17 +144,14 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                 deleteSchedule.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Delete_fragment delete_fragment = new Delete_fragment();
-                        delete_fragment.show(((AppCompatActivity) activity).getSupportFragmentManager(), "Delete");
+                        onCardClick.onDeleteClick(position, currentItem);
                     }
                 });
 
                 editSchedule.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //example to open bottom sheet dialog fragment from adapter itself
-                        Edit_schedule_fragment schedule_fragment = new Edit_schedule_fragment();
-                        schedule_fragment.show(((AppCompatActivity) activity).getSupportFragmentManager(), "Edit");
+                        onCardClick.onEditClick(position, currentItem);
                     }
                 });
                 return false;
@@ -202,7 +191,8 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
 
     public interface OnCardClick
     {
-        public void onItemClick(int position,SubjectDetails subjectDetails);
+        void onDeleteClick(int position,SubjectDetails subjectDetails);
+        void onEditClick(int position, SubjectDetails subjectDetails);
     }
 
 

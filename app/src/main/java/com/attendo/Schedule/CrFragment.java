@@ -139,7 +139,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         }else{
             noClassRoutineLottie.setVisibility(View.INVISIBLE);
             noClassTextView.setVisibility(View.INVISIBLE);
-            routineItemAdapter = new RoutineItemAdapterCr(getActivity(),subjectRoutines,getActivity(),this,this::onItemClick);
+            routineItemAdapter = new RoutineItemAdapterCr(getActivity(),subjectRoutines,getActivity(),this,this);
         }
         routineItemAdapter.notifyDataSetChanged();
         subjectrecyclerView.setAdapter(routineItemAdapter);
@@ -217,7 +217,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
                     Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
                 }else{
                     if(data.getRequiredSchedule().size() == 0){
-                        routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity(),this,this::onItemClick);
+                        routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity(),this,this);
                         routineItemAdapter.notifyDataSetChanged();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
                         noClassRoutineLottie.setVisibility(View.VISIBLE);
@@ -225,7 +225,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
                     }else{
                         noClassRoutineLottie.setVisibility(View.INVISIBLE);
                         noClassTextView.setVisibility(View.INVISIBLE);
-                        routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity(),this,this::onItemClick);
+                        routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity(),this,this);
                         routineItemAdapter.notifyDataSetChanged();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
                     }
@@ -241,12 +241,27 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
     }
 
+//    @Override
+//    public void onItemClick(int position, SubjectDetails subjectDetails) {
+//
+//        Delete_fragment delete_fragment = Delete_fragment.newInstance(subjectDetails.get_id());
+//        Edit_schedule_fragment edit_schedule_fragment = Edit_schedule_fragment.newInstance(subjectDetails.getSubject(),subjectDetails.getFaculty(),subjectDetails.get_id(),subjectDetails.getTime());
+//        Log.i("id",subjectDetails.get_id());
+//
+//    }
+
     @Override
-    public void onItemClick(int position, SubjectDetails subjectDetails) {
-
+    public void onDeleteClick(int position, SubjectDetails subjectDetails) {
         Delete_fragment delete_fragment = Delete_fragment.newInstance(subjectDetails.get_id());
-        Edit_schedule_fragment edit_schedule_fragment = Edit_schedule_fragment.newInstance(subjectDetails.getSubject(),subjectDetails.getFaculty(),subjectDetails.get_id(),subjectDetails.getTime());
-        Log.i("id",subjectDetails.get_id());
+        delete_fragment.show(getParentFragmentManager(), "Delete");
+    }
 
+    @Override
+    public void onEditClick(int position, SubjectDetails subjectDetails) {
+        Edit_schedule_fragment edit_schedule_fragment = Edit_schedule_fragment.newInstance(subjectDetails.getSubject(),
+                subjectDetails.getFaculty(),
+                subjectDetails.get_id(),
+                subjectDetails.getTime());
+        edit_schedule_fragment.show(getParentFragmentManager(), "Edit");
     }
 }

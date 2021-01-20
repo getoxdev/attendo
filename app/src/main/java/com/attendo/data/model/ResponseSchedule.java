@@ -1,8 +1,16 @@
 package com.attendo.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class ResponseSchedule {
 
+    @SerializedName("status")
+    @Expose
     private String status;
+
+    @SerializedName("schedule")
+    @Expose
     private schedule_list schedule;
 
     public ResponseSchedule(String status, schedule_list schedule) {
