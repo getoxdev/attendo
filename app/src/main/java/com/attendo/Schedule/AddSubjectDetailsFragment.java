@@ -135,7 +135,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                         dismiss();
                         check = false;
                     }else{
-                        Toast.makeText(getContext(), "Saving Subject Details", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getContext(), "Saving Subject Details", Toast.LENGTH_LONG).show();
                     }
 
 
