@@ -38,12 +38,6 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
 
     String ScheduleClassId,class_id,day;
 
-
-
-
-
-
-
     public static Delete_fragment newInstance(String scheduleClassId) {
         Delete_fragment delete_fragment = new Delete_fragment();
         Bundle args = new Bundle();
@@ -75,11 +69,6 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
         appPreferences = new AppPreferences(getActivity());
         scheduleId = appPreferences.RetrieveClassScheduleId();
         class_id = appPreferences.RetrieveClassId();
-
-
-
-
-
 
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
