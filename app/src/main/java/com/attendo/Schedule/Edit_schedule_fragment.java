@@ -40,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public  class Edit_schedule_fragment extends BottomSheetDialogFragment implements UpdateRecyclerView,AdapterView.OnItemSelectedListener{
+public  class Edit_schedule_fragment extends BottomSheetDialogFragment implements AdapterView.OnItemSelectedListener{
 
 
     private LottieAnimationView celebration;
@@ -193,16 +193,6 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
 
     }
 
-    @Override
-    public void callback(int position, List<SubjectDetails> subjectRoutines) {
-
-    }
-
-    @Override
-    public void sendPosition(int position) {
-
-    }
-
 
 
     public void edit_schedule(String scheduleClassId)
@@ -211,7 +201,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
             ScheduleEdit scheduleEdit = new ScheduleEdit(scheduleId,scheduleClassId,day,timePickerTime,subjectName.getText().toString(),Faculty.getText().toString());
             Toast.makeText(getActivity(),""+scheduleId+" "+scheduleClassId+" "+day+" "+timePickerTime+" "+subjectName.getText().toString()+" "+Faculty.getText().toString(),Toast.LENGTH_LONG).show();
             scheduleViewModel.editScheduleResponse(scheduleEdit);
-            scheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
+            scheduleViewModel.ScheduleResponseEdit().observe(getActivity(), data -> {
                 if (data == null) {
                     customLoadingDialog.dismissDialog();
                     Toast.makeText(getActivity(),"Fail to edit Schedule",Toast.LENGTH_SHORT).show();

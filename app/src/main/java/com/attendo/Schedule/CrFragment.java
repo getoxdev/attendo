@@ -24,6 +24,7 @@ import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.ScheduleEdit;
 import com.attendo.data.model.SubjectDetails;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
@@ -60,6 +61,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     private DatabaseReference mReference;
     private FirebaseAuth mAuth;
     private String class_id;
+    private AppPreferences appPreferences;
 
 
 
@@ -91,6 +93,8 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         fb = view.findViewById(R.id.Schedule_add_subject);
         noClassRoutineLottie = view.findViewById(R.id.routine_lottie);
         noClassTextView = view.findViewById(R.id.routine_txtView);
+
+         appPreferences = new AppPreferences(getActivity());
 
 
         //shimmerFrameLayout = view.findViewById(R.id.shimmer_parent_layout);
@@ -207,6 +211,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
         }else{
             getScheduleViewModel.setScheduleGetResponse(class_id, day);
+            Log.e("schedule99",appPreferences.RetrieveClassScheduleId());
             getScheduleViewModel.getScheduleGetResponse().observe(this, data->{
                 if(data == null){
                     Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();

@@ -68,6 +68,7 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
 
         appPreferences = new AppPreferences(getActivity());
         scheduleId = appPreferences.RetrieveClassScheduleId();
+        Log.e("schedule",scheduleId);
         class_id = appPreferences.RetrieveClassId();
 
         delete_btn.setOnClickListener(new View.OnClickListener() {
