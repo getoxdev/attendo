@@ -296,6 +296,7 @@ public class FragmentAccountAndSettings extends Fragment {
             public void onClick(View v) {
                 NullSharedPreferenceDataNUll();
                 Toast.makeText(getActivity(),"Logout",Toast.LENGTH_SHORT).show();
+                if(mAuth.getCurrentUser().getUid() != null)
                 mAuth.signOut();
                 Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
