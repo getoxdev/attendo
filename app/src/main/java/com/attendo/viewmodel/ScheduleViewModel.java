@@ -198,7 +198,7 @@ public class ScheduleViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<ResponseDeleteSchedule> call, Throwable t) {
-                editResponse.postValue(null);
+                deleteResponse.postValue(null);
 
             }
         });
