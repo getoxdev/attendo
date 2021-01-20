@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -53,11 +54,10 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
     }
 
     private void setsharedpreferenceNull() {
-        SharedPreferences pref = this.getActivity().getSharedPreferences("MyPref", 0);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("Class_Id",null);
-        editor.putString("Class_Join_As",null);
-        editor.commit();
+        AppPreferences appPreferences = new AppPreferences(getContext());
+        appPreferences.AddClassId(null);
+        appPreferences.AddJoinAs(null);
+        appPreferences.AddClassScheduleId(null);
     }
 
     private void deleteSharedpreference() {

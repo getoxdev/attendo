@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
@@ -82,6 +83,7 @@ public class FragmentUserProfile extends Fragment {
     FirebaseStorage storage;
     StorageReference storageReference;
     FirebaseUser firebaseUser;
+    AppPreferences appPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -279,67 +281,9 @@ public class FragmentUserProfile extends Fragment {
             }
 
     private void NullSharedPreferenceData() {
-        SharedPreferences pref = this.getActivity().getSharedPreferences("MyPref", 0);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("Class_ID_KEY",null);
-        editor.putString("CLASS_JOIN_AS",null);
-        editor.putString("Class_Schedule_ID_KEY",null);
-        editor.commit();
+        appPreferences = new AppPreferences(getContext());
+        appPreferences.AddJoinAs(null);
+        appPreferences.AddClassId(null);
+        appPreferences.AddClassScheduleId(null);
     }
 }
-
-
-
-
-                /*
-                firebaseUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            storageReference = storage.getReference();
-                            storageReference.child("images/" + user_Id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    pgb.setVisibility(View.INVISIBLE);
-                                    Toast.makeText(getActivity(),"Your Account has been deleted",Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(intent);
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    pgb.setVisibility(View.INVISIBLE);
-                                    Toast.makeText(getActivity(),"YOUR ACCOUNT HAS BEEN DELETED "+e,Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(intent);
-                                }
-                            });
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(),""+e.toString(),Toast.LENGTH_LONG).show();
-                        pgb.setVisibility(View.INVISIBLE);
-                        mAuth.signOut();
-                        Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    }
-                });
-            }
-        });
-        dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                pgb.setVisibility(View.INVISIBLE);
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alertDialog = dialog.create();
-        alertDialog.show();
-    }
-}
-*/

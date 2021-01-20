@@ -91,15 +91,15 @@ public class CRDetailsInputFragment extends Fragment {
             } else {
                 customLoadingDialog.dismissDialog();
                 Log.i("ApiCall", "successFull");
-                SetSharedPreferenceData();
+                //SetSharedPreferenceData();
                 class_code = data.get_class().getCode();
                 class_Id = data.get_class().get_id();
                 Log.i("classid",class_Id);
                 firebaseScheduleViewModel.AddCLassCode(class_code);
                 firebaseScheduleViewModel.AddClassId(class_Id);
                 appPreferences.AddClassId(class_Id);
+                appPreferences.AddJoinAs("Cr");
                 firebaseScheduleViewModel.AddClassJoinAs("Cr");
-                appPreferences.AddClassJoinAs("Cr");
                 Toast.makeText(getContext(),"Class Created" +" "+ class_code,Toast.LENGTH_LONG).show();
                 setFragment(crFragment);
             }
@@ -108,13 +108,6 @@ public class CRDetailsInputFragment extends Fragment {
         return class_code;
     }
 
-    private void SetSharedPreferenceData() {
-        SharedPreferences pref = getActivity().getSharedPreferences("MyPref", 0);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("Class_Id",firebaseScheduleViewModel.RetrieveClassId());
-        editor.putString("Class_Join_As","Cr");
-        editor.commit();
-    }
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
