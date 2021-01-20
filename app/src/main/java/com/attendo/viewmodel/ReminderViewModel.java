@@ -5,11 +5,16 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.attendo.data.api.ApiHelper;
 import com.attendo.data.model.Reminder;
 import com.attendo.data.model.Response;
+import com.attendo.data.rem.RemEntity;
+import com.attendo.ui.main.drawers.reminder.RemRepository;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -20,6 +25,8 @@ public class ReminderViewModel extends AndroidViewModel
     private ApiHelper apiHelper;
     private MutableLiveData<Response> reminderResponse;
     private MutableLiveData<ResponseBody> idresponse;
+    private RemRepository remRepository;
+    private LiveData<List<RemEntity>> allReminders;
 
     public ReminderViewModel(@NonNull Application application)
     {
@@ -27,6 +34,23 @@ public class ReminderViewModel extends AndroidViewModel
         apiHelper = new ApiHelper(application);
         reminderResponse=new MutableLiveData<>();
         idresponse=new MutableLiveData<>();
+
+        remRepository =new RemRepository(application);
+        allReminders=remRepository.getAllReminders();
+    }
+    public void insert(RemEntity remEntity){
+         remRepository.insert(remEntity);
+    }
+
+    public void update(RemEntity remEntity){
+        remRepository.update(remEntity);
+    }
+
+    public void delete(RemEntity remEntity){
+        remRepository.delete(remEntity);
+    }
+    public LiveData<List<RemEntity>> getAllReminders(){
+        return allReminders;
     }
     public MutableLiveData<Response> getReminderResponse(){
         return reminderResponse;

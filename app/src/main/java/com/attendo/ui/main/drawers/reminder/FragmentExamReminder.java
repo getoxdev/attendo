@@ -4,11 +4,16 @@ import android.app.PendingIntent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +30,7 @@ import android.widget.Toast;
 import com.attendo.R;
 import com.attendo.data.api.ApiHelper;
 import com.attendo.data.model.Reminder;
+import com.attendo.data.rem.RemEntity;
 import com.attendo.viewmodel.ReminderViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -35,6 +41,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,16 +49,18 @@ import butterknife.ButterKnife;
 
 public class FragmentExamReminder extends Fragment {
 
-    @BindView(R.id.add_rem)
+     @BindView(R.id.add_rem)
     FloatingActionButton mFloatingActionButton;
-    @BindView(R.id.time_show)
-    TextView timeShow;
-    @BindView(R.id.label_show)
-    TextView labelShow;
-    @BindView(R.id.alarm_card_view)
-    CardView alarmCard;
-    @BindView(R.id.cancel_alarm)
-    Button cancelAlarm;
+    //@BindView(R.id.time_show)
+    //TextView timeShow;
+    //@BindView(R.id.label_show)
+    //TextView labelShow;
+    //@BindView(R.id.alarm_card_view)
+    //CardView alarmCard;
+    //@BindVi(R.id.cancel_alarm)
+    //Button cancelAlarm;
+    @BindView(R.id.rem_recycler)
+    RecyclerView recyclerView;
 
     TimePicker timePicker;
     EditText label;
@@ -65,6 +74,7 @@ public class FragmentExamReminder extends Fragment {
     private ApiHelper apiHelper;
     private String retreiveFcmToken;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,10 +83,39 @@ public class FragmentExamReminder extends Fragment {
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Class Reminder");
 
+
         ButterKnife.bind(this,view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+
+        ReminderAdapter adapter=new ReminderAdapter();
+        recyclerView.setAdapter(adapter);
+
+
 
         viewModel = ViewModelProviders.of(getActivity()).get(ReminderViewModel.class);
         apiHelper = ApiHelper.getInstance(getContext());
+
+        viewModel.getAllReminders().observe(getActivity(), new Observer<List<RemEntity>>() {
+            @Override
+            public void onChanged(List<RemEntity> remEntities) {
+
+            adapter.setReminders(remEntities);
+            }
+        });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                viewModel.delete(adapter.getRemAt(viewHolder.getAdapterPosition()));
+            }
+        }).attachToRecyclerView(recyclerView);
 
         SharedPreferences preferences = getContext().getSharedPreferences("MYPREF", 0);
         SharedPreferences.Editor editor = preferences.edit();
@@ -106,7 +145,7 @@ public class FragmentExamReminder extends Fragment {
         bottomSheetDialog.setContentView(bottomSheet);
         bottomSheetDialog.setDismissWithAnimation(true);
 
-        cancelAlarm.setEnabled(false);
+        //cancelAlarm.setEnabled(false);
 
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +178,12 @@ public class FragmentExamReminder extends Fragment {
                         String timeshow = sd.format(startTime.getTime());
                         String labelshow = label.getText().toString().trim();
 
-                        editor.putString("time", timeshow1);
+                        RemEntity rem=new RemEntity(timeshow1,labelshow);
+                        viewModel.insert(rem);
+
+                        Toast.makeText(getContext(), "Reminder addded", Toast.LENGTH_SHORT).show();
+
+                       /* editor.putString("time", timeshow1);
                         editor.putString("label", labelshow);
                         editor.commit();
 
@@ -148,6 +192,8 @@ public class FragmentExamReminder extends Fragment {
 
                         timeShow.setText(retirveTime);
                         labelShow.setText(retriveLabel);
+
+                        */
 
 
                         if (labelshow.isEmpty()) {
@@ -167,15 +213,15 @@ public class FragmentExamReminder extends Fragment {
                         }
                         bottomSheetDialog.dismiss();
                         label.setText("");
-                        cancelAlarm.setText("Cancel Reminder");
-                        cancelAlarm.setEnabled(true);
+                        //cancelAlarm.setText("Cancel Reminder");
+                        //cancelAlarm.setEnabled(true);
                     }
                 });
             }
         });
 
         //cancel alarm
-        cancelAlarm.setOnClickListener(new View.OnClickListener() {
+        /*cancelAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cancelAlarm.setEnabled(false);
@@ -207,6 +253,10 @@ public class FragmentExamReminder extends Fragment {
         Animation scale_fab = AnimationUtils.loadAnimation(getContext(), R.anim.scale_fab);
 
         mFloatingActionButton.setAnimation(scale_fab);
+
+         */
+
+
 
         return view;
     }
