@@ -455,6 +455,7 @@ public class FragmentAccountAndSettings extends Fragment {
     private void NullSharedPreferenceDataNUll() {
         appPreferences.AddClassId(null);
         appPreferences.AddJoinAs(null);
+        appPreferences.AddClassScheduleId(null);
     }
 
 

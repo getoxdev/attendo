@@ -43,9 +43,9 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteSharedpreference();
+                String check = deleteSharedpreference();
                 setsharedpreferenceNull();
-                Toast.makeText(getActivity(),"You left the Schedule",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "You left the Schedule", Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });
@@ -60,8 +60,8 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
         appPreferences.AddClassScheduleId(null);
     }
 
-    private void deleteSharedpreference() {
-        firebaseScheduleViewModel.DeleteShedule();
+    private String deleteSharedpreference() {
+        return firebaseScheduleViewModel.DeleteShedule();
     }
 
 }

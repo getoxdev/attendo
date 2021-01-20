@@ -91,7 +91,6 @@ public class StudentDetailsInputFragment extends Fragment {
                 appPreferences.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddCLassCode(classcode.getText().toString());
                 Log.i("ApiCall", "successFull");
-                //SetSharedPreferenceData();
                 customLoadingDialog.dismissDialog();
                 Toast.makeText(getContext(),"" + data.getMessage(),Toast.LENGTH_SHORT).show();
                 setFragment(studentFragment);
@@ -99,11 +98,9 @@ public class StudentDetailsInputFragment extends Fragment {
         });
     }
 
-
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container_frame,fragment);
         fragmentTransaction.commit();
     }
-
 }

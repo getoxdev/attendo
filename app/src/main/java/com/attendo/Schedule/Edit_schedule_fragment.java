@@ -209,7 +209,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
     {
         if(class_id!=null){
             ScheduleEdit scheduleEdit = new ScheduleEdit(scheduleId,scheduleClassId,day,timePickerTime,subjectName.getText().toString(),Faculty.getText().toString());
-            Toast.makeText(getActivity(),""+scheduleId+"+60059c3d63e1170017e7efab + "+day+" "+timePickerTime+" "+subjectName.getText().toString()+" "+Faculty.getText().toString(),Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),""+scheduleId+" "+scheduleClassId+" "+day+" "+timePickerTime+" "+subjectName.getText().toString()+" "+Faculty.getText().toString(),Toast.LENGTH_LONG).show();
             scheduleViewModel.editScheduleResponse(scheduleEdit);
             scheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                 if (data == null) {

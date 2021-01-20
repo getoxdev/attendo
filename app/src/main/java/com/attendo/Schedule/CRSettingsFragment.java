@@ -1,10 +1,6 @@
 package com.attendo.Schedule;
 
-import android.app.Fragment;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +11,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.attendo.R;
 import com.attendo.Schedule.Preference.AppPreferences;
-import com.attendo.ui.main.BottomNavMainActivity;
-import com.attendo.ui.main.BottomNavMainActivity_ViewBinding;
-import com.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class CRSettingsFragment extends BottomSheetDialogFragment {
 
@@ -41,10 +31,10 @@ public class CRSettingsFragment extends BottomSheetDialogFragment {
         text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteSharedpreference();
+                String check = deleteSharedpreference();
                 setsharedpreferenceNull();
-                Toast.makeText(getActivity(),"You left the Schedule",Toast.LENGTH_SHORT).show();
-                dismiss();
+                    Toast.makeText(getActivity(), "You left the Schedule", Toast.LENGTH_SHORT).show();
+                    dismiss();
             }
         });
 
@@ -58,7 +48,7 @@ public class CRSettingsFragment extends BottomSheetDialogFragment {
         appPreferences.AddClassScheduleId(null);
     }
 
-    private void deleteSharedpreference() {
-        firebaseScheduleViewModel.DeleteShedule();
+    private String deleteSharedpreference() {
+        return firebaseScheduleViewModel.DeleteShedule();
     }
 }

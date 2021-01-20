@@ -88,10 +88,10 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     class_id = snapshot.child("Class_Id").getValue(String.class);
-                    Log.d("ClassIDMINE" , class_id);
+                    //Log.d("ClassIDMINE" , class_id);
                 }else {
                     class_id = null;
-                    Log.d("ClassIDMINE" , class_id);
+                    //Log.d("ClassIDMINE" , class_id);
                 }
             }
 
