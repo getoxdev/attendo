@@ -40,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public  class Edit_schedule_fragment extends BottomSheetDialogFragment implements UpdateRecyclerView,AdapterView.OnItemSelectedListener{
+public  class Edit_schedule_fragment extends BottomSheetDialogFragment implements AdapterView.OnItemSelectedListener{
 
 
     private LottieAnimationView celebration;
@@ -69,7 +69,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
     EditText subjectName;
 
     @BindView(R.id.update_faculty)
-    EditText Faculty;
+    EditText faculty;
 
     @BindView(R.id.spinner_schedule)
     Spinner spinner;
@@ -118,6 +118,9 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
 
         customLoadingDialog = new CustomLoadingDialog(getActivity());
 
+        subjectName.setText(subject_name);
+        faculty.setText(prof);
+
 
 
 
@@ -152,7 +155,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
             @Override
             public void onClick(View view) {
                 String sub = subjectName.getText().toString();
-                String teacher = Faculty.getText().toString();
+                String teacher = faculty.getText().toString();
                 String clock = timePickerTime;
                 if (sub.length() > 0 && teacher.length() > 0 && clock.length() > 0 && day.length() > 0) {
                     edit_schedule(ScheduleClassId);
@@ -193,23 +196,12 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
 
     }
 
-    @Override
-    public void callback(int position, List<SubjectDetails> subjectRoutines) {
-
-    }
-
-    @Override
-    public void sendPosition(int position) {
-
-    }
-
-
 
     public void edit_schedule(String scheduleClassId)
     {
         if(class_id!=null){
-            ScheduleEdit scheduleEdit = new ScheduleEdit(scheduleId,scheduleClassId,day,timePickerTime,subjectName.getText().toString(),Faculty.getText().toString());
-            Toast.makeText(getActivity(),""+scheduleId+" "+scheduleClassId+" "+day+" "+timePickerTime+" "+subjectName.getText().toString()+" "+Faculty.getText().toString(),Toast.LENGTH_LONG).show();
+            ScheduleEdit scheduleEdit = new ScheduleEdit(scheduleId,scheduleClassId,day,timePickerTime,subjectName.getText().toString(),faculty.getText().toString());
+            //Toast.makeText(getActivity(),""+scheduleId+" "+scheduleClassId+" "+day+" "+timePickerTime+" "+subjectName.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
             scheduleViewModel.editScheduleResponse(scheduleEdit);
             scheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                 if (data == null) {

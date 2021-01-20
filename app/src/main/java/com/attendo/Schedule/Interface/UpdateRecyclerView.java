@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface UpdateRecyclerView {
-    public void callback(int position, List<SubjectDetails> subjectRoutines);
-    public void sendPosition(int position);
+    void callback(int position, List<SubjectDetails> subjectRoutines);
+    void sendPosition(int position);
 
 }
