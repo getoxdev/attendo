@@ -200,17 +200,17 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
     public void edit_schedule(String scheduleClassId)
     {
         if(appPreferences.RetrieveClassId() != null){
-            ScheduleEdit scheduleEdit = new ScheduleEdit(scheduleId,scheduleClassId,day,timePickerTime,subjectName.getText().toString(),faculty.getText().toString());
-            //Toast.makeText(getActivity(),""+scheduleId+" "+scheduleClassId+" "+day+" "+timePickerTime+" "+subjectName.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
+            ScheduleEdit scheduleEdit = new ScheduleEdit(appPreferences.retrieveScheduleId(),scheduleClassId,day,timePickerTime,subjectName.getText().toString(),faculty.getText().toString());
+            //Toast.makeText(getActivity(),""+appPreferences.retrieveScheduleId()+" "+scheduleClassId+" "+day+" "+timePickerTime+" "+subjectName.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
             scheduleViewModel.editScheduleResponse(scheduleEdit);
             scheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                 if (data == null) {
-                    customLoadingDialog.dismissDialog();
+                    //customLoadingDialog.dismissDialog();
                     Toast.makeText(getActivity(),"Fail to edit Schedule",Toast.LENGTH_SHORT).show();
                     Log.i("ApiCall", "Failed to edit");
                     check = true;
                 } else {
-                    customLoadingDialog.dismissDialog();
+                    //customLoadingDialog.dismissDialog();
                     Log.i("ApiCall", "successFull");
                     Toast.makeText(getActivity(),"Schedule Edited Successfully",Toast.LENGTH_SHORT).show();
                     check = true;
