@@ -201,7 +201,6 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
     {
         if(appPreferences.RetrieveClassId() != null){
             ScheduleEdit scheduleEdit = new ScheduleEdit(appPreferences.retrieveScheduleId(),scheduleClassId,day,timePickerTime,subjectName.getText().toString(),faculty.getText().toString());
-            //Toast.makeText(getActivity(),""+appPreferences.retrieveScheduleId()+" "+scheduleClassId+" "+day+" "+timePickerTime+" "+subjectName.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
             scheduleViewModel.editScheduleResponse(scheduleEdit);
             scheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                 if (data == null) {
@@ -214,14 +213,6 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
                     Log.i("ApiCall", "successFull");
                     Toast.makeText(getActivity(),"Schedule Edited Successfully",Toast.LENGTH_SHORT).show();
                     check = true;
-                    Handler mhandler = new Handler();
-                    mhandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            dismiss();
-
-                        }
-                    },600);
                 }
             });
         }else{
