@@ -35,8 +35,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Notice currentItem = items.get(position);
-        holder.sub.setText(currentItem.getSubject());
-        holder.detail.setText(currentItem.getDetail());
+        holder.sub.setText(currentItem.getTitle());
     }
 
     @Override
@@ -50,7 +49,6 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            sub = itemView.findViewById(R.id.SubjectName);
             detail = itemView.findViewById(R.id.detail);
         }
     }
