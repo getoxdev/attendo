@@ -160,14 +160,6 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
                 if (sub.length() > 0 && teacher.length() > 0 && clock.length() > 0 && day.length() > 0) {
                     customLoadingDialog.startDialog(false);
                     edit_schedule(ScheduleClassId);
-                    if (check) {
-                        dismiss();
-                        check = false;
-                    } else {
-                        Toast.makeText(getContext(), "Saving Subject Details", Toast.LENGTH_LONG).show();
-                    }
-
-
                 } else {
                     Toast.makeText(getActivity(), "Please fill all details", Toast.LENGTH_SHORT).show();
                 }
