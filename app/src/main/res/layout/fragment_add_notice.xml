@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Schedule.AddNoticeFragment">
+
+
+    <ProgressBar
+        android:id="@+id/detail_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textView32"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp">
+
+        <EditText
+            android:id="@+id/Title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:textSize="20dp"
+            android:hint="TITLE"
+            android:padding="10dp" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/bug_report_input_text_layout"
+        style="@style/CustomEditText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_send"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView32"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="10dp" >
+
+        <EditText
+            android:id="@+id/msgData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:padding="10dp"
+            android:hint="NOTICE"/>
+
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/btn_send"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="50dp"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:soundEffectsEnabled="true"
+        android:stateListAnimator="@animator/button_pressed_animator"
+        android:text="notify"
+        android:textColor="@color/btn_positive_text_color"
+        app:backgroundTint="@color/btn_tint_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#AF91F4"
+        app:strokeWidth="0dp" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

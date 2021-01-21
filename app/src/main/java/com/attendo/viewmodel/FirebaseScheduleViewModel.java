@@ -146,9 +146,10 @@ public class FirebaseScheduleViewModel extends AndroidViewModel {
                 if(snapshot.exists()){
                     String code = mAuth.getCurrentUser().getUid();
                     schedule_id = snapshot.child(code).child("Schedule_Id").getValue(String.class);
+                    appPreferences.AddClassScheduleId(schedule_id);
                     //appPreferences.AddClassScheduleId(snapshot.child(code).child("Schedule_Id").getValue(String.class));
                 }else{
-                    schedule_id = "nothing";
+                   // schedule_id = "nothing";
                     //appPreferences.AddClassScheduleId(schedule_id);
                 }
             }

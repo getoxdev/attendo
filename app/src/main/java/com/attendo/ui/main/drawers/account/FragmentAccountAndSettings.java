@@ -35,7 +35,9 @@ import androidx.transition.TransitionInflater;
 import com.airbnb.lottie.LottieAnimationView;
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
+import com.attendo.Schedule.AddNoticeFragment;
 import com.attendo.Schedule.CRSettingsFragment;
+import com.attendo.Schedule.NoticeFragment;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.Schedule.StudetntSettingsFragment;
@@ -69,9 +71,6 @@ import butterknife.ButterKnife;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class FragmentAccountAndSettings extends Fragment {
-
-//    @BindView(R.id.adView)
-//    AdView adView;
 
 
     private FragmentUserProfile fragmentUserProfile;
@@ -383,10 +382,12 @@ public class FragmentAccountAndSettings extends Fragment {
                 else {
                     switch (type) {
                         case "Cr":
+                            appPreferences.AddJoinAs("Cr");
                             CRSettingsFragment settingsFragment = new CRSettingsFragment();
                             settingsFragment.show(getParentFragmentManager(), "Cr Settings");
                             break;
                         case "Student":
+                            appPreferences.AddJoinAs("Student");
                             StudetntSettingsFragment studetntSettingsFragment = new StudetntSettingsFragment();
                             studetntSettingsFragment.show(getParentFragmentManager(), "Students Settings");
                             break;

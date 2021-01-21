@@ -2,27 +2,19 @@ package com.attendo.Schedule.Model;
 
 public class Notice {
 
-    String subject;
-    String detail;
+    String Title;
 
-    public Notice(String subject, String detail) {
-        this.subject = subject;
-        this.detail = detail;
+
+    public Notice(String title) {
+        Title = title;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getTitle() {
+        return Title;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setTitle(String title) {
+        Title = title;
     }
 
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
 }

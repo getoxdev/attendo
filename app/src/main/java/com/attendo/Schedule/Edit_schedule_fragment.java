@@ -113,7 +113,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
         scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         appPreferences = new AppPreferences(getActivity());
-        scheduleId = appPreferences.RetrieveClassScheduleId();
+        scheduleId = appPreferences.retrieveScheduleId();
         class_id = appPreferences.RetrieveClassId();
 
         customLoadingDialog = new CustomLoadingDialog(getActivity());
@@ -199,7 +199,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
 
     public void edit_schedule(String scheduleClassId)
     {
-        if(class_id!=null){
+        if(appPreferences.RetrieveClassId() != null){
             ScheduleEdit scheduleEdit = new ScheduleEdit(scheduleId,scheduleClassId,day,timePickerTime,subjectName.getText().toString(),faculty.getText().toString());
             //Toast.makeText(getActivity(),""+scheduleId+" "+scheduleClassId+" "+day+" "+timePickerTime+" "+subjectName.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
             scheduleViewModel.editScheduleResponse(scheduleEdit);
