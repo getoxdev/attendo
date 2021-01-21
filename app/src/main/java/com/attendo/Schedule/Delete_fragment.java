@@ -35,7 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 
-public class Delete_fragment extends BottomSheetDialogFragment implements UpdateRecyclerView {
+public class Delete_fragment extends BottomSheetDialogFragment  {
 
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private ScheduleViewModel scheduleViewModel;
@@ -70,15 +70,21 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
         delete_btn = view.findViewById(R.id.delete_button);
+        LottieAnimationView deleteanim = view.findViewById(R.id.lottieAnimationView);
+
 
 
         appPreferences = new AppPreferences(getActivity());
         scheduleId = appPreferences.retrieveScheduleId();
+        
         class_id = appPreferences.RetrieveClassId();
 
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Log.e("s_id",scheduleId);
+                Log.e("c_id",class_id);
                 delete_schedule(ScheduleClassId);
             }
         });
@@ -87,45 +93,11 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
 
         return view;
     }
-
-
-
-    @Override
-    public void sendPosition(int position) {
-        switch (position){
-            case 0:
-                day = "sunday";
-                break;
-            case 1:
-                day = "monday";
-                break;
-            case 2:
-                day = "tuesday";
-                break;
-            case 3:
-                day = "wednesday";
-                break;
-            case 4:
-                day = "thursday";
-                break;
-            case 5:
-                day = "friday";
-                break;
-            case 6:
-                day = "saturday";
-                break;
-        }
-
-
-    }
-
-
-
     public void delete_schedule(String scheduleClassId)
     {
         ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleId,"wednesday",scheduleClassId);
         scheduleViewModel.DeleteSchedule(scheduleDelete);
-        //Toast.makeText(getActivity(),""+scheduleId+" wednesday "+scheduleClassId,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),""+scheduleId+"  "+day+" "+scheduleClassId,Toast.LENGTH_SHORT).show();
         scheduleViewModel.getDeleteResponse().observe(getActivity(), data->
         {
             if (data == null) {
@@ -143,10 +115,6 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
     }
 
 
-    @Override
-    public void callback(int position, List<SubjectDetails> subjectRoutines) {
-
-    }
 
 
 }

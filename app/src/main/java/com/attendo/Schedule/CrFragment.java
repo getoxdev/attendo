@@ -46,7 +46,7 @@ import java.util.Observer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineItemAdapterCr.OnCardClick {
+public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineItemAdapterCr.OnCardClick{
 
     private RecyclerView dayofWeekRecyclerView,subjectrecyclerView;
     private WeekDayAdapter weekDayAdapter;
@@ -264,4 +264,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
                 subjectDetails.getTime());
         edit_schedule_fragment.show(getParentFragmentManager(), "Edit");
     }
+
+
 }

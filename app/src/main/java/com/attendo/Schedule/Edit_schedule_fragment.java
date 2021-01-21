@@ -158,6 +158,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
                 String teacher = faculty.getText().toString();
                 String clock = timePickerTime;
                 if (sub.length() > 0 && teacher.length() > 0 && clock.length() > 0 && day.length() > 0) {
+                    customLoadingDialog.startDialog(false);
                     edit_schedule(ScheduleClassId);
                     if (check) {
                         dismiss();
@@ -200,11 +201,14 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
     public void edit_schedule(String scheduleClassId)
     {
         if(appPreferences.RetrieveClassId() != null){
-            ScheduleEdit scheduleEdit = new ScheduleEdit(scheduleId,scheduleClassId,day,timePickerTime,subjectName.getText().toString(),faculty.getText().toString());
-            //Toast.makeText(getActivity(),""+scheduleId+" "+scheduleClassId+" "+day+" "+timePickerTime+" "+subjectName.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
+            ScheduleEdit scheduleEdit = new ScheduleEdit(scheduleId,scheduleClassId,day,timePickerTime,
+                    subjectName.getText().toString(),faculty.getText().toString());
+            Toast.makeText(getActivity(),""+scheduleId+" "+scheduleClassId+" " +
+                    ""+day+" "+timePickerTime+" "+subjectName.getText().toString()+"" +
+                    " "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
             scheduleViewModel.editScheduleResponse(scheduleEdit);
-            scheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
-                if (data == null) {
+            scheduleViewModel.scheduleResponseEdit().observe(getActivity(), data -> {
+                if (data==null) {
                     customLoadingDialog.dismissDialog();
                     Toast.makeText(getActivity(),"Fail to edit Schedule",Toast.LENGTH_SHORT).show();
                     Log.i("ApiCall", "Failed to edit");

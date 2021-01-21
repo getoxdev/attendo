@@ -65,7 +65,7 @@ public class ScheduleViewModel extends AndroidViewModel {
           return  deleteResponse;
     }
 
-    public MutableLiveData<ResponseSchedule> ScheduleResponseEdit(){
+    public MutableLiveData<ResponseSchedule> scheduleResponseEdit(){
         return editResponse;
     }
 

@@ -55,6 +55,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
     private AppPreferences appPreferences;
 
 
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.weekday_card)
@@ -75,6 +76,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         this.day = day;
         this.activity = activity;
         this.updateRecyclerView = updateRecyclerView;
+
 
         appPreferences = AppPreferences.getInstance(context);
 
@@ -112,13 +114,13 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull WeekDayAdapter.MyViewHolder holder, int position) {
         holder.dayTextView.setText(day.get(position).getDayofWeek());
+        DayOfWeek dayOfWeek = day.get(position);
 
         holder.daycard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 index = position;
                 notifyDataSetChanged();
-
                 updateRecyclerView.sendPosition(position);
             }
         });
