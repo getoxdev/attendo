@@ -230,20 +230,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
 
         }
-
-
-
-
     }
-
-//    @Override
-//    public void onItemClick(int position, SubjectDetails subjectDetails) {
-//
-//        Delete_fragment delete_fragment = Delete_fragment.newInstance(subjectDetails.get_id());
-//        Edit_schedule_fragment edit_schedule_fragment = Edit_schedule_fragment.newInstance(subjectDetails.getSubject(),subjectDetails.getFaculty(),subjectDetails.get_id(),subjectDetails.getTime());
-//        Log.i("id",subjectDetails.get_id());
-//
-//    }
 
     @Override
     public void onDeleteClick(int position, SubjectDetails subjectDetails) {
