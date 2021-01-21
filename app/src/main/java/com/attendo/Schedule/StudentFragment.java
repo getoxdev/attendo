@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.RoutineItemAdapter;
 import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
@@ -41,6 +43,9 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     private String class_id;
     private ScheduleViewModel getScheduleViewModel;
 
+    private LottieAnimationView noClassLottieAnim;
+    private TextView noClassTv;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,6 +55,8 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
         dayofWeekRecyclerView = view.findViewById(R.id.static_weekdays_recyclerview_student);
         subjectrecyclerView = view.findViewById(R.id.subjectsRecyclerView);
+        noClassLottieAnim = view.findViewById(R.id.routine_lottie_student);
+        noClassTv = view.findViewById(R.id.routine_txtView_student);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -130,11 +137,11 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
                         routineItemAdapter = new RoutineItemAdapter(data.getRequiredSchedule(), getContext(), this);
                         routineItemAdapter.notifyDataSetChanged();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
-//                        noClassRoutineLottie.setVisibility(View.VISIBLE);
-//                        noClassTextView.setVisibility(View.VISIBLE);
+                        noClassLottieAnim.setVisibility(View.VISIBLE);
+                        noClassTv.setVisibility(View.VISIBLE);
                     }else{
-//                        noClassRoutineLottie.setVisibility(View.INVISIBLE);
-//                        noClassTextView.setVisibility(View.INVISIBLE);
+                        noClassLottieAnim.setVisibility(View.INVISIBLE);
+                        noClassTv.setVisibility(View.INVISIBLE);
                         routineItemAdapter = new RoutineItemAdapter(data.getRequiredSchedule(), getContext(), this);
                         routineItemAdapter.notifyDataSetChanged();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
