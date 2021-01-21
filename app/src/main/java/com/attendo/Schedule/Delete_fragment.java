@@ -131,10 +131,11 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
             if (data == null) {
                 Toast.makeText(getActivity(),"Fail to delete Subject",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
-
+                dismiss();
             } else {
                 Toast.makeText(getActivity(),"Subject deleted successfully",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "delete successFull");
+                dismiss();
             }
         });
 
