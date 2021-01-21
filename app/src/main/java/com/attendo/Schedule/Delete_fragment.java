@@ -3,9 +3,11 @@ package com.attendo.Schedule;
 import android.database.DatabaseErrorHandler;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,11 @@ import com.attendo.data.model.SubjectDetails;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -51,7 +58,6 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             ScheduleClassId = getArguments().getString("SCHEDULE_CLASS_ID");
-
         }
     }
 
@@ -67,14 +73,13 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
 
 
         appPreferences = new AppPreferences(getActivity());
-        scheduleId = appPreferences.RetrieveClassScheduleId();
+        scheduleId = appPreferences.retrieveScheduleId();
         class_id = appPreferences.RetrieveClassId();
 
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               delete_schedule(ScheduleClassId);
-
+                delete_schedule(ScheduleClassId);
             }
         });
 
@@ -82,6 +87,8 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
 
         return view;
     }
+
+
 
     @Override
     public void sendPosition(int position) {
@@ -114,21 +121,21 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
 
 
 
-
-
     public void delete_schedule(String scheduleClassId)
     {
-        ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleId,day,scheduleClassId);
+        ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleId,"wednesday",scheduleClassId);
         scheduleViewModel.DeleteSchedule(scheduleDelete);
+        //Toast.makeText(getActivity(),""+scheduleId+" wednesday "+scheduleClassId,Toast.LENGTH_SHORT).show();
         scheduleViewModel.getDeleteResponse().observe(getActivity(), data->
         {
             if (data == null) {
-                Toast.makeText(getActivity(),"Fail to delete Schedule",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Fail to delete Subject",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
 
             } else {
-
-                Log.i("ApiCall", "delete successFull");}
+                Toast.makeText(getActivity(),"Subject deleted successfully",Toast.LENGTH_SHORT).show();
+                Log.i("ApiCall", "delete successFull");
+            }
         });
 
 

@@ -61,11 +61,12 @@ public class AppPreferences implements SharedPreferencesHelper {
     }
 
     @Override
-    public void AddScheduleClassId(String scheduleclassid) {
+    public void AddScheduleId(String ScId) {
         SharedPreferences.Editor editor = sharedPrefs.edit();
-        editor.putString(Class_Schedule_Class_Id_KEY, scheduleclassid);
+        editor.putString("ClassScheduleId", ScId);
         editor.apply();
     }
+
 
     @Override
     public String RetrieveClassId() {
@@ -83,7 +84,8 @@ public class AppPreferences implements SharedPreferencesHelper {
     }
 
     @Override
-    public String RetrieveScheduleClassId() {
-        return sharedPrefs.getString(Class_Schedule_Class_Id_KEY , null);
+    public String retrieveScheduleId() {
+        return sharedPrefs.getString("ClassScheduleId" , null);
     }
+
 }

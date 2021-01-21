@@ -5,10 +5,10 @@ public interface SharedPreferencesHelper {
     void AddClassId(String id);
     void AddJoinAs(String join);
     void AddClassScheduleId(String id);
-    void AddScheduleClassId(String scheduleclassid);
+    void AddScheduleId(String ScId);
 
     String RetrieveClassId();
     String RetrieveClassScheduleId();
     String RetrieveJoinAs();
-    String RetrieveScheduleClassId();
+    String retrieveScheduleId();
 }

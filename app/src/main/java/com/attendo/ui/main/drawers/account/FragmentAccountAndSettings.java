@@ -382,10 +382,12 @@ public class FragmentAccountAndSettings extends Fragment {
                 else {
                     switch (type) {
                         case "Cr":
+                            appPreferences.AddJoinAs("Cr");
                             CRSettingsFragment settingsFragment = new CRSettingsFragment();
                             settingsFragment.show(getParentFragmentManager(), "Cr Settings");
                             break;
                         case "Student":
+                            appPreferences.AddJoinAs("Student");
                             StudetntSettingsFragment studetntSettingsFragment = new StudetntSettingsFragment();
                             studetntSettingsFragment.show(getParentFragmentManager(), "Students Settings");
                             break;

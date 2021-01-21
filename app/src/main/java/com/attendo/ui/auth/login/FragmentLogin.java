@@ -1,5 +1,6 @@
 package com.attendo.ui.auth.login;
 
+import android.content.ContentProvider;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 
 import android.text.TextUtils;
@@ -22,12 +24,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.ui.auth.FragmentForgetPassword;
 import com.attendo.R;
 import com.attendo.ui.auth.signup.FragmentSignup;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.ui.main.drawers.account.FragmentProfile;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
