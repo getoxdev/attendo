@@ -163,10 +163,10 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
 
 
     private void sendDataToServer(){
-        if(class_Id != null){
-            Schedule schedule = new Schedule(firebaseScheduleViewModel.RetrieveClassId(), day, timePickerTime, subject.getText().toString(), faculty.getText().toString());
+        if(appPreferences.RetrieveClassId() != null){
+            Schedule schedule = new Schedule(appPreferences.RetrieveClassId(), day, timePickerTime, subject.getText().toString(), faculty.getText().toString());
             scheduleViewModel.setScheduleResponse(schedule);
-            //Toast.makeText(getActivity(),""+firebaseScheduleViewModel.RetrieveClassId()+" "+day+" "+time.getText().toString()+" "+subject.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(),""+appPreferences.RetrieveClassId()+" "+day+" "+time.getText().toString()+" "+subject.getText().toString()+" "+faculty.getText().toString(),Toast.LENGTH_LONG).show();
             scheduleViewModel.getScheduleResponse().observe(getActivity(), data -> {
                 if (data == null) {
                     customLoadingDialog.dismissDialog();
