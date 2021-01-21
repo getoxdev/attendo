@@ -119,7 +119,7 @@ public class Delete_fragment extends BottomSheetDialogFragment implements Update
 
     public void delete_schedule(String scheduleClassId)
     {
-        ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleId,day,scheduleClassId);
+        ScheduleDelete scheduleDelete = new ScheduleDelete("6008447493773b0017c7ade7","monday","6008447493773b0017c7ade8");
         scheduleViewModel.DeleteSchedule(scheduleDelete);
         scheduleViewModel.getDeleteResponse().observe(getActivity(), data->
         {
