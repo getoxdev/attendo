@@ -13,15 +13,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.RoutineItemAdapter;
+import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.data.model.SubjectDetails;
+import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -36,6 +40,11 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     private RoutineItemAdapter routineItemAdapter;
     private ArrayList<SubjectDetails> subjectRoutines  = new ArrayList();
     private FirebaseAuth mAuth;
+    private String class_id;
+    private ScheduleViewModel getScheduleViewModel;
+
+    private LottieAnimationView noClassLottieAnim;
+    private TextView noClassTv;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,12 +55,14 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
         dayofWeekRecyclerView = view.findViewById(R.id.static_weekdays_recyclerview_student);
         subjectrecyclerView = view.findViewById(R.id.subjectsRecyclerView);
+        noClassLottieAnim = view.findViewById(R.id.routine_lottie_student);
+        noClassTv = view.findViewById(R.id.routine_txtView_student);
 
         mAuth = FirebaseAuth.getInstance();
 
         subjectrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        routineItemAdapter = new RoutineItemAdapter(subjectRoutines);
-        subjectrecyclerView.setAdapter(routineItemAdapter);
+//        routineItemAdapter = new RoutineItemAdapter(subjectRoutines);
+//        subjectrecyclerView.setAdapter(routineItemAdapter);
 
         dayList = new ArrayList<>();
 
@@ -66,6 +77,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         weekDayAdapter = new WeekDayAdapter(getActivity(), dayList, getActivity(), this);
 
         dayofWeekRecyclerView.setAdapter(weekDayAdapter);
+        setAdapterAccordingToPosition("sunday");
 
         return view;
     }
@@ -74,18 +86,72 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
     @Override
     public void callback(int position, List<SubjectDetails> subjectRoutines) {
-        if(subjectRoutines == null){
-            Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
-        }else{
-            routineItemAdapter = new RoutineItemAdapter(subjectRoutines);
-        }
-        routineItemAdapter.notifyDataSetChanged();
-        subjectrecyclerView.setAdapter(routineItemAdapter);
+//        if(subjectRoutines == null){
+//            Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
+//        }else{
+//            routineItemAdapter = new RoutineItemAdapter();
+//        }
+//        routineItemAdapter.notifyDataSetChanged();
+//        subjectrecyclerView.setAdapter(routineItemAdapter);
     }
 
     @Override
     public void sendPosition(int position) {
+        switch (position){
+            case 0:
+                setAdapterAccordingToPosition("sunday");
+                break;
+            case 1:
+                setAdapterAccordingToPosition("monday");
+                break;
+            case 2:
+                setAdapterAccordingToPosition("tuesday");
+                break;
+            case 3:
+                setAdapterAccordingToPosition("wednesday");
+                break;
+            case 4:
+                setAdapterAccordingToPosition("thursday");
+                break;
+            case 5:
+                setAdapterAccordingToPosition("friday");
+                break;
+            case 6:
+                setAdapterAccordingToPosition("saturday");
+                break;
+        }
 
+    }
+
+    private void setAdapterAccordingToPosition(String day){
+        if(class_id == null){
+            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
+
+        }else{
+            getScheduleViewModel.setScheduleGetResponse(class_id, day);
+            getScheduleViewModel.getScheduleGetResponse().observe(getViewLifecycleOwner(), data->{
+                if(data == null){
+                    Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(data.getRequiredSchedule().size() == 0){
+                        routineItemAdapter = new RoutineItemAdapter(data.getRequiredSchedule(), getContext(), this);
+                        routineItemAdapter.notifyDataSetChanged();
+                        subjectrecyclerView.setAdapter(routineItemAdapter);
+                        noClassLottieAnim.setVisibility(View.VISIBLE);
+                        noClassTv.setVisibility(View.VISIBLE);
+                    }else{
+                        noClassLottieAnim.setVisibility(View.INVISIBLE);
+                        noClassTv.setVisibility(View.INVISIBLE);
+                        routineItemAdapter = new RoutineItemAdapter(data.getRequiredSchedule(), getContext(), this);
+                        routineItemAdapter.notifyDataSetChanged();
+                        subjectrecyclerView.setAdapter(routineItemAdapter);
+                    }
+
+                }
+            });
+
+
+        }
     }
 
 

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
+import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.data.model.SubjectDetails;
 
@@ -23,10 +24,14 @@ import butterknife.ButterKnife;
 public class RoutineItemAdapter extends RecyclerView.Adapter<RoutineItemAdapter.RoutineItemAdapterHolder>{
 
     private List<SubjectDetails> items;
+    private UpdateRecyclerView updateRecyclerView;
+    private Context context;
 
-    public RoutineItemAdapter(List<SubjectDetails> items)
+    public RoutineItemAdapter(List<SubjectDetails> items, Context context, UpdateRecyclerView updateRecyclerView)
     {
         this.items = items;
+        this.context = context;
+        this.updateRecyclerView = updateRecyclerView;
 
 
     }

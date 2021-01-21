@@ -23,6 +23,15 @@
         app:cardBackgroundColor="@color/card_bg_color"
         app:cardElevation="0dp">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/cardviewanimation">
+
+        </com.airbnb.lottie.LottieAnimationView>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
