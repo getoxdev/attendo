@@ -196,9 +196,11 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             //TODO: temporary code
                             switch (joinasData) {
                                 case "Cr":
+                                    appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
                                     setFragment(crFragment);
                                     break;
                                 case "Student":
+                                    appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
                                     setFragment(studentFragment);
                                     break;
                                 case "nothing":
@@ -259,14 +261,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
         return false;
     }
 
-  /*  private void SetDataSharedPreference(String classjoinas) {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("Class_Id",firebaseScheduleViewModel.RetrieveClassId());
-        editor.putString("Class_Join_As",classjoinas);
-        editor.commit();
-    }
-*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -389,7 +383,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 if(snapshot.exists()){
                     String code = mAuth.getCurrentUser().getUid();
                     String d= snapshot.child(code).child("Join_As").getValue(String.class);
+                    String dd = snapshot.child(code).child("Schedule_Id").getValue(String.class);
                     appPreferences.AddJoinAs(d);
+                    appPreferences.AddScheduleId(dd);
                     joinasData = d;
                      }
                 else{

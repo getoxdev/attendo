@@ -179,7 +179,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                     String scheduleId = data.getSchedule().get_id();
                     Log.e("schedule id ",scheduleId);
                     firebaseScheduleViewModel.AddClassScheduleId(scheduleId);
-                    appPreferences.AddClassScheduleId(data.getSchedule().get_id());
+                    appPreferences.AddScheduleId(scheduleId);
                     Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
                     celebration.setVisibility(View.VISIBLE);
                     celebration.playAnimation();
@@ -189,7 +189,6 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                         @Override
                         public void run() {
                             dismiss();
-
                         }
                     },600);
                 }
