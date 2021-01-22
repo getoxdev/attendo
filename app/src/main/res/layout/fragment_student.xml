@@ -61,5 +61,51 @@
         app:layout_constraintLeft_toLeftOf="@id/routine_lottie_student"
         android:visibility="invisible"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_option_btn_stdnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_margin="26dp"
+        app:backgroundTint="#9657F1"
+        android:focusable="true"
+        android:clickable="true"
+        android:src="@drawable/ic_navigate_next"
+        app:tint="@color/bg_login"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_batchmates_stdnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/fab_option_btn_stdnt"
+        app:layout_constraintRight_toRightOf="@id/fab_option_btn_stdnt"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintLeft_toLeftOf="@id/fab_option_btn_stdnt"
+        app:backgroundTint="#9657F1"
+        android:focusable="true"
+        android:clickable="true"
+        android:src="@drawable/ic_notifications"
+        app:tint="@color/bg_login"
+        android:visibility="invisible"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_notice_stdnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/fab_batchmates_stdnt"
+        app:layout_constraintRight_toRightOf="@id/fab_batchmates_stdnt"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintLeft_toLeftOf="@id/fab_batchmates_stdnt"
+        app:backgroundTint="#9657F1"
+        android:focusable="true"
+        android:clickable="true"
+        android:src="@drawable/ic_people"
+        app:tint="@color/bg_login"
+        android:visibility="invisible"/>
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
