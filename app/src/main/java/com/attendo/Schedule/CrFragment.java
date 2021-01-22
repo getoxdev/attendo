@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +54,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     private WeekDayAdapter weekDayAdapter;
     private ArrayList<DayOfWeek> dayList;
     private RoutineItemAdapterCr routineItemAdapter;
-    private FloatingActionButton fb;
+    private FloatingActionButton fabOpenMenu, fabAddSubject, fabNotice, fabBatchmates;
     private AddSubjectDetailsFragment addSubjectDetailsFragment;
     private ScheduleViewModel getScheduleViewModel;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
@@ -62,6 +64,8 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     private FirebaseAuth mAuth;
     private String class_id;
     private AppPreferences appPreferences;
+    private Boolean clicked = false;
+    private Animation rotateOpen, rotateClose, toBottom, fromBottom;
 
     //position
     private int positionDay = 0;
@@ -92,21 +96,53 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Routine");
 
 
-        fb = view.findViewById(R.id.Schedule_add_subject);
+        fabOpenMenu = view.findViewById(R.id.fab_open_menu_cr);
+        fabAddSubject = view.findViewById(R.id.fab_add_cr);
+        fabBatchmates = view.findViewById(R.id.fab_batchmates_cr);
+        fabNotice = view.findViewById(R.id.fab_notice_cr);
         noClassRoutineLottie = view.findViewById(R.id.routine_lottie);
         noClassTextView = view.findViewById(R.id.routine_txtView);
 
          appPreferences = new AppPreferences(getActivity());
+        //loading animations for multiple FAB
+        rotateOpen = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_open_anim );
+        rotateClose = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_close_anim);
+        toBottom = AnimationUtils.loadAnimation(getContext(), R.anim.to_bottom_anim);
+        fromBottom = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom_anim);
 
 
         //shimmerFrameLayout = view.findViewById(R.id.shimmer_parent_layout);
+        fabOpenMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setVisibility(clicked);
+                setAnimation(clicked);
+                setClickable(clicked);
+                if(!clicked) clicked = true;
+                else clicked = false;
+            }
+        });
 
         AddSubjectDetailsFragment addSubjectDetailsFragment = AddSubjectDetailsFragment.newInstance(this, positionDay);
-        fb.setOnClickListener(new View.OnClickListener() {
+        fabAddSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 addSubjectDetailsFragment.show(getParentFragmentManager(),"Subject_Details");
+            }
+        });
+
+        fabBatchmates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Batchmates clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fabNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Notice clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -132,6 +168,47 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
         return view;
     }
+
+
+    //fab button configuration
+    private void setVisibility(Boolean clicked){
+        if(!clicked){
+            fabNotice.setVisibility(View.VISIBLE);
+            fabBatchmates.setVisibility(View.VISIBLE);
+            fabAddSubject.setVisibility(View.VISIBLE);
+        }else{
+            fabNotice.setVisibility(View.INVISIBLE);
+            fabBatchmates.setVisibility(View.INVISIBLE);
+            fabAddSubject.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void setAnimation(Boolean clicked){
+        if(!clicked){
+            fabBatchmates.startAnimation(fromBottom);
+            fabNotice.startAnimation(fromBottom);
+            fabAddSubject.startAnimation(fromBottom);
+            fabOpenMenu.startAnimation(rotateOpen);
+        }else{
+            fabBatchmates.startAnimation(toBottom);
+            fabNotice.startAnimation(toBottom);
+            fabAddSubject.startAnimation(toBottom);
+            fabOpenMenu.startAnimation(rotateClose);
+        }
+    }
+
+    private void setClickable(Boolean clicked){
+        if(!clicked){
+            fabNotice.setClickable(true);
+            fabBatchmates.setClickable(true);
+            fabAddSubject.setClickable(true);
+        }else{
+            fabNotice.setClickable(false);
+            fabBatchmates.setClickable(false);
+            fabAddSubject.setClickable(false);
+        }
+    }
+
 
     @Override
     public void callback(int position, List<SubjectDetails> subjectRoutines) {

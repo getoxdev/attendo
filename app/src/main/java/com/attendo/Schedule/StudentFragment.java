@@ -1,5 +1,6 @@
 package com.attendo.Schedule;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,7 @@ import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.data.model.SubjectDetails;
 import com.attendo.viewmodel.ScheduleViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -43,6 +47,10 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     private String class_id;
     private ScheduleViewModel getScheduleViewModel;
 
+    private FloatingActionButton fabOpenMenu, fabPeople, fabNotice;
+    private Boolean clicked = false;
+    private Animation rotateOpen, rotateClose, toBottom, fromBottom;
+
     private LottieAnimationView noClassLottieAnim;
     private TextView noClassTv;
 
@@ -57,6 +65,9 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         subjectrecyclerView = view.findViewById(R.id.subjectsRecyclerView);
         noClassLottieAnim = view.findViewById(R.id.routine_lottie_student);
         noClassTv = view.findViewById(R.id.routine_txtView_student);
+        fabOpenMenu = view.findViewById(R.id.fab_option_btn_stdnt);
+        fabNotice = view.findViewById(R.id.fab_notice_stdnt);
+        fabPeople = view.findViewById(R.id.fab_batchmates_stdnt);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -79,9 +90,69 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         dayofWeekRecyclerView.setAdapter(weekDayAdapter);
         setAdapterAccordingToPosition("sunday");
 
+        //loading animations for multiple FAB
+        rotateOpen = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_open_anim );
+        rotateClose = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_close_anim);
+        toBottom = AnimationUtils.loadAnimation(getContext(), R.anim.to_bottom_anim);
+        fromBottom = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom_anim);
+
+        fabOpenMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setVisibility(clicked);
+                setAnimation(clicked);
+                setClickable(clicked);
+                if(!clicked) clicked = true;
+                else clicked = false;
+            }
+        });
+
+        fabPeople.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Batchmates clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        fabNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Notice Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return view;
     }
 
+    private void setVisibility(Boolean clicked){
+        if(!clicked){
+            fabNotice.setVisibility(View.VISIBLE);
+            fabPeople.setVisibility(View.VISIBLE);
+        }else{
+            fabNotice.setVisibility(View.INVISIBLE);
+            fabPeople.setVisibility(View.INVISIBLE);
+        }
+    }
+    private void setAnimation(Boolean clicked){
+        if(!clicked){
+            fabPeople.startAnimation(fromBottom);
+            fabNotice.startAnimation(fromBottom);
+            fabOpenMenu.startAnimation(rotateOpen);
+        }else{
+            fabPeople.startAnimation(toBottom);
+            fabNotice.startAnimation(toBottom);
+            fabOpenMenu.startAnimation(rotateClose);
+        }
+    }
+
+    private void setClickable(Boolean clicked){
+        if(!clicked){
+            fabNotice.setClickable(true);
+            fabPeople.setClickable(true);
+        }else{
+            fabNotice.setClickable(false);
+            fabPeople.setClickable(false);
+        }
+    }
 
 
     @Override

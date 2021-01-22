@@ -9,12 +9,12 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/Schedule_add_subject"
+        android:id="@+id/fab_open_menu_cr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/fabi_icon_add_drawable"
+        app:srcCompat="@drawable/ic_navigate_next"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|end"
@@ -23,6 +23,48 @@
         app:fabCustomSize="60dp"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:tint="@color/bg_login" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_cr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabCustomSize="60dp"
+        app:layout_constraintBottom_toTopOf="@id/fab_open_menu_cr"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintLeft_toLeftOf="@id/fab_open_menu_cr"
+        app:layout_constraintRight_toRightOf="@id/fab_open_menu_cr"
+        app:backgroundTint="#9657F1"
+        app:tint="@color/bg_login"
+        android:src="@drawable/fabi_icon_add_drawable"
+        android:visibility="invisible"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_notice_cr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabCustomSize="60dp"
+        app:layout_constraintBottom_toTopOf="@id/fab_add_cr"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintLeft_toLeftOf="@id/fab_add_cr"
+        app:layout_constraintRight_toRightOf="@id/fab_add_cr"
+        app:backgroundTint="#9657F1"
+        app:tint="@color/bg_login"
+        android:src="@drawable/ic_notifications"
+        android:visibility="invisible"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_batchmates_cr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabCustomSize="60dp"
+        app:layout_constraintBottom_toTopOf="@id/fab_notice_cr"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintLeft_toLeftOf="@id/fab_notice_cr"
+        app:layout_constraintRight_toRightOf="@id/fab_notice_cr"
+        app:backgroundTint="#9657F1"
+        app:tint="@color/bg_login"
+        android:src="@drawable/ic_people"
+        android:visibility="invisible"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/static_weekdays_cr"
