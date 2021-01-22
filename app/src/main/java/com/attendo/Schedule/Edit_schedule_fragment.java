@@ -50,11 +50,13 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private CustomLoadingDialog customLoadingDialog;
     private AppPreferences appPreferences;
+    private UpdateRecyclerView updateRecyclerView;
 
     private ProgressBar PB;
 
     //schdule class Id
     private String ScheduleClassId,subject_name,time,prof;
+    private int mPositionDay;
 
     private String class_id;
 
@@ -80,16 +82,24 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
     @BindView(R.id.edit_subject_btn)
     Button update;
 
+    public Edit_schedule_fragment(UpdateRecyclerView updateRecyclerView){
+        this.updateRecyclerView = updateRecyclerView;
+    }
 
 
-    public static Edit_schedule_fragment newInstance(String subject_name, String prof,String scheduleClassId,String time) {
-        Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment();
+
+    public static Edit_schedule_fragment newInstance(String subject_name, String prof,String scheduleClassId,String time, int positionDay, UpdateRecyclerView mUpdateRecyclerView) {
+        Edit_schedule_fragment edit_schedule_fragment = new Edit_schedule_fragment(mUpdateRecyclerView);
         Bundle args = new Bundle();
         args.putString("SUBJECT", subject_name);
         args.putString("PROF", prof);
         args.putString("SCHEDULE_CLASS_ID",scheduleClassId);
         args.putString("TIME",time);
+        args.putInt("RVPosition", positionDay);
+        Log.d("Update" ,String.valueOf(positionDay)+"  : inside edit bottom sheet new instance function  ");
         edit_schedule_fragment.setArguments(args);
+
+
         return edit_schedule_fragment;
     }
     @Override
@@ -100,6 +110,8 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
             subject_name = getArguments().getString("SUBJECT");
             prof = getArguments().getString("PROF");
             time = getArguments().getString("TIME");
+            mPositionDay = getArguments().getInt("RVPosition");
+            Log.d("Update" ,String.valueOf(mPositionDay)+"  : inside edit bottom sheet new onCreate function  ");
         }
     }
 
@@ -202,9 +214,11 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
                     Log.i("ApiCall", "Failed to edit");
                     check = true;
                 } else {
+                    updateRecyclerView.sendPosition(mPositionDay);
                     customLoadingDialog.dismissDialog();
                     Log.i("ApiCall", "successFull");
                     Toast.makeText(getActivity(),"Schedule Edited Successfully",Toast.LENGTH_SHORT).show();
+
                     check = true;
                 }
             });

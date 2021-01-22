@@ -63,6 +63,9 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     private String class_id;
     private AppPreferences appPreferences;
 
+    //position
+    private int positionDay = 0;
+
 
 
     LottieAnimationView noClassRoutineLottie;
@@ -88,7 +91,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         View view  =inflater.inflate(R.layout.fragment_cr, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Routine");
 
-        addSubjectDetailsFragment = new AddSubjectDetailsFragment();
 
         fb = view.findViewById(R.id.Schedule_add_subject);
         noClassRoutineLottie = view.findViewById(R.id.routine_lottie);
@@ -99,10 +101,11 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
         //shimmerFrameLayout = view.findViewById(R.id.shimmer_parent_layout);
 
+        AddSubjectDetailsFragment addSubjectDetailsFragment = AddSubjectDetailsFragment.newInstance(this, positionDay);
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddSubjectDetailsFragment addSubjectDetailsFragment = new AddSubjectDetailsFragment();
+
                 addSubjectDetailsFragment.show(getParentFragmentManager(),"Subject_Details");
             }
         });
@@ -147,6 +150,10 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
     @Override
     public void sendPosition(int position) {
+        /**here problem is that position is null untill interface is called so we have use
+        an if and else statement */
+        positionDay = position;
+        Log.d("Update", String.valueOf(positionDay));
         switch (position){
             case 0:
                 setAdapterAccordingToPosition("sunday");
@@ -239,7 +246,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
     @Override
     public void onDeleteClick(int position, SubjectDetails subjectDetails) {
-        Delete_fragment delete_fragment = Delete_fragment.newInstance(subjectDetails.get_id());
+        Delete_fragment delete_fragment = Delete_fragment.newInstance(subjectDetails.get_id(), positionDay, this);
         delete_fragment.show(getParentFragmentManager(), "Delete");
     }
 
@@ -248,7 +255,9 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         Edit_schedule_fragment edit_schedule_fragment = Edit_schedule_fragment.newInstance(subjectDetails.getSubject(),
                 subjectDetails.getFaculty(),
                 subjectDetails.get_id(),
-                subjectDetails.getTime());
+                subjectDetails.getTime(),
+                positionDay,
+                this);
         edit_schedule_fragment.show(getParentFragmentManager(), "Edit");
     }
 

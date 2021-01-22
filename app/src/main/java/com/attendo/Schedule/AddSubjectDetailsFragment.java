@@ -3,6 +3,7 @@ package com.attendo.Schedule;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Handler;
@@ -21,12 +22,14 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
+import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.Schedule;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.storage.UploadTask;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -47,6 +50,8 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private CustomLoadingDialog customLoadingDialog;
     private AppPreferences appPreferences;
+    private UpdateRecyclerView updateRecyclerView;
+    private int mPositionDay;
 
     private ProgressBar PB;
 
@@ -59,6 +64,27 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     TimePicker timePicker;
     String timePickerTime;
 
+    public AddSubjectDetailsFragment(UpdateRecyclerView updateRecyclerView){
+        this.updateRecyclerView = updateRecyclerView;
+    }
+
+    public static AddSubjectDetailsFragment newInstance(UpdateRecyclerView mUpdateRecyclerView, int positionDay) {
+
+        Bundle args = new Bundle();
+
+        AddSubjectDetailsFragment fragment = new AddSubjectDetailsFragment(mUpdateRecyclerView);
+        args.putInt("RVPosition", positionDay);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null){
+            mPositionDay = getArguments().getInt("RVPosition");
+        }
+    }
 
     @Override
     public void onStart() {
@@ -180,6 +206,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                     Log.e("schedule id ",scheduleId);
                     firebaseScheduleViewModel.AddClassScheduleId(scheduleId);
                     appPreferences.AddScheduleId(scheduleId);
+                    updateRecyclerView.sendPosition(mPositionDay);
                     Toast.makeText(getActivity(),"Schedule Added Successfully",Toast.LENGTH_SHORT).show();
                     celebration.setVisibility(View.VISIBLE);
                     celebration.playAnimation();

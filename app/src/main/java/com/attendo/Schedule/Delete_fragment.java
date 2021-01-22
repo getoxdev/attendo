@@ -31,6 +31,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.List;
 
@@ -42,13 +43,20 @@ public class Delete_fragment extends BottomSheetDialogFragment  {
     String scheduleId;
     Button delete_btn;
     private AppPreferences appPreferences;
+    private UpdateRecyclerView updateRecyclerView;
 
-    String ScheduleClassId,class_id,day;
+    private String ScheduleClassId,class_id,day;
+    private int mPositionDay;
 
-    public static Delete_fragment newInstance(String scheduleClassId) {
-        Delete_fragment delete_fragment = new Delete_fragment();
+    public Delete_fragment(UpdateRecyclerView updateRecyclerView){
+        this.updateRecyclerView = updateRecyclerView;
+    }
+
+    public static Delete_fragment newInstance(String scheduleClassId, int positionDay, UpdateRecyclerView mUpdateRecyclerView) {
+        Delete_fragment delete_fragment = new Delete_fragment(mUpdateRecyclerView);
         Bundle args = new Bundle();
         args.putString("SCHEDULE_CLASS_ID",scheduleClassId);
+        args.putInt("RVPosition", positionDay);
         delete_fragment.setArguments(args);
         return delete_fragment;
     }
@@ -58,6 +66,7 @@ public class Delete_fragment extends BottomSheetDialogFragment  {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             ScheduleClassId = getArguments().getString("SCHEDULE_CLASS_ID");
+            mPositionDay = getArguments().getInt("RVPosition");
         }
     }
 
@@ -107,6 +116,7 @@ public class Delete_fragment extends BottomSheetDialogFragment  {
             } else {
                 Toast.makeText(getActivity(),"Subject deleted successfully",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "delete successFull");
+                updateRecyclerView.sendPosition(mPositionDay);
                 dismiss();
             }
         });
