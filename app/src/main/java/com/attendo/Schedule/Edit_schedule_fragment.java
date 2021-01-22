@@ -213,11 +213,13 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
                     Toast.makeText(getActivity(),"Fail to edit Schedule",Toast.LENGTH_SHORT).show();
                     Log.i("ApiCall", "Failed to edit");
                     check = true;
+                    dismiss();
                 } else {
                     updateRecyclerView.sendPosition(mPositionDay);
                     customLoadingDialog.dismissDialog();
                     Log.i("ApiCall", "successFull");
                     Toast.makeText(getActivity(),"Schedule Edited Successfully",Toast.LENGTH_SHORT).show();
+                    dismiss();
 
                     check = true;
                 }
