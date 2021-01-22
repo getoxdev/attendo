@@ -123,9 +123,6 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                 String sclassid = currentItem.get_id();
                 Log.e("scheduleclassid22",sclassid);
 
-
-
-
                 vibrator.vibrate(100);
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
                 View bottomsheet = LayoutInflater.from(mContext).inflate(R.layout.bottom_sheet_options_schedule,
@@ -145,6 +142,8 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                 deleteSchedule.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        bottomSheetDialog.dismiss();
+
                         onCardClick.onDeleteClick(position, currentItem);
                     }
                 });
@@ -152,6 +151,8 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
                 editSchedule.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        bottomSheetDialog.dismiss();
+
                         onCardClick.onEditClick(position, currentItem);
                     }
                 });

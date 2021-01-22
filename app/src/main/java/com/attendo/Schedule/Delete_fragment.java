@@ -80,31 +80,64 @@ public class Delete_fragment extends BottomSheetDialogFragment  {
         scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
         delete_btn = view.findViewById(R.id.delete_button);
         LottieAnimationView deleteanim = view.findViewById(R.id.lottieAnimationView);
+        deleteanim.setAnimation(R.raw.delete_animation);
 
 
 
         appPreferences = new AppPreferences(getActivity());
         scheduleId = appPreferences.retrieveScheduleId();
-        
+
         class_id = appPreferences.RetrieveClassId();
+        getDay(mPositionDay);
 
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Log.e("s_id",scheduleId);
                 Log.e("c_id",class_id);
+                deleteanim.pauseAnimation();
+                deleteanim.setAnimation(R.raw.done_animation);
+                deleteanim.playAnimation();
+                deleteanim.setSpeed(2f);
+
                 delete_schedule(ScheduleClassId);
             }
         });
 
 
 
-        return view;
+        return view;   }
+
+    public void getDay(int position)
+    {
+        switch (position){
+            case 0:
+                day = "sunday";
+                break;
+            case 1:
+                day = "monday";
+                break;
+            case 2:
+                day = "tuesday";
+                break;
+            case 3:
+                day = "wednesday";
+                break;
+            case 4:
+                day ="thursday";
+                break;
+            case 5:
+                day="friday";
+                break;
+            case 6:
+                day = "saturday";
+                break;
+        }
     }
+
     public void delete_schedule(String scheduleClassId)
     {
-        ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleId,"wednesday",scheduleClassId);
+        ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleId,day,scheduleClassId);
         scheduleViewModel.DeleteSchedule(scheduleDelete);
         Toast.makeText(getActivity(),""+scheduleId+"  "+day+" "+scheduleClassId,Toast.LENGTH_SHORT).show();
         scheduleViewModel.getDeleteResponse().observe(getActivity(), data->
