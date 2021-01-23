@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,8 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     private FloatingActionButton fabOpenMenu, fabPeople, fabNotice;
     private Boolean clicked = false;
     private Animation rotateOpen, rotateClose, toBottom, fromBottom;
+    private SwipeRefreshLayout refreshLayout;
+    private int positionDay = 0;
 
     private LottieAnimationView noClassLottieAnim;
     private TextView noClassTv;
@@ -68,6 +71,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         fabOpenMenu = view.findViewById(R.id.fab_option_btn_stdnt);
         fabNotice = view.findViewById(R.id.fab_notice_stdnt);
         fabPeople = view.findViewById(R.id.fab_batchmates_stdnt);
+        refreshLayout = view.findViewById(R.id.swipe_to_refresh_student);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -96,6 +100,9 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         toBottom = AnimationUtils.loadAnimation(getContext(), R.anim.to_bottom_anim);
         fromBottom = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom_anim);
 
+        //swipe to refresh function
+        onSwipeDownToRefresh(positionDay);
+
         fabOpenMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +128,37 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         });
 
         return view;
+    }
+
+    private void onSwipeDownToRefresh(int positionDay) {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                switch (positionDay){
+                    case 0:
+                        setAdapterAccordingToPosition("sunday");
+                        break;
+                    case 1:
+                        setAdapterAccordingToPosition("monday");
+                        break;
+                    case 2:
+                        setAdapterAccordingToPosition("tuesday");
+                        break;
+                    case 3:
+                        setAdapterAccordingToPosition("wednesday");
+                        break;
+                    case 4:
+                        setAdapterAccordingToPosition("thursday");
+                        break;
+                    case 5:
+                        setAdapterAccordingToPosition("friday");
+                        break;
+                    case 6:
+                        setAdapterAccordingToPosition("saturday");
+                        break;
+                }
+            }
+        });
     }
 
     private void setVisibility(Boolean clicked){
@@ -168,6 +206,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
     @Override
     public void sendPosition(int position) {
+        positionDay = position;
         switch (position){
             case 0:
                 setAdapterAccordingToPosition("sunday");
@@ -216,6 +255,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
                         routineItemAdapter = new RoutineItemAdapter(data.getRequiredSchedule(), getContext(), this);
                         routineItemAdapter.notifyDataSetChanged();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
+                        refreshLayout.setRefreshing(false);
                     }
 
                 }
