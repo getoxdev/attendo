@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -66,6 +67,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     private AppPreferences appPreferences;
     private Boolean clicked = false;
     private Animation rotateOpen, rotateClose, toBottom, fromBottom;
+    private SwipeRefreshLayout refreshLayout;
 
     //position
     private int positionDay = 0;
@@ -102,6 +104,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         fabNotice = view.findViewById(R.id.fab_notice_cr);
         noClassRoutineLottie = view.findViewById(R.id.routine_lottie);
         noClassTextView = view.findViewById(R.id.routine_txtView);
+        refreshLayout = view.findViewById(R.id.swipe_to_refresh_cr);
 
          appPreferences = new AppPreferences(getActivity());
         //loading animations for multiple FAB
@@ -109,6 +112,10 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         rotateClose = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_close_anim);
         toBottom = AnimationUtils.loadAnimation(getContext(), R.anim.to_bottom_anim);
         fromBottom = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom_anim);
+
+
+        //set on refresh listener
+        onSwipeDownToRefresh(positionDay);
 
 
         //shimmerFrameLayout = view.findViewById(R.id.shimmer_parent_layout);
@@ -167,6 +174,37 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         dayofWeekRecyclerView.setAdapter(weekDayAdapter);
 
         return view;
+    }
+
+    private void onSwipeDownToRefresh(int positionDay) {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                switch (positionDay){
+                    case 0:
+                        setAdapterAccordingToPosition("sunday");
+                        break;
+                    case 1:
+                        setAdapterAccordingToPosition("monday");
+                        break;
+                    case 2:
+                        setAdapterAccordingToPosition("tuesday");
+                        break;
+                    case 3:
+                        setAdapterAccordingToPosition("wednesday");
+                        break;
+                    case 4:
+                        setAdapterAccordingToPosition("thursday");
+                        break;
+                    case 5:
+                        setAdapterAccordingToPosition("friday");
+                        break;
+                    case 6:
+                        setAdapterAccordingToPosition("saturday");
+                        break;
+                }
+            }
+        });
     }
 
 
@@ -312,6 +350,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
                         routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity(),this,this);
                         routineItemAdapter.notifyDataSetChanged();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
+                        refreshLayout.setRefreshing(false);
                     }
 
                 }
