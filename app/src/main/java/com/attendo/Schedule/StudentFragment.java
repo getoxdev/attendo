@@ -96,7 +96,13 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
         preferences = AppPreferences.getInstance(getContext());
         //swipe to refresh function
-        onSwipeDownToRefresh(positionDay);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onSwipeDownToRefresh(positionDay);
+            }
+        });
+
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -153,10 +159,8 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     }
 
     private void onSwipeDownToRefresh(int positionDay) {
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.d("Student", String.valueOf(positionDay) + "onSwipe");
+
+                Log.d("Student", String.valueOf(positionDay) + "  : onSwipe");
                 switch (positionDay){
                     case 0:
                         setAdapterAccordingToPosition("sunday");
@@ -180,8 +184,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
                         setAdapterAccordingToPosition("saturday");
                         break;
                 }
-            }
-        });
+
     }
 
     private void setVisibility(Boolean clicked){

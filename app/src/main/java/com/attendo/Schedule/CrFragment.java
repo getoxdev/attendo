@@ -120,7 +120,14 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         fromBottom = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom_anim);
 
         //set on refresh listener
-        onSwipeDownToRefresh(positionDay);
+
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onSwipeDownToRefresh(positionDay);
+            }
+        });
 
 
         fabOpenMenu.setOnClickListener(new View.OnClickListener() {
@@ -181,9 +188,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     }
 
     private void onSwipeDownToRefresh(int positionDay) {
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
                 switch (positionDay){
                     case 0:
                         setAdapterAccordingToPosition("sunday");
@@ -207,8 +211,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
                         setAdapterAccordingToPosition("saturday");
                         break;
                 }
-            }
-        });
     }
 
 
