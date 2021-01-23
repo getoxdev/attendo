@@ -24,12 +24,21 @@
         app:cardBackgroundColor="@color/card_bg_color"
         app:cardElevation="0dp">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="360dp"
+            android:layout_height="80dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/cardviewanimation">
+
+        </com.airbnb.lottie.LottieAnimationView>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/SubjectName"
+                android:id="@+id/Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Subject"
@@ -37,23 +46,18 @@
                 android:textSize="26dp"
                 android:textColor="@color/black"
                 android:layout_marginStart="18dp"
-                android:layout_marginTop="18dp"/>
+                android:layout_marginTop="20dp"/>
 
-            <TextView
-                android:id="@+id/detail"
+            <com.airbnb.lottie.LottieAnimationView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/SubjectName"
-                android:textSize="18dp"
-                android:layout_marginTop="8dp"
-                android:text="Notice detail"
-                android:textColor="@color/blue"
-                android:layout_marginStart="18dp"
-                android:layout_marginBottom="18dp"/>
+                android:layout_height="10dp"
+                app:lottie_rawRes="@raw/noticeanimation"
+                app:lottie_autoPlay="true"
+                app:lottie_repeatCount="3"
+                android:layout_below="@+id/Title"/>
 
 
         </RelativeLayout>
-
 
 
 

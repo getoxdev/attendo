@@ -6,129 +6,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Schedule.NoticeFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/subjectCard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginStart="14dp"
-        app:cardCornerRadius="10dp"
-        android:stateListAnimator="@animator/card_pressed_animator"
-        app:cardBackgroundColor="@color/card_bg_color"
-        app:cardElevation="0dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Android Studio"
-                android:textStyle="bold"
-                android:textSize="26dp"
-                android:textColor="@color/black"
-                android:layout_marginStart="18dp"
-                android:layout_marginBottom="18dp"
-                android:layout_marginTop="18dp"/>
-
-
-        </RelativeLayout>
-
-
-
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/subjectCard2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginStart="14dp"
-        app:cardCornerRadius="10dp"
-        android:stateListAnimator="@animator/card_pressed_animator"
-        app:cardBackgroundColor="@color/card_bg_color"
-        app:cardElevation="0dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/Title2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="18dp"
-                android:text="Surprise Test!"
-                android:textColor="@color/black"
-                android:textSize="26dp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-
-    </com.google.android.material.card.MaterialCardView>
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/subjectCard3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:clickable="true"
-        android:layout_marginTop="200dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginStart="14dp"
-        app:cardCornerRadius="10dp"
-        android:stateListAnimator="@animator/card_pressed_animator"
-        app:cardBackgroundColor="@color/card_bg_color"
-        app:cardElevation="0dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/Title3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="18dp"
-                android:text="Maths Assignment"
-                android:textColor="@color/black"
-                android:textSize="26dp"
-                android:textStyle="bold" />
-
-
-        </RelativeLayout>
-
-
-    </com.google.android.material.card.MaterialCardView>
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notice_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_notice"
+        android:id="@+id/Add_Notice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -138,7 +23,6 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:transitionName="add_subject_transition"
         app:backgroundTint="#9657F1"
         app:fabCustomSize="60dp"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"

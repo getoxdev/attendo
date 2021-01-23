@@ -45,11 +45,11 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView sub,detail;
+        private TextView sub;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            detail = itemView.findViewById(R.id.detail);
+            sub = itemView.findViewById(R.id.Title);
         }
     }
 }
