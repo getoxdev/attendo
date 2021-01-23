@@ -112,19 +112,17 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         progressBar = view.findViewById(R.id.subject_progress_bar_cr);
 
 
-         appPreferences = new AppPreferences(getActivity());
+        appPreferences = new AppPreferences(getActivity());
         //loading animations for multiple FAB
         rotateOpen = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_open_anim );
         rotateClose = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_close_anim);
         toBottom = AnimationUtils.loadAnimation(getContext(), R.anim.to_bottom_anim);
         fromBottom = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom_anim);
 
-
         //set on refresh listener
         onSwipeDownToRefresh(positionDay);
 
 
-        //shimmerFrameLayout = view.findViewById(R.id.shimmer_parent_layout);
         fabOpenMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

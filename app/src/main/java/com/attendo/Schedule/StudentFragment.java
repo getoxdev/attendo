@@ -4,15 +4,18 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +32,16 @@ import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.Schedule.Model.DayOfWeek;
 import com.attendo.Schedule.Model.SubjectRoutine;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.SubjectDetails;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +55,10 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     private RoutineItemAdapter routineItemAdapter;
     private ArrayList<SubjectDetails> subjectRoutines  = new ArrayList();
     private FirebaseAuth mAuth;
+    private DatabaseReference mReference;
     private String class_id;
     private ScheduleViewModel getScheduleViewModel;
+    private AppPreferences preferences;
 
     private FloatingActionButton fabOpenMenu, fabPeople, fabNotice;
     private Boolean clicked = false;
@@ -58,6 +69,13 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
     private LottieAnimationView noClassLottieAnim;
     private TextView noClassTv;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getClassId();
+        getScheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +93,10 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         fabPeople = view.findViewById(R.id.fab_batchmates_stdnt);
         refreshLayout = view.findViewById(R.id.swipe_to_refresh_student);
         progressBar = view.findViewById(R.id.subject_progress_bar_student);
+
+        preferences = AppPreferences.getInstance(getContext());
+        //swipe to refresh function
+        onSwipeDownToRefresh(positionDay);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -95,7 +117,6 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         weekDayAdapter = new WeekDayAdapter(getActivity(), dayList, getActivity(), this);
 
         dayofWeekRecyclerView.setAdapter(weekDayAdapter);
-        setAdapterAccordingToPosition("sunday");
 
         //loading animations for multiple FAB
         rotateOpen = AnimationUtils.loadAnimation(getContext(),R.anim.rotate_open_anim );
@@ -103,8 +124,6 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         toBottom = AnimationUtils.loadAnimation(getContext(), R.anim.to_bottom_anim);
         fromBottom = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom_anim);
 
-        //swipe to refresh function
-        onSwipeDownToRefresh(positionDay);
 
         fabOpenMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +156,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                Log.d("Student", String.valueOf(positionDay) + "onSwipe");
                 switch (positionDay){
                     case 0:
                         setAdapterAccordingToPosition("sunday");
@@ -216,6 +236,8 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     @Override
     public void sendPosition(int position) {
         positionDay = position;
+        Log.d("Student", String.valueOf(positionDay) + "  : onSendPosition");
+        Log.d("Student", String.valueOf(position) + "  : this is actual position");
         switch (position){
             case 0:
                 setAdapterAccordingToPosition("sunday");
@@ -247,6 +269,8 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
             Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
 
         }else{
+            Log.d("Student", class_id);
+            Log.d("Student", day);
             getScheduleViewModel.setScheduleGetResponse(class_id, day);
             getScheduleViewModel.getScheduleGetResponse().observe(getViewLifecycleOwner(), data->{
                 if(data == null){
@@ -276,6 +300,28 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
 
         }
+    }
+
+    private void getClassId(){
+        mAuth = FirebaseAuth.getInstance();
+        mReference = FirebaseDatabase.getInstance().getReference("Schedule");
+        mReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    class_id = snapshot.child("Class_Id").getValue(String.class);
+                    //Log.d("ClassIDMINE" , class_id);
+                }else {
+                    class_id = null;
+                    // Log.d("ClassIDMINE" , class_id);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Database Error", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
