@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,6 +53,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     private Boolean clicked = false;
     private Animation rotateOpen, rotateClose, toBottom, fromBottom;
     private SwipeRefreshLayout refreshLayout;
+    private ContentLoadingProgressBar progressBar;
     private int positionDay = 0;
 
     private LottieAnimationView noClassLottieAnim;
@@ -72,6 +74,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         fabNotice = view.findViewById(R.id.fab_notice_stdnt);
         fabPeople = view.findViewById(R.id.fab_batchmates_stdnt);
         refreshLayout = view.findViewById(R.id.swipe_to_refresh_student);
+        progressBar = view.findViewById(R.id.subject_progress_bar_student);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -195,13 +198,19 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
     @Override
     public void callback(int position, List<SubjectDetails> subjectRoutines) {
-//        if(subjectRoutines == null){
-//            Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
-//        }else{
-//            routineItemAdapter = new RoutineItemAdapter();
-//        }
-//        routineItemAdapter.notifyDataSetChanged();
-//        subjectrecyclerView.setAdapter(routineItemAdapter);
+        progressBar.hide();
+        progressBar.animate();
+        if(subjectRoutines == null){
+            Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
+            noClassLottieAnim.setVisibility(View.VISIBLE);
+            noClassTv.setVisibility(View.VISIBLE);
+        }else{
+            routineItemAdapter = new RoutineItemAdapter(subjectRoutines, getContext(), this);
+            noClassLottieAnim.setVisibility(View.INVISIBLE);
+            noClassTv.setVisibility(View.INVISIBLE);
+        }
+        routineItemAdapter.notifyDataSetChanged();
+        subjectrecyclerView.setAdapter(routineItemAdapter);
     }
 
     @Override
@@ -249,6 +258,8 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
                         subjectrecyclerView.setAdapter(routineItemAdapter);
                         noClassLottieAnim.setVisibility(View.VISIBLE);
                         noClassTv.setVisibility(View.VISIBLE);
+                        progressBar.hide();
+                        progressBar.animate();
                     }else{
                         noClassLottieAnim.setVisibility(View.INVISIBLE);
                         noClassTv.setVisibility(View.INVISIBLE);
@@ -256,6 +267,8 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
                         routineItemAdapter.notifyDataSetChanged();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
                         refreshLayout.setRefreshing(false);
+                        progressBar.hide();
+                        progressBar.animate();
                     }
 
                 }

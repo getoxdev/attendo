@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -33,6 +34,7 @@ import com.attendo.data.model.SubjectDetails;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 //import com.facebook.shimmer.ShimmerFrameLayout;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApiNotAvailableException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,6 +70,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     private Boolean clicked = false;
     private Animation rotateOpen, rotateClose, toBottom, fromBottom;
     private SwipeRefreshLayout refreshLayout;
+    private ContentLoadingProgressBar progressBar;
 
     //position
     private int positionDay = 0;
@@ -76,7 +79,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
     LottieAnimationView noClassRoutineLottie;
     TextView noClassTextView;
-    //ShimmerFrameLayout shimmerFrameLayout;
 
 
 
@@ -105,6 +107,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         noClassRoutineLottie = view.findViewById(R.id.routine_lottie);
         noClassTextView = view.findViewById(R.id.routine_txtView);
         refreshLayout = view.findViewById(R.id.swipe_to_refresh_cr);
+        progressBar = view.findViewById(R.id.subject_progress_bar_cr);
 
          appPreferences = new AppPreferences(getActivity());
         //loading animations for multiple FAB
@@ -250,6 +253,8 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
     @Override
     public void callback(int position, List<SubjectDetails> subjectRoutines) {
+        progressBar.hide();
+        progressBar.animate();
         if(subjectRoutines == null){
             Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
             noClassRoutineLottie.setVisibility(View.VISIBLE);
@@ -328,6 +333,8 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     }
 
     private void setAdapterAccordingToPosition(String day){
+        progressBar.show();
+        progressBar.animate();
         if(class_id == null){
             Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
 
@@ -341,6 +348,8 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
                     if(data.getRequiredSchedule().size() == 0){
                         routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity(),this,this);
                         routineItemAdapter.notifyDataSetChanged();
+                        progressBar.hide();
+                        progressBar.animate();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
                         noClassRoutineLottie.setVisibility(View.VISIBLE);
                         noClassTextView.setVisibility(View.VISIBLE);
@@ -351,6 +360,9 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
                         routineItemAdapter.notifyDataSetChanged();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
                         refreshLayout.setRefreshing(false);
+                        progressBar.hide();
+                        progressBar.animate();
+
                     }
 
                 }

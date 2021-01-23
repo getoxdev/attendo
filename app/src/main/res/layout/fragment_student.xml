@@ -50,6 +50,19 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/subject_progress_bar_student"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/static_weekdays_recyclerview_student"
+        android:layout_marginRight="80dp"
+        android:layout_marginLeft="80dp"
+        android:indeterminateOnly="true"
+        style="?android:attr/progressBarStyleHorizontal"/>
+
 
 
     <com.airbnb.lottie.LottieAnimationView
