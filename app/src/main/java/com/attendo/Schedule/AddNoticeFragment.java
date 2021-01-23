@@ -20,7 +20,7 @@ public class AddNoticeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_notice, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Notice");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Add Notice");
 
         return  view;
     }

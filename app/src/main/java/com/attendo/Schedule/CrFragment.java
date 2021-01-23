@@ -58,6 +58,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     private AddSubjectDetailsFragment addSubjectDetailsFragment;
     private ScheduleViewModel getScheduleViewModel;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
+    private NoticeFragment noticeFragment;
 
     //firebase references
     private DatabaseReference mReference;
@@ -96,12 +97,14 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Routine");
 
 
+        noticeFragment = new NoticeFragment();
         fabOpenMenu = view.findViewById(R.id.fab_open_menu_cr);
         fabAddSubject = view.findViewById(R.id.fab_add_cr);
         fabBatchmates = view.findViewById(R.id.fab_batchmates_cr);
         fabNotice = view.findViewById(R.id.fab_notice_cr);
         noClassRoutineLottie = view.findViewById(R.id.routine_lottie);
         noClassTextView = view.findViewById(R.id.routine_txtView);
+
 
          appPreferences = new AppPreferences(getActivity());
         //loading animations for multiple FAB
@@ -142,7 +145,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         fabNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Notice clicked", Toast.LENGTH_SHORT).show();
+                setFragment(noticeFragment);
             }
         });
 
@@ -257,16 +260,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     }
 
 
-
-
-
-    private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container_frame,fragment);
-        fragmentTransaction.addToBackStack(null).commit();
-    }
-
-
     private void getClassId(){
         mAuth = FirebaseAuth.getInstance();
         mReference = FirebaseDatabase.getInstance().getReference("Schedule");
@@ -337,6 +330,13 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
                 this);
         edit_schedule_fragment.show(getParentFragmentManager(), "Edit");
     }
+
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container_frame,fragment);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
+
 
 
 }

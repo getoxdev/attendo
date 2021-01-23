@@ -73,6 +73,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class FragmentAccountAndSettings extends Fragment {
 
 
+    private NoticeFragment noticeFragment;
     private FragmentUserProfile fragmentUserProfile;
     private StudentFragment studentFragment;
     private FragmentHelp fragmentHelp;
@@ -106,6 +107,7 @@ public class FragmentAccountAndSettings extends Fragment {
 
 
 
+        noticeFragment = new NoticeFragment();
         appPreferences = AppPreferences.getInstance(getContext());
         fragmentAppRate = new FragmentAppRate();
         studentFragment = new StudentFragment();
