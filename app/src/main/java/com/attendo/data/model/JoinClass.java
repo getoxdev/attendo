@@ -5,13 +5,13 @@ public class JoinClass {
     private String classCode;
     private String name;
     private String email;
-    private String Scholarid;
+    private String scholarId;
 
-    public JoinClass(String classCode, String name, String email, String scholarid) {
+    public JoinClass(String classCode, String name, String email, String scholarId) {
         this.classCode = classCode;
         this.name = name;
         this.email = email;
-        Scholarid = scholarid;
+        this.scholarId = scholarId;
     }
 
     public void setClassCode(String classCode) {
@@ -26,8 +26,8 @@ public class JoinClass {
         this.email = email;
     }
 
-    public void setScholarid(String scholarid) {
-        Scholarid = scholarid;
+    public void setScholarid(String scholarId) {
+        scholarId = scholarId;
     }
 
     public String getClassCode() {
@@ -43,6 +43,6 @@ public class JoinClass {
     }
 
     public String getScholarid() {
-        return Scholarid;
+        return scholarId;
     }
 }

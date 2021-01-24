@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.attendo.data.api.ApiHelper;
 import com.attendo.data.model.CreateClass;
+import com.attendo.data.model.GetStudentListResponse;
 import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.ResponseCreateClass;
 import com.attendo.data.model.ResponseDeleteSchedule;
@@ -32,6 +33,7 @@ public class ScheduleViewModel extends AndroidViewModel {
       private MutableLiveData<ResponseSchedule> scheduleResponse ,editResponse;
       private MutableLiveData<ResponseGetSchedule> getScheduleResponse;
       private MutableLiveData<ResponseDeleteSchedule> deleteResponse;
+      private MutableLiveData<GetStudentListResponse> studentListResponse;
 
 
       public ScheduleViewModel(@NonNull Application application) {
@@ -43,6 +45,7 @@ public class ScheduleViewModel extends AndroidViewModel {
         editResponse=new MutableLiveData<ResponseSchedule>();
         getScheduleResponse = new MutableLiveData<ResponseGetSchedule>();
         deleteResponse = new MutableLiveData<ResponseDeleteSchedule>();
+        studentListResponse = new MutableLiveData<GetStudentListResponse>();
     }
 
     public MutableLiveData<ResponseCreateClass> getClassResponse(){
@@ -67,6 +70,10 @@ public class ScheduleViewModel extends AndroidViewModel {
 
     public MutableLiveData<ResponseSchedule> scheduleResponseEdit(){
         return editResponse;
+    }
+
+    public MutableLiveData<GetStudentListResponse> getStudentListResponse(){
+          return studentListResponse;
     }
 
     //CREATE CLASS
@@ -202,6 +209,28 @@ public class ScheduleViewModel extends AndroidViewModel {
 
             }
         });
+    }
+
+
+    //get student list in a class
+    public void GetStudentList(String classId){
+          apiHelper.getStudentList(classId).enqueue(new Callback<GetStudentListResponse>() {
+              @Override
+              public void onResponse(Call<GetStudentListResponse> call, Response<GetStudentListResponse> response) {
+                  if(response.code() == 200 || response.code() == 201){
+                      studentListResponse.postValue(response.body());
+                      Log.e("getStudentList", response.message() + response.code() + " : successful");
+                  }else if(response.code() == 400 || response.code() == 404){
+                      studentListResponse.postValue(null);
+                      Log.e("getStudentList" , response.message() + response.code() + " : failed");
+                  }
+              }
+
+              @Override
+              public void onFailure(Call<GetStudentListResponse> call, Throwable t) {
+                    studentListResponse.postValue(null);
+              }
+          });
     }
 }
 

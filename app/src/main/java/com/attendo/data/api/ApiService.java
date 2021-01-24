@@ -2,6 +2,7 @@ package com.attendo.data.api;
 
 import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.GetSchedule;
+import com.attendo.data.model.GetStudentListResponse;
 import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
@@ -47,5 +48,8 @@ public interface  ApiService
 
     @GET("api/schedule/{classId}/{day}")
     Call<ResponseGetSchedule> getschedule(@Path("classId") String class_Id, @Path("day") String day);
+
+    @GET("api/user/students/{classId}")
+    Call<GetStudentListResponse> getStudentList(@Path("classId") String classId);
 
 }
