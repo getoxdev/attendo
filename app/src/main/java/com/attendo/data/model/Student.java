@@ -21,6 +21,10 @@ public class Student {
     @Expose
     private String email;
 
+    @SerializedName("scholarId")
+    @Expose
+    private String scholarId;
+
     @SerializedName("__v")
     @Expose
     private int __v;
@@ -51,5 +55,9 @@ public class Student {
 
     public String getClassId() {
         return classId;
+    }
+
+    public String getScholarId(){
+        return scholarId;
     }
 }
