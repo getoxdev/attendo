@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.attendo.data.model.CreateClass;
 import com.attendo.data.model.GetSchedule;
+import com.attendo.data.model.GetStudentListResponse;
 import com.attendo.data.model.JoinClass;
 import com.attendo.data.model.Response;
 import com.attendo.data.model.Reminder;
@@ -68,6 +69,8 @@ public class ApiHelper implements ApiService
         return api.getschedule(classId, day);
     }
 
+
+
     @Override
     public Call<ResponseSchedule> createschedule(@Body Schedule schedule){
         return api.createschedule(schedule);
@@ -81,6 +84,12 @@ public class ApiHelper implements ApiService
     @Override
     public Call<ResponseDeleteSchedule> DeleteSchedule(ScheduleDelete scheduleDelete) {
         return api.DeleteSchedule(scheduleDelete);
+    }
+
+
+    @Override
+    public Call<GetStudentListResponse> getStudentList(String classId) {
+        return api.getStudentList(classId);
     }
 
 }
