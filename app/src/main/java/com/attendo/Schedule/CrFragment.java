@@ -147,8 +147,8 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
             public void onClick(View view) {
                 Fragment batchmatesFragment = new BatchmatesDetailsFragment();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.container_frame, batchmatesFragment, "batch")
-                        .commit();
+                transaction.replace(R.id.container_frame, batchmatesFragment, "batch");
+                transaction.addToBackStack(null).commit();
 
             }
         });

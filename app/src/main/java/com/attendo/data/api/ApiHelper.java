@@ -7,10 +7,14 @@ import com.attendo.data.model.schedule.GetStudentListResponse;
 import com.attendo.data.model.schedule.JoinClass;
 import com.attendo.data.model.reminder.Response;
 import com.attendo.data.model.reminder.Reminder;
+import com.attendo.data.model.schedule.Notice;
+import com.attendo.data.model.schedule.ResDeleteNotice;
 import com.attendo.data.model.schedule.ResponseCreateClass;
 import com.attendo.data.model.schedule.ResponseDeleteSchedule;
+import com.attendo.data.model.schedule.ResponseGetNotice;
 import com.attendo.data.model.schedule.ResponseGetSchedule;
 import com.attendo.data.model.schedule.ResponseJoinClass;
+import com.attendo.data.model.schedule.ResponseNotice;
 import com.attendo.data.model.schedule.ResponseSchedule;
 import com.attendo.data.model.schedule.Schedule;
 import com.attendo.data.model.schedule.ScheduleDelete;
@@ -87,6 +91,31 @@ public class ApiHelper implements ApiService
     @Override
     public Call<GetStudentListResponse> getStudentList(String classId) {
         return api.getStudentList(classId);
+    }
+
+    @Override
+    public Call<ResponseNotice> createNotice(String class_Id, Notice notice) {
+        return  api.createNotice(class_Id,notice);
+    }
+
+    @Override
+    public Call<ResponseNotice> updateNotice(String noticeId, Notice notice) {
+        return  api.updateNotice(noticeId,notice);
+    }
+
+    @Override
+    public Call<ResponseNotice> getNotice(String noticeId) {
+        return  api.getNotice(noticeId);
+    }
+
+    @Override
+    public Call<ResponseGetNotice> getAllNotice(String classId) {
+        return  api.getAllNotice(classId);
+    }
+
+    @Override
+    public Call<ResDeleteNotice> deleteNotice(String noticeId, String classId) {
+        return api.deleteNotice(noticeId,classId);
     }
 
 }

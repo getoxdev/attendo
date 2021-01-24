@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.data.model.schedule.Notice;
+import com.attendo.data.model.schedule.notice_titlelist;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class NoticeFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private NoticeAdapter noticeAdapter;
-    private ArrayList<Notice> notices;
+    private ArrayList<notice_titlelist> notices;
     private FloatingActionButton fb;
     private AddNoticeFragment addNoticeFragment;
 
@@ -43,11 +44,11 @@ public class NoticeFragment extends Fragment {
 
         notices = new ArrayList<>();
 
-        notices.add(new Notice("Android class"));
-        notices.add(new Notice("Maths surprise test!"));
-        notices.add(new Notice("Analog class cancel!"));
-        notices.add(new Notice("Google Meet link"));
-        notices.add(new Notice("Project submission date"));
+        notices.add(new notice_titlelist("Android class"));
+        notices.add(new notice_titlelist("Maths surprise test!"));
+        notices.add(new notice_titlelist("Analog class cancel!"));
+        notices.add(new notice_titlelist("Google Meet link"));
+        notices.add(new notice_titlelist("Project submission date"));
 
         noticeAdapter = new NoticeAdapter(notices);
         recyclerView.setAdapter(noticeAdapter);

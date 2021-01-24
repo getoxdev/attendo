@@ -10,14 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
 import com.attendo.data.model.schedule.Notice;
+import com.attendo.data.model.schedule.notice_titlelist;
 
 import java.util.List;
 
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHolder> {
 
-    private List<Notice> items;
+    private List<notice_titlelist> items;
 
-    public NoticeAdapter(List<Notice> items)
+    public NoticeAdapter(List<notice_titlelist> items)
     {
         this.items = items;
     }
@@ -33,7 +34,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Notice currentItem = items.get(position);
+        notice_titlelist currentItem = items.get(position);
         holder.sub.setText(currentItem.getTitle());
     }
 
