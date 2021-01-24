@@ -139,7 +139,7 @@ public class Delete_fragment extends BottomSheetDialogFragment  {
     {
         ScheduleDelete scheduleDelete = new ScheduleDelete(scheduleId,day,scheduleClassId);
         scheduleViewModel.DeleteSchedule(scheduleDelete);
-        Toast.makeText(getActivity(),""+scheduleId+"  "+day+" "+scheduleClassId,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(),""+scheduleId+"  "+day+" "+scheduleClassId,Toast.LENGTH_SHORT).show();
         scheduleViewModel.getDeleteResponse().observe(getActivity(), data->
         {
             if (data == null) {

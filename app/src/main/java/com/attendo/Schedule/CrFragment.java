@@ -328,11 +328,11 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     private void setAdapterAccordingToPosition(String day){
         progressBar.show();
         progressBar.animate();
-        if(class_id == null){
+        if(appPreferences.RetrieveClassId() == null){
             Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
 
         }else{
-            getScheduleViewModel.setScheduleGetResponse(class_id, day);
+            getScheduleViewModel.setScheduleGetResponse(appPreferences.RetrieveClassId(), day);
             Log.e("schedule99",appPreferences.RetrieveClassScheduleId());
             getScheduleViewModel.getScheduleGetResponse().observe(this, data->{
                 if(data == null){
