@@ -1,4 +1,4 @@
-package com.attendo.data.model;
+package com.attendo.data.model.reminder;
 
 public class ReminderModel {
     public String time_showing;

@@ -1,20 +1,24 @@
-package com.attendo.data.model;
+package com.attendo.data.model.schedule;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ResponseSchedule {
+public class ResponseDeleteSchedule {
 
     @SerializedName("status")
     @Expose
     private String status;
 
-    @SerializedName("schedule")
+    @SerializedName("message")
     @Expose
+    private String message;
+
+    @SerializedName("schedule")
     private schedule_list schedule;
 
-    public ResponseSchedule(String status, schedule_list schedule) {
+    public ResponseDeleteSchedule(String status, String message, schedule_list schedule) {
         this.status = status;
+        this.message = message;
         this.schedule = schedule;
     }
 
@@ -24,6 +28,14 @@ public class ResponseSchedule {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public schedule_list getSchedule() {

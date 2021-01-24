@@ -1,4 +1,4 @@
-package com.attendo.data.model;
+package com.attendo.data.model.schedule;
 
 public class CreateClass {
     private String studentName;

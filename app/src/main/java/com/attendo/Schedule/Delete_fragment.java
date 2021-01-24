@@ -1,39 +1,24 @@
 package com.attendo.Schedule;
 
-import android.database.DatabaseErrorHandler;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
-import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
-import com.attendo.data.model.ScheduleDelete;
-import com.attendo.data.model.SubjectDetails;
+import com.attendo.data.model.schedule.ScheduleDelete;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.UploadTask;
-
-import java.util.List;
 
 
 public class Delete_fragment extends BottomSheetDialogFragment  {

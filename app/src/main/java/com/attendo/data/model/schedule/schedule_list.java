@@ -1,7 +1,6 @@
-package com.attendo.data.model;
+package com.attendo.data.model.schedule;
 
-import androidx.annotation.NonNull;
-
+import com.attendo.data.model.schedule.Classes;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

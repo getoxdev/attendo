@@ -1,4 +1,4 @@
-package com.attendo.Schedule.Model;
+package com.attendo.data.model.schedule;
 
 public class DayOfWeek {
 

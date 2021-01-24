@@ -1,6 +1,5 @@
 package com.attendo.Schedule;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -24,19 +23,15 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
-import com.attendo.data.model.Schedule;
+import com.attendo.data.model.schedule.Schedule;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.firebase.storage.UploadTask;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class AddSubjectDetailsFragment extends BottomSheetDialogFragment implements AdapterView.OnItemSelectedListener {
 

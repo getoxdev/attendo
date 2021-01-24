@@ -9,8 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
-import com.attendo.Schedule.Model.Notice;
-import com.attendo.data.model.SubjectDetails;
+import com.attendo.data.model.schedule.Notice;
 
 import java.util.List;
 

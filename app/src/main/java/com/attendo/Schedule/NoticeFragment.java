@@ -11,11 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.NoticeAdapter;
-import com.attendo.Schedule.Model.Notice;
+import com.attendo.data.model.schedule.Notice;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

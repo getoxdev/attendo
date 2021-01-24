@@ -2,57 +2,29 @@ package com.attendo.Schedule.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
-import com.attendo.Schedule.CRSettingsFragment;
 import com.attendo.Schedule.Delete_fragment;
 import com.attendo.Schedule.Edit_schedule_fragment;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
-import com.attendo.Schedule.Model.SubjectRoutine;
-import com.attendo.data.model.Schedule;
-import com.attendo.data.model.ScheduleDelete;
-import com.attendo.data.model.ScheduleEdit;
-import com.attendo.data.model.SubjectDetails;
+import com.attendo.data.model.schedule.SubjectDetails;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;

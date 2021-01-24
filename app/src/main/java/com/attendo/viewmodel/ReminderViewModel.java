@@ -9,8 +9,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.attendo.data.api.ApiHelper;
-import com.attendo.data.model.Reminder;
-import com.attendo.data.model.Response;
+import com.attendo.data.model.reminder.Reminder;
+import com.attendo.data.model.reminder.Response;
 import com.attendo.data.rem.RemEntity;
 import com.attendo.ui.main.drawers.reminder.RemRepository;
 

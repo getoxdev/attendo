@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -19,17 +18,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.attendo.R;
 import com.attendo.data.api.ApiHelper;
-import com.attendo.data.model.Reminder;
+import com.attendo.data.model.reminder.Reminder;
 import com.attendo.data.rem.RemEntity;
 import com.attendo.viewmodel.ReminderViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;

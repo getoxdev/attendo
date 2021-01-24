@@ -1,11 +1,7 @@
 package com.attendo.Schedule.Interface;
 
-import com.attendo.Schedule.Model.SubjectRoutine;
-import com.attendo.data.model.Schedule;
-import com.attendo.data.model.ScheduleEdit;
-import com.attendo.data.model.SubjectDetails;
+import com.attendo.data.model.schedule.SubjectDetails;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface UpdateRecyclerView {

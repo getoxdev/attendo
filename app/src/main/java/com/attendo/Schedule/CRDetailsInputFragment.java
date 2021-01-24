@@ -1,6 +1,5 @@
 package com.attendo.Schedule;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.attendo.R;
 import com.attendo.Schedule.Preference.AppPreferences;
-import com.attendo.data.model.CreateClass;
+import com.attendo.data.model.schedule.CreateClass;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;

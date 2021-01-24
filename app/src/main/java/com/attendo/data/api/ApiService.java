@@ -1,20 +1,18 @@
 package com.attendo.data.api;
 
-import com.attendo.data.model.CreateClass;
-import com.attendo.data.model.GetSchedule;
-import com.attendo.data.model.GetStudentListResponse;
-import com.attendo.data.model.JoinClass;
-import com.attendo.data.model.Response;
-import com.attendo.data.model.Reminder;
-import com.attendo.data.model.ResponseCreateClass;
-import com.attendo.data.model.ResponseDeleteSchedule;
-import com.attendo.data.model.ResponseGetSchedule;
-import com.attendo.data.model.ResponseJoinClass;
-import com.attendo.data.model.ResponseSchedule;
-import com.attendo.data.model.Schedule;
-import com.attendo.data.model.ScheduleDelete;
-import com.attendo.data.model.ScheduleEdit;
-import com.attendo.data.model.schedule_list;
+import com.attendo.data.model.schedule.CreateClass;
+import com.attendo.data.model.schedule.GetStudentListResponse;
+import com.attendo.data.model.schedule.JoinClass;
+import com.attendo.data.model.reminder.Response;
+import com.attendo.data.model.reminder.Reminder;
+import com.attendo.data.model.schedule.ResponseCreateClass;
+import com.attendo.data.model.schedule.ResponseDeleteSchedule;
+import com.attendo.data.model.schedule.ResponseGetSchedule;
+import com.attendo.data.model.schedule.ResponseJoinClass;
+import com.attendo.data.model.schedule.ResponseSchedule;
+import com.attendo.data.model.schedule.Schedule;
+import com.attendo.data.model.schedule.ScheduleDelete;
+import com.attendo.data.model.schedule.ScheduleEdit;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

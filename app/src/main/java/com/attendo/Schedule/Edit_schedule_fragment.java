@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,19 +21,15 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
-import com.attendo.data.model.ScheduleEdit;
-import com.attendo.data.model.SubjectDetails;
+import com.attendo.data.model.schedule.ScheduleEdit;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import org.apache.poi.ss.formula.functions.EDate;
-
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

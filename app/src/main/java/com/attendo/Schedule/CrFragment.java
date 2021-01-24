@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,17 +25,14 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Adapters.WeekDayAdapter;
-import com.attendo.Schedule.Model.DayOfWeek;
+import com.attendo.data.model.schedule.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
-import com.attendo.data.model.ScheduleEdit;
-import com.attendo.data.model.SubjectDetails;
+import com.attendo.data.model.schedule.SubjectDetails;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 //import com.facebook.shimmer.ShimmerFrameLayout;
-import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.FirebaseApiNotAvailableException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,10 +42,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observer;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineItemAdapterCr.OnCardClick{
 

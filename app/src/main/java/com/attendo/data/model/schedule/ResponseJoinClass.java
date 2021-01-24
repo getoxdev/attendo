@@ -1,6 +1,6 @@
-package com.attendo.data.model;
+package com.attendo.data.model.schedule;
 
-import com.google.firebase.storage.StorageException;
+import com.attendo.data.model.schedule.Class;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

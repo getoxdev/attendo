@@ -1,6 +1,5 @@
 package com.attendo.Schedule;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +17,7 @@ import android.widget.Toast;
 
 import com.attendo.R;
 import com.attendo.Schedule.Preference.AppPreferences;
-import com.attendo.data.model.JoinClass;
+import com.attendo.data.model.schedule.JoinClass;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;

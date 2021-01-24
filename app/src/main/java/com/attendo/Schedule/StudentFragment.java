@@ -1,15 +1,11 @@
 package com.attendo.Schedule;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,13 +24,11 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.RoutineItemAdapter;
-import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Adapters.WeekDayAdapter;
-import com.attendo.Schedule.Model.DayOfWeek;
-import com.attendo.Schedule.Model.SubjectRoutine;
+import com.attendo.data.model.schedule.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
-import com.attendo.data.model.SubjectDetails;
+import com.attendo.data.model.schedule.SubjectDetails;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.transition.MaterialSharedAxis;

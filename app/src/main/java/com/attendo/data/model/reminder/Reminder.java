@@ -1,4 +1,4 @@
-package com.attendo.data.model;
+package com.attendo.data.model.reminder;
 
 import com.google.gson.annotations.SerializedName;
 

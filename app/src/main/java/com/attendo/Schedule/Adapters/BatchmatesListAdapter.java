@@ -1,7 +1,6 @@
 package com.attendo.Schedule.Adapters;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
-import com.attendo.data.model.Student;
+import com.attendo.data.model.schedule.Student;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
