@@ -50,7 +50,7 @@ public class NoticeFragment extends Fragment {
         notices.add(new notice_titlelist("Google Meet link"));
         notices.add(new notice_titlelist("Project submission date"));
 
-        noticeAdapter = new NoticeAdapter(notices);
+        noticeAdapter = new NoticeAdapter(notices,getContext());
         recyclerView.setAdapter(noticeAdapter);
 
         fb.setOnClickListener(new View.OnClickListener() {
