@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,6 +37,7 @@ import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.SubjectDetails;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -83,6 +85,9 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_student, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Routine");
+
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.Z, true));
+        setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
 
         dayofWeekRecyclerView = view.findViewById(R.id.static_weekdays_recyclerview_student);
         subjectrecyclerView = view.findViewById(R.id.subjectsRecyclerView);
@@ -145,7 +150,10 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         fabPeople.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Batchmates clicked", Toast.LENGTH_SHORT).show();
+                Fragment batchmatesFragment = new BatchmatesDetailsFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.container_frame, batchmatesFragment, "batch")
+                        .commit();
             }
         });
         fabNotice.setOnClickListener(new View.OnClickListener() {

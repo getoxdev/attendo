@@ -153,7 +153,11 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         fabBatchmates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Batchmates clicked", Toast.LENGTH_SHORT).show();
+                Fragment batchmatesFragment = new BatchmatesDetailsFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.container_frame, batchmatesFragment, "batch")
+                        .commit();
+
             }
         });
 

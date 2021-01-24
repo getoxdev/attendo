@@ -103,7 +103,7 @@
         app:tint="@color/bg_login"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_batchmates_stdnt"
+        android:id="@+id/fab_notice_stdnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/fab_option_btn_stdnt"
@@ -118,13 +118,13 @@
         android:visibility="invisible"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_notice_stdnt"
+        android:id="@+id/fab_batchmates_stdnt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/fab_batchmates_stdnt"
-        app:layout_constraintRight_toRightOf="@id/fab_batchmates_stdnt"
+        app:layout_constraintBottom_toTopOf="@id/fab_notice_stdnt"
+        app:layout_constraintRight_toRightOf="@id/fab_notice_stdnt"
         android:layout_marginBottom="14dp"
-        app:layout_constraintLeft_toLeftOf="@id/fab_batchmates_stdnt"
+        app:layout_constraintLeft_toLeftOf="@id/fab_notice_stdnt"
         app:backgroundTint="#9657F1"
         android:focusable="true"
         android:clickable="true"

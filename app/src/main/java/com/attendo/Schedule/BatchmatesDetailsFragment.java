@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -13,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.attendo.R;
+import com.attendo.Schedule.Adapters.BatchmatesListAdapter;
+import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.viewmodel.ScheduleViewModel;
+import com.google.android.material.transition.MaterialSharedAxis;
 
 import org.w3c.dom.Text;
 
@@ -30,6 +35,10 @@ public class BatchmatesDetailsFragment extends Fragment {
 
     @BindView(R.id.batchmates_swipe_refresh)
     SwipeRefreshLayout refreshLayout;
+
+    private BatchmatesListAdapter adapter;
+    private ScheduleViewModel scheduleViewModel;
+    private AppPreferences preferences;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -59,6 +68,9 @@ public class BatchmatesDetailsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+        preferences = AppPreferences.getInstance(getContext());
     }
 
     @Override
@@ -69,6 +81,47 @@ public class BatchmatesDetailsFragment extends Fragment {
         ButterKnife.bind(this, view);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Classmates");
 
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
+        setExitTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));
+
+        //setting adapter to feed the data
+        scheduleViewModel.GetStudentList(preferences.RetrieveClassId());
+        scheduleViewModel.getStudentListResponse().observe(getViewLifecycleOwner(), data->{
+            if(data != null){
+                adapter = new BatchmatesListAdapter(getContext(), data.getStudents());
+                batchmatesRV.setAdapter(adapter);
+
+                //set text for total number of students enrolled
+                noOfStudents.setText(String.valueOf(data.getStudents().size()));
+            }
+        });
+
+
+        //on refresh listener
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                updateOnRefresh();
+            }
+        });
+
+
+
         return view;
+    }
+
+    private void updateOnRefresh() {
+        scheduleViewModel.GetStudentList(preferences.RetrieveClassId());
+        scheduleViewModel.getStudentListResponse().observe(getViewLifecycleOwner(), data->{
+            if(data != null){
+                refreshLayout.setRefreshing(false);
+                adapter = new BatchmatesListAdapter(getContext(), data.getStudents());
+                adapter.notifyDataSetChanged();
+                batchmatesRV.setAdapter(adapter);
+
+                // set text for total number of students enrolled
+                noOfStudents.setText(String.valueOf(data.getStudents().size()));
+            }
+        });
     }
 }
