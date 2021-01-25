@@ -153,7 +153,10 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         fabNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragment(new NoticeFragmentStudent());
+                Fragment noticeFragment = new NoticeFragmentStudent();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.container_frame, noticeFragment, "notice")
+                        .commit();
             }
         });
 
@@ -279,7 +282,10 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
             getScheduleViewModel.setScheduleGetResponse(class_id, day);
             getScheduleViewModel.getScheduleGetResponse().observe(getViewLifecycleOwner(), data->{
                 if(data == null){
-                    Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
+                    progressBar.hide();
+                    progressBar.animate();
+                    noClassLottieAnim.setVisibility(View.VISIBLE);
+                    noClassTv.setVisibility(View.VISIBLE);
                 }else{
                     if(data.getRequiredSchedule().size() == 0){
                         routineItemAdapter = new RoutineItemAdapter(data.getRequiredSchedule(), getContext(), this);

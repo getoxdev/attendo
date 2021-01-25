@@ -19,6 +19,7 @@ import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Adapters.NoticeAdapterStudent;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.viewmodel.NoticeViewModel;
+import com.google.android.material.transition.MaterialSharedAxis;
 
 public class NoticeFragmentStudent extends Fragment {
 
@@ -40,6 +41,8 @@ public class NoticeFragmentStudent extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notice_student, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Notice");
+
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
 
         recyclerView = view.findViewById(R.id.notice_student_recyclerview);
         progressBar = view.findViewById(R.id.notice_progress_bar_student);

@@ -23,6 +23,7 @@ import com.attendo.data.model.schedule.NoticeDetails;
 import com.attendo.viewmodel.NoticeViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.transition.MaterialSharedAxis;
 
 import java.util.List;
 
@@ -61,12 +62,14 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
         View view = inflater.inflate(R.layout.fragment_notice, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Notice");
 
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
+
 
         ButterKnife.bind(this,view);
 
 
 
-        addNoticeFragment = new AddNoticeFragment();
+        addNoticeFragment = new AddNoticeFragment(this);
 
         fb = view.findViewById(R.id.Add_Notice);
 
@@ -123,6 +126,7 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container_frame,fragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 

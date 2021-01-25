@@ -107,7 +107,8 @@ public class Edit_notice_fragment extends Fragment {
                 Log.i("ApiCall", "Failed");
             } else {
                 Toast.makeText(getActivity(),"Notice edited",Toast.LENGTH_SHORT).show();
-                setFragment(noticeFragment);
+                //setFragment(noticeFragment);
+                getParentFragmentManager().popBackStack();
 
             }
         });

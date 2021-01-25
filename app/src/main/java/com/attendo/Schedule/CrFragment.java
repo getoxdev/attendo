@@ -161,7 +161,10 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         fabNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragment(noticeFragment);
+                Fragment noticeFragment = new NoticeFragment();
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.container_frame, noticeFragment, "notice")
+                        .commit();
             }
         });
 
@@ -257,13 +260,15 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
     @Override
     public void callback(int position, List<SubjectDetails> subjectRoutines) {
-        progressBar.hide();
-        progressBar.animate();
         if(subjectRoutines == null){
             Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
             noClassRoutineLottie.setVisibility(View.VISIBLE);
             noClassTextView.setVisibility(View.VISIBLE);
+            progressBar.animate();
+            progressBar.hide();
         }else{
+            progressBar.animate();
+            progressBar.hide();
             noClassRoutineLottie.setVisibility(View.INVISIBLE);
             noClassTextView.setVisibility(View.INVISIBLE);
             routineItemAdapter = new RoutineItemAdapterCr(getActivity(),subjectRoutines,getActivity(),this,this);
@@ -337,7 +342,10 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
             Log.e("schedule99",appPreferences.RetrieveClassScheduleId());
             getScheduleViewModel.getScheduleGetResponse().observe(this, data->{
                 if(data == null){
-                    Toast.makeText(getContext(), "No data", Toast.LENGTH_SHORT).show();
+                    progressBar.hide();
+                    progressBar.animate();
+                    noClassRoutineLottie.setVisibility(View.VISIBLE);
+                    noClassTextView.setVisibility(View.VISIBLE);
                 }else{
                     if(data.getRequiredSchedule().size() == 0){
                         routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity(),this,this);

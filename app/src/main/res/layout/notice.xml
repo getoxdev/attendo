@@ -23,7 +23,7 @@
         android:stateListAnimator="@animator/card_pressed_animator"
         app:cardBackgroundColor="@color/card_bg_color"
         app:cardElevation="0dp">
-
+<!--
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="360dp"
             android:layout_height="80dp"
@@ -31,7 +31,11 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/cardviewanimation">
 
+
+
         </com.airbnb.lottie.LottieAnimationView>
+
+        -->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -44,7 +48,7 @@
                 android:text="Subject"
                 android:textStyle="bold"
                 android:textSize="26dp"
-                android:textColor="@color/black"
+                android:textColor="@color/text_color_primary"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="20dp"/>
 

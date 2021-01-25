@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.Notice;
 import com.attendo.ui.CustomLoadingDialog;
@@ -32,6 +33,11 @@ public class AddNoticeFragment extends Fragment {
     private CustomLoadingDialog customLoadingDialog;
     private AppPreferences appPreferences;
     private NoticeFragment noticeFragment;
+    private NoticeAdapter.On_CardClick on_cardClick;
+
+    public AddNoticeFragment(NoticeAdapter.On_CardClick on_cardClick) {
+        this.on_cardClick = on_cardClick;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,8 +79,9 @@ public class AddNoticeFragment extends Fragment {
                 Log.i("ApiCall", "Failed");
             } else {
                 customLoadingDialog.dismissDialog();
-                Toast.makeText(getActivity(),"Notice Added Successfully",Toast.LENGTH_SHORT).show();
-                setFragment(new NoticeFragment());
+                Toast.makeText(getContext(),"Notice Added Successfully",Toast.LENGTH_SHORT).show();
+                //setFragment(new NoticeFragment());
+                getParentFragmentManager().popBackStack();
             }
         });
     }

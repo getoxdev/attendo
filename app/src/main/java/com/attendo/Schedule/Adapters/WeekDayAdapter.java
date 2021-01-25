@@ -131,19 +131,19 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         }
 
         if(check){
-            //getRequestToServerAndSetRecyclerView("sunday", position);if
-            getScheduleViewModel.setScheduleGetResponse(appPreferences.RetrieveClassId(),"sunday");
-            getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) activity, data->
-            {
-                if(data==null)
-                {
-                    Toast.makeText(context,"No data",Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    updateRecyclerView.callback(0,data.getRequiredSchedule());
-                }
-            });
+            updateRecyclerView.sendPosition(0);
+//            getScheduleViewModel.setScheduleGetResponse(appPreferences.RetrieveClassId(),"sunday");
+//            getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) activity, data->
+//            {
+//                if(data==null)
+//                {
+//                    Toast.makeText(context,"No data",Toast.LENGTH_SHORT).show();
+//                }
+//                else
+//                {
+//                    updateRecyclerView.callback(0,data.getRequiredSchedule());
+//                }
+//            });
             check = false;
         }
     }
