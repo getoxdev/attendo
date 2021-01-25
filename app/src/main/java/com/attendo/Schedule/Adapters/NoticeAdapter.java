@@ -25,11 +25,13 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
 
     private List<NoticeDetails> items;
     private Context mContext;
+    On_CardClick on_cardClick;
 
-    public NoticeAdapter(Context mContext,List<NoticeDetails> items)
+    public NoticeAdapter(Context mContext,List<NoticeDetails> items,On_CardClick on_cardClick)
     {
         this.items = items;
         this.mContext = mContext;
+        this.on_cardClick = on_cardClick;
     }
 
 
@@ -55,15 +57,31 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
 
                 vibrator.vibrate(100);
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
-                View bottomsheet = LayoutInflater.from(mContext).inflate(R.layout.bottom_sheet_options_schedule,
-                        (ConstraintLayout) holder.itemView.findViewById(R.id.schedule_bottom_sheet));
+                View bottomsheet = LayoutInflater.from(mContext).inflate(R.layout.notice_bottomsheet_options,
+                        (ConstraintLayout) holder.itemView.findViewById(R.id.notice_bottom_sheet));
 
                 bottomSheetDialog.setContentView(bottomsheet);
                 bottomSheetDialog.setDismissWithAnimation(true);
                 bottomSheetDialog.show();
 
-                TextView editSchedule = bottomsheet.findViewById(R.id.edit_schedule_bottom_sheet);
-                TextView deleteSchedule = bottomsheet.findViewById(R.id.delete_schedule_bottom_sheet);
+                TextView editSchedule = bottomsheet.findViewById(R.id.edit_notice_bottom_sheet);
+                TextView deleteSchedule = bottomsheet.findViewById(R.id.delete_notice_bottom_sheet);
+
+                deleteSchedule.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        bottomSheetDialog.dismiss();
+                        on_cardClick.onDeleteN_Click(position,currentItem);
+                    }
+                });
+
+                editSchedule.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        bottomSheetDialog.dismiss();
+                        on_cardClick.onEditN_Click(position,currentItem);
+                    }
+                });
 
 
 
@@ -91,5 +109,10 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
             super(itemView);
             ButterKnife.bind(this,itemView);
         }
+    }
+
+    public interface On_CardClick{
+        void onDeleteN_Click(int position, NoticeDetails noticeDetails);
+        void onEditN_Click(int position, NoticeDetails noticeDetails);
     }
 }
