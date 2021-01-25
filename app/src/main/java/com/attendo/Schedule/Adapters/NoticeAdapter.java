@@ -13,18 +13,20 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
-import com.attendo.data.model.schedule.Notice;
-import com.attendo.data.model.schedule.notice_titlelist;
+import com.attendo.data.model.schedule.NoticeDetails;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHolder> {
 
-    private List<notice_titlelist> items;
+    private List<NoticeDetails> items;
     private Context mContext;
 
-    public NoticeAdapter(List<notice_titlelist> items,Context mContext)
+    public NoticeAdapter(Context mContext,List<NoticeDetails> items)
     {
         this.items = items;
         this.mContext = mContext;
@@ -42,7 +44,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        notice_titlelist currentItem = items.get(position);
+        NoticeDetails currentItem = items.get(position);
         holder.sub.setText(currentItem.getTitle());
 
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
@@ -78,15 +80,16 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView sub;
-        private CardView notice_card;
-        View mview;
+        @BindView(R.id.Title)
+        TextView sub;
+
+        @BindView(R.id.NoticeCard)
+        CardView notice_card;
+
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            sub = itemView.findViewById(R.id.Title);
-            notice_card = itemView.findViewById(R.id.NoticeCard);
-            mview = itemView;
+            ButterKnife.bind(this,itemView);
         }
     }
 }

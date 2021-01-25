@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,20 +15,37 @@ import android.view.ViewGroup;
 
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.NoticeAdapter;
-import com.attendo.data.model.schedule.Notice;
-import com.attendo.data.model.schedule.notice_titlelist;
+import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.data.model.schedule.NoticeDetails;
+import com.attendo.viewmodel.NoticeViewModel;
+import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class NoticeFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private NoticeAdapter noticeAdapter;
-    private ArrayList<notice_titlelist> notices;
-    private FloatingActionButton fb;
-    private AddNoticeFragment addNoticeFragment;
 
+    private NoticeAdapter noticeAdapter;
+    private List<NoticeDetails> notices;
+    private FloatingActionButton fb;
+    NoticeViewModel noticeViewModel;
+    private AddNoticeFragment addNoticeFragment;
+    String class_id;
+    AppPreferences preferences;
+
+    @BindView(R.id.notice_recyclerview)
+    RecyclerView notice_recyclerview;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        noticeViewModel = new ViewModelProvider(this).get(NoticeViewModel.class);
+        preferences = AppPreferences.getInstance(getContext());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,32 +54,44 @@ public class NoticeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notice, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Notice");
 
+
+
+        ButterKnife.bind(this,view);
+
+
+
         addNoticeFragment = new AddNoticeFragment();
-        recyclerView = view.findViewById(R.id.notice_recyclerview);
+
         fb = view.findViewById(R.id.Add_Notice);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        noticeViewModel.get_All_notice(preferences.RetrieveClassId());
+        noticeViewModel.get_all_noticeResponse().observe(getViewLifecycleOwner(),data->{
+            if(data!=null)
+            {
+                noticeAdapter = new NoticeAdapter(getContext(),data.getNoticeDetailsList());
+                notice_recyclerview.setAdapter(noticeAdapter);
+            }
 
-        notices = new ArrayList<>();
+        });
+        notice_recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        notices.add(new notice_titlelist("Android class"));
-        notices.add(new notice_titlelist("Maths surprise test!"));
-        notices.add(new notice_titlelist("Analog class cancel!"));
-        notices.add(new notice_titlelist("Google Meet link"));
-        notices.add(new notice_titlelist("Project submission date"));
 
-        noticeAdapter = new NoticeAdapter(notices,getContext());
-        recyclerView.setAdapter(noticeAdapter);
+
 
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setFragment(addNoticeFragment);
+
             }
         });
 
+
+
     return view;
     }
+
+
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();

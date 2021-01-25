@@ -11,7 +11,7 @@ public class ResponseGetNotice {
     @Expose
     String status;
 
-    @SerializedName("notice")
+    @SerializedName("notices")
     @Expose
     List<NoticeDetails> noticeDetailsList;
 

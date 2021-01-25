@@ -41,7 +41,7 @@ public class NoticeViewModel extends AndroidViewModel {
         return noticeResponse;
     }
 
-    public MutableLiveData<ResponseGetNotice> get_all_notice(){ return getNoticeRes; }
+    public MutableLiveData<ResponseGetNotice> get_all_noticeResponse(){ return getNoticeRes; }
 
     public  MutableLiveData<ResDeleteNotice> getDeleteResponse() { return  deleteRes; }
 
@@ -52,9 +52,11 @@ public class NoticeViewModel extends AndroidViewModel {
             public void onResponse(Call<ResponseNotice> call, Response<ResponseNotice> response) {
                 if(response.code()<300){
                     get_Notice_Response().postValue(response.body());
+                    Log.e("response",response.code()+"success");
 
                 }else if(response.code()>=400){
                     get_Notice_Response().postValue(null);
+                    Log.e("response",response.code()+"failure");
 
                 }
 
@@ -97,17 +99,19 @@ public class NoticeViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<ResponseGetNotice> call, Response<ResponseGetNotice> response) {
                 if(response.code()<300){
-                    get_all_notice().postValue(response.body());
+                    get_all_noticeResponse().postValue(response.body());
+                    Log.e("response get",response.code()+"success");
 
                 }else if(response.code()>=400){
-                    get_all_notice().postValue(null);
+                   get_all_noticeResponse().postValue(null);
+                    Log.e("response get",response.code()+"failure");
 
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseGetNotice> call, Throwable t) {
-                get_all_notice().postValue(null);
+                get_all_noticeResponse().postValue(null);
 
             }
         });

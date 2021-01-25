@@ -8,9 +8,9 @@ public class NoticeDetails {
     String class_id;
     String createdAt;
     String updatedAt;
-    String _v;
+    Integer _v;
 
-    public NoticeDetails(String _id, String title, String body, String class_id, String createdAt, String updatedAt, String _v) {
+    public NoticeDetails(String _id, String title, String body, String class_id, String createdAt, String updatedAt,Integer _v) {
         this._id = _id;
         this.title = title;
         this.body = body;
@@ -68,11 +68,11 @@ public class NoticeDetails {
         this.updatedAt = updatedAt;
     }
 
-    public String get_v() {
+    public Integer get_v() {
         return _v;
     }
 
-    public void set_v(String _v) {
+    public void set_v(Integer _v) {
         this._v = _v;
     }
 }
