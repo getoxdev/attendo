@@ -114,5 +114,6 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
     public interface On_CardClick{
         void onDeleteN_Click(int position, NoticeDetails noticeDetails);
         void onEditN_Click(int position, NoticeDetails noticeDetails);
+        void refreshOnUpdateAndDelete();
     }
 }

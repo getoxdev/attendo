@@ -128,7 +128,7 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
 
     @Override
     public void onDeleteN_Click(int position, NoticeDetails noticeDetails) {
-        Delete_notice_fragment delete_notice_fragment = Delete_notice_fragment.newInstance(noticeDetails.get_id());
+        Delete_notice_fragment delete_notice_fragment = Delete_notice_fragment.newInstance(noticeDetails.get_id(), this);
         delete_notice_fragment.show(getParentFragmentManager(),"delete");
 
     }
@@ -136,8 +136,24 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
     @Override
     public void onEditN_Click(int position, NoticeDetails noticeDetails) {
         Edit_notice_fragment edit_notice_fragment = Edit_notice_fragment.newInstance(noticeDetails.getTitle(),
-                noticeDetails.getBody(),noticeDetails.get_id());
+                noticeDetails.getBody(),noticeDetails.get_id(), this);
         setFragment(edit_notice_fragment);
 
+    }
+
+    @Override
+    public void refreshOnUpdateAndDelete() {
+        refreshLayout.setRefreshing(true);
+        noticeViewModel.get_All_notice(preferences.RetrieveClassId());
+        noticeViewModel.get_all_noticeResponse().observe(getViewLifecycleOwner(),data->{
+            if(data!=null)
+            {
+                refreshLayout.setRefreshing(false);
+                noticeAdapter = new NoticeAdapter(getContext(),data.getNoticeDetailsList(),this);
+                noticeAdapter.notifyDataSetChanged();
+                notice_recyclerview.setAdapter(noticeAdapter);
+            }
+
+        });
     }
 }

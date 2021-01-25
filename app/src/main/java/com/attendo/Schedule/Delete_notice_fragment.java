@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.viewmodel.NoticeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -26,19 +27,20 @@ public class Delete_notice_fragment extends BottomSheetDialogFragment {
     private String Notice_ID;
     NoticeViewModel noticeViewModel;
     AppPreferences appPreferences;
+    private NoticeAdapter.On_CardClick cardClick;
 
     @BindView(R.id.delete_notice)
     Button delete_btn;
 
 
 
-    public Delete_notice_fragment() {
-        // Required empty public constructor
+    public Delete_notice_fragment(NoticeAdapter.On_CardClick cardClick) {
+        this.cardClick = cardClick;
     }
 
 
-    public static Delete_notice_fragment newInstance(String Notice_id) {
-        Delete_notice_fragment fragment = new Delete_notice_fragment();
+    public static Delete_notice_fragment newInstance(String Notice_id, NoticeAdapter.On_CardClick cardClick) {
+        Delete_notice_fragment fragment = new Delete_notice_fragment(cardClick);
         Bundle args = new Bundle();
         args.putString("NoticeId", Notice_id);
         fragment.setArguments(args);

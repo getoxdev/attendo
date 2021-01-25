@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.Notice;
 import com.attendo.viewmodel.NoticeViewModel;
@@ -38,16 +39,17 @@ public class Edit_notice_fragment extends Fragment {
     NoticeViewModel noticeViewModel;
     AppPreferences appPreferences;
     private NoticeFragment noticeFragment;
+    private NoticeAdapter.On_CardClick on_cardClick;
 
-    public Edit_notice_fragment() {
-        // Required empty public constructor
+    public Edit_notice_fragment(NoticeAdapter.On_CardClick on_cardClick) {
+        this.on_cardClick = on_cardClick;
     }
 
 
 
-    public static Edit_notice_fragment newInstance(String title, String body,String Notice_id) {
+    public static Edit_notice_fragment newInstance(String title, String body, String Notice_id, NoticeAdapter.On_CardClick on_cardClick) {
 
-        Edit_notice_fragment fragment = new Edit_notice_fragment();
+        Edit_notice_fragment fragment = new Edit_notice_fragment(on_cardClick);
         Bundle args = new Bundle();
         args.putString("TITLE", title);
         args.putString("BODY", body);
