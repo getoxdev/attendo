@@ -23,7 +23,7 @@
             android:textStyle="normal"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
-            android:fontFamily="@font/comfortaa"
+            android:fontFamily="@font/poppins_light"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"/>
 

@@ -22,9 +22,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textView32"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp">
+        android:layout_marginEnd="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp">
 
         <EditText
             android:id="@+id/Title"
@@ -32,7 +36,8 @@
             android:layout_height="match_parent"
             android:gravity="start"
             android:textSize="20dp"
-            android:hint="TITLE"
+            android:hint="Title"
+            android:fontFamily="@font/poppins_light"
             android:padding="10dp" />
 
 
@@ -58,7 +63,8 @@
             android:layout_height="match_parent"
             android:gravity="start"
             android:padding="10dp"
-            android:hint="NOTICE"/>
+            android:hint="Notice"
+            android:fontFamily="@font/poppins_light"/>
 
 
 
@@ -75,7 +81,9 @@
         android:elevation="0dp"
         android:soundEffectsEnabled="true"
         android:stateListAnimator="@animator/button_pressed_animator"
-        android:text="notify"
+        android:text="Notify"
+        android:textAllCaps="false"
+        android:fontFamily="@font/poppins_regular"
         android:textColor="@color/btn_positive_text_color"
         app:backgroundTint="@color/btn_tint_color"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -45,7 +45,8 @@
             android:padding="14dp"
             android:text="date_selected"
             android:textSize="22dp"
-            android:fontFamily="@font/roboto_bold"
+            android:fontFamily="@font/poppins_regular"
+            android:textStyle="bold"
             android:layout_marginTop="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />

@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:text="User Name"
                     android:textColor="#FFF"
-                    android:fontFamily="@font/comfortaa"
+                    android:fontFamily="@font/poppins_regular"
                     android:textSize="17dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginStart="15dp"
@@ -91,6 +91,7 @@
                 android:text="Edit Attendance Criterion"
                 android:textAlignment="textStart"
                 android:paddingTop="15dp"
+                android:fontFamily="@font/poppins_light"
                 android:drawableTint="#06F1DD"
                 android:drawablePadding="15dp"
                 android:drawableLeft="@drawable/attctr"
@@ -112,6 +113,7 @@
                 android:drawablePadding="15dp"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:paddingLeft="25dp"
+                android:fontFamily="@font/poppins_light"
                 android:paddingTop="15dp"
                 android:drawableTint="#ECC70F"
                 android:paddingBottom="15dp"
@@ -135,6 +137,7 @@
                 android:drawableTint="#0814F4"
                 android:drawableLeft="@drawable/help"
                 android:drawablePadding="15dp"
+                android:fontFamily="@font/poppins_light"
                 android:paddingBottom="15dp"
                 android:textSize="18dp"
                 android:backgroundTint="#E3E1E1"
@@ -155,6 +158,7 @@
                 android:paddingLeft="25dp"
                 android:textSize="18dp"
                 android:paddingBottom="15dp"
+                android:fontFamily="@font/poppins_light"
                 android:backgroundTint="#E3E1E1"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"/>
@@ -174,6 +178,7 @@
                 android:textSize="18dp"
                 android:paddingBottom="15dp"
                 android:backgroundTint="#E3E1E1"
+                android:fontFamily="@font/poppins_light"
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"/>
 
@@ -195,6 +200,7 @@
                 android:paddingBottom="15dp"
                 android:backgroundTint="#E3E1E1"
                 android:clickable="true"
+                android:fontFamily="@font/poppins_light"
                 android:foreground="?android:attr/selectableItemBackground"/>
             <!--
             <TextView
@@ -232,6 +238,7 @@
                 android:paddingBottom="15dp"
                 android:backgroundTint="#E3E1E1"
                 android:clickable="true"
+                android:fontFamily="@font/poppins_light"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:layout_constraintTop_toBottomOf="@id/report_bug"
                 />
@@ -250,6 +257,7 @@
                 android:paddingBottom="15dp"
                 android:backgroundTint="#E3E1E1"
                 android:clickable="true"
+                android:fontFamily="@font/poppins_light"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:layout_constraintTop_toBottomOf="@id/report_bug"
                 />

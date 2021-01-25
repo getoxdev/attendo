@@ -38,6 +38,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="20dp"
                 android:text="Subject"
+                android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/text_color_primary"
                 android:textSize="22dp"
                 android:textStyle="bold"
@@ -53,6 +54,7 @@
                 android:layout_marginTop="14dp"
                 android:layout_marginRight="-9dp"
                 android:text="Attendance: "
+                android:fontFamily="@font/poppins_extralight"
                 android:textColor="@color/text_color_secondary"
                 android:textSize="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -65,6 +67,7 @@
                 android:layout_marginLeft="30dp"
                 android:paddingTop="8dp"
                 android:text="Status: "
+                android:fontFamily="@font/poppins_extralight"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/attend_txt" />
 
@@ -74,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="8dp"
                 android:text="status_counter_of_attendance"
+                android:fontFamily="@font/poppins_regular"
                 app:layout_constraintLeft_toRightOf="@id/status_txt"
                 app:layout_constraintTop_toBottomOf="@id/attend_txt" />
 
@@ -85,6 +89,7 @@
                 android:layout_marginTop="6dp"
                 android:text="Have you attended today's class ? "
                 android:textColor="#9A9A9A"
+                android:fontFamily="@font/poppins_regular"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/status_txt" />
 
@@ -102,6 +107,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:text="75%"
+                android:fontFamily="@font/poppins_light"
                 android:textColor="@color/text_color_primary"
                 android:textSize="22dp"
                 app:layout_constraintRight_toRightOf="parent"
@@ -114,6 +120,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="14dp"
                 android:text="1"
+                android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/text_color_primary"
                 android:textSize="15dp"
                 app:layout_constraintLeft_toRightOf="@id/attend_txt"
@@ -127,6 +134,7 @@
                 android:layout_marginTop="14dp"
                 android:layout_toRightOf="@+id/tvPres"
                 android:text="out of"
+                android:fontFamily="@font/poppins_extralight"
                 android:textColor="#787878"
                 android:textSize="15dp"
                 app:layout_constraintLeft_toRightOf="@id/present_txt"
@@ -142,6 +150,7 @@
                 android:text="2"
                 android:textColor="@color/text_color_primary"
                 android:textSize="15dp"
+                android:fontFamily="@font/poppins_regular"
                 app:layout_constraintLeft_toRightOf="@id/out_of_text"
                 app:layout_constraintTop_toBottomOf="@id/card_subject_name" />
 
@@ -157,6 +166,7 @@
                 android:clickable="true"
                 android:stateListAnimator="@animator/button_pressed_animator"
                 android:text="Yes"
+                android:fontFamily="@font/poppins_regular"
                 android:textAllCaps="false"
                 android:textColor="@color/btn_positive_text_color"
                 app:backgroundTint="@color/btn_tint_color"
@@ -178,6 +188,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="15dp"
                 android:clickable="true"
+                android:fontFamily="@font/poppins_regular"
                 android:stateListAnimator="@animator/button_pressed_animator"
                 android:text="No"
                 android:textAllCaps="false"

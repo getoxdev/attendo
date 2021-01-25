@@ -86,7 +86,7 @@
 
     <style name="AppBarTitleTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">30dp</item>
-        <item name="fontFamily">@font/roboto_light</item>
+        <item name="fontFamily">@font/poppins_regular</item>
     </style>
 
     <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
