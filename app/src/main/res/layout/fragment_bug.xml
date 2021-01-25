@@ -16,9 +16,8 @@
         android:layout_marginTop="90dp"
         android:layout_marginEnd="32dp"
         android:background="@android:color/transparent"
-        android:fontFamily="@font/comfortaa"
+        android:fontFamily="@font/poppins_light"
         android:text="What problem did you face?"
-
         android:textColor="@color/grey_500"
         android:textSize="17dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,6 +55,7 @@
             android:layout_height="match_parent"
             android:gravity="start"
             android:padding="10dp"
+            android:fontFamily="@font/poppins_regular"
             android:hint="Write your problem"/>
 
 
@@ -75,6 +75,8 @@
         android:soundEffectsEnabled="true"
         android:stateListAnimator="@animator/button_pressed_animator"
         android:text="Send"
+        android:textAllCaps="false"
+        android:fontFamily="@font/poppins_regular"
         android:textColor="@color/btn_positive_text_color"
         app:backgroundTint="@color/btn_tint_color"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -94,6 +96,8 @@
         android:soundEffectsEnabled="true"
         android:stateListAnimator="@animator/button_pressed_animator"
         android:text="Details"
+        android:fontFamily="@font/poppins_regular"
+        android:textAllCaps="false"
         android:textColor="@color/btn_negative_text_color"
         app:backgroundTint="@color/btn_tint_color"
         app:layout_constraintBottom_toBottomOf="parent"
