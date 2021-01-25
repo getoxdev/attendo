@@ -73,8 +73,8 @@ public class AddNoticeFragment extends Fragment {
                 Log.i("ApiCall", "Failed");
             } else {
                 customLoadingDialog.dismissDialog();
-                Toast.makeText(getActivity(),"Notice Added",Toast.LENGTH_SHORT).show();
-                setFragment(noticeFragment);
+                Toast.makeText(getActivity(),"Notice Added Successfully",Toast.LENGTH_SHORT).show();
+                setFragment(new NoticeFragment());
             }
         });
     }

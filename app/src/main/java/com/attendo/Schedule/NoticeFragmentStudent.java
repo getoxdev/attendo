@@ -2,6 +2,7 @@ package com.attendo.Schedule;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -38,6 +39,7 @@ public class NoticeFragmentStudent extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notice_student, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Notice");
 
         recyclerView = view.findViewById(R.id.notice_student_recyclerview);
         progressBar = view.findViewById(R.id.notice_progress_bar_student);
