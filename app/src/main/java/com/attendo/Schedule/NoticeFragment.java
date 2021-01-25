@@ -3,6 +3,7 @@ package com.attendo.Schedule;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.NoticeAdapter;
@@ -30,15 +32,16 @@ public class NoticeFragment extends Fragment {
 
 
     private NoticeAdapter noticeAdapter;
-    private List<NoticeDetails> notices;
     private FloatingActionButton fb;
     NoticeViewModel noticeViewModel;
     private AddNoticeFragment addNoticeFragment;
-    String class_id;
     AppPreferences preferences;
 
     @BindView(R.id.notice_recyclerview)
     RecyclerView notice_recyclerview;
+
+    @BindView(R.id.notice_progress_bar_cr)
+    ContentLoadingProgressBar ProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,6 @@ public class NoticeFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Notice");
 
 
-
         ButterKnife.bind(this,view);
 
 
@@ -68,10 +70,14 @@ public class NoticeFragment extends Fragment {
         noticeViewModel.get_all_noticeResponse().observe(getViewLifecycleOwner(),data->{
             if(data!=null)
             {
+                ProgressBar.hide();
                 noticeAdapter = new NoticeAdapter(getContext(),data.getNoticeDetailsList());
                 notice_recyclerview.setAdapter(noticeAdapter);
             }
-
+            else{
+                ProgressBar.hide();
+                Toast.makeText(getActivity(),"Something went wrong! Please try after some time",Toast.LENGTH_SHORT).show();
+            }
         });
         notice_recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
 

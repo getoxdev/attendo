@@ -153,7 +153,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         fabNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Notice Clicked", Toast.LENGTH_SHORT).show();
+                setFragment(new NoticeFragmentStudent());
             }
         });
 
@@ -329,6 +329,10 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         });
     }
 
-
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container_frame,fragment);
+        fragmentTransaction.addToBackStack(null).commit();
+    }
 
 }

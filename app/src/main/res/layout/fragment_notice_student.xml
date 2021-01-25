@@ -4,32 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Schedule.NoticeFragment">
-
+    tools:context=".Schedule.NoticeFragmentStudent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/notice_recyclerview"
+        android:id="@+id/notice_student_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/Add_Notice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/fabi_icon_add_drawable"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="#9657F1"
-        app:fabCustomSize="60dp"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-        app:tint="@color/bg_login" />
-
     <androidx.core.widget.ContentLoadingProgressBar
-        android:id="@+id/notice_progress_bar_cr"
+        android:id="@+id/notice_progress_bar_student"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -39,8 +22,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/notice_recyclerview" />
-
+        app:layout_constraintTop_toTopOf="@+id/notice_student_recyclerview" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
