@@ -4,14 +4,26 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.attendo.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class NoticeBodyBottomSheetFragment extends BottomSheetDialogFragment {
+
+
+    @BindView(R.id.title_notice)
+    TextView title;
+
+    @BindView(R.id.body_notice)
+    TextView body;
 
 
     private static final String TITLE = "title_notice";
@@ -49,6 +61,12 @@ public class NoticeBodyBottomSheetFragment extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notice_body_bottom_sheet, container, false);
+        View view =  inflater.inflate(R.layout.fragment_notice_body_bottom_sheet, container, false);
+        ButterKnife.bind(this, view);
+
+        title.setText(mTitle);
+        body.setText(mBody);
+
+        return view;
     }
 }

@@ -160,4 +160,10 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
 
         });
     }
+
+    @Override
+    public void CardSingleClick(int position, NoticeDetails noticeDetails) {
+        NoticeBodyBottomSheetFragment bottomSheetFragment = NoticeBodyBottomSheetFragment.newInstance(noticeDetails.getTitle(), noticeDetails.getBody());
+        bottomSheetFragment.show(getParentFragmentManager(), "Notice");
+    }
 }

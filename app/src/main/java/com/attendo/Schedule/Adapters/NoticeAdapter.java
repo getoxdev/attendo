@@ -49,6 +49,13 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
         NoticeDetails currentItem = items.get(position);
         holder.sub.setText(currentItem.getTitle());
 
+        holder.notice_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                on_cardClick.CardSingleClick(position, currentItem);
+            }
+        });
+
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         holder.notice_card.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -115,5 +122,6 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
         void onDeleteN_Click(int position, NoticeDetails noticeDetails);
         void onEditN_Click(int position, NoticeDetails noticeDetails);
         void refreshOnUpdateAndDelete();
+        void CardSingleClick(int position, NoticeDetails noticeDetails);
     }
 }
