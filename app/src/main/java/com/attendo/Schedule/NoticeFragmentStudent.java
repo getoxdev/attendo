@@ -53,7 +53,7 @@ public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStud
             if(data!=null)
             {
                 progressBar.hide();
-                noticeAdapterStudent = new NoticeAdapterStudent(getContext(),data.getNoticeDetailsList());
+                noticeAdapterStudent = new NoticeAdapterStudent(getContext(),data.getNoticeDetailsList(), this::onCardClick);
                 recyclerView.setAdapter(noticeAdapterStudent);
             }
             else{

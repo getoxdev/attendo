@@ -22,11 +22,13 @@ public class NoticeAdapterStudent extends RecyclerView.Adapter<NoticeAdapterStud
 
     private List<NoticeDetails> items;
     private Context mContext;
+    private CallBack callBack;
 
-    public NoticeAdapterStudent(Context mContext,List<NoticeDetails> items)
+    public NoticeAdapterStudent(Context mContext,List<NoticeDetails> items,CallBack callBack)
     {
         this.items = items;
         this.mContext = mContext;
+        this.callBack = callBack;
     }
 
     @NonNull
@@ -45,7 +47,7 @@ public class NoticeAdapterStudent extends RecyclerView.Adapter<NoticeAdapterStud
         holder.notice_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                callBack.onCardClick(position, currentItem);
             }
         });
     }
