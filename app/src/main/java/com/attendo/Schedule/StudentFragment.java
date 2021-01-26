@@ -146,8 +146,8 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
             public void onClick(View view) {
                 Fragment batchmatesFragment = new BatchmatesDetailsFragment();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.container_frame, batchmatesFragment, "batch")
-                        .commit();
+                transaction.replace(R.id.container_frame, batchmatesFragment, "batch");
+                transaction.addToBackStack(null).commit();
             }
         });
         fabNotice.setOnClickListener(new View.OnClickListener() {
@@ -155,8 +155,8 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
             public void onClick(View view) {
                 Fragment noticeFragment = new NoticeFragmentStudent();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.container_frame, noticeFragment, "notice")
-                        .commit();
+                transaction.replace(R.id.container_frame, noticeFragment, "notice");
+                transaction.addToBackStack(null).commit();
             }
         });
 

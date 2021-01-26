@@ -163,8 +163,8 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
             public void onClick(View view) {
                 Fragment noticeFragment = new NoticeFragment();
                 FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.container_frame, noticeFragment, "notice")
-                        .commit();
+                transaction.replace(R.id.container_frame, noticeFragment, "notice");
+                transaction.addToBackStack(null).commit();
             }
         });
 
