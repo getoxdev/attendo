@@ -18,10 +18,11 @@ import com.attendo.R;
 import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Adapters.NoticeAdapterStudent;
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.data.model.schedule.NoticeDetails;
 import com.attendo.viewmodel.NoticeViewModel;
 import com.google.android.material.transition.MaterialSharedAxis;
 
-public class NoticeFragmentStudent extends Fragment {
+public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStudent.CallBack {
 
     private RecyclerView recyclerView;
     private NoticeAdapterStudent noticeAdapterStudent;
@@ -52,7 +53,7 @@ public class NoticeFragmentStudent extends Fragment {
             if(data!=null)
             {
                 progressBar.hide();
-                noticeAdapterStudent = new NoticeAdapterStudent(getContext(),data.getNoticeDetailsList());
+                noticeAdapterStudent = new NoticeAdapterStudent(getContext(),data.getNoticeDetailsList(), this::onCardClick);
                 recyclerView.setAdapter(noticeAdapterStudent);
             }
             else{
@@ -64,5 +65,11 @@ public class NoticeFragmentStudent extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
+    }
+
+    @Override
+    public void onCardClick(int position, NoticeDetails noticeDetails) {
+        NoticeBodyBottomSheetFragment fragment = NoticeBodyBottomSheetFragment.newInstance(noticeDetails.getTitle(), noticeDetails.getBody());
+        fragment.show(getParentFragmentManager(), "notice");
     }
 }

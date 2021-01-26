@@ -4,13 +4,13 @@ public class CreateClass {
     private String studentName;
     private String email;
     private String className;
-    private String ScholarId;
+    private String scholarId;
 
     public CreateClass(String studentName, String email, String className, String scholarId) {
         this.studentName = studentName;
         this.email = email;
         this.className = className;
-        ScholarId = scholarId;
+        this.scholarId = scholarId;
     }
 
     public void setStudentName(String studentName) {
@@ -26,7 +26,7 @@ public class CreateClass {
     }
 
     public void setScholarId(String scholarId) {
-        ScholarId = scholarId;
+        scholarId = scholarId;
     }
 
     public String getStudentName() {
@@ -42,6 +42,6 @@ public class CreateClass {
     }
 
     public String getScholarId() {
-        return ScholarId;
+        return scholarId;
     }
 }

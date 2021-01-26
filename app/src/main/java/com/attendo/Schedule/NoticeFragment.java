@@ -45,8 +45,8 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
     @BindView(R.id.notice_swipe_refresh)
     SwipeRefreshLayout refreshLayout;
 
-//    @BindView(R.id.notice_progress_bar_cr)
-//    ContentLoadingProgressBar ProgressBar;
+    @BindView(R.id.notice_progress_bar_cr)
+    ContentLoadingProgressBar ProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,9 +77,13 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
         noticeViewModel.get_all_noticeResponse().observe(getViewLifecycleOwner(),data->{
             if(data!=null)
             {
-
+                ProgressBar.hide();
                 noticeAdapter = new NoticeAdapter(getContext(),data.getNoticeDetailsList(),this);
                 notice_recyclerview.setAdapter(noticeAdapter);
+            }
+            else{
+                ProgressBar.hide();
+                Toast.makeText(getActivity(),"Something went wrong! please try again",Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -110,14 +114,17 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
     {
         noticeViewModel.get_All_notice(preferences.RetrieveClassId());
         noticeViewModel.get_all_noticeResponse().observe(getViewLifecycleOwner(),data->{
-            if(data!=null)
-            {
+            if(data!=null) {
+                ProgressBar.hide();
                 refreshLayout.setRefreshing(false);
-                noticeAdapter = new NoticeAdapter(getContext(),data.getNoticeDetailsList(),this);
+                noticeAdapter = new NoticeAdapter(getContext(), data.getNoticeDetailsList(), this);
                 noticeAdapter.notifyDataSetChanged();
                 notice_recyclerview.setAdapter(noticeAdapter);
             }
-
+            else{
+                ProgressBar.hide();
+                Toast.makeText(getActivity(),"Something went wrong! please try again",Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -159,5 +166,11 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
             }
 
         });
+    }
+
+    @Override
+    public void CardSingleClick(int position, NoticeDetails noticeDetails) {
+        NoticeBodyBottomSheetFragment bottomSheetFragment = NoticeBodyBottomSheetFragment.newInstance(noticeDetails.getTitle(), noticeDetails.getBody());
+        bottomSheetFragment.show(getParentFragmentManager(), "Notice");
     }
 }
