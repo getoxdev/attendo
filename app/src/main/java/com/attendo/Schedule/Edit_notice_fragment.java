@@ -18,6 +18,7 @@ import com.attendo.R;
 import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.Notice;
+import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.NoticeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -40,6 +41,7 @@ public class Edit_notice_fragment extends Fragment {
     AppPreferences appPreferences;
     private NoticeFragment noticeFragment;
     private NoticeAdapter.On_CardClick on_cardClick;
+    private CustomLoadingDialog customLoadingDialog;
 
     public Edit_notice_fragment(NoticeAdapter.On_CardClick on_cardClick) {
         this.on_cardClick = on_cardClick;
@@ -70,6 +72,7 @@ public class Edit_notice_fragment extends Fragment {
         }
         noticeViewModel = new ViewModelProvider(this).get(NoticeViewModel.class);
         appPreferences = AppPreferences.getInstance(getContext());
+        customLoadingDialog = new CustomLoadingDialog(getActivity());
 
 
     }
@@ -88,6 +91,7 @@ public class Edit_notice_fragment extends Fragment {
         notify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                customLoadingDialog.startDialog(false);
                 edit_notice(Notice_id);
 
             }
@@ -103,16 +107,16 @@ public class Edit_notice_fragment extends Fragment {
         noticeViewModel.edit_notice(notice_id,notice);
         noticeViewModel.get_Notice_Response().observe(getViewLifecycleOwner(),data->{
             if (data == null) {
+                customLoadingDialog.dismissDialog();
                 Toast.makeText(getActivity(),"Fail to edit Schedule",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
+                customLoadingDialog.dismissDialog();
                 Toast.makeText(getActivity(),"Notice edited",Toast.LENGTH_SHORT).show();
-                //setFragment(noticeFragment);
                 getParentFragmentManager().popBackStack();
 
             }
         });
-
     }
 
 
