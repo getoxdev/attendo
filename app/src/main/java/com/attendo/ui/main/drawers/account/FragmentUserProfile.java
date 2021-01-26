@@ -58,16 +58,14 @@ public class FragmentUserProfile extends Fragment {
     TextView city;
     @BindView(R.id.USER_PHONE)
     TextView contact;
-    @BindView(R.id.delete__account)
-    TextView DELETE;
     @BindView(R.id.edit_profile)
     Button btn;
     @BindView(R.id.progressbar)
     ProgressBar pgb;
     @BindView(R.id.USER_IMAGE)
     ImageView profile;
-    @BindView(R.id.Delete_Account)
-    ImageView delete;
+    @BindView(R.id.Delete_Account_Btn)
+    Button delete_btn;
 
 
     private FragmentProfile fragment_profile;
@@ -99,7 +97,7 @@ public class FragmentUserProfile extends Fragment {
 
         ButterKnife.bind(this,view);
 
-        DELETE.setOnClickListener(new View.OnClickListener() {
+        delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DeleteAccount();
@@ -116,12 +114,6 @@ public class FragmentUserProfile extends Fragment {
         storageReference = firebaseStorage.getReference();
         databaseReference2 = FirebaseDatabase.getInstance().getReference("Schedule");
 
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DeleteAccount();
-            }
-        });
 
         fragment_profile = new FragmentProfile();
         storageReference.child("images/" + user_id.toString()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

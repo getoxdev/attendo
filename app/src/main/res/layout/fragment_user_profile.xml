@@ -27,32 +27,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/Delete_Account"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_baseline_delete_24"
-                    app:layout_constraintBottom_toTopOf="@+id/main_block_account"
-                    app:layout_constraintEnd_toStartOf="@+id/IMAGE_CARDVIEW"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/delete__account"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Delete Account"
-                    android:textSize="10dp"
-                    app:layout_constraintEnd_toStartOf="@+id/IMAGE_CARDVIEW"
-                    app:layout_constraintHorizontal_bias="0.494"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Delete_Account" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/IMAGE_CARDVIEW"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="30dp"
                     android:transitionName="profileExpand"
                     app:cardCornerRadius="50dp"
@@ -293,6 +273,27 @@
                     app:rippleColor="#AF91F4"
                     app:strokeWidth="0dp" />
 
+                <Button
+                    android:id="@+id/Delete_Account_Btn"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="260dp"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:elevation="0dp"
+                    android:stateListAnimator="@animator/button_pressed_animator"
+                    android:text="Delete Account"
+                    android:textAllCaps="false"
+                    android:textColor="@color/btn_positive_text_color"
+                    android:textSize="17dp"
+                    app:backgroundTint="@color/btn_tint_2"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile"
+                    app:rippleColor="#AF91F4"
+                    app:strokeWidth="0dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
