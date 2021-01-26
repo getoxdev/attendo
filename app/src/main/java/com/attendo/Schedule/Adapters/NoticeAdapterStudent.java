@@ -41,6 +41,13 @@ public class NoticeAdapterStudent extends RecyclerView.Adapter<NoticeAdapterStud
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         NoticeDetails currentItem = items.get(position);
         holder.sub.setText(currentItem.getTitle());
+
+        holder.notice_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
@@ -60,5 +67,9 @@ public class NoticeAdapterStudent extends RecyclerView.Adapter<NoticeAdapterStud
             super(itemView);
             ButterKnife.bind(this,itemView);
         }
+    }
+
+    public interface CallBack{
+        void onCardClick(int position, NoticeDetails noticeDetails);
     }
 }
