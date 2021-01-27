@@ -600,7 +600,7 @@
                   <ImageView
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:src="@drawable/gaurav_das"
+                      android:src="@drawable/gaurav_new_profile"
                       android:scaleType="centerCrop"/>
 
                </androidx.cardview.widget.CardView>
