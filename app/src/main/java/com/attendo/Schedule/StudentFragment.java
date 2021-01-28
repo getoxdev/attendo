@@ -30,6 +30,7 @@ import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.SubjectDetails;
 import com.attendo.viewmodel.ScheduleViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.FirebaseAuth;
@@ -79,6 +80,8 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_student, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Routine");
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+        bottomNavigationView.setVisibility(View.VISIBLE);
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.Z, true));
         setReenterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));

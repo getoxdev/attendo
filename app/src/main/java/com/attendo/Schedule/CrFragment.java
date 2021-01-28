@@ -37,6 +37,7 @@ import com.attendo.data.model.schedule.SubjectDetails;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 //import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -96,6 +97,8 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         // Inflate the layout for this fragment
         View view  =inflater.inflate(R.layout.fragment_cr, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Routine");
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+        bottomNavigationView.setVisibility(View.VISIBLE);
 
 
         noticeFragment = new NoticeFragment();

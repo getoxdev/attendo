@@ -20,6 +20,7 @@ import com.attendo.Schedule.Adapters.NoticeAdapterStudent;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.NoticeDetails;
 import com.attendo.viewmodel.NoticeViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 
 public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStudent.CallBack {
@@ -42,6 +43,8 @@ public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStud
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_notice_student, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Notice");
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+        bottomNavigationView.setVisibility(View.GONE);
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
 

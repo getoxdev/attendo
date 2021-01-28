@@ -116,7 +116,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
         firebaseScheduleViewModel.RetrieveClassId();
         crFragment = new CrFragment();
         studentFragment = new StudentFragment();
-        joinas = findViewById(R.id.Join_As);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
         setSupportActionBar(toolbar);

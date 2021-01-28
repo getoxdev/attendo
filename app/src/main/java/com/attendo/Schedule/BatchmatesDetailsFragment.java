@@ -18,6 +18,7 @@ import com.attendo.R;
 import com.attendo.Schedule.Adapters.BatchmatesListAdapter;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.viewmodel.ScheduleViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 
 import org.w3c.dom.Text;
@@ -81,6 +82,8 @@ public class BatchmatesDetailsFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_batchmates_details, container, false);
         ButterKnife.bind(this, view);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Classmates");
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+        bottomNavigationView.setVisibility(View.GONE);
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
         setExitTransition(new MaterialSharedAxis(MaterialSharedAxis.X, false));

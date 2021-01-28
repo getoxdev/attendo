@@ -22,6 +22,7 @@ import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.NoticeDetails;
 import com.attendo.viewmodel.NoticeViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.transition.MaterialSharedAxis;
 
@@ -61,6 +62,8 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notice, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Notice");
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+        bottomNavigationView.setVisibility(View.GONE);
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
 
