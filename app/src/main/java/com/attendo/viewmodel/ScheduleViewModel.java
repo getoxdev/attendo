@@ -11,6 +11,7 @@ import com.attendo.data.api.ApiHelper;
 import com.attendo.data.model.schedule.CreateClass;
 import com.attendo.data.model.schedule.GetStudentListResponse;
 import com.attendo.data.model.schedule.JoinClass;
+import com.attendo.data.model.schedule.ResLeaveClass;
 import com.attendo.data.model.schedule.ResponseCreateClass;
 import com.attendo.data.model.schedule.ResponseDeleteSchedule;
 import com.attendo.data.model.schedule.ResponseGetSchedule;
@@ -32,6 +33,7 @@ public class ScheduleViewModel extends AndroidViewModel {
       private MutableLiveData<ResponseGetSchedule> getScheduleResponse;
       private MutableLiveData<ResponseDeleteSchedule> deleteResponse;
       private MutableLiveData<GetStudentListResponse> studentListResponse;
+      private MutableLiveData<ResLeaveClass> leave_class;
 
 
       public ScheduleViewModel(@NonNull Application application) {
@@ -44,6 +46,7 @@ public class ScheduleViewModel extends AndroidViewModel {
         getScheduleResponse = new MutableLiveData<ResponseGetSchedule>();
         deleteResponse = new MutableLiveData<ResponseDeleteSchedule>();
         studentListResponse = new MutableLiveData<GetStudentListResponse>();
+        leave_class = new MutableLiveData<ResLeaveClass>();
     }
 
     public MutableLiveData<ResponseCreateClass> getClassResponse(){
@@ -74,6 +77,8 @@ public class ScheduleViewModel extends AndroidViewModel {
           return studentListResponse;
     }
 
+    public MutableLiveData<ResLeaveClass> leaveClassResponse() { return  leave_class; }
+
     //CREATE CLASS
     public void setClassResponse(CreateClass createClass){
         apiHelper.createclass(createClass).enqueue(new Callback<ResponseCreateClass>() {
@@ -101,8 +106,7 @@ public class ScheduleViewModel extends AndroidViewModel {
             @Override
             public void onResponse(Call<ResponseJoinClass> call, Response<ResponseJoinClass> response) {
                 if(response.code()==200 || response.code()==201){
-                    ResponseJoinClass responseJoinClass = response.body();
-                    joinResponse.postValue(responseJoinClass);
+                    joinResponse.postValue(response.body());
                 }else if(response.code() == 400||response.code()==404){
                     joinResponse.postValue(null);
                 }
@@ -111,6 +115,28 @@ public class ScheduleViewModel extends AndroidViewModel {
             @Override
             public void onFailure(Call<ResponseJoinClass> call, Throwable t) {
                 joinResponse.postValue(null);
+
+            }
+        });
+    }
+
+    //LEAVE CLASS
+    public void Leave_Class(String email)
+    {
+        apiHelper.LeaveClass(email).enqueue(new Callback<ResLeaveClass>() {
+            @Override
+            public void onResponse(Call<ResLeaveClass> call, Response<ResLeaveClass> response) {
+                if(response.code()<300){
+                    leave_class.postValue(response.body());
+                }else if(response.code()>400){
+                    leave_class.postValue(null);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResLeaveClass> call, Throwable t) {
+                leave_class.postValue(null);
 
             }
         });
