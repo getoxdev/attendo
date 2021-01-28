@@ -1,5 +1,6 @@
 package com.attendo.Schedule;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,10 @@ import com.attendo.data.model.schedule.JoinClass;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class StudentDetailsInputFragment extends Fragment {
 
@@ -33,6 +37,9 @@ public class StudentDetailsInputFragment extends Fragment {
     private CustomLoadingDialog customLoadingDialog;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private AppPreferences appPreferences;
+
+    private String fcmToken;
+    private String retreiveFcmToken;
 
 
     @Override
@@ -46,10 +53,18 @@ public class StudentDetailsInputFragment extends Fragment {
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         appPreferences = AppPreferences.getInstance(getContext());
 
-        studentFragment = new StudentFragment();
-        scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
-        customLoadingDialog = new CustomLoadingDialog(getActivity());
+        //FCM Token
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                fcmToken = instanceIdResult.getToken();
+            }
+        });
 
+        scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+
+        customLoadingDialog = new CustomLoadingDialog(getActivity());
+        studentFragment = new StudentFragment();
         name = view.findViewById(R.id.student_name_edittext);
         scholarid = view.findViewById(R.id.student_scholar_id_edittext);
         classcode = view.findViewById(R.id.student_class_code_edittext);
@@ -63,8 +78,13 @@ public class StudentDetailsInputFragment extends Fragment {
                 String EmailId = mAuth.getCurrentUser().getEmail().toString();
                 String Class = classcode.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
-                    SendDataToServer();
-                    customLoadingDialog.startDialog(false);
+                    if(fcmToken.length() == 0){
+                        Toast.makeText(getActivity(),"Please wait and try again!",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        SendDataToServer();
+                        customLoadingDialog.startDialog(false);
+                    }
                 }
                 else{
                     Toast.makeText(getActivity(),"Please fill all the fields",Toast.LENGTH_SHORT).show();
@@ -76,7 +96,7 @@ public class StudentDetailsInputFragment extends Fragment {
     }
 
     private void SendDataToServer() {
-        JoinClass joinClass = new JoinClass(classcode.getText().toString(),name.getText().toString(),mAuth.getCurrentUser().getEmail().toString(),scholarid.getText().toString());
+        JoinClass joinClass = new JoinClass(classcode.getText().toString(),name.getText().toString(),mAuth.getCurrentUser().getEmail().toString(),scholarid.getText().toString(),fcmToken);
         scheduleViewModel.setJoinResponse(joinClass);
         scheduleViewModel.getJoinResponse().observe(getActivity(), data -> {
             if (data == null) {

@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.transition.Explode;
 import android.transition.Fade;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ import com.attendo.ui.main.drawers.FragmentFAQ;
 import com.attendo.ui.main.drawers.FragmentHelp;
 import com.attendo.ui.main.drawers.FragmentInfo;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
+import com.attendo.viewmodel.ScheduleViewModel;
 import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -88,6 +90,7 @@ public class FragmentAccountAndSettings extends Fragment {
     CardView Profile;
     BottomNavigationView bottomNavigationView;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
+    private ScheduleViewModel scheduleViewModel;
 
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
@@ -130,6 +133,8 @@ public class FragmentAccountAndSettings extends Fragment {
         firebaseStorage = FirebaseStorage.getInstance();
         String user_id = mAuth.getCurrentUser().getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference("data");
+
+        scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {

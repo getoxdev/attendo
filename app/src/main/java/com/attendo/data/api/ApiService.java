@@ -7,6 +7,7 @@ import com.attendo.data.model.reminder.Response;
 import com.attendo.data.model.reminder.Reminder;
 import com.attendo.data.model.schedule.Notice;
 import com.attendo.data.model.schedule.ResDeleteNotice;
+import com.attendo.data.model.schedule.ResLeaveClass;
 import com.attendo.data.model.schedule.ResponseCreateClass;
 import com.attendo.data.model.schedule.ResponseDeleteSchedule;
 import com.attendo.data.model.schedule.ResponseGetNotice;
@@ -69,6 +70,9 @@ public interface  ApiService
 
     @DELETE("api/notice/{noticeId}/{classId}")
     Call<ResDeleteNotice> deleteNotice(@Path("noticeId")String noticeId,@Path("classId") String classId);
+
+    @POST("api/class/leave/{email}")
+    Call<ResLeaveClass> LeaveClass(@Path("email") String email);
 
 
 

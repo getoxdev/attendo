@@ -14,7 +14,6 @@ import com.google.android.material.transition.platform.MaterialFade;
 
 public class AuthenticationActivity extends AppCompatActivity
 {
-   private FragmentLogin fragmentLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,6 @@ public class AuthenticationActivity extends AppCompatActivity
         getWindow().setExitTransition(new MaterialFade().setDuration(300));
         setContentView(R.layout.activity_authentication);
 
-        //fragmentLogin = new FragmentLogin();
         setFragment(new SplashFragment());
     }
 

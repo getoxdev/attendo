@@ -1,5 +1,6 @@
 package com.attendo.Schedule;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +21,10 @@ import com.attendo.data.model.schedule.CreateClass;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class CRDetailsInputFragment extends Fragment {
 
@@ -34,6 +38,8 @@ public class CRDetailsInputFragment extends Fragment {
     private CustomLoadingDialog customLoadingDialog;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private AppPreferences appPreferences;
+    private String fcmToken;
+    private String retreiveFcmToken;
 
 
     @Override
@@ -46,6 +52,14 @@ public class CRDetailsInputFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         appPreferences = AppPreferences.getInstance(getContext());
+
+        //FCM Token
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                fcmToken = instanceIdResult.getToken();
+            }
+        });
 
         scheduleViewModel =  new ViewModelProvider(this).get(ScheduleViewModel.class);
 
@@ -65,8 +79,13 @@ public class CRDetailsInputFragment extends Fragment {
                 String EmailId = mAuth.getCurrentUser().getEmail().toString();
                 String Class = ClassName.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
-                    class_code = SendDataToServer();
-                    customLoadingDialog.startDialog(false);
+                    if(fcmToken.length()>0) {
+                        class_code = SendDataToServer();
+                        customLoadingDialog.startDialog(false);
+                    }
+                    else{
+                        Toast.makeText(getActivity(),"Please wait and try again!",Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else{
                     Toast.makeText(getActivity(),"Please fill all the fields",Toast.LENGTH_SHORT).show();
@@ -74,13 +93,11 @@ public class CRDetailsInputFragment extends Fragment {
             }
         });
 
-
-
         return view;
     }
 
     private String  SendDataToServer() {
-        CreateClass createClass = new CreateClass(name.getText().toString(),mAuth.getCurrentUser().getEmail().toString(),ClassName.getText().toString(),scholarId.getText().toString());
+        CreateClass createClass = new CreateClass(name.getText().toString(),mAuth.getCurrentUser().getEmail().toString(),ClassName.getText().toString(),scholarId.getText().toString(),fcmToken);
         scheduleViewModel.setClassResponse(createClass);
         scheduleViewModel.getClassResponse().observe(getActivity(), data -> {
             if (data == null) {
