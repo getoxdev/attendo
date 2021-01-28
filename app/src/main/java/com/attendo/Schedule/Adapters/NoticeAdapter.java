@@ -96,6 +96,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
             }
         });
 
+
     }
 
     @Override
