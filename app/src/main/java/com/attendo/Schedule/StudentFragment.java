@@ -273,13 +273,12 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     }
 
     private void setAdapterAccordingToPosition(String day){
-        if(class_id == null){
+        if(preferences.RetrieveClassId() == null){
             Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
 
         }else{
-            Log.d("Student", class_id);
             Log.d("Student", day);
-            getScheduleViewModel.setScheduleGetResponse(class_id, day);
+            getScheduleViewModel.setScheduleGetResponse(preferences.RetrieveClassId(), day);
             getScheduleViewModel.getScheduleGetResponse().observe(getViewLifecycleOwner(), data->{
                 if(data == null){
                     progressBar.hide();
