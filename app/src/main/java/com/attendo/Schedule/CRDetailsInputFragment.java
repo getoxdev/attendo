@@ -53,6 +53,14 @@ public class CRDetailsInputFragment extends Fragment {
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         appPreferences = AppPreferences.getInstance(getContext());
 
+        //FCM Token
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                fcmToken = instanceIdResult.getToken();
+            }
+        });
+
         scheduleViewModel =  new ViewModelProvider(this).get(ScheduleViewModel.class);
 
         customLoadingDialog = new CustomLoadingDialog(getActivity());
@@ -60,15 +68,6 @@ public class CRDetailsInputFragment extends Fragment {
         name = view.findViewById(R.id.cr_name_edittext);
         scholarId = view.findViewById(R.id.cr_scholar_id_edittext);
         ClassName = view.findViewById(R.id.cr_class_name_edittext);
-
-
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                fcmToken = instanceIdResult.getToken();
-                //Toast.makeText(getActivity(),"FCM TOKEN: "+fcmToken,Toast.LENGTH_SHORT).show();
-            }
-        });
 
         create = view.findViewById(R.id.cr_create_class_btn);
 
@@ -93,7 +92,6 @@ public class CRDetailsInputFragment extends Fragment {
                 }
             }
         });
-
 
         return view;
     }

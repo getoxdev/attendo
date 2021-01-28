@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
+import com.attendo.viewmodel.NoticeViewModel;
+import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -67,7 +70,7 @@ public class FragmentUserProfile extends Fragment {
     @BindView(R.id.Delete_Account_Btn)
     Button delete_btn;
 
-
+    private ScheduleViewModel scheduleViewModel;
     private FragmentProfile fragment_profile;
     String user_id;
     private TextView userjoinas;
@@ -93,6 +96,7 @@ public class FragmentUserProfile extends Fragment {
         usercode = view.findViewById(R.id.USER_CLASS_CODE);
         userjoinas = view.findViewById(R.id.USER_CLASS_JOIN_AS);
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
+        scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
 
 
         ButterKnife.bind(this,view);
@@ -223,6 +227,7 @@ public class FragmentUserProfile extends Fragment {
                         DatabaseReference refbugs = FirebaseDatabase.getInstance().getReference("Bugs").child(user_Id);
                         ref.removeValue();
                         refbugs.removeValue();
+                        ServerDelete();
                         NullSharedPreferenceData();
                         firebaseScheduleViewModel.DeleteShedule();
                         storageReference = storage.getReference();
@@ -271,6 +276,17 @@ public class FragmentUserProfile extends Fragment {
                 AlertDialog alertDialog = dialog.create();
                 alertDialog.show();
             }
+
+    private void ServerDelete() {
+        scheduleViewModel.Leave_Class(mAuth.getCurrentUser().getEmail());
+        scheduleViewModel.leaveClassResponse().observe(getActivity(), data -> {
+            if (data == null) {
+                Log.i("ApiCall", "Failed");
+            } else {
+                Log.i("Api Call :","Success");
+            }
+        });
+    }
 
     private void NullSharedPreferenceData() {
         appPreferences = new AppPreferences(getContext());

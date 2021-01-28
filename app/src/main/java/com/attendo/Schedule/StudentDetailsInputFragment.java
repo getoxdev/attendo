@@ -53,19 +53,18 @@ public class StudentDetailsInputFragment extends Fragment {
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         appPreferences = AppPreferences.getInstance(getContext());
 
-
+        //FCM Token
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 fcmToken = instanceIdResult.getToken();
-               // Toast.makeText(getActivity(),"FCM TOKEN: "+fcmToken,Toast.LENGTH_SHORT).show();
             }
         });
 
-        studentFragment = new StudentFragment();
         scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
-        customLoadingDialog = new CustomLoadingDialog(getActivity());
 
+        customLoadingDialog = new CustomLoadingDialog(getActivity());
+        studentFragment = new StudentFragment();
         name = view.findViewById(R.id.student_name_edittext);
         scholarid = view.findViewById(R.id.student_scholar_id_edittext);
         classcode = view.findViewById(R.id.student_class_code_edittext);
