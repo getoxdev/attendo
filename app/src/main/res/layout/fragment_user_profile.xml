@@ -215,6 +215,7 @@
                         android:paddingBottom="8dp"
                         android:paddingRight="10dp"
                         android:text=""
+                        android:textIsSelectable="true"
                         android:hint="----------"
                         android:textAlignment="inherit"
                         android:textColor="@color/text_color_primary"
