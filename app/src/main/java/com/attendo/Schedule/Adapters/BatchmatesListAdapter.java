@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
@@ -50,6 +51,7 @@ public class BatchmatesListAdapter extends RecyclerView.Adapter<BatchmatesListAd
             holder.crStatus.setVisibility(View.VISIBLE);
         }
 
+
     }
 
     @Override
@@ -61,6 +63,7 @@ public class BatchmatesListAdapter extends RecyclerView.Adapter<BatchmatesListAd
 
         MaterialCardView crStatus;
         TextView nameOfStudent, scholarId;
+
 
 
         public MyViewHolder(@NonNull View itemView) {

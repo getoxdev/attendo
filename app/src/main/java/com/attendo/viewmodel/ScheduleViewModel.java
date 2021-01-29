@@ -36,6 +36,7 @@ public class ScheduleViewModel extends AndroidViewModel {
       private MutableLiveData<ResLeaveClass> leave_class;
 
 
+
       public ScheduleViewModel(@NonNull Application application) {
         super(application);
         apiHelper = new ApiHelper(application);
@@ -47,6 +48,7 @@ public class ScheduleViewModel extends AndroidViewModel {
         deleteResponse = new MutableLiveData<ResponseDeleteSchedule>();
         studentListResponse = new MutableLiveData<GetStudentListResponse>();
         leave_class = new MutableLiveData<ResLeaveClass>();
+
     }
 
     public MutableLiveData<ResponseCreateClass> getClassResponse(){
@@ -78,6 +80,8 @@ public class ScheduleViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<ResLeaveClass> leaveClassResponse() { return  leave_class; }
+
+
 
     //CREATE CLASS
     public void setClassResponse(CreateClass createClass){
@@ -143,6 +147,7 @@ public class ScheduleViewModel extends AndroidViewModel {
             }
         });
     }
+
 
     // SET SCHEDULE
     public void setScheduleResponse(Schedule schedule){
