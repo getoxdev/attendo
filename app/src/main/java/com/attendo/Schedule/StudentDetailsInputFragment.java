@@ -100,6 +100,7 @@ public class StudentDetailsInputFragment extends Fragment {
         scheduleViewModel.setJoinResponse(joinClass);
         scheduleViewModel.getJoinResponse().observe(getActivity(), data -> {
             if (data == null) {
+                customLoadingDialog.dismissDialog();
                 Toast.makeText(getActivity(),"Failed to join wrong class code",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {

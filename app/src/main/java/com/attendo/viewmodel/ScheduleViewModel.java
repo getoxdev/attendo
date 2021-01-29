@@ -88,6 +88,7 @@ public class ScheduleViewModel extends AndroidViewModel {
                     ResponseCreateClass responseCreateClass = response.body();
                     classResponse.postValue(responseCreateClass);
                 }else if(response.code()==400||response.code()==404){
+                    Log.i("Response code: ",String.valueOf(response.code()));
                     classResponse.postValue(null);
                 }
 
@@ -108,6 +109,7 @@ public class ScheduleViewModel extends AndroidViewModel {
                 if(response.code()==200 || response.code()==201){
                     joinResponse.postValue(response.body());
                 }else if(response.code() == 400||response.code()==404){
+                    Log.i("Response code: ",String.valueOf(response.code()));
                     joinResponse.postValue(null);
                 }
             }
