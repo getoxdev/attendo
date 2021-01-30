@@ -36,7 +36,6 @@
                     android:id="@+id/imgView"
                     android:layout_width="100dp"
                     android:layout_height="90dp"
-                    android:src="@drawable/info"
                     android:layout_gravity="center"
                     android:layout_centerInParent="true"/>
                 <TextView
@@ -70,7 +69,6 @@
                     android:id="@+id/imgView1"
                     android:layout_width="100dp"
                     android:layout_height="90dp"
-                    android:src="@drawable/faq"
                     android:layout_gravity="center"
                     android:layout_centerInParent="true"/>
                 <TextView
