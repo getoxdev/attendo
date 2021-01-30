@@ -28,34 +28,6 @@ public  class NotificationUtil {
     }
 
     public  void showNotification(@NotNull String title, @NotNull String message) {
-        /*Intent intent = new Intent(context, FragmentExamReminder.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this.context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-        String channelId = "default";
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(2);
-        NotificationCompat.Builder notificationBuilder = (new NotificationCompat.Builder(this.context, channelId))
-                .setColor(ContextCompat.getColor(this.context, R.color.blue))
-                .setSmallIcon(R.drawable.app_icon_middle_portion_removed)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-            if (Build.VERSION.SDK_INT >= 26) {
-                NotificationChannel channel = new NotificationChannel(channelId, (CharSequence)"Default Channel", 4);
-                notificationManager.createNotificationChannel(channel);
-            }
-
-            notificationManager.notify(110, notificationBuilder.build());
-            */
-
-
-
-
         Intent intent = new Intent(context, FragmentExamReminder.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("Fragment","Notification");
@@ -82,7 +54,6 @@ public  class NotificationUtil {
                 .setAutoCancel(true)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(pi)
-                //.setLargeIcon(((BitmapDrawable)getDrawable(R.drawable.app_icon_middle_portion_removed).getBitmap())
                 .setLights(Color.BLUE, 1000, 300)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setSmallIcon(R.drawable.app_icon_middle_portion_removed);
