@@ -12,7 +12,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.transition.Explode;
 import android.transition.Fade;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,6 @@ import androidx.transition.TransitionInflater;
 import com.airbnb.lottie.LottieAnimationView;
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
-import com.attendo.Schedule.AddNoticeFragment;
 import com.attendo.Schedule.CRSettingsFragment;
 import com.attendo.Schedule.NoticeFragment;
 import com.attendo.Schedule.Preference.AppPreferences;
@@ -49,7 +47,6 @@ import com.attendo.ui.main.drawers.FragmentBug;
 import com.attendo.ui.main.drawers.FragmentEditAttendance;
 import com.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.attendo.ui.main.drawers.FragmentFAQ;
-import com.attendo.ui.main.drawers.FragmentHelp;
 import com.attendo.ui.main.drawers.FragmentInfo;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
@@ -78,7 +75,6 @@ public class FragmentAccountAndSettings extends Fragment {
     private NoticeFragment noticeFragment;
     private FragmentUserProfile fragmentUserProfile;
     private StudentFragment studentFragment;
-    private FragmentHelp fragmentHelp;
     private FragmentBug fragmentBug;
     private FragmentAppRate fragmentAppRate;
     private FragmentEditAttendanceCriteria fragmentEditAttendanceCriteria;
@@ -118,7 +114,6 @@ public class FragmentAccountAndSettings extends Fragment {
         fragmentEditAttendance = new FragmentEditAttendance();
         fragmentUserProfile = new FragmentUserProfile();
         fragmentEditAttendanceCriteria = new FragmentEditAttendanceCriteria();
-        fragmentHelp = new FragmentHelp();
         fragmentFAQ = new FragmentFAQ();
         fragmentInfo = new FragmentInfo();
         name = view.findViewById(R.id.profile_name);
@@ -192,8 +187,6 @@ public class FragmentAccountAndSettings extends Fragment {
         fragmentAppRate.setEnterTransition(enter);
         fragmentAppRate.setExitTransition(exit);
 
-        fragmentHelp.setEnterTransition(enter);
-        fragmentHelp.setExitTransition(exit);
 
         fragmentBug.setEnterTransition(enter);
         fragmentBug.setExitTransition(exit);

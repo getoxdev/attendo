@@ -47,12 +47,6 @@
 
         -->
 
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
         <!--<service
             android:name=".service.FirebaseMessagingService"
             android:exported="false"
