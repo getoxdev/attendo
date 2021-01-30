@@ -122,6 +122,11 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         submit = view.findViewById(R.id.add_subject_btn);
         timePicker = view.findViewById(R.id.add_sub_details_time_picker);
 
+        Calendar calendar = Calendar.getInstance();
+        Date time = calendar.getTime();
+        timePickerTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(time);
+
+
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hourOfTheDay, int minute) {
@@ -210,7 +215,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                     mhandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            dismiss();
+                            dismissAllowingStateLoss();
                         }
                     },600);
                 }

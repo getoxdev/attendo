@@ -56,7 +56,6 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     private ArrayList<DayOfWeek> dayList;
     private RoutineItemAdapterCr routineItemAdapter;
     private FloatingActionButton fabOpenMenu, fabAddSubject, fabNotice, fabBatchmates;
-    private AddSubjectDetailsFragment addSubjectDetailsFragment;
     private ScheduleViewModel getScheduleViewModel;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private NoticeFragment noticeFragment;
@@ -141,11 +140,11 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
             }
         });
 
-        AddSubjectDetailsFragment addSubjectDetailsFragment = AddSubjectDetailsFragment.newInstance(this, positionDay);
+
         fabAddSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                AddSubjectDetailsFragment addSubjectDetailsFragment = AddSubjectDetailsFragment.newInstance(CrFragment.this, positionDay);
                 addSubjectDetailsFragment.show(getParentFragmentManager(),"Subject_Details");
             }
         });
