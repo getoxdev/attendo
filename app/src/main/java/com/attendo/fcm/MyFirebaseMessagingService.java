@@ -30,59 +30,6 @@ import static android.content.ContentValues.TAG;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
-    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-        super.onMessageReceived(remoteMessage);
-        Map<String, String> data = remoteMessage.getData();
-        String title = data.get("title");
-        String message = data.get("message");
-        SettingUtil settingUtil = new SettingUtil();
-
-        if (!(settingUtil.isTimeAutomatic(getApplicationContext()))) {
-            Log.d(TAG, "Automatic date and time is not enabled");
-            return;
-        }
-
-        //String isScheduled = data.get("isScheduled");
-        if (data.get("isScheduled").equals("true")) {
-            String scheduledTime = data.get("scheduledTime");
-            try {
-                scheduleAlarm(scheduledTime, title, message);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        } else {
-            showNotification(title, message);
-        }
-
-
-    }
-
-    public void scheduleAlarm(String scheduledTimeString, String title, String message) throws ParseException
-    {
-        Log.d("justBeforeAM","Alarm manager start");
-        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        Intent alarmIntent = new Intent(getApplicationContext(), NotificationBroadcastReceiver.class);
-        alarmIntent.putExtra("notification_title", title);
-        alarmIntent.putExtra("notification_message", message);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarmIntent, 0);
-
-        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        sd.setTimeZone(TimeZone.getTimeZone("GMT"));
-        Date scheduledTime = sd.parse(scheduledTimeString);
-        Log.d("ScheduledTime", String.valueOf(scheduledTime.getTime()));
-        Log.d("SystemTime", String.valueOf(System.currentTimeMillis()));
-
-        alarmManager.set(AlarmManager.RTC_WAKEUP, scheduledTime.getTime(), pendingIntent);
-
-    }
-
-    public void showNotification(String title, String message) {
-        NotificationUtil notificationUtil = new NotificationUtil(getApplicationContext());
-        notificationUtil.showNotification(title, message);
-
-    }
-
-    @Override
     public void onNewToken(@NonNull String s) {
         FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
             @Override
@@ -96,6 +43,54 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 Log.e("My Token", token);
             }
         });
+    }
+
+    @Override
+    public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
+        super.onMessageReceived(remoteMessage);
+        Map<String, String> data = remoteMessage.getData();
+        String title = data.get("title");
+        String message = data.get("message");
+        SettingUtil settingUtil = new SettingUtil();
+
+        if (!(settingUtil.isTimeAutomatic(getApplicationContext()))) {
+            Log.d(TAG, "Automatic date and time is not enabled");
+            return;
+        }
+
+        String isScheduled = data.get("isScheduled");
+        if (isScheduled.equals("true")) {
+            String scheduledTime = data.get("scheduledTime");
+            try {
+                scheduleAlarm(scheduledTime, title, message);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            showNotification(title, message);
+        }
+
+    }
+
+    public void scheduleAlarm(String scheduledTimeString, String title, String message) throws ParseException
+    {
+        Log.d("justBeforeAM","Alarm manager start");
+
+        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        Intent alarmIntent = new Intent(getApplicationContext(), NotificationBroadcastReceiver.class);
+        alarmIntent.putExtra("notification_title", title);
+        alarmIntent.putExtra("notification_message", message);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarmIntent, 0);
+
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.getDefault());
+        Date scheduledTime = sd.parse(scheduledTimeString);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, scheduledTime.getTime(), pendingIntent);
+    }
+
+    public void showNotification(String title, String message) {
+        NotificationUtil notificationUtil = new NotificationUtil(getApplicationContext());
+        notificationUtil.showNotification(title, message);
+
     }
 }
 

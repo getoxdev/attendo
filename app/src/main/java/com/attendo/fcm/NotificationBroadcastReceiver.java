@@ -17,12 +17,11 @@ public  class NotificationBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String title=intent.getStringExtra("notification_title");
-        String messgae=intent.getStringExtra("notification_message");
-
+        String message=intent.getStringExtra("notification_message");
 
         Data notificationData= new Data.Builder()
                 .putString("notification_title",title)
-                .putString("notification_messgae",messgae)
+                .putString("notification_message",message)
                 .build();
 
         OneTimeWorkRequest work= new OneTimeWorkRequest.Builder(ScheduledWorker.class)
@@ -33,7 +32,5 @@ public  class NotificationBroadcastReceiver extends BroadcastReceiver {
         WorkManager.getInstance(context).beginWith(work).enqueue();
 
         Log.d("start worker", "WorkManager is Enqueued.");
-
-
     }
 }
