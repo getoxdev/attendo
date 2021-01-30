@@ -36,6 +36,7 @@ public class ScheduleViewModel extends AndroidViewModel {
       private MutableLiveData<ResLeaveClass> leave_class;
 
 
+
       public ScheduleViewModel(@NonNull Application application) {
         super(application);
         apiHelper = new ApiHelper(application);
@@ -47,6 +48,7 @@ public class ScheduleViewModel extends AndroidViewModel {
         deleteResponse = new MutableLiveData<ResponseDeleteSchedule>();
         studentListResponse = new MutableLiveData<GetStudentListResponse>();
         leave_class = new MutableLiveData<ResLeaveClass>();
+
     }
 
     public MutableLiveData<ResponseCreateClass> getClassResponse(){
@@ -79,6 +81,8 @@ public class ScheduleViewModel extends AndroidViewModel {
 
     public MutableLiveData<ResLeaveClass> leaveClassResponse() { return  leave_class; }
 
+
+
     //CREATE CLASS
     public void setClassResponse(CreateClass createClass){
         apiHelper.createclass(createClass).enqueue(new Callback<ResponseCreateClass>() {
@@ -88,6 +92,7 @@ public class ScheduleViewModel extends AndroidViewModel {
                     ResponseCreateClass responseCreateClass = response.body();
                     classResponse.postValue(responseCreateClass);
                 }else if(response.code()==400||response.code()==404){
+                    Log.i("Response code: ",String.valueOf(response.code()));
                     classResponse.postValue(null);
                 }
 
@@ -108,6 +113,7 @@ public class ScheduleViewModel extends AndroidViewModel {
                 if(response.code()==200 || response.code()==201){
                     joinResponse.postValue(response.body());
                 }else if(response.code() == 400||response.code()==404){
+                    Log.i("Response code: ",String.valueOf(response.code()));
                     joinResponse.postValue(null);
                 }
             }
@@ -141,6 +147,7 @@ public class ScheduleViewModel extends AndroidViewModel {
             }
         });
     }
+
 
     // SET SCHEDULE
     public void setScheduleResponse(Schedule schedule){

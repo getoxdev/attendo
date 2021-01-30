@@ -65,7 +65,7 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
         appPreferences.AddJoinAs(null);
         appPreferences.AddClassScheduleId(null);
     }
-
+//SFeFYn
     private String deleteSharedpreference() {
         return firebaseScheduleViewModel.DeleteShedule();
     }
