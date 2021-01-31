@@ -10,6 +10,7 @@ public class CalendarEntity {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
+    @ColumnInfo(name = "id")
     private int Id;
 
     @ColumnInfo(name = "date")
