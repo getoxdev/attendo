@@ -13,7 +13,6 @@ import com.firebase.client.annotations.NotNull;
 
 public  class ScheduledWorker extends Worker {
 
-
     private static final String TAG = "ScheduledWorker";
 
     public ScheduledWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {

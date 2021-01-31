@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.attendo.R;
-import com.attendo.ui.main.MainActivity;
 import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

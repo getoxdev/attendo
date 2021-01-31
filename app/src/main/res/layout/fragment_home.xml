@@ -37,7 +37,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/study_life" />
+        />
 
 
     <!--Settings Card-->
@@ -131,7 +131,6 @@
                 android:layout_width="65dp"
                 android:layout_height="73dp"
                 android:layout_marginBottom="25dp"
-                android:src="@drawable/calendar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -164,7 +163,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        android:src="@drawable/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintHorizontal_bias="0.511"

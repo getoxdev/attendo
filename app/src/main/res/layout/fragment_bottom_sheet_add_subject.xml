@@ -93,23 +93,6 @@
 
 
 
-    <EditText
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="204dp"
-        android:layout_marginRight="24dp"
-        android:background="@drawable/custom_input_field"
-        android:drawableStart="@drawable/book_icon_custom_dynamic"
-        android:drawablePadding="10dp"
-        android:hint="Type subject name"
-        android:padding="12dp"
-        android:visibility="invisible"
-        android:elevation="0dp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_subject_id" />
 
 
     <Button

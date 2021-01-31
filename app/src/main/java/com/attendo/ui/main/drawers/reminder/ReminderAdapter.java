@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
 import com.attendo.data.rem.RemEntity;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,15 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
     RemEntity currentRem=reminders.get(position);
     holder.time.setText(currentRem.getTime());
     holder.label.setText(currentRem.getLabel());
+
+    holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    });
+
+
     }
 
     @Override
@@ -49,11 +59,13 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
 
         private TextView time;
         private TextView label;
+        private MaterialButton deleteBtn;
 
         public ReminderViewHolder(@NonNull View itemView) {
             super(itemView);
             time=itemView.findViewById(R.id.time_show);
             label=itemView.findViewById(R.id.label_show);
+            deleteBtn = itemView.findViewById(R.id.alarm_delete);
 
         }
     }
