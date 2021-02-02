@@ -80,10 +80,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Intent alarmIntent = new Intent(getApplicationContext(), NotificationBroadcastReceiver.class);
         alarmIntent.putExtra("notification_title", title);
         alarmIntent.putExtra("notification_message", message);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarmIntent, 0);
+        int requestCode = generateRequestCode(scheduledTimeString);
+        Log.d("reminder" , requestCode + "  : This is request code");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), requestCode, alarmIntent, 0);
 
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.getDefault());
         Date scheduledTime = sd.parse(scheduledTimeString);
+        Log.d("reminder" , scheduledTimeString + "  : Schedule alarm function");
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, scheduledTime.getTime(), pendingIntent);
     }
 
@@ -91,6 +94,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationUtil notificationUtil = new NotificationUtil(getApplicationContext());
         notificationUtil.showNotification(title, message);
 
+    }
+
+    public int generateRequestCode(String dateTimeString) throws ParseException {
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.getDefault());
+        Date scheduledTime = sd.parse(dateTimeString);
+
+        String fullTime = scheduledTime.toString();
+        String hourAndMin = fullTime.substring(11, 13) + fullTime.substring(14, 16);
+        int hourMin = Integer.parseInt(hourAndMin);
+
+        return hourMin;
     }
 }
 

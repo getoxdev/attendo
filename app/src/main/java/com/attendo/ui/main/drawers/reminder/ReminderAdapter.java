@@ -1,24 +1,43 @@
 package com.attendo.ui.main.drawers.reminder;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
 import com.attendo.data.rem.RemEntity;
+import com.attendo.fcm.NotificationBroadcastReceiver;
+import com.attendo.ui.main.BottomNavMainActivity;
+import com.attendo.viewmodel.ReminderViewModel;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder> {
 
     private List<RemEntity> reminders=new ArrayList<>();
+    private ReminderViewModel viewModel;
+    private Context context;
+
+    public ReminderAdapter(Context context) {
+        this.context = context;
+        viewModel = new ViewModelProvider((BottomNavMainActivity) context).get(ReminderViewModel.class);
+    }
+
     @NonNull
     @Override
     public ReminderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,7 +54,8 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
     holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            //cancelReminder(currentRem.getTime());
+            viewModel.delete(currentRem);
         }
     });
 
@@ -68,5 +88,43 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
             deleteBtn = itemView.findViewById(R.id.alarm_delete);
 
         }
+    }
+
+
+    public void cancelReminder(String time){
+        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        int requestCode = generateRequestCode(time);
+        Log.d("reminder" , requestCode + "  : This is request code");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), requestCode, null, 0);
+
+        alarmManager.cancel(pendingIntent);
+    }
+
+    public static int generateRequestCode(String time){
+        time = time + "  ";
+        int result = -1;
+        if(time.substring(5,7).equals("pm") || time.substring(6,8).equals("pm")){
+            if(time.substring(6,8).equals("pm")){
+                int hour = Integer.parseInt(time.substring(0,2)) + 12;
+                int hourMin = Integer.parseInt(String.valueOf(hour) + time.substring(3,5));
+                result = hourMin;
+
+            }else if(time.substring(5,7).equals("pm")){
+                int hour = Integer.parseInt(String.valueOf(time.charAt(0))) + 12;
+                int hourMin = Integer.parseInt(String.valueOf(hour) + time.substring(2,4));
+                result = hourMin;
+            }
+
+        }else if(time.substring(5,7).equals("am") || time.substring(6,8).equals("am")){
+            if(time.substring(6,8).equals("am")){
+                int hourMin = Integer.parseInt(time.substring(0,2) + time.substring(3,5));
+                result = hourMin;
+            }else if(time.substring(5,7).equals("am")){
+                int hourMin = Integer.parseInt(time.charAt(0) + time.substring(2,4));
+                result = hourMin;
+            }
+
+        }
+        return result;
     }
 }

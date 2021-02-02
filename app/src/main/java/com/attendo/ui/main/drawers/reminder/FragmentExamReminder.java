@@ -84,7 +84,7 @@ public class FragmentExamReminder extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        ReminderAdapter adapter=new ReminderAdapter();
+        ReminderAdapter adapter=new ReminderAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
 

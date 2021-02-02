@@ -1,6 +1,10 @@
 package com.attendo.viewmodel;
 
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -12,6 +16,7 @@ import com.attendo.data.api.ApiHelper;
 import com.attendo.data.model.reminder.Reminder;
 import com.attendo.data.model.reminder.Response;
 import com.attendo.data.rem.RemEntity;
+import com.attendo.fcm.NotificationBroadcastReceiver;
 import com.attendo.ui.main.drawers.reminder.RemRepository;
 
 import java.util.List;
@@ -19,6 +24,8 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ReminderViewModel extends AndroidViewModel
 {
@@ -110,6 +117,13 @@ public class ReminderViewModel extends AndroidViewModel
                getIdresponse().postValue(null);
            }
        });
+    }
+
+    public void cancelReminder(String time){
+        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, null, 0);
+
+        alarmManager.cancel(pendingIntent);
     }
 
 }
