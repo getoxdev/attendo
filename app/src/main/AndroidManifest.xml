@@ -65,7 +65,7 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".fcm.NotificationBroadcastReceiver" />
+        <receiver android:name=".fcm.ReminderBroadcastReceiver" />
 
         <meta-data
             android:name="preloaded_fonts"

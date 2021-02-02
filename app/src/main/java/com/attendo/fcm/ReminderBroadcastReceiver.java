@@ -12,16 +12,14 @@ import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 import androidx.work.Worker;
 
-public  class NotificationBroadcastReceiver extends BroadcastReceiver {
+public  class ReminderBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String title=intent.getStringExtra("notification_title");
-        String message=intent.getStringExtra("notification_message");
+        String title=intent.getStringExtra("title");
 
         Data notificationData= new Data.Builder()
-                .putString("notification_title",title)
-                .putString("notification_message",message)
+                .putString("title",title)
                 .build();
 
         OneTimeWorkRequest work= new OneTimeWorkRequest.Builder(ScheduledWorker.class)
@@ -30,7 +28,5 @@ public  class NotificationBroadcastReceiver extends BroadcastReceiver {
 
         //start worker
         WorkManager.getInstance(context).beginWith(work).enqueue();
-
-        Log.d("start worker", "WorkManager is Enqueued.");
     }
 }

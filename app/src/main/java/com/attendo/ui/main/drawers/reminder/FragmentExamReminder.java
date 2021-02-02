@@ -35,9 +35,12 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,25 +48,15 @@ import butterknife.ButterKnife;
 
 public class FragmentExamReminder extends Fragment {
 
-     @BindView(R.id.add_rem)
+    @BindView(R.id.add_rem)
     FloatingActionButton mFloatingActionButton;
-    //@BindView(R.id.time_show)
-    //TextView timeShow;
-    //@BindView(R.id.label_show)
-    //TextView labelShow;
-    //@BindView(R.id.alarm_card_view)
-    //CardView alarmCard;
-    //@BindVi(R.id.cancel_alarm)
-    //Button cancelAlarm;
     @BindView(R.id.rem_recycler)
     RecyclerView recyclerView;
 
     TimePicker timePicker;
     EditText label;
 
-
     private String mylabel;
-    private PendingIntent alarmdone;
     private Bundle bundle;
     private String fcmToken;
     private ReminderViewModel viewModel;
@@ -72,31 +65,27 @@ public class FragmentExamReminder extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_exam_reminder, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Class Reminder");
-
 
         ButterKnife.bind(this,view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        ReminderAdapter adapter=new ReminderAdapter();
+        ReminderAdapter adapter=new ReminderAdapter(getContext());
         recyclerView.setAdapter(adapter);
-
-
 
         viewModel = ViewModelProviders.of(getActivity()).get(ReminderViewModel.class);
         apiHelper = ApiHelper.getInstance(getContext());
 
         viewModel.getAllReminders().observe(getActivity(), new Observer<List<RemEntity>>() {
             @Override
-            public void onChanged(List<RemEntity> remEntities) {
-
-            adapter.setReminders(remEntities);
+            public void onChanged(List<RemEntity> remEntities)
+            {
+                adapter.setReminders(remEntities);
             }
         });
 
@@ -132,8 +121,6 @@ public class FragmentExamReminder extends Fragment {
 
         bundle = new Bundle();
 
-
-
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
 
         View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet,
@@ -167,93 +154,30 @@ public class FragmentExamReminder extends Fragment {
                         startTime.set(Calendar.MINUTE, minute);
                         startTime.set(Calendar.SECOND, 0);
 
-                        //my code to show time and label in cardview
-                        String timeshow1 = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime.getTime());
-
-                        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.getDefault());
+                        SimpleDateFormat gd = new SimpleDateFormat("HHmm", Locale.getDefault());
                         String timeshow = sd.format(startTime.getTime());
                         String labelshow = label.getText().toString().trim();
 
-                        RemEntity rem=new RemEntity(timeshow1,labelshow);
-                        viewModel.insert(rem);
-
-                        Toast.makeText(getContext(), "Reminder addded", Toast.LENGTH_SHORT).show();
-
-                       /* editor.putString("time", timeshow1);
-                        editor.putString("label", labelshow);
-                        editor.commit();
-
-                        String retirveTime = retrieve.getString("time", "Reminder Time");
-                        String retriveLabel = retrieve.getString("label", "Reminder Label");
-
-                        timeShow.setText(retirveTime);
-                        labelShow.setText(retriveLabel);
-
-                        */
-
-
-                        if (labelshow.isEmpty()) {
-                            label.setError("enter the subject");
-                        } else {
-                            Reminder reminder = new Reminder(retreiveFcmToken, timeshow, labelshow, true);
-                            viewModel.setReminder(reminder);
-                            viewModel.getReminderResponse().observe(getActivity(), data -> {
-                                if (data == null) {
-                                    Log.i("ApiCall", "Failed");
-                                } else {
-                                   editor.putString("ID", data.getReminder().get_id());
-                                   editor.commit();
-                                    Log.i("ApiCall", "successFull");
-                                }
-                            });
+                        Date date = null;
+                        try {
+                            date = sd.parse(timeshow);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                        bottomSheetDialog.dismiss();
+                        String requestCodeString = gd.format(date);
+                        Integer requestCode = Integer.valueOf(requestCodeString);
+
+                        RemEntity rem=new RemEntity(timeshow,labelshow);
+                        viewModel.insert(rem);
+                        viewModel.setReminder(requestCode,timeshow,labelshow);
+
                         label.setText("");
-                        //cancelAlarm.setText("Cancel Reminder");
-                        //cancelAlarm.setEnabled(true);
+                        bottomSheetDialog.dismiss();
                     }
                 });
             }
         });
-
-        //cancel alarm
-        /*cancelAlarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cancelAlarm.setEnabled(false);
-                cancelAlarm.setText("Set Alarm");
-                String idOfResponse=retrieve.getString("ID","");
-                viewModel.setcancelReminder(idOfResponse);
-                viewModel.getIdresponse().observe(getActivity(), data -> {
-                    if (data == null) {
-                        Log.i("ApiCallCancel", "Failed");
-                    } else {
-
-                        Log.i("ApiCallCancel", "successFull");
-                    }
-                });
-
-                Toast.makeText(getContext(), "Reminder Cancelled", Toast.LENGTH_SHORT).show();
-
-                timeShow.setText("Set a Reminder");
-                labelShow.setText("Reminder Label");
-            }
-        });
-
-        String retirveTime = retrieve.getString("time", "Set a Reminder");
-        String retriveLabel = retrieve.getString("label", "Reminder Label");
-
-        timeShow.setText(retirveTime);
-        labelShow.setText(retriveLabel);
-
-        Animation scale_fab = AnimationUtils.loadAnimation(getContext(), R.anim.scale_fab);
-
-        mFloatingActionButton.setAnimation(scale_fab);
-
-         */
-
-
-
         return view;
     }
 }
