@@ -81,11 +81,9 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if(currentTime.after(date)){
-                Log.d("reminder" , currentTime.toString() + " is after" + deleteItem.toString() );
+            if(currentTime.after(deleteItem)) {
+                Log.d("reminder", currentTime.toString() + " is after" + deleteItem.toString());
                 viewModel.delete(reminders.get(i));
-            }else{
-                Log.d("reminder" , currentTime.toString() + " is before" + deleteItem.toString() );
             }
         }
     }
