@@ -35,9 +35,12 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -151,34 +154,24 @@ public class FragmentExamReminder extends Fragment {
                         startTime.set(Calendar.MINUTE, minute);
                         startTime.set(Calendar.SECOND, 0);
 
-                        //my code to show time and label in cardview
-                        String timeshow1 = DateFormat.getTimeInstance(DateFormat.SHORT).format(startTime.getTime());
-
-                        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.getDefault());
+                        SimpleDateFormat gd = new SimpleDateFormat("HHmm", Locale.getDefault());
                         String timeshow = sd.format(startTime.getTime());
                         String labelshow = label.getText().toString().trim();
 
-                        RemEntity rem=new RemEntity(timeshow1,labelshow);
-                        viewModel.insert(rem);
-                        viewModel.setReminder(rem.getId(),timeshow,labelshow);
-
-                        /*if (labelshow.isEmpty()) {
-                            label.setError("Enter the Label!");
+                        Date date = null;
+                        try {
+                            date = sd.parse(timeshow);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                        else {
-                            Toast.makeText(getContext(), "Reminder Added", Toast.LENGTH_SHORT).show();
-                            Reminder reminder = new Reminder(retreiveFcmToken, timeshow, labelshow);
-                            viewModel.setReminder(reminder);
-                            viewModel.getReminderResponse().observe(getActivity(), data -> {
-                                if (data == null) {
-                                    Log.i("ApiCall", "Failed");
-                                } else {
-                                   editor.putString("ID", data.getReminder().get_id());
-                                   editor.commit();
-                                    Log.i("ApiCall", "successFull");
-                                }
-                            });
-                        }*/
+                        String requestCodeString = gd.format(date);
+                        Integer requestCode = Integer.valueOf(requestCodeString);
+
+                        RemEntity rem=new RemEntity(timeshow,labelshow);
+                        viewModel.insert(rem);
+                        viewModel.setReminder(requestCode,timeshow,labelshow);
+
                         label.setText("");
                         bottomSheetDialog.dismiss();
                     }

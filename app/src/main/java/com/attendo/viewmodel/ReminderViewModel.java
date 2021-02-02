@@ -32,17 +32,12 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class ReminderViewModel extends AndroidViewModel
 {
-    private ApiHelper apiHelper;
-    private MutableLiveData<Response> reminderResponse;
     private RemRepository remRepository;
     private LiveData<List<RemEntity>> allReminders;
 
     public ReminderViewModel(@NonNull Application application)
     {
         super(application);
-        apiHelper = new ApiHelper(application);
-        reminderResponse=new MutableLiveData<>();
-
         remRepository =new RemRepository(application);
         allReminders=remRepository.getAllReminders();
     }
@@ -61,36 +56,6 @@ public class ReminderViewModel extends AndroidViewModel
     public LiveData<List<RemEntity>> getAllReminders(){
         return allReminders;
     }
-    public MutableLiveData<Response> getReminderResponse(){
-        return reminderResponse;
-    }
-
-    /*public void setReminder(Reminder reminder)
-    {
-        apiHelper.sendReminder(reminder).enqueue(new Callback<Response>()
-        {
-            @Override
-            public void onResponse(Call<Response> call, retrofit2.Response<Response> response)
-            {
-                if(response.code()<300)
-                {
-                    Response response1=response.body();
-                    reminderResponse.postValue(response1);
-                }
-                else if(response.code()>=400)
-                {
-                    reminderResponse.postValue(null);
-                    Log.i("responseNext", Integer.toString(response.code()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Response> call, Throwable t)
-            {
-                reminderResponse.postValue(null);
-            }
-        });
-    }*/
 
     public void setReminder(int requestCode,String scheduledTimeString, String title)
     {
@@ -98,7 +63,7 @@ public class ReminderViewModel extends AndroidViewModel
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         Intent alarmIntent = new Intent(getApplicationContext(), ReminderBroadcastReceiver.class);
         alarmIntent.putExtra("title", title);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), requestCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
         Date scheduledTime = null;
@@ -116,7 +81,7 @@ public class ReminderViewModel extends AndroidViewModel
         Log.e("RequestCodeCancel",String.valueOf(requestCode));
         Intent alarmIntent = new Intent(getApplicationContext(), ReminderBroadcastReceiver.class);
         alarmIntent.putExtra("title", title);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), requestCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
 
         alarmManager.cancel(pendingIntent);

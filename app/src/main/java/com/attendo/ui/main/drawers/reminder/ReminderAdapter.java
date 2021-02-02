@@ -1,6 +1,7 @@
 package com.attendo.ui.main.drawers.reminder;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,12 @@ import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.ReminderViewModel;
 import com.google.android.material.button.MaterialButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder> {
@@ -41,13 +46,25 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
     @Override
     public void onBindViewHolder(@NonNull ReminderViewHolder holder, int position) {
         RemEntity currentRem=reminders.get(position);
-        holder.time.setText(currentRem.getTime());
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+        SimpleDateFormat fd = new SimpleDateFormat("hh:mm a",Locale.getDefault());
+        SimpleDateFormat gd = new SimpleDateFormat("HHmm",Locale.getDefault());
+        Date date = null;
+        try {
+            date = sd.parse(currentRem.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String timeShow = fd.format(date);
+        String requestCodeString = gd.format(date);
+        Integer requestCode = Integer.valueOf(requestCodeString);
+        holder.time.setText(timeShow);
         holder.label.setText(currentRem.getLabel());
 
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewModel.cancelReminder(currentRem.getId(),currentRem.getLabel());
+                viewModel.cancelReminder(requestCode,currentRem.getLabel());
                 viewModel.delete(currentRem);
             }
         });

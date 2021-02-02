@@ -67,17 +67,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationUtil notificationUtil = new NotificationUtil(getApplicationContext());
         notificationUtil.showNotification(title);
     }
-
-    public int generateRequestCode(String dateTimeString) throws ParseException {
-        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.getDefault());
-        Date scheduledTime = sd.parse(dateTimeString);
-
-        String fullTime = scheduledTime.toString();
-        String hourAndMin = fullTime.substring(11, 13) + fullTime.substring(14, 16);
-        int hourMin = Integer.parseInt(hourAndMin);
-
-        return hourMin;
-    }
 }
 
 
