@@ -11,10 +11,8 @@ import androidx.work.WorkerParameters;
 import com.attendo.util.NotificationUtil;
 import com.firebase.client.annotations.NotNull;
 
-public  class ScheduledWorker extends Worker {
-
-    private static final String TAG = "ScheduledWorker";
-
+public  class ScheduledWorker extends Worker
+{
     public ScheduledWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
@@ -22,15 +20,11 @@ public  class ScheduledWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.d(TAG,"Work start");
-
-        String title=getInputData().getString("notification_title");
-        String message=getInputData().getString("notification_message");
+        String title=getInputData().getString("title");
 
         NotificationUtil notificationUtil=new NotificationUtil(getApplicationContext());
-        notificationUtil.showNotification(title,message);
+        notificationUtil.showNotification(title);
 
-        Log.d(TAG,"Work done");
         return Result.success();
     }
 }

@@ -1,10 +1,6 @@
 package com.attendo.ui.main.drawers.reminder;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
 import com.attendo.data.rem.RemEntity;
-import com.attendo.fcm.NotificationBroadcastReceiver;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.ReminderViewModel;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder> {
@@ -47,26 +40,26 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
 
     @Override
     public void onBindViewHolder(@NonNull ReminderViewHolder holder, int position) {
-    RemEntity currentRem=reminders.get(position);
-    holder.time.setText(currentRem.getTime());
-    holder.label.setText(currentRem.getLabel());
+        RemEntity currentRem=reminders.get(position);
+        holder.time.setText(currentRem.getTime());
+        holder.label.setText(currentRem.getLabel());
 
-    holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            //cancelReminder(currentRem.getTime());
-            viewModel.delete(currentRem);
-        }
-    });
-
-
+        holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewModel.cancelReminder(currentRem.getId(),currentRem.getLabel());
+                viewModel.delete(currentRem);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return reminders.size();
     }
-    public void setReminders(List<RemEntity> remEntityList){
+
+    public void setReminders(List<RemEntity> remEntityList)
+    {
         reminders=remEntityList;
         notifyDataSetChanged();
     }
@@ -86,21 +79,11 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
             time=itemView.findViewById(R.id.time_show);
             label=itemView.findViewById(R.id.label_show);
             deleteBtn = itemView.findViewById(R.id.alarm_delete);
-
         }
     }
 
-
-    public void cancelReminder(String time){
-        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        int requestCode = generateRequestCode(time);
-        Log.d("reminder" , requestCode + "  : This is request code");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), requestCode, null, 0);
-
-        alarmManager.cancel(pendingIntent);
-    }
-
-    public static int generateRequestCode(String time){
+    public static int generateRequestCode(String time)
+    {
         time = time + "  ";
         int result = -1;
         if(time.substring(5,7).equals("pm") || time.substring(6,8).equals("pm")){

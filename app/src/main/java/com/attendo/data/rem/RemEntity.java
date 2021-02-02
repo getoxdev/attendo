@@ -5,7 +5,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "reminder_table")
-public class RemEntity {
+public class RemEntity
+{
     public RemEntity(String time, String label) {
         this.time = time;
         this.label = label;
@@ -24,15 +25,15 @@ public class RemEntity {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTime() {
         return time;
     }
 
     public String getLabel() {
         return label;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

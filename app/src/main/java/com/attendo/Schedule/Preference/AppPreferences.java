@@ -15,8 +15,6 @@ public class AppPreferences implements SharedPreferencesHelper {
     public static final String Class_Schedule_Class_Id_KEY = null;
     public static final String Class_Schedule_ID_KEY = null;
 
-
-
     private SharedPreferences sharedPrefs;
 
     public AppPreferences(Context context) {
@@ -27,7 +25,7 @@ public class AppPreferences implements SharedPreferencesHelper {
 
     public static AppPreferences getInstance(Context context){
         if(instance == null){
-            synchronized (ApiHelper.class){
+            synchronized (AppPreferences.class){
                 if(instance == null){
                     instance = new AppPreferences(context);
                 }

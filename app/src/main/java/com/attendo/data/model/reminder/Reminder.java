@@ -15,19 +15,15 @@ public class Reminder
     @SerializedName("label")
     private String label;
 
-    @SerializedName("state")
-    private Boolean state;
-
     @SerializedName("_id")
     private  String _id;
 
 
-    public Reminder(String token, String time, String label, Boolean state)
+    public Reminder(String token, String time, String label)
     {
         this.token = token;
         this.time = time;
         this.label = label;
-        this.state = state;
     }
 
     public String getToken() {
@@ -52,14 +48,6 @@ public class Reminder
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public Boolean getState() {
-        return state;
-    }
-
-    public void setState(Boolean state) {
-        this.state = state;
     }
 
     public String get_id() {

@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 
 import com.attendo.util.NotificationUtil;
 import com.attendo.util.SettingUtil;
-import com.firebase.client.annotations.NotNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -23,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 
 import static android.content.ContentValues.TAG;
 
@@ -31,16 +29,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(@NonNull String s) {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
+        {
             @Override
             public void onComplete(@NonNull Task<InstanceIdResult> task) {
                 if (!task.isSuccessful()) {
-                    Log.e("TAG", "Get InstanceId failed", task.getException());
                     return;
                 }
 
                 String token = task.getResult().getToken();
-                Log.e("My Token", token);
             }
         });
     }
@@ -50,7 +47,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         Map<String, String> data = remoteMessage.getData();
         String title = data.get("title");
-        String message = data.get("message");
         SettingUtil settingUtil = new SettingUtil();
 
         if (!(settingUtil.isTimeAutomatic(getApplicationContext()))) {
@@ -61,39 +57,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String isScheduled = data.get("isScheduled");
         if (isScheduled.equals("true")) {
             String scheduledTime = data.get("scheduledTime");
-            try {
-                scheduleAlarm(scheduledTime, title, message);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
         } else {
-            showNotification(title, message);
+            showNotification(title);
         }
 
     }
 
-    public void scheduleAlarm(String scheduledTimeString, String title, String message) throws ParseException
-    {
-        Log.d("justBeforeAM","Alarm manager start");
-
-        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        Intent alarmIntent = new Intent(getApplicationContext(), NotificationBroadcastReceiver.class);
-        alarmIntent.putExtra("notification_title", title);
-        alarmIntent.putExtra("notification_message", message);
-        int requestCode = generateRequestCode(scheduledTimeString);
-        Log.d("reminder" , requestCode + "  : This is request code");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), requestCode, alarmIntent, 0);
-
-        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.getDefault());
-        Date scheduledTime = sd.parse(scheduledTimeString);
-        Log.d("reminder" , scheduledTimeString + "  : Schedule alarm function");
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, scheduledTime.getTime(), pendingIntent);
-    }
-
-    public void showNotification(String title, String message) {
+    public void showNotification(String title) {
         NotificationUtil notificationUtil = new NotificationUtil(getApplicationContext());
-        notificationUtil.showNotification(title, message);
-
+        notificationUtil.showNotification(title);
     }
 
     public int generateRequestCode(String dateTimeString) throws ParseException {

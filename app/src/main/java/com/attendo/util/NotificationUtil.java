@@ -27,7 +27,7 @@ public  class NotificationUtil {
         this.context = context;
     }
 
-    public  void showNotification(@NotNull String title, @NotNull String message) {
+    public  void showNotification(@NotNull String title) {
         Intent intent = new Intent(context, FragmentExamReminder.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("Fragment","Notification");
@@ -50,7 +50,6 @@ public  class NotificationUtil {
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, "222")
                 .setContentTitle(title)
-                .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(pi)
@@ -61,9 +60,4 @@ public  class NotificationUtil {
         notificationBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
         notificationManager.notify(101, notificationBuilder.build());
         }
-
-
-
-
-
 }
