@@ -166,26 +166,6 @@ public class FragmentReminder extends Fragment {
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        ReminderAdapter adapter = new ReminderAdapter(getContext());
-        recyclerView.setAdapter(adapter);
-
-        //deletePreviousReminders(adapter);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        ReminderAdapter adapter = new ReminderAdapter(getContext());
-        recyclerView.setAdapter(adapter);
-
-        //deletePreviousReminders(adapter);
-    }
-
 //    private void deletePreviousReminders(ReminderAdapter reminderAdapter)
 //    {
 //        Date currentTime = Calendar.getInstance().getTime();
