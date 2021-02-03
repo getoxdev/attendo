@@ -28,8 +28,10 @@ import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -142,18 +144,15 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hourOfTheDay, int minute) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR, hourOfTheDay);
-                calendar.set(Calendar.MINUTE, minute);
-                if(hourOfTheDay >= 12){
-                    Date time = calendar.getTime();
-                    timePickerTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(time);
-                    Log.d("TimeFormatPM", timePickerTime);
-                }else{
-                    Date time = calendar.getTime();
-                    timePickerTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(time);
-                    Log.d("TimeFormatAM", timePickerTime);
-                }
+                Calendar startTime = Calendar.getInstance();
+                startTime.set(Calendar.HOUR_OF_DAY, hourOfTheDay);
+                startTime.set(Calendar.MINUTE, minute);
+
+                //instance of simple date format to get the correct time in correct format
+                SimpleDateFormat sd = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+
+                timePickerTime = sd.format(startTime.getTime());
+                Log.d("schedule", timePickerTime + "  : time from time picker");
 
             }
         });
