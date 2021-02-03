@@ -68,7 +68,7 @@ public class FragmentReminder extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exam_reminder, container, false);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Class Reminder");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Reminder");
 
         ButterKnife.bind(this, view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -137,9 +137,8 @@ public class FragmentReminder extends Fragment {
                         Calendar startTime = Calendar.getInstance();
                         startTime.set(Calendar.HOUR_OF_DAY, hour);
                         startTime.set(Calendar.MINUTE, minute);
-                        startTime.set(Calendar.SECOND, 0);
 
-                        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+                        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:00'Z'", Locale.getDefault());
                         SimpleDateFormat gd = new SimpleDateFormat("HHmm", Locale.getDefault());
                         String timeshow = sd.format(startTime.getTime());
                         String labelshow = label.getText().toString().trim();

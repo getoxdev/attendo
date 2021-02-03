@@ -47,7 +47,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
     @Override
     public void onBindViewHolder(@NonNull ReminderViewHolder holder, int position) {
         RemEntity currentRem=reminders.get(position);
-        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:00'Z'", Locale.getDefault());
         SimpleDateFormat fd = new SimpleDateFormat("hh:mm a",Locale.getDefault());
         SimpleDateFormat gd = new SimpleDateFormat("HHmm",Locale.getDefault());
         Date date = null;
@@ -103,34 +103,5 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
             label=itemView.findViewById(R.id.label_show);
             deleteBtn = itemView.findViewById(R.id.alarm_delete);
         }
-    }
-
-    public static int generateRequestCode(String time)
-    {
-        time = time + "  ";
-        int result = -1;
-        if(time.substring(5,7).equals("pm") || time.substring(6,8).equals("pm")){
-            if(time.substring(6,8).equals("pm")){
-                int hour = Integer.parseInt(time.substring(0,2)) + 12;
-                int hourMin = Integer.parseInt(String.valueOf(hour) + time.substring(3,5));
-                result = hourMin;
-
-            }else if(time.substring(5,7).equals("pm")){
-                int hour = Integer.parseInt(String.valueOf(time.charAt(0))) + 12;
-                int hourMin = Integer.parseInt(String.valueOf(hour) + time.substring(2,4));
-                result = hourMin;
-            }
-
-        }else if(time.substring(5,7).equals("am") || time.substring(6,8).equals("am")){
-            if(time.substring(6,8).equals("am")){
-                int hourMin = Integer.parseInt(time.substring(0,2) + time.substring(3,5));
-                result = hourMin;
-            }else if(time.substring(5,7).equals("am")){
-                int hourMin = Integer.parseInt(time.charAt(0) + time.substring(2,4));
-                result = hourMin;
-            }
-
-        }
-        return result;
     }
 }

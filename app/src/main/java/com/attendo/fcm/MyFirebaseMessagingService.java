@@ -1,6 +1,5 @@
 package com.attendo.fcm;
 
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,16 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.attendo.R;
 import com.attendo.ui.main.BottomNavMainActivity;
-import com.attendo.ui.main.drawers.reminder.FragmentReminder;
-import com.attendo.util.NotificationUtil;
-import com.attendo.util.SettingUtil;
 import com.firebase.client.annotations.NotNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,13 +22,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Map;
-
-import static android.content.ContentValues.TAG;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -67,7 +56,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     {
         Intent intent = new Intent(getApplicationContext(), BottomNavMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("Fragment","Notification");
         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 101, intent, 0);
 
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
