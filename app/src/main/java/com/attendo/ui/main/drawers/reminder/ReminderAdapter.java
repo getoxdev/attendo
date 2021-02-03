@@ -46,8 +46,6 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
 
     @Override
     public void onBindViewHolder(@NonNull ReminderViewHolder holder, int position) {
-        Date currentTime = Calendar.getInstance().getTime();
-        Log.d("reminder", currentTime.toString());
         RemEntity currentRem=reminders.get(position);
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
         SimpleDateFormat fd = new SimpleDateFormat("hh:mm a",Locale.getDefault());
@@ -55,7 +53,6 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         Date date = null;
         try {
             date = sd.parse(currentRem.getTime());
-            Log.d("reminder" , date.toString() + "  : date from current item");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -72,20 +69,6 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
                 viewModel.delete(currentRem);
             }
         });
-
-        //deleting all the reminder data which is already over
-        for(int i=0; i<reminders.size(); i++){
-            Date deleteItem = null;
-            try {
-                deleteItem = sd.parse(reminders.get(i).getTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            if(currentTime.after(deleteItem)) {
-                Log.d("reminder", currentTime.toString() + " is after" + deleteItem.toString());
-                viewModel.delete(reminders.get(i));
-            }
-        }
     }
 
     @Override
@@ -97,6 +80,11 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
     {
         reminders=remEntityList;
         notifyDataSetChanged();
+    }
+
+    public List<RemEntity> getReminders()
+    {
+        return  reminders;
     }
 
     public RemEntity getRemAt(int position){

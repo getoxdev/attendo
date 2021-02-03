@@ -46,7 +46,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class FragmentExamReminder extends Fragment {
+public class FragmentReminder extends Fragment {
 
     @BindView(R.id.add_rem)
     FloatingActionButton mFloatingActionButton;
@@ -62,20 +62,19 @@ public class FragmentExamReminder extends Fragment {
     private ReminderViewModel viewModel;
     private ApiHelper apiHelper;
     private String retreiveFcmToken;
-
+    private List<RemEntity> reminders;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exam_reminder, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Class Reminder");
 
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        ReminderAdapter adapter=new ReminderAdapter(getContext());
+        ReminderAdapter adapter = new ReminderAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
         viewModel = ViewModelProviders.of(getActivity()).get(ReminderViewModel.class);
@@ -83,24 +82,12 @@ public class FragmentExamReminder extends Fragment {
 
         viewModel.getAllReminders().observe(getActivity(), new Observer<List<RemEntity>>() {
             @Override
-            public void onChanged(List<RemEntity> remEntities)
-            {
+            public void onChanged(List<RemEntity> remEntities) {
                 adapter.setReminders(remEntities);
             }
         });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                viewModel.delete(adapter.getRemAt(viewHolder.getAdapterPosition()));
-            }
-        }).attachToRecyclerView(recyclerView);
+        deletePreviousReminders(adapter);
 
         SharedPreferences preferences = getContext().getSharedPreferences("MYPREF", 0);
         SharedPreferences.Editor editor = preferences.edit();
@@ -112,9 +99,9 @@ public class FragmentExamReminder extends Fragment {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 fcmToken = instanceIdResult.getToken();
-                editor.putString("fcmToken",fcmToken);
+                editor.putString("fcmToken", fcmToken);
                 editor.commit();
-                retreiveFcmToken=retrieve.getString("fcmToken","");
+                retreiveFcmToken = retrieve.getString("fcmToken", "");
                 Log.i("My FCM Token", retreiveFcmToken);
             }
         });
@@ -128,14 +115,12 @@ public class FragmentExamReminder extends Fragment {
         bottomSheetDialog.setContentView(bottomSheet);
         bottomSheetDialog.setDismissWithAnimation(true);
 
-        //cancelAlarm.setEnabled(false);
-
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bottomSheetDialog.show();
-                timePicker=bottomSheet.findViewById(R.id.timePicker);
-                label=bottomSheet.findViewById(R.id.reminder_label);
+                timePicker = bottomSheet.findViewById(R.id.timePicker);
+                label = bottomSheet.findViewById(R.id.reminder_label);
                 Button add = bottomSheet.findViewById(R.id.add_reminder);
 
                 add.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +139,7 @@ public class FragmentExamReminder extends Fragment {
                         startTime.set(Calendar.MINUTE, minute);
                         startTime.set(Calendar.SECOND, 0);
 
-                        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'",Locale.getDefault());
+                        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
                         SimpleDateFormat gd = new SimpleDateFormat("HHmm", Locale.getDefault());
                         String timeshow = sd.format(startTime.getTime());
                         String labelshow = label.getText().toString().trim();
@@ -168,9 +153,9 @@ public class FragmentExamReminder extends Fragment {
                         String requestCodeString = gd.format(date);
                         Integer requestCode = Integer.valueOf(requestCodeString);
 
-                        RemEntity rem=new RemEntity(timeshow,labelshow);
+                        RemEntity rem = new RemEntity(timeshow, labelshow);
                         viewModel.insert(rem);
-                        viewModel.setReminder(requestCode,timeshow,labelshow);
+                        viewModel.setReminder(requestCode, timeshow, labelshow);
 
                         label.setText("");
                         bottomSheetDialog.dismiss();
@@ -178,6 +163,53 @@ public class FragmentExamReminder extends Fragment {
                 });
             }
         });
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        ReminderAdapter adapter = new ReminderAdapter(getContext());
+        recyclerView.setAdapter(adapter);
+
+        deletePreviousReminders(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ReminderAdapter adapter = new ReminderAdapter(getContext());
+        recyclerView.setAdapter(adapter);
+
+        deletePreviousReminders(adapter);
+    }
+
+    private void deletePreviousReminders(ReminderAdapter reminderAdapter)
+    {
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+        reminders = reminderAdapter.getReminders();
+        //deleting all the reminder data which is already over
+        for(int i=0; i<reminders.size(); i++){
+            Date deleteItem = null;
+            try {
+                deleteItem = sd.parse(reminders.get(i).getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if(currentTime.after(deleteItem)) {
+                viewModel.delete(reminders.get(i));
+            }
+        }
+
+        viewModel.getAllReminders().observe(getActivity(), new Observer<List<RemEntity>>() {
+            @Override
+            public void onChanged(List<RemEntity> remEntities) {
+                reminderAdapter.setReminders(remEntities);
+            }
+        });
     }
 }

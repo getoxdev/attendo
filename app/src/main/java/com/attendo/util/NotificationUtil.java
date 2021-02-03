@@ -8,17 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 
 import com.attendo.R;
-import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
+import com.attendo.ui.main.drawers.reminder.FragmentReminder;
 import com.firebase.client.annotations.NotNull;
-
-import java.util.Random;
 
 public  class NotificationUtil {
      Context context;
@@ -27,8 +22,9 @@ public  class NotificationUtil {
         this.context = context;
     }
 
-    public  void showNotification(@NotNull String title) {
-        Intent intent = new Intent(context, FragmentExamReminder.class);
+    public  void showNotification(@NotNull String title)
+    {
+        Intent intent = new Intent(context, FragmentReminder.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("Fragment","Notification");
         PendingIntent pi = PendingIntent.getActivity(context, 101, intent, 0);
@@ -59,5 +55,7 @@ public  class NotificationUtil {
 
         notificationBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
         notificationManager.notify(101, notificationBuilder.build());
-        }
+    }
 }
+
+
