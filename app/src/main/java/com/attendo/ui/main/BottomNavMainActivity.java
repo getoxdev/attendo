@@ -13,7 +13,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,7 +20,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -38,13 +36,12 @@ import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.data.database.SubDatabase;
 import com.attendo.ui.calendar.FragmentCalender;
-import com.attendo.ui.main.drawers.reminder.FragmentExamReminder;
+import com.attendo.ui.main.drawers.reminder.FragmentReminder;
 
 import com.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
 import com.attendo.ui.main.menu.FragmentAbout;
 import com.attendo.ui.sub.Fragment_Subject;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
-import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -63,11 +60,7 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static java.security.AccessController.getContext;
-
 public class BottomNavMainActivity extends AppCompatActivity {
-
-
 
     @BindView(R.id.bottom_nav_bar)
     BottomNavigationView bottomNavigationView;
@@ -174,7 +167,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.reminder_bottom_nav:
-                    Fragment reminder = new FragmentExamReminder();
+                    Fragment reminder = new FragmentReminder();
                     selectedFragment = reminder;
                     reminder.setEnterTransition(enter);
                     reminder.setExitTransition(exit);

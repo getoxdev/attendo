@@ -9,7 +9,7 @@
     android:backgroundTint="@color/bg_login"
     android:background="@color/bg_login"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-    tools:context=".ui.main.drawers.reminder.FragmentExamReminder">
+    tools:context=".ui.main.drawers.reminder.FragmentReminder">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/reminder_lottie"
