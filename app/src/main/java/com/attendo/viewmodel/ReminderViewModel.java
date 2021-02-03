@@ -65,8 +65,8 @@ public class ReminderViewModel extends AndroidViewModel
         alarmIntent.putExtra("title", title);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), requestCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
-        Date scheduledTime = null;
+        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:00'Z'", Locale.getDefault());
+        Date scheduledTime = new Date();
         try {
             scheduledTime = sd.parse(scheduledTimeString);
         } catch (ParseException e) {
