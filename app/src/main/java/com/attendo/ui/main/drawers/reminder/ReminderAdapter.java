@@ -50,12 +50,13 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:00'Z'", Locale.getDefault());
         SimpleDateFormat fd = new SimpleDateFormat("hh:mm a",Locale.getDefault());
         SimpleDateFormat gd = new SimpleDateFormat("HHmm",Locale.getDefault());
-        Date date = null;
+        Date date = new Date();
         try {
             date = sd.parse(currentRem.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         String timeShow = fd.format(date);
         String requestCodeString = gd.format(date);
         Integer requestCode = Integer.valueOf(requestCodeString);
