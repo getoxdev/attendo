@@ -87,7 +87,7 @@ public class FragmentReminder extends Fragment {
             }
         });
 
-        deletePreviousReminders(adapter);
+        //deletePreviousReminders(adapter);
 
         SharedPreferences preferences = getContext().getSharedPreferences("MYPREF", 0);
         SharedPreferences.Editor editor = preferences.edit();
@@ -173,7 +173,7 @@ public class FragmentReminder extends Fragment {
         ReminderAdapter adapter = new ReminderAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
-        deletePreviousReminders(adapter);
+        //deletePreviousReminders(adapter);
     }
 
     @Override
@@ -183,32 +183,32 @@ public class FragmentReminder extends Fragment {
         ReminderAdapter adapter = new ReminderAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
-        deletePreviousReminders(adapter);
+        //deletePreviousReminders(adapter);
     }
 
-    private void deletePreviousReminders(ReminderAdapter reminderAdapter)
-    {
-        Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
-        reminders = reminderAdapter.getReminders();
-        //deleting all the reminder data which is already over
-        for(int i=0; i<reminders.size(); i++){
-            Date deleteItem = null;
-            try {
-                deleteItem = sd.parse(reminders.get(i).getTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            if(currentTime.after(deleteItem)) {
-                viewModel.delete(reminders.get(i));
-            }
-        }
-
-        viewModel.getAllReminders().observe(getActivity(), new Observer<List<RemEntity>>() {
-            @Override
-            public void onChanged(List<RemEntity> remEntities) {
-                reminderAdapter.setReminders(remEntities);
-            }
-        });
-    }
+//    private void deletePreviousReminders(ReminderAdapter reminderAdapter)
+//    {
+//        Date currentTime = Calendar.getInstance().getTime();
+//        SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+//        reminders = reminderAdapter.getReminders();
+//        //deleting all the reminder data which is already over
+//        for(int i=0; i<reminders.size(); i++){
+//            Date deleteItem = null;
+//            try {
+//                deleteItem = sd.parse(reminders.get(i).getTime());
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//            if(currentTime.after(deleteItem)) {
+//                viewModel.delete(reminders.get(i));
+//            }
+//        }
+//
+//        viewModel.getAllReminders().observe(getActivity(), new Observer<List<RemEntity>>() {
+//            @Override
+//            public void onChanged(List<RemEntity> remEntities) {
+//                reminderAdapter.setReminders(remEntities);
+//            }
+//        });
+//    }
 }

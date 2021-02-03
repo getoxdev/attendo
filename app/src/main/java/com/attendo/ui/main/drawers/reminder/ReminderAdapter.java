@@ -70,6 +70,21 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.Remind
                 viewModel.delete(currentRem);
             }
         });
+
+        //delete previous reminders
+        Date currentTime = Calendar.getInstance().getTime();
+        //deleting all the reminder data which is already over
+        for(int i=0; i<reminders.size(); i++){
+            Date deleteItem = null;
+            try {
+                deleteItem = sd.parse(reminders.get(i).getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if(currentTime.after(deleteItem)) {
+                viewModel.delete(reminders.get(i));
+            }
+        }
     }
 
     @Override
