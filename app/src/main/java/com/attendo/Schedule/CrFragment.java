@@ -329,7 +329,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Database Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Database Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

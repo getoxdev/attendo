@@ -2,7 +2,6 @@ package com.attendo.ui.main.drawers.account;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -26,9 +25,7 @@ import android.widget.Toast;
 import com.attendo.R;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.ui.auth.AuthenticationActivity;
-import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
-import com.attendo.viewmodel.NoticeViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,10 +43,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class FragmentUserProfile extends Fragment {
 
@@ -120,11 +117,11 @@ public class FragmentUserProfile extends Fragment {
 
 
         fragment_profile = new FragmentProfile();
-        storageReference.child("images/" + user_id.toString()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        storageReference.child("images/" + user_id).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri)
             {
-                Picasso.with(getContext()).load(uri).into(profile);
+                Picasso.with(getActivity()).load(uri).into(profile);
                 pgb.setVisibility(View.INVISIBLE);
             }
         })
@@ -184,17 +181,20 @@ public class FragmentUserProfile extends Fragment {
         return view;
     }
 
-    private void LoadData() {
-
+    private void LoadData()
+    {
         databaseReference2.child(user_id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if(snapshot.exists()) {
-                    userjoinas.setText(snapshot.child("Join_As").getValue().toString());
-                    usercode.setText(snapshot.child("Class_Code").getValue().toString());
+                if(snapshot.exists())
+                {
+                    if(snapshot.child("Join_As").getValue()!=null)
+                        userjoinas.setText(Objects.requireNonNull(snapshot.child("Join_As").getValue()).toString());
+
+                    if(snapshot.child("Class_Code").getValue()!=null)
+                        usercode.setText(Objects.requireNonNull(snapshot.child("Class_Code").getValue()).toString());
                 }
-                else{ }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -278,7 +278,7 @@ public class FragmentUserProfile extends Fragment {
             }
 
     private void ServerDelete() {
-        scheduleViewModel.Leave_Class(mAuth.getCurrentUser().getEmail());
+        scheduleViewModel.leaveClass(Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
         scheduleViewModel.leaveClassResponse().observe(getActivity(), data -> {
             if (data == null) {
                 Log.i("ApiCall", "Failed");
