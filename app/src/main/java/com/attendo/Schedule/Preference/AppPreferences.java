@@ -78,7 +78,7 @@ public class AppPreferences implements SharedPreferencesHelper {
 
     @Override
     public String RetrieveJoinAs() {
-        return sharedPrefs.getString("CLASS_JOIN_AS" , null);
+        return sharedPrefs.getString("CLASS_JOIN_AS" , "nothing");
     }
 
     @Override
