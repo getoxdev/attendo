@@ -59,8 +59,9 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:lottie_rawRes="@raw/happy_new_year"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true"/>
+        app:lottie_loop="false"
+        app:lottie_repeatCount="0"
+        app:lottie_autoPlay="false"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="match_parent"

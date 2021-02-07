@@ -332,7 +332,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Database Error", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Database Error", Toast.LENGTH_SHORT).show();
             }
         });
     }
