@@ -232,7 +232,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         progressBar.hide();
         progressBar.animate();
         if(subjectRoutines == null){
-            Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "No data found", Toast.LENGTH_SHORT).show();
             noClassLottieAnim.setVisibility(View.VISIBLE);
             noClassTv.setVisibility(View.VISIBLE);
         }else{
@@ -277,7 +277,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
     private void setAdapterAccordingToPosition(String day){
         if(preferences.RetrieveClassId() == null){
-            Toast.makeText(getContext(), "Please wait", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Please wait", Toast.LENGTH_SHORT).show();
 
         }else{
             Log.d("Student", day);

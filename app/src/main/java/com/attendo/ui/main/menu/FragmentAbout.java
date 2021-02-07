@@ -160,7 +160,7 @@ public class FragmentAbout extends Fragment {
             @Override
             public void onClick(View v) {
                 if (githubUrl == null) {
-                    Toast.makeText(getContext(), "Not Available", Toast.LENGTH_SHORT);
+                    Toast.makeText(getActivity(), "Not Available", Toast.LENGTH_SHORT);
                 } else {
                     gotoUrl(githubUrl);
                 }
