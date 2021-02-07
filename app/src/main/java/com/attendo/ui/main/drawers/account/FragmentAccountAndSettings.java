@@ -373,8 +373,7 @@ public class FragmentAccountAndSettings extends Fragment {
         routine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean ans = RetrieveSharedPreferenceData();
-                if(ans){
+                if(RetrieveSharedPreferenceData()){
                 String type = firebaseScheduleViewModel.RetrieveClassJoinAs();
                 if(type == null){
                     Toast.makeText(getActivity(), "Please wait !", Toast.LENGTH_SHORT).show();
@@ -459,7 +458,7 @@ public class FragmentAccountAndSettings extends Fragment {
 
     private void NullSharedPreferenceDataNUll() {
         appPreferences.AddClassId(null);
-        appPreferences.AddJoinAs("nothing");
+        appPreferences.AddJoinAs(null);
         appPreferences.AddClassScheduleId(null);
     }
 

@@ -291,7 +291,7 @@ public class FragmentUserProfile extends Fragment {
     private void NullSharedPreferenceData() {
         appPreferences = new AppPreferences(getContext());
         appPreferences.AddJoinAs(null);
-        appPreferences.AddClassId("nothing");
+        appPreferences.AddClassId(null);
         appPreferences.AddClassScheduleId(null);
     }
 }
