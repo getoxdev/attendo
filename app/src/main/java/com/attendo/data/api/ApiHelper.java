@@ -120,8 +120,8 @@ public class ApiHelper implements ApiService
     }
 
     @Override
-    public Call<ResLeaveClass> LeaveClass(String email) {
-        return  api.LeaveClass(email);
+    public Call<ResLeaveClass> leaveClass(String email) {
+        return  api.leaveClass(email);
     }
 
 

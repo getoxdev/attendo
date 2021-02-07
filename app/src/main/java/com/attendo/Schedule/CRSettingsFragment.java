@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.attendo.R;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
-import com.attendo.viewmodel.NoticeViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,7 +62,7 @@ public class CRSettingsFragment extends BottomSheetDialogFragment {
     }
 
     private void ServerDelete() {
-        scheduleViewModel.Leave_Class(mAuth.getCurrentUser().getEmail());
+        scheduleViewModel.leaveClass(mAuth.getCurrentUser().getEmail());
         scheduleViewModel.leaveClassResponse().observe(getActivity(), data -> {
             if (data == null) {
                 Log.i("ApiCall", "Failed");

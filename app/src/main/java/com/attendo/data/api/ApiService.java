@@ -72,7 +72,7 @@ public interface  ApiService
     Call<ResDeleteNotice> deleteNotice(@Path("noticeId")String noticeId,@Path("classId") String classId);
 
     @POST("api/class/leave/{email}")
-    Call<ResLeaveClass> LeaveClass(@Path("email") String email);
+    Call<ResLeaveClass> leaveClass(@Path("email") String email);
 
 
 

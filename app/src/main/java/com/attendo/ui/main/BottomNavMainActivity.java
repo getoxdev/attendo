@@ -250,6 +250,10 @@ public class BottomNavMainActivity extends AppCompatActivity {
             case "Student":
                 setFragment(studentFragment);
                 break;
+            case "nothing":
+                CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
+                joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
+
         }
         return false;
     }

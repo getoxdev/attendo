@@ -119,6 +119,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         fromBottom = AnimationUtils.loadAnimation(getContext(), R.anim.from_bottom_anim);
 
         //set on refresh listener
+        Log.d("schedule", appPreferences.RetrieveClassId() + "   : Class Id");
 
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -328,7 +329,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Database Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Database Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

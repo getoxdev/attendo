@@ -137,8 +137,8 @@ public class FragmentAccountAndSettings extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if(snapshot.exists()) {
-                    name.setText(snapshot.child(user_id).child("username").getValue(String.class));
-                    college.setText(snapshot.child(user_id).child("college").getValue(String.class));
+                        name.setText(snapshot.child(user_id).child("username").getValue(String.class));
+                        college.setText(snapshot.child(user_id).child("college").getValue(String.class));
                 }
                 else{
                     name.setText("user_name");
@@ -438,7 +438,10 @@ public class FragmentAccountAndSettings extends Fragment {
 
     private boolean RetrieveSharedPreferenceData() {
         String type = appPreferences.RetrieveJoinAs();
-        Toast.makeText(getActivity(),""+type,Toast.LENGTH_SHORT).show();
+        if(type.equals("Cr") || type.equals("Student"))
+            Toast.makeText(getActivity(),""+type,Toast.LENGTH_SHORT).show();
+        if(type.equals("nothing"))
+            Toast.makeText(getActivity(),"Please join or create a class",Toast.LENGTH_SHORT).show();
         if(type == null)
             return true;
         switch (type) {
@@ -456,7 +459,7 @@ public class FragmentAccountAndSettings extends Fragment {
 
     private void NullSharedPreferenceDataNUll() {
         appPreferences.AddClassId(null);
-        appPreferences.AddJoinAs(null);
+        appPreferences.AddJoinAs("nothing");
         appPreferences.AddClassScheduleId(null);
     }
 
