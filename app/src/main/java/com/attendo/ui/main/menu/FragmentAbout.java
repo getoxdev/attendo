@@ -173,7 +173,7 @@ public class FragmentAbout extends Fragment {
             @Override
             public void onClick(View v) {
                 if (linkedInUrl == null) {
-                    Toast.makeText(getContext(), "Not Available", Toast.LENGTH_SHORT);
+                    Toast.makeText(getActivity(), "Not Available", Toast.LENGTH_SHORT);
                 } else {
                     gotoUrl(linkedInUrl);
                 }
@@ -184,7 +184,7 @@ public class FragmentAbout extends Fragment {
             @Override
             public void onClick(View v) {
                 if (instaUrl == null) {
-                    Toast.makeText(getContext(), "Not Available", Toast.LENGTH_SHORT);
+                    Toast.makeText(getActivity(), "Not Available", Toast.LENGTH_SHORT);
                 } else {
                     gotoUrl(instaUrl);
                 }
@@ -194,7 +194,7 @@ public class FragmentAbout extends Fragment {
             @Override
             public void onClick(View v) {
                 if (facebookUrl == null) {
-                    Toast.makeText(getContext(), "Not Available", Toast.LENGTH_SHORT);
+                    Toast.makeText(getActivity(), "Not Available", Toast.LENGTH_SHORT);
                 } else {
                     gotoUrl(facebookUrl);
                 }
