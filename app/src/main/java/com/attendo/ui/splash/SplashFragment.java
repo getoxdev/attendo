@@ -73,7 +73,7 @@ public class SplashFragment extends Fragment {
                     setFragment(fragmentLogin);
                 }
             }
-        },4000);
+        },1000);
 
 
         return view;
