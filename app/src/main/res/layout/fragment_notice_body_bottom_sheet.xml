@@ -61,7 +61,7 @@
                 android:fontFamily="@font/poppins_light"
                 android:text="Body"
                 android:overScrollMode="always"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:autoLink="all"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Adapters.NoticeAdapterStudent;
@@ -23,6 +25,9 @@ import com.attendo.viewmodel.NoticeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStudent.CallBack {
 
     private RecyclerView recyclerView;
@@ -30,6 +35,12 @@ public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStud
     NoticeViewModel noticeViewModel;
     AppPreferences preferences;
     private ContentLoadingProgressBar progressBar;
+
+    @BindView(R.id.no_notice_student_lottie)
+    LottieAnimationView lottieAnimationView;
+
+    @BindView(R.id.no_notice_student_txtview)
+    TextView noNoticeTextView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +56,7 @@ public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStud
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Notice");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.GONE);
+        ButterKnife.bind(this, view);
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
 
@@ -56,12 +68,22 @@ public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStud
             if(data!=null)
             {
                 progressBar.hide();
+                if(data.getNoticeDetailsList().size() == 0){
+                    lottieAnimationView.setVisibility(View.VISIBLE);
+                    noNoticeTextView.setVisibility(View.VISIBLE);
+                }else{
+                    lottieAnimationView.setVisibility(View.INVISIBLE);
+                    noNoticeTextView.setVisibility(View.INVISIBLE);
+                }
+
                 noticeAdapterStudent = new NoticeAdapterStudent(getContext(),data.getNoticeDetailsList(), this::onCardClick);
                 recyclerView.setAdapter(noticeAdapterStudent);
             }
             else{
                 progressBar.hide();
-                Toast.makeText(getActivity(),"Something went wrong! Please try after some time",Toast.LENGTH_SHORT).show();
+                lottieAnimationView.setVisibility(View.VISIBLE);
+                noNoticeTextView.setVisibility(View.VISIBLE);
+                Toast.makeText(getActivity(),"Something went wrong. Try again !",Toast.LENGTH_SHORT).show();
             }
 
         });

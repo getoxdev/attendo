@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -51,6 +52,12 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
     @BindView(R.id.notice_progress_bar_cr)
     ContentLoadingProgressBar ProgressBar;
 
+    @BindView(R.id.no_notice_lottie)
+    LottieAnimationView lottieAnimationView;
+
+    @BindView(R.id.no_notice_txtview)
+    TextView noNoticeTextView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,12 +89,21 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
             if(data!=null)
             {
                 ProgressBar.hide();
+                if(data.getNoticeDetailsList().size() == 0){
+                    lottieAnimationView.setVisibility(View.VISIBLE);
+                    noNoticeTextView.setVisibility(View.VISIBLE);
+                }else{
+                    lottieAnimationView.setVisibility(View.INVISIBLE);
+                    noNoticeTextView.setVisibility(View.INVISIBLE);
+                }
                 noticeAdapter = new NoticeAdapter(getContext(),data.getNoticeDetailsList(),this);
                 notice_recyclerview.setAdapter(noticeAdapter);
             }
             else{
                 ProgressBar.hide();
-                Toast.makeText(getActivity(),"Something went wrong! please try again",Toast.LENGTH_SHORT).show();
+                lottieAnimationView.setVisibility(View.VISIBLE);
+                noNoticeTextView.setVisibility(View.VISIBLE);
+                Toast.makeText(getActivity(),"No notice",Toast.LENGTH_SHORT).show();
             }
 
         });
