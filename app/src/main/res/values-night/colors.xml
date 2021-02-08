@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="bg_login">#000</color>
+    <color name="bg_login">#121212</color>
     <color name="bg_bottom_nav">#1E1E1E</color>
     <color name="card_bg_color">#252525</color>
     <color name="btn_tint_color">#363637</color>

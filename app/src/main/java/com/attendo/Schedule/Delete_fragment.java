@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,11 +81,10 @@ public class Delete_fragment extends BottomSheetDialogFragment  {
             public void onClick(View view) {
                 Log.e("s_id",scheduleId);
                 Log.e("c_id",class_id);
-                deleteanim.pauseAnimation();
-                deleteanim.setAnimation(R.raw.done_animation);
-                deleteanim.playAnimation();
-                deleteanim.setSpeed(2f);
 
+                deleteanim.pauseAnimation();
+                deleteanim.setAnimation(R.raw.done_lottie_anim);
+                deleteanim.playAnimation();
                 delete_schedule(ScheduleClassId);
             }
         });
@@ -135,7 +135,13 @@ public class Delete_fragment extends BottomSheetDialogFragment  {
                 Toast.makeText(getActivity(),"Subject deleted successfully",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "delete successFull");
                 updateRecyclerView.sendPosition(mPositionDay);
-                dismiss();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismiss();
+                    }
+                },900);
+
             }
         });
 

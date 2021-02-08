@@ -19,7 +19,7 @@
         android:src="@drawable/sepatator"/>
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView"
+        android:id="@+id/lottieAnimationViewDelete"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="90dp"

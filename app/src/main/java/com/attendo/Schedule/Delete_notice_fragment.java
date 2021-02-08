@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Preference.AppPreferences;
@@ -27,10 +29,14 @@ public class Delete_notice_fragment extends BottomSheetDialogFragment {
     private String Notice_ID;
     NoticeViewModel noticeViewModel;
     AppPreferences appPreferences;
+
     private NoticeAdapter.On_CardClick cardClick;
 
     @BindView(R.id.delete_notice)
     Button delete_btn;
+
+    @BindView(R.id.lottieAnimationViewDelete)
+    LottieAnimationView deleteAnim;
 
 
 
@@ -68,6 +74,9 @@ public class Delete_notice_fragment extends BottomSheetDialogFragment {
         delete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                deleteAnim.pauseAnimation();
+                deleteAnim.setAnimation(R.raw.done_lottie_anim);
+                deleteAnim.playAnimation();
                 delete_notice(Notice_ID);
             }
         });
@@ -88,7 +97,13 @@ public class Delete_notice_fragment extends BottomSheetDialogFragment {
                 Toast.makeText(getActivity(),"Notice deleted successfully",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "delete successFull");
                 cardClick.refreshOnUpdateAndDelete();
-                dismiss();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismiss();
+                    }
+                },900);
+
             }
         });
 
