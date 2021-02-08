@@ -57,12 +57,12 @@ public class ReminderViewModel extends AndroidViewModel
         return allReminders;
     }
 
-    public void setReminder(int requestCode,String scheduledTimeString, String title)
+    public void setReminder(int requestCode,String scheduledTimeString, String body)
     {
         Log.e("RequestCodeSet",String.valueOf(requestCode));
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         Intent alarmIntent = new Intent(getApplicationContext(), ReminderBroadcastReceiver.class);
-        alarmIntent.putExtra("title", title);
+        alarmIntent.putExtra("body",body);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), requestCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:00'Z'", Locale.getDefault());

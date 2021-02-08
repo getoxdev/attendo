@@ -46,15 +46,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         Map<String, String> data = remoteMessage.getData();
-        String title = data.get("title");
         String body = data.get("body");
 
-        showFullNotification(title,body);
-
-    }
-
-    public  void showFullNotification(@NotNull String title, @NotNull String body)
-    {
         Intent intent = new Intent(getApplicationContext(), BottomNavMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 101, intent, 0);
@@ -63,7 +56,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
         {
-            NotificationChannel channel = new NotificationChannel("222", "my_channel", NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel("222", "mychannel1", NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription("notification");
             channel.setShowBadge(true);
             channel.canShowBadge();
@@ -76,7 +69,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "222")
-                .setContentTitle(title)
+                .setContentTitle("Routine")
                 .setContentText(body)
                 .setAutoCancel(true)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))

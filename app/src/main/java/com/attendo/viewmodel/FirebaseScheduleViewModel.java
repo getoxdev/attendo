@@ -27,6 +27,7 @@ public class FirebaseScheduleViewModel extends AndroidViewModel {
     private String class_id = null;
     private String schedule_id = null;
     private String class_code = null;
+    private String fcmcode = null;
 
     private AppPreferences appPreferences;
 
@@ -37,7 +38,7 @@ public class FirebaseScheduleViewModel extends AndroidViewModel {
         appPreferences = AppPreferences.getInstance(application);
     }
 
-    // Four Mrthods for adding classid,classcode,classjoinas and scheduleid.....
+    // Five Mrthods for adding classid,classcode,classjoinas,scheduleid and Fcm code.....
     public void AddClassId(String id){
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
@@ -66,8 +67,15 @@ public class FirebaseScheduleViewModel extends AndroidViewModel {
         databaseReference.child(UserId).child("Schedule_Id").setValue(id);
     }
 
+    public void AddFcmCode(String fcm){
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
+        String UserId = mAuth.getCurrentUser().getUid();
+        databaseReference.child(UserId).child("FCM").setValue(fcm);
+    }
 
-    // Four Methods for retrieving classid,classcode,classjoinas and scheduleid.....
+
+    // Five Methods for retrieving classid,classcode,classjoinas,scheduleid and Fcm code.....
     public String RetrieveClassId(){
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
@@ -161,6 +169,27 @@ public class FirebaseScheduleViewModel extends AndroidViewModel {
         return schedule_id;
     }
 
+    public String RetrieveFCM(){
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
+        databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String code = mAuth.getCurrentUser().getUid();
+                    fcmcode = snapshot.child(code).child("FCM").getValue(String.class);
+                    appPreferences.AddFcm(fcmcode);
+                }else{
+                    // schedule_id = "nothing";
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                schedule_id = "Error";
+            }
+        });
+        return fcmcode;
+    }
 
     //Leaveing the class or deleting Account will delete all schedule information of that user
     public String DeleteShedule(){

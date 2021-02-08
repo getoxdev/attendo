@@ -460,6 +460,7 @@ public class FragmentAccountAndSettings extends Fragment {
         appPreferences.AddClassId(null);
         appPreferences.AddJoinAs(null);
         appPreferences.AddClassScheduleId(null);
+        appPreferences.AddFcm(null);
     }
 
 

@@ -16,10 +16,10 @@ public  class ReminderBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String title=intent.getStringExtra("title");
+        String body=intent.getStringExtra("body");
 
         Data notificationData= new Data.Builder()
-                .putString("title",title)
+                .putString("body",body)
                 .build();
 
         OneTimeWorkRequest work= new OneTimeWorkRequest.Builder(ScheduledWorker.class)

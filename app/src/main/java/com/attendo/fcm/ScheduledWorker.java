@@ -26,17 +26,17 @@ public  class ScheduledWorker extends Worker
     @NonNull
     @Override
     public Result doWork() {
-        String title=getInputData().getString("title");
+        String body=getInputData().getString("body");
 
         Intent intent = new Intent(getApplicationContext(), BottomNavMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 101, intent, 0);
+        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 102, intent, 0);
 
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O)
         {
-            NotificationChannel channel = new NotificationChannel("222", "my_channel", NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel channel = new NotificationChannel("223", "mychannel2", NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription("notification");
             channel.setShowBadge(true);
             channel.canShowBadge();
@@ -47,8 +47,9 @@ public  class ScheduledWorker extends Worker
             notificationManager.createNotificationChannel(channel);
         }
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), "222")
-                .setContentTitle(title)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), "223")
+                .setContentTitle("Reminder")
+                .setContentText(body)
                 .setAutoCancel(true)
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(pi)
@@ -57,7 +58,7 @@ public  class ScheduledWorker extends Worker
                 .setSmallIcon(R.drawable.app_icon_middle_portion_removed);
 
         notificationBuilder.setPriority(NotificationCompat.PRIORITY_HIGH);
-        notificationManager.notify(101, notificationBuilder.build());
+        notificationManager.notify(102, notificationBuilder.build());
 
         return Result.success();
     }
