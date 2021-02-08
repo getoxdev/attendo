@@ -293,5 +293,6 @@ public class FragmentUserProfile extends Fragment {
         appPreferences.AddJoinAs(null);
         appPreferences.AddClassId(null);
         appPreferences.AddClassScheduleId(null);
+        appPreferences.AddFcm(null);
     }
 }

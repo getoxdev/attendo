@@ -107,6 +107,8 @@ public class StudentDetailsInputFragment extends Fragment {
                 String class_Id = data.get_class().get_id();
                 firebaseScheduleViewModel.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddClassJoinAs("Student");
+                firebaseScheduleViewModel.AddFcmCode(fcmToken);
+                appPreferences.AddFcm(fcmToken);
                 appPreferences.AddJoinAs("Student");
                 appPreferences.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddCLassCode(classcode.getText().toString());
