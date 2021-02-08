@@ -112,7 +112,7 @@ public class StudentDetailsInputFragment extends Fragment {
                 firebaseScheduleViewModel.AddCLassCode(classcode.getText().toString());
                 Log.i("ApiCall", "successFull");
                 customLoadingDialog.dismissDialog();
-                Toast.makeText(getContext(),"" + data.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"" + data.getMessage(),Toast.LENGTH_SHORT).show();
                 setFragment(studentFragment);
             }
         });

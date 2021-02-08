@@ -168,18 +168,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         otherWaysbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                signInBottomSheet.show();
-//                ImageView googleSignInbtn = signInBottomSheet.findViewById(R.id.google_sign_in);
-//                ImageView facebookSignInbtn = signInBottomSheet.findViewById(R.id.facebook_sign_in);
 //
-//                googleSignInbtn.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        //code goes here for google sign in
-//                        signIn();
-//                        signInBottomSheet.dismiss();
-//                    }
-//                });
                 signIn();
             }
         });
@@ -246,7 +235,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                             loadingDialog.dismissDialog();
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            Toast.makeText(getContext(), "Sign In succesful" ,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Sign In succesful" ,Toast.LENGTH_SHORT).show();
 
                             checkUser();
 

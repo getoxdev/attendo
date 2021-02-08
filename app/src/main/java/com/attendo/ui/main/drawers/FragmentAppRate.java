@@ -64,7 +64,7 @@ public class FragmentAppRate extends Fragment {
                     databaseReference.child("Feedback").setValue(msg).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(getContext(), "Thank You", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Thank You", Toast.LENGTH_SHORT).show();
 
                         }
                     });

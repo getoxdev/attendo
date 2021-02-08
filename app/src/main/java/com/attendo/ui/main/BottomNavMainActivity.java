@@ -183,9 +183,11 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     }else {
                         //TODO: temporary code
                         if(RetrieveSharedPreferenceData()){
-                        if (joinasData == null) {
-                            Toast.makeText(BottomNavMainActivity.this, "Please wait!", Toast.LENGTH_SHORT).show();
-                        } else {
+                            String type = firebaseScheduleViewModel.RetrieveClassJoinAs();
+                            if(type == null){
+                                Toast.makeText(BottomNavMainActivity.this, "Please wait !", Toast.LENGTH_SHORT).show();
+                            }
+                        else {
                             //TODO: temporary code
                             switch (joinasData) {
                                 case "Cr":
@@ -241,7 +243,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
     private boolean RetrieveSharedPreferenceData() {
         String JOIN = appPreferences.RetrieveJoinAs();
-        if(JOIN == null)
+        if(JOIN == null || JOIN.equals("nothing"))
             return true;
         switch (JOIN) {
             case "Cr":
@@ -370,6 +372,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
 
 
     public void getJoinAsData(){
+
         databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

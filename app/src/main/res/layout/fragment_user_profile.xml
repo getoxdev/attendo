@@ -228,7 +228,7 @@
                         android:layout_below="@id/USER_CLASS_CODE"
                         android:layout_marginLeft="50dp"
                         android:layout_marginTop="10dp"
-                        android:text="Class Join As"
+                        android:text="Class Joined As"
                         android:textColor="@color/text_color_secondary"
                         android:textSize="10dp" />
 

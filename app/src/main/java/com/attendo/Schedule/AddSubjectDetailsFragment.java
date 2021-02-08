@@ -220,7 +220,7 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
                 }
             });
         }else{
-            Toast.makeText(getContext(), "Please Wait!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Please Wait!", Toast.LENGTH_SHORT).show();
         }
 
     }

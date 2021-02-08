@@ -219,7 +219,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
                 }
             });
         }else{
-            Toast.makeText(getContext(), "Please Wait!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Please Wait!", Toast.LENGTH_SHORT).show();
         }
 
     }

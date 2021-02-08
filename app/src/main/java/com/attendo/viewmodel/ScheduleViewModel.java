@@ -25,7 +25,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ScheduleViewModel extends AndroidViewModel {
+public class ScheduleViewModel extends AndroidViewModel
+{
       private ApiHelper apiHelper;
       private MutableLiveData<ResponseCreateClass> classResponse;
       private MutableLiveData<ResponseJoinClass> joinResponse;
@@ -127,9 +128,9 @@ public class ScheduleViewModel extends AndroidViewModel {
     }
 
     //LEAVE CLASS
-    public void Leave_Class(String email)
+    public void leaveClass(String email)
     {
-        apiHelper.LeaveClass(email).enqueue(new Callback<ResLeaveClass>() {
+        apiHelper.leaveClass(email).enqueue(new Callback<ResLeaveClass>() {
             @Override
             public void onResponse(Call<ResLeaveClass> call, Response<ResLeaveClass> response) {
                 if(response.code()<300){

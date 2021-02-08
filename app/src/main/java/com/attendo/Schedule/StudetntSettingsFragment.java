@@ -1,10 +1,7 @@
 package com.attendo.Schedule;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -16,14 +13,10 @@ import android.widget.Toast;
 
 import com.attendo.R;
 import com.attendo.Schedule.Preference.AppPreferences;
-import com.attendo.data.model.schedule.Schedule;
-import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class StudetntSettingsFragment extends BottomSheetDialogFragment {
 
@@ -71,7 +64,7 @@ public class StudetntSettingsFragment extends BottomSheetDialogFragment {
     }
 
     private void ServerDelete() {
-        scheduleViewModel.Leave_Class(mAuth.getCurrentUser().getEmail());
+        scheduleViewModel.leaveClass(mAuth.getCurrentUser().getEmail());
         scheduleViewModel.leaveClassResponse().observe(getActivity(), data -> {
             if (data == null) {
                 Log.i("ApiCall", "Failed");

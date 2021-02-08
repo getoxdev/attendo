@@ -116,7 +116,7 @@ public class CRDetailsInputFragment extends Fragment {
                 appPreferences.AddClassId(class_Id);
                 appPreferences.AddJoinAs("Cr");
                 firebaseScheduleViewModel.AddClassJoinAs("Cr");
-                Toast.makeText(getContext(),"Class Created" +" "+ class_code,Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),"Class Created" +" "+ class_code,Toast.LENGTH_LONG).show();
                 setFragment(crFragment);
             }
         });
