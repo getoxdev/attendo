@@ -24,32 +24,9 @@ public abstract class RemDatabase extends RoomDatabase {
             instance= Room.databaseBuilder(context.getApplicationContext(),
                     RemDatabase.class,"reminder_databse")
                     .fallbackToDestructiveMigration()
-                    .addCallback(roomCallback)
                     .build();
         }
         return instance;
     }
-    private static RoomDatabase.Callback roomCallback=new RoomDatabase.Callback(){
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            new PopulateDbAsyncTask(instance).execute();
-        }
-    };
 
-    private static class PopulateDbAsyncTask extends AsyncTask<Void,Void,Void>{
-      private RemDao remDao;
-
-        private PopulateDbAsyncTask(RemDatabase db){
-            remDao=db.RemDao();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            remDao.insert(new RemEntity("9:00 AM","Maths"));
-            remDao.insert(new RemEntity("10:00 AM","ECE"));
-            remDao.insert(new RemEntity("11:00 AM","CSE"));
-            return null;
-        }
-    }
 }
