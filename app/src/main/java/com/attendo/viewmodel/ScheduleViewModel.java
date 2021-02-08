@@ -14,12 +14,15 @@ import com.attendo.data.model.schedule.JoinClass;
 import com.attendo.data.model.schedule.ResLeaveClass;
 import com.attendo.data.model.schedule.ResponseCreateClass;
 import com.attendo.data.model.schedule.ResponseDeleteSchedule;
+import com.attendo.data.model.schedule.ResponseFcm;
 import com.attendo.data.model.schedule.ResponseGetSchedule;
 import com.attendo.data.model.schedule.ResponseJoinClass;
 import com.attendo.data.model.schedule.ResponseSchedule;
+import com.attendo.data.model.schedule.ResponseUser;
 import com.attendo.data.model.schedule.Schedule;
 import com.attendo.data.model.schedule.ScheduleDelete;
 import com.attendo.data.model.schedule.ScheduleEdit;
+import com.attendo.data.model.schedule.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +38,8 @@ public class ScheduleViewModel extends AndroidViewModel
       private MutableLiveData<ResponseDeleteSchedule> deleteResponse;
       private MutableLiveData<GetStudentListResponse> studentListResponse;
       private MutableLiveData<ResLeaveClass> leave_class;
+      private MutableLiveData<ResponseFcm> getFcm;
+      private MutableLiveData<ResponseUser> updateFcm;
 
 
 
@@ -49,6 +54,8 @@ public class ScheduleViewModel extends AndroidViewModel
         deleteResponse = new MutableLiveData<ResponseDeleteSchedule>();
         studentListResponse = new MutableLiveData<GetStudentListResponse>();
         leave_class = new MutableLiveData<ResLeaveClass>();
+        getFcm = new MutableLiveData<ResponseFcm>();
+        updateFcm = new MutableLiveData<ResponseUser>();
 
     }
 
@@ -82,8 +89,60 @@ public class ScheduleViewModel extends AndroidViewModel
 
     public MutableLiveData<ResLeaveClass> leaveClassResponse() { return  leave_class; }
 
+    public  MutableLiveData<ResponseFcm> getFcmResponse()
+    {
+        return  getFcm;
+    }
+
+    public MutableLiveData<ResponseUser> updateFcmResponse()
+    {
+        return  updateFcm;
+    }
 
 
+    //GET FCM
+    public  void getFcm(String email)
+    {
+        apiHelper.getFcmToken(email).enqueue(new Callback<ResponseFcm>() {
+            @Override
+            public void onResponse(Call<ResponseFcm> call, Response<ResponseFcm> response) {
+                if(response.code()<300){
+                    getFcm.postValue(response.body());
+                }else if(response.code()>400){
+                    Log.i("Response code: ",String.valueOf(response.code()));
+                    getFcm.postValue(null);
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseFcm> call, Throwable t) {
+                getFcm.postValue(null);
+            }
+        });
+    }
+
+    //UPDATE FCM TOKEN
+     public void updateFcm(User user)
+     {
+         apiHelper.updateFcmToken(user).enqueue(new Callback<ResponseUser>() {
+             @Override
+             public void onResponse(Call<ResponseUser> call, Response<ResponseUser> response) {
+                 if(response.code()<300){
+                     updateFcm.postValue(response.body());
+                 }else if(response.code()>400){
+                     Log.i("Response code: ",String.valueOf(response.code()));
+                     updateFcm.postValue(null);
+                 }
+             }
+
+             @Override
+             public void onFailure(Call<ResponseUser> call, Throwable t) {
+                 updateFcm.postValue(null);
+             }
+         });
+     }
     //CREATE CLASS
     public void setClassResponse(CreateClass createClass){
         apiHelper.createclass(createClass).enqueue(new Callback<ResponseCreateClass>() {

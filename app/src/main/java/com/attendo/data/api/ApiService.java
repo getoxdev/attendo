@@ -10,14 +10,17 @@ import com.attendo.data.model.schedule.ResDeleteNotice;
 import com.attendo.data.model.schedule.ResLeaveClass;
 import com.attendo.data.model.schedule.ResponseCreateClass;
 import com.attendo.data.model.schedule.ResponseDeleteSchedule;
+import com.attendo.data.model.schedule.ResponseFcm;
 import com.attendo.data.model.schedule.ResponseGetNotice;
 import com.attendo.data.model.schedule.ResponseGetSchedule;
 import com.attendo.data.model.schedule.ResponseJoinClass;
 import com.attendo.data.model.schedule.ResponseNotice;
 import com.attendo.data.model.schedule.ResponseSchedule;
+import com.attendo.data.model.schedule.ResponseUser;
 import com.attendo.data.model.schedule.Schedule;
 import com.attendo.data.model.schedule.ScheduleDelete;
 import com.attendo.data.model.schedule.ScheduleEdit;
+import com.attendo.data.model.schedule.User;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -73,6 +76,14 @@ public interface  ApiService
 
     @POST("api/class/leave/{email}")
     Call<ResLeaveClass> leaveClass(@Path("email") String email);
+
+    @GET("api/user/fcmtoken/{email}")
+    Call<ResponseFcm>  getFcmToken(@Path("email")String email);
+
+    @POST("api/user/fcmtoken/update")
+    Call<ResponseUser> updateFcmToken(@Body User user);
+
+
 
 
 
