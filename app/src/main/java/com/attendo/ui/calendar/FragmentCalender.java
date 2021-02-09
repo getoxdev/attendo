@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.attendo.R;
 import com.attendo.data.DateConverter;
 import com.attendo.viewmodel.CalViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -64,6 +65,8 @@ public class FragmentCalender extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calender, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Calendar");
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+        bottomNavigationView.setVisibility(View.VISIBLE);
         ButterKnife.bind(this, view);
 
         dateConverter = new DateConverter();

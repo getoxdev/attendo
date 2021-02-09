@@ -106,6 +106,7 @@ public class FragmentAccountAndSettings extends Fragment {
 
 
 
+
         noticeFragment = new NoticeFragment();
         appPreferences = AppPreferences.getInstance(getContext());
         fragmentAppRate = new FragmentAppRate();

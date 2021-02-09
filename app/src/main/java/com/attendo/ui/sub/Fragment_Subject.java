@@ -36,6 +36,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.data.sub.SubEntity;
 import com.attendo.viewmodel.SubjectViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -105,6 +106,8 @@ public class Fragment_Subject extends Fragment {
         View view =  inflater.inflate(R.layout.fragment__subject, container, false);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Subjects");
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+        bottomNavigationView.setVisibility(View.VISIBLE);
 
 
         ButterKnife.bind(this,view);

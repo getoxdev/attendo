@@ -378,8 +378,11 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 break;
 
             case R.id.whatsNew:
+                Fragment newFeature = new NewFeatureReleaseFragment();
+                newFeature.setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.Z, true));
+                newFeature.setExitTransition(new MaterialSharedAxis(MaterialSharedAxis.Z, false));
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container_frame, new NewFeatureReleaseFragment())
+                        .replace(R.id.container_frame, newFeature)
                         .addToBackStack(null)
                         .commit();
                 break;

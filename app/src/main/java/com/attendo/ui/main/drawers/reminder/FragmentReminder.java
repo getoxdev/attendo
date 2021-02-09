@@ -33,6 +33,7 @@ import com.attendo.data.model.reminder.Reminder;
 import com.attendo.data.rem.RemEntity;
 import com.attendo.viewmodel.ReminderViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -79,6 +80,8 @@ public class FragmentReminder extends Fragment {
         View view = inflater.inflate(R.layout.fragment_exam_reminder, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Reminder");
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+        bottomNavigationView.setVisibility(View.VISIBLE);
 
         ButterKnife.bind(this, view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

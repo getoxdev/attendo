@@ -29,5 +29,6 @@
     <color name="about_card_bg">#F1E7FF</color>
     <color name="profile_image_card">#F4F4F4</color>
     <color name="theme_shadow_color">#7A31C3</color>
+    <color name="warning_color">#BDBA0B</color>
 
 </resources>
