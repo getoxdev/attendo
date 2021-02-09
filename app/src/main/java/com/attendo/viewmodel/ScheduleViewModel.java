@@ -23,7 +23,6 @@ import com.attendo.data.model.schedule.ResponseUser;
 import com.attendo.data.model.schedule.Schedule;
 import com.attendo.data.model.schedule.ScheduleDelete;
 import com.attendo.data.model.schedule.ScheduleEdit;
-import com.attendo.data.model.schedule.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -11,11 +11,11 @@ public class ResponseUser {
 
     @SerializedName("user")
     @Expose
-    private User user;
+    private UserDetails userDetails;
 
-    public ResponseUser(String status, User user) {
+    public ResponseUser(String status, UserDetails userDetails) {
         this.status = status;
-        this.user = user;
+        this.userDetails = userDetails;
     }
 
     public String getStatus() {
@@ -26,11 +26,11 @@ public class ResponseUser {
         this.status = status;
     }
 
-    public User getUser() {
-        return user;
+    public UserDetails getUserDetails() {
+        return userDetails;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 }
