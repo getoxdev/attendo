@@ -18,11 +18,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.data.api.ApiHelper;
 import com.attendo.data.model.reminder.Reminder;
@@ -53,6 +57,12 @@ public class FragmentReminder extends Fragment {
     @BindView(R.id.rem_recycler)
     RecyclerView recyclerView;
 
+    @BindView(R.id.no_reminder_lottie)
+    LottieAnimationView lottieAnimationView;
+
+    @BindView(R.id.no_reminder_txtview)
+    TextView noReminder;
+
     TimePicker timePicker;
     EditText label;
 
@@ -74,6 +84,9 @@ public class FragmentReminder extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
+        //set animation for the lottie anim
+        Animation fadeIN = AnimationUtils.loadAnimation(getContext(), R.anim.fade_card);
+
         ReminderAdapter adapter = new ReminderAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
@@ -83,9 +96,25 @@ public class FragmentReminder extends Fragment {
         viewModel.getAllReminders().observe(getActivity(), new Observer<List<RemEntity>>() {
             @Override
             public void onChanged(List<RemEntity> remEntities) {
+                if(remEntities.isEmpty()){
+                    //code to show no data sign
+                    lottieAnimationView.setAnimation(fadeIN);
+                    noReminder.setAnimation(fadeIN);
+                    lottieAnimationView.setVisibility(View.VISIBLE);
+                    noReminder.setVisibility(View.VISIBLE);
+                }else{
+                    //code to hide no data sign
+                    lottieAnimationView.setVisibility(View.INVISIBLE);
+                    noReminder.setVisibility(View.INVISIBLE);
+                }
                 adapter.setReminders(remEntities);
             }
         });
+
+        //set fab icon animation
+        Animation scale = AnimationUtils.loadAnimation(getContext(), R.anim.scale_fab);
+        mFloatingActionButton.setAnimation(scale);
+
 
         //deletePreviousReminders(adapter);
 

@@ -33,7 +33,7 @@
         android:transitionName="add_subject_transition"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_alarm_white"
+        app:srcCompat="@drawable/fabi_icon_add_drawable"
         app:fabCustomSize="60dp"
         app:tint="@color/bg_login"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
@@ -41,13 +41,16 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/no_reminder_lottie"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        app:lottie_rawRes="@raw/no_reminder_lottie"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
 
 
     <TextView
@@ -56,7 +59,7 @@
         android:layout_height="wrap_content"
         android:text="No reminders"
         android:fontFamily="@font/poppins_light"
-        android:textSize="20dp"
+        android:textSize="16dp"
         app:layout_constraintTop_toBottomOf="@id/no_reminder_lottie"
         app:layout_constraintLeft_toLeftOf="@id/no_reminder_lottie"
         app:layout_constraintRight_toRightOf="@id/no_reminder_lottie"
