@@ -220,7 +220,82 @@ To delete your account: Click on the  ‘Edit Account’ button under account op
                 android:layout_marginEnd="12dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginBottom="30dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="12. Getting started with Routine feature in attendo"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. Routine is a new feature in AttendO which will help the users to manage their daily routine which is cloud based and real time. \n\n
+2. To get started with it, click on the routine tab in the bottom navigation pane and you will be asked either to create a classroom or join an existing classroom. If you are in a college or university ask your Class representative or class monitor to create a classroom and after the classroom has been created the students of that particular classroom can join
+using the class code which will be generated automatically after successfully classroom has been generated. \n\n
+3. This part is for CR or Class Monitor. If you are the class monitor then click on the routine tab in bottom navigation tab and click on create classroom option from the dialog that will appear from bottom. After that it will ask to fill some data regarding your name, roll name or scholar Id, and name of the classroom that you want to make. After few seconds classroom will be created and you will be joined automatically as the class monitor of the your class. \n
+After that you class monitor can share the class code from his account section in settings tab. \n
+Students of the particular class should join filling the necessary details as class code , name and scholar id or roll number."
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="30dp"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="13. Different features of routine "
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Overview: There are 7 days on top of the screen in routine tab just like your general routine in paper. All the classes that are present will be shown below the days cards. One can view any day's routine by clicking on the days cards. Note that data or classes will only be shown if Class monitor adds any subject else it wont show anything. The floating action button upon clicking will reveal more floating action buttons. One of them is batch mates and another is notice. Notice will be there whenever class monitor post any notice  and in the batch mates section you can see how many students have joined the the class till now. By this class monitor can verify if all the students have joined or not. "
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="30dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. Class monitor can add subjects by clicking on the plus button which is revealed on clicking the arrow button
+Once the class is added for a particular day, a notification will be sent to every student joined in class about the subject addition. On long click class monitor can edit the timings days and names of existing classes or delete them. Students cannot add or edit or delete any subject.
+\n\n 2. Class monitor can go to notice section and add , edit and delete any notice. Upon addition or edit students will be notified about the change. "
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="14. What if you want to change your name in routine account ?"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Just leave the class and rejoin again. That should do the work "
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="30dp"/>
 
         </LinearLayout>
 
