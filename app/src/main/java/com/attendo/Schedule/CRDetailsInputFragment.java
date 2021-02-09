@@ -22,6 +22,7 @@ import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
+import com.facebook.internal.LockOnGetVariable;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -81,7 +82,6 @@ public class CRDetailsInputFragment extends Fragment {
                 String Class = ClassName.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
                     if(fcmToken.length()>0) {
-                        AddFcmToServer(fcmToken);
                         class_code = SendDataToServer();
                         customLoadingDialog.startDialog(false);
                     }
@@ -99,6 +99,7 @@ public class CRDetailsInputFragment extends Fragment {
     }
 
     private String  SendDataToServer() {
+        Log.i("FCM CODE :",""+fcmToken);
         CreateClass createClass = new CreateClass(name.getText().toString(),mAuth.getCurrentUser().getEmail().toString(),ClassName.getText().toString(),scholarId.getText().toString(),fcmToken);
         scheduleViewModel.setClassResponse(createClass);
         scheduleViewModel.getClassResponse().observe(getActivity(), data -> {
@@ -128,21 +129,6 @@ public class CRDetailsInputFragment extends Fragment {
         return class_code;
     }
 
-    private void AddFcmToServer(String FCMTOKEN) {
-        String email = mAuth.getCurrentUser().getEmail();
-        FcmToken fcmToken = new FcmToken(email,FCMTOKEN);
-        scheduleViewModel.updateFcm(fcmToken);
-        scheduleViewModel.updateFcmResponse().observe(getActivity(), data -> {
-            if (data == null) {
-                Toast.makeText(getActivity(),"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
-                Log.i("ApiCall", "Failed");
-            } else {
-                Log.i("FCM Code : ", FCMTOKEN);
-                appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
-                firebaseScheduleViewModel.AddFcmCode(FCMTOKEN);
-            }
-        });
-    }
 
 
     private void setFragment(Fragment fragment) {
