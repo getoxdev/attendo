@@ -3,8 +3,7 @@ package com.attendo.data.model.schedule;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User {
-
+public class UserDetails {
     @SerializedName("isCr")
     @Expose
     private Boolean isCr;
@@ -33,7 +32,7 @@ public class User {
     @Expose
     private String classId;
 
-    public User(Boolean isCr, String studentId, String name, String email, String scholarId, String fcmToken, String classId) {
+    public UserDetails(Boolean isCr, String studentId, String name, String email, String scholarId, String fcmToken, String classId) {
         this.isCr = isCr;
         this.studentId = studentId;
         this.name = name;
