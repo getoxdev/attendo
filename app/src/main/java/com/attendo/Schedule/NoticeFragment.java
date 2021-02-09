@@ -58,6 +58,9 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
     @BindView(R.id.no_notice_txtview)
     TextView noNoticeTextView;
 
+    @BindView(R.id.searching_notice_lottie_cr)
+    LottieAnimationView searchingLottie;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +91,7 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
         noticeViewModel.get_all_noticeResponse().observe(getViewLifecycleOwner(),data->{
             if(data!=null)
             {
+                searchingLottie.setVisibility(View.INVISIBLE);
                 ProgressBar.hide();
                 if(data.getNoticeDetailsList().size() == 0){
                     lottieAnimationView.setVisibility(View.VISIBLE);

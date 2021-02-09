@@ -25,6 +25,7 @@ import com.attendo.viewmodel.NoticeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -41,6 +42,9 @@ public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStud
 
     @BindView(R.id.no_notice_student_txtview)
     TextView noNoticeTextView;
+
+    @BindView(R.id.searching_notice_lottie_student)
+    LottieAnimationView searchingLottie;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,7 @@ public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStud
         noticeViewModel.get_all_noticeResponse().observe(getViewLifecycleOwner(),data->{
             if(data!=null)
             {
+                searchingLottie.setVisibility(View.INVISIBLE);
                 progressBar.hide();
                 if(data.getNoticeDetailsList().size() == 0){
                     lottieAnimationView.setVisibility(View.VISIBLE);

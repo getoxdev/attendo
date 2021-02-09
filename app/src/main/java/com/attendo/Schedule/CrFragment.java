@@ -69,6 +69,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     private Animation rotateOpen, rotateClose, toBottom, fromBottom;
     private SwipeRefreshLayout refreshLayout;
     private ContentLoadingProgressBar progressBar;
+    private LottieAnimationView searchingLottie;
 
     //position
     private int positionDay = 0;
@@ -109,6 +110,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         noClassTextView = view.findViewById(R.id.routine_txtView);
         refreshLayout = view.findViewById(R.id.swipe_to_refresh_cr);
         progressBar = view.findViewById(R.id.subject_progress_bar_cr);
+        searchingLottie = view.findViewById(R.id.searching_routine_cr);
 
 
         appPreferences = new AppPreferences(getActivity());
@@ -269,7 +271,10 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
             noClassTextView.setVisibility(View.VISIBLE);
             progressBar.animate();
             progressBar.hide();
+            searchingLottie.setVisibility(View.INVISIBLE);
+
         }else{
+            searchingLottie.setVisibility(View.INVISIBLE);
             progressBar.animate();
             progressBar.hide();
             noClassRoutineLottie.setVisibility(View.INVISIBLE);
@@ -335,6 +340,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     }
 
     private void setAdapterAccordingToPosition(String day){
+        searchingLottie.setVisibility(View.VISIBLE);
         progressBar.show();
         progressBar.animate();
         if(appPreferences.RetrieveClassId() == null){
@@ -345,6 +351,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
             Log.e("schedule99",appPreferences.RetrieveClassScheduleId());
             getScheduleViewModel.getScheduleGetResponse().observe(this, data->{
                 if(data == null){
+                    searchingLottie.setVisibility(View.INVISIBLE);
                     progressBar.hide();
                     progressBar.animate();
                     noClassRoutineLottie.setVisibility(View.VISIBLE);
@@ -353,6 +360,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
                     if(data.getRequiredSchedule().size() == 0){
                         routineItemAdapter = new RoutineItemAdapterCr(getActivity(),data.getRequiredSchedule(),getActivity(),this,this);
                         routineItemAdapter.notifyDataSetChanged();
+                        searchingLottie.setVisibility(View.INVISIBLE);
                         progressBar.hide();
                         progressBar.animate();
                         subjectrecyclerView.setAdapter(routineItemAdapter);
@@ -367,6 +375,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
                         refreshLayout.setRefreshing(false);
                         progressBar.hide();
                         progressBar.animate();
+                        searchingLottie.setVisibility(View.INVISIBLE);
 
                     }
 

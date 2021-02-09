@@ -56,6 +56,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     private String class_id;
     private ScheduleViewModel getScheduleViewModel;
     private AppPreferences preferences;
+    private LottieAnimationView searchingLottie;
 
     private FloatingActionButton fabOpenMenu, fabPeople, fabNotice;
     private Boolean clicked = false;
@@ -95,6 +96,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         fabPeople = view.findViewById(R.id.fab_batchmates_stdnt);
         refreshLayout = view.findViewById(R.id.swipe_to_refresh_student);
         progressBar = view.findViewById(R.id.subject_progress_bar_student);
+        searchingLottie = view.findViewById(R.id.searching_routine_student);
 
         preferences = AppPreferences.getInstance(getContext());
         //swipe to refresh function
@@ -229,6 +231,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
     @Override
     public void callback(int position, List<SubjectDetails> subjectRoutines) {
+        searchingLottie.setVisibility(View.INVISIBLE);
         progressBar.hide();
         progressBar.animate();
         if(subjectRoutines == null){
@@ -276,6 +279,9 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     }
 
     private void setAdapterAccordingToPosition(String day){
+        searchingLottie.setVisibility(View.VISIBLE);
+        progressBar.show();
+        progressBar.animate();
         if(preferences.RetrieveClassId() == null){
             Toast.makeText(getActivity(), "Please wait", Toast.LENGTH_SHORT).show();
 
@@ -284,6 +290,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
             getScheduleViewModel.setScheduleGetResponse(preferences.RetrieveClassId(), day);
             getScheduleViewModel.getScheduleGetResponse().observe(getViewLifecycleOwner(), data->{
                 if(data == null){
+                    searchingLottie.setVisibility(View.INVISIBLE);
                     progressBar.hide();
                     progressBar.animate();
                     noClassLottieAnim.setVisibility(View.VISIBLE);
@@ -297,6 +304,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
                         noClassTv.setVisibility(View.VISIBLE);
                         progressBar.hide();
                         progressBar.animate();
+                        searchingLottie.setVisibility(View.INVISIBLE);
                     }else{
                         noClassLottieAnim.setVisibility(View.INVISIBLE);
                         noClassTv.setVisibility(View.INVISIBLE);
@@ -306,6 +314,7 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
                         refreshLayout.setRefreshing(false);
                         progressBar.hide();
                         progressBar.animate();
+                        searchingLottie.setVisibility(View.INVISIBLE);
                     }
 
                 }
