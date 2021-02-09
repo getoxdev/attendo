@@ -329,7 +329,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         progress.setVisibility(View.INVISIBLE);
         String Current_Fcm_Code = firebaseScheduleViewModel.RetrieveFCM();
         appPreferences.AddFcm(Current_Fcm_Code);
-        Toast.makeText(getActivity(),"Login Successful by " + email.getText().toString().trim(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),"Login Successful",Toast.LENGTH_SHORT).show();
         Intent intent=new Intent(getActivity(),BottomNavMainActivity.class);
         startActivity(intent);
         getActivity().finish();

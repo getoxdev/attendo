@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.attendo.data.api.ApiHelper;
 import com.attendo.data.model.schedule.CreateClass;
+import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.data.model.schedule.GetStudentListResponse;
 import com.attendo.data.model.schedule.JoinClass;
 import com.attendo.data.model.schedule.ResLeaveClass;
@@ -124,9 +125,9 @@ public class ScheduleViewModel extends AndroidViewModel
     }
 
     //UPDATE FCM TOKEN
-     public void updateFcm(User user)
+     public void updateFcm(FcmToken fcmToken)
      {
-         apiHelper.updateFcmToken(user).enqueue(new Callback<ResponseUser>() {
+         apiHelper.updateFcmToken(fcmToken).enqueue(new Callback<ResponseUser>() {
              @Override
              public void onResponse(Call<ResponseUser> call, Response<ResponseUser> response) {
                  if(response.code()<300){

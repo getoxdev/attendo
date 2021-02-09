@@ -3,6 +3,7 @@ package com.attendo.data.api;
 import android.content.Context;
 
 import com.attendo.data.model.schedule.CreateClass;
+import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.data.model.schedule.GetStudentListResponse;
 import com.attendo.data.model.schedule.JoinClass;
 import com.attendo.data.model.reminder.Response;
@@ -133,8 +134,8 @@ public class ApiHelper implements ApiService
     }
 
     @Override
-    public Call<ResponseUser> updateFcmToken(User user) {
-        return api.updateFcmToken(user);
+    public Call<ResponseUser> updateFcmToken(FcmToken fcmtoken) {
+        return api.updateFcmToken(fcmtoken);
     }
 
 

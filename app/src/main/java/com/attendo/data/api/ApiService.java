@@ -1,6 +1,7 @@
 package com.attendo.data.api;
 
 import com.attendo.data.model.schedule.CreateClass;
+import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.data.model.schedule.GetStudentListResponse;
 import com.attendo.data.model.schedule.JoinClass;
 import com.attendo.data.model.reminder.Response;
@@ -81,7 +82,7 @@ public interface  ApiService
     Call<ResponseFcm>  getFcmToken(@Path("email")String email);
 
     @POST("api/user/fcmtoken/update")
-    Call<ResponseUser> updateFcmToken(@Body User user);
+    Call<ResponseUser> updateFcmToken(@Body FcmToken fcmToken);
 
 
 
