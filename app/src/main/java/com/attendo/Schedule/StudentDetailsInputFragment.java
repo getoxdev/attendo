@@ -84,7 +84,6 @@ public class StudentDetailsInputFragment extends Fragment {
                         Toast.makeText(getActivity(),"Please wait and try again!",Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        AddFcmToServer(fcmToken.toString());
                         SendDataToServer();
                         customLoadingDialog.startDialog(false);
                     }
@@ -99,6 +98,7 @@ public class StudentDetailsInputFragment extends Fragment {
     }
 
     private void SendDataToServer() {
+        Log.i("FCM CODE :",""+fcmToken);
         JoinClass joinClass = new JoinClass(classcode.getText().toString(),name.getText().toString(),mAuth.getCurrentUser().getEmail().toString(),scholarid.getText().toString(),fcmToken);
         scheduleViewModel.setJoinResponse(joinClass);
         scheduleViewModel.getJoinResponse().observe(getActivity(), data -> {
@@ -122,22 +122,6 @@ public class StudentDetailsInputFragment extends Fragment {
             }
         });
     }
-
-    private void AddFcmToServer(String FCMTOKEN) {
-        String email = mAuth.getCurrentUser().getEmail();
-        FcmToken fcmToken = new FcmToken(email,FCMTOKEN);
-        scheduleViewModel.updateFcm(fcmToken);
-        scheduleViewModel.updateFcmResponse().observe(getActivity(), data -> {
-            if (data == null) {
-                Toast.makeText(getActivity(),"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
-                Log.i("ApiCall", "Failed");
-            } else {
-                Log.i("FCM code : ", FCMTOKEN);
-                appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
-                firebaseScheduleViewModel.AddFcmCode(FCMTOKEN);
-            }
-        });
-            }
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
