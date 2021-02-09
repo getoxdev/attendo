@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.attendo.R;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.CreateClass;
+import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
@@ -105,6 +106,7 @@ public class CRDetailsInputFragment extends Fragment {
                 Toast.makeText(getActivity(),"Fail to Create",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
+                AddFcmToServer(fcmToken);
                 customLoadingDialog.dismissDialog();
                 Log.i("ApiCall", "successFull");
                 //SetSharedPreferenceData();
@@ -124,6 +126,22 @@ public class CRDetailsInputFragment extends Fragment {
         });
 
         return class_code;
+    }
+
+    private void AddFcmToServer(String FCMTOKEN) {
+        String email = mAuth.getCurrentUser().getEmail();
+        FcmToken fcmToken = new FcmToken(email,FCMTOKEN);
+        scheduleViewModel.updateFcm(fcmToken);
+        scheduleViewModel.updateFcmResponse().observe(getActivity(), data -> {
+            if (data == null) {
+                Toast.makeText(getActivity(),"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
+                Log.i("ApiCall", "Failed");
+            } else {
+                Log.i("ApiCall", "successFull");
+                appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
+                firebaseScheduleViewModel.AddFcmCode(FCMTOKEN);
+            }
+        });
     }
 
 

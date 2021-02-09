@@ -3,6 +3,7 @@ package com.attendo.data.api;
 import android.content.Context;
 
 import com.attendo.data.model.schedule.CreateClass;
+import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.data.model.schedule.GetStudentListResponse;
 import com.attendo.data.model.schedule.JoinClass;
 import com.attendo.data.model.reminder.Response;
@@ -12,14 +13,17 @@ import com.attendo.data.model.schedule.ResDeleteNotice;
 import com.attendo.data.model.schedule.ResLeaveClass;
 import com.attendo.data.model.schedule.ResponseCreateClass;
 import com.attendo.data.model.schedule.ResponseDeleteSchedule;
+import com.attendo.data.model.schedule.ResponseFcm;
 import com.attendo.data.model.schedule.ResponseGetNotice;
 import com.attendo.data.model.schedule.ResponseGetSchedule;
 import com.attendo.data.model.schedule.ResponseJoinClass;
 import com.attendo.data.model.schedule.ResponseNotice;
 import com.attendo.data.model.schedule.ResponseSchedule;
+import com.attendo.data.model.schedule.ResponseUser;
 import com.attendo.data.model.schedule.Schedule;
 import com.attendo.data.model.schedule.ScheduleDelete;
 import com.attendo.data.model.schedule.ScheduleEdit;
+import com.attendo.data.model.schedule.User;
 import com.attendo.retrofit.RetrofitProvider;
 
 import okhttp3.ResponseBody;
@@ -124,6 +128,15 @@ public class ApiHelper implements ApiService
         return  api.leaveClass(email);
     }
 
+    @Override
+    public Call<ResponseFcm> getFcmToken(String email) {
+        return  api.getFcmToken(email);
+    }
+
+    @Override
+    public Call<ResponseUser> updateFcmToken(FcmToken fcmtoken) {
+        return api.updateFcmToken(fcmtoken);
+    }
 
 
 }

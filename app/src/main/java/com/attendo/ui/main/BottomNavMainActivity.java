@@ -19,9 +19,12 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
@@ -35,6 +38,7 @@ import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.data.database.SubDatabase;
+import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.ui.calendar.FragmentCalender;
 import com.attendo.ui.main.drawers.reminder.FragmentReminder;
 
@@ -42,9 +46,11 @@ import com.attendo.ui.main.drawers.account.FragmentAccountAndSettings;
 import com.attendo.ui.main.menu.FragmentAbout;
 import com.attendo.ui.sub.Fragment_Subject;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
+import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.android.material.transition.platform.MaterialFade;
@@ -54,6 +60,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.io.File;
 
@@ -72,12 +80,14 @@ public class BottomNavMainActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     SubDatabase subDatabase;
+    String fcm = "";
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private CrFragment crFragment;
     private StudentFragment studentFragment;
     private EditText joinas;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
+    private ScheduleViewModel scheduleViewModel;
 
     private String joinasData = null;
     private AppPreferences appPreferences;
@@ -109,6 +119,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
         firebaseScheduleViewModel.RetrieveClassId();
         crFragment = new CrFragment();
         studentFragment = new StudentFragment();
+        scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
         setSupportActionBar(toolbar);
@@ -191,12 +202,26 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             //TODO: temporary code
                             switch (joinasData) {
                                 case "Cr":
-                                    appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
-                                    setFragment(crFragment);
+                                    String fcmtoken = RetreieveFcmCode();
+                                    if(fcmtoken.equals(appPreferences.RetrieveFcm())) {
+                                        appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
+                                        setFragment(crFragment);
+                                    }
+                                    else{
+                                        Toast.makeText(BottomNavMainActivity.this,"wait a second!",Toast.LENGTH_SHORT).show();
+                                        UpdateApiFcmCr(fcmtoken);
+                                    }
                                     break;
                                 case "Student":
-                                    appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
-                                    setFragment(studentFragment);
+                                    String Fcmtoken2 = RetreieveFcmCode();
+                                    if(Fcmtoken2.equals(appPreferences.RetrieveFcm())) {
+                                        appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
+                                        setFragment(studentFragment);
+                                    }
+                                    else{
+                                        Toast.makeText(BottomNavMainActivity.this,"wait a second!",Toast.LENGTH_SHORT).show();
+                                        UpdateApiFcmStudent(Fcmtoken2);
+                                    }
                                     break;
                                 case "nothing":
                                     CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
@@ -240,6 +265,61 @@ public class BottomNavMainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    private void UpdateApiFcmCr(String fcmtoken) {
+        String email = mAuth.getCurrentUser().getEmail();
+        FcmToken fcmToken = new FcmToken(email,fcmtoken);
+        scheduleViewModel.updateFcm(fcmToken);
+        scheduleViewModel.updateFcmResponse().observe(BottomNavMainActivity.this, data -> {
+            if (data == null) {
+                Toast.makeText(BottomNavMainActivity.this,"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
+                Log.i("ApiCall", "Failed");
+            } else {
+                Log.i("ApiCall", "successFull");
+                UpdateFirebaseAndSharedPreference();
+                appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
+                setFragment(crFragment);
+            }
+        });
+    }
+
+    private void UpdateFirebaseAndSharedPreference(){
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(BottomNavMainActivity.this, new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String FCM = instanceIdResult.getToken();
+                firebaseScheduleViewModel.AddFcmCode(FCM);
+                appPreferences.AddFcm(FCM);
+            }
+        });
+    }
+
+    private void UpdateApiFcmStudent(String FCM) {
+        String email = mAuth.getCurrentUser().getEmail();
+        FcmToken fcmToken = new FcmToken(email,FCM);
+        scheduleViewModel.updateFcm(fcmToken);
+        scheduleViewModel.updateFcmResponse().observe(BottomNavMainActivity.this, data -> {
+            if (data == null) {
+                Toast.makeText(BottomNavMainActivity.this,"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
+                Log.i("ApiCall", "Failed");
+            } else {
+                Log.i("ApiCall", "successFull");
+                UpdateFirebaseAndSharedPreference();
+                appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
+                setFragment(studentFragment);
+            }
+        });
+    }
+
+    private String RetreieveFcmCode() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(BottomNavMainActivity.this, new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                fcm = instanceIdResult.getToken();
+            }
+        });
+        return fcm;
+    }
 
     private boolean RetrieveSharedPreferenceData() {
         String JOIN = appPreferences.RetrieveJoinAs();

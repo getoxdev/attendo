@@ -18,8 +18,10 @@ import android.widget.Toast;
 
 import com.attendo.R;
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.data.model.schedule.JoinClass;
 import com.attendo.ui.CustomLoadingDialog;
+import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -104,6 +106,8 @@ public class StudentDetailsInputFragment extends Fragment {
                 Toast.makeText(getActivity(),"Failed to join wrong class code",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
+                AddFcmToServer(fcmToken);
+                customLoadingDialog.dismissDialog();
                 String class_Id = data.get_class().get_id();
                 firebaseScheduleViewModel.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddClassJoinAs("Student");
@@ -113,9 +117,24 @@ public class StudentDetailsInputFragment extends Fragment {
                 appPreferences.AddClassId(class_Id);
                 firebaseScheduleViewModel.AddCLassCode(classcode.getText().toString());
                 Log.i("ApiCall", "successFull");
-                customLoadingDialog.dismissDialog();
                 Toast.makeText(getActivity(),"" + data.getMessage(),Toast.LENGTH_SHORT).show();
                 setFragment(studentFragment);
+            }
+        });
+    }
+
+    private void AddFcmToServer(String FCMTOKEN) {
+        String email = mAuth.getCurrentUser().getEmail();
+        FcmToken fcmToken = new FcmToken(email,FCMTOKEN);
+        scheduleViewModel.updateFcm(fcmToken);
+        scheduleViewModel.updateFcmResponse().observe(getActivity(), data -> {
+            if (data == null) {
+                Toast.makeText(getActivity(),"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
+                Log.i("ApiCall", "Failed");
+            } else {
+                Log.i("ApiCall", "successFull");
+                appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
+                firebaseScheduleViewModel.AddFcmCode(FCMTOKEN);
             }
         });
     }

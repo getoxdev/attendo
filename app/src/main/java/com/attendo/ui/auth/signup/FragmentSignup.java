@@ -40,7 +40,6 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
 
     private SignupInterface.Presenter presenter;
     private FragmentProfile fragment_profile;
-    DatabaseReference databaseReference;
     FirebaseAuth mAuth;
 
 
@@ -54,7 +53,6 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
         presenter = new SignupPresenter(this);
         fragment_profile = new FragmentProfile();
         mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule_Member");
 
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
