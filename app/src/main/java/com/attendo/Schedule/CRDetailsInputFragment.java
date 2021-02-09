@@ -81,6 +81,7 @@ public class CRDetailsInputFragment extends Fragment {
                 String Class = ClassName.getText().toString();
                 if(Name.length()>0 && Scholarid.length()>0 && EmailId.length()>0 && Class.length()>0){
                     if(fcmToken.length()>0) {
+                        AddFcmToServer(fcmToken);
                         class_code = SendDataToServer();
                         customLoadingDialog.startDialog(false);
                     }
@@ -106,7 +107,6 @@ public class CRDetailsInputFragment extends Fragment {
                 Toast.makeText(getActivity(),"Fail to Create",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
-                AddFcmToServer(fcmToken);
                 customLoadingDialog.dismissDialog();
                 Log.i("ApiCall", "successFull");
                 //SetSharedPreferenceData();
@@ -137,7 +137,7 @@ public class CRDetailsInputFragment extends Fragment {
                 Toast.makeText(getActivity(),"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
-                Log.i("ApiCall", "successFull");
+                Log.i("FCM Code : ", FCMTOKEN);
                 appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
                 firebaseScheduleViewModel.AddFcmCode(FCMTOKEN);
             }

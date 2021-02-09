@@ -1,8 +1,16 @@
 package com.attendo.data.model.schedule;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class FcmToken {
 
+    @SerializedName("email")
+    @Expose
     String email;
+
+    @SerializedName("fcmtoken")
+    @Expose
     String fcm_token;
 
     public FcmToken(String email, String fcm_token) {

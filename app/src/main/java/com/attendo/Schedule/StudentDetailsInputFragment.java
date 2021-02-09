@@ -84,6 +84,7 @@ public class StudentDetailsInputFragment extends Fragment {
                         Toast.makeText(getActivity(),"Please wait and try again!",Toast.LENGTH_SHORT).show();
                     }
                     else {
+                        AddFcmToServer(fcmToken.toString());
                         SendDataToServer();
                         customLoadingDialog.startDialog(false);
                     }
@@ -106,7 +107,6 @@ public class StudentDetailsInputFragment extends Fragment {
                 Toast.makeText(getActivity(),"Failed to join wrong class code",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
-                AddFcmToServer(fcmToken);
                 customLoadingDialog.dismissDialog();
                 String class_Id = data.get_class().get_id();
                 firebaseScheduleViewModel.AddClassId(class_Id);
@@ -132,12 +132,12 @@ public class StudentDetailsInputFragment extends Fragment {
                 Toast.makeText(getActivity(),"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "Failed");
             } else {
-                Log.i("ApiCall", "successFull");
+                Log.i("FCM code : ", FCMTOKEN);
                 appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
                 firebaseScheduleViewModel.AddFcmCode(FCMTOKEN);
             }
         });
-    }
+            }
 
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
