@@ -113,6 +113,8 @@ public class CRDetailsInputFragment extends Fragment {
                 Log.i("classid",class_Id);
                 firebaseScheduleViewModel.AddCLassCode(class_code);
                 firebaseScheduleViewModel.AddClassId(class_Id);
+                firebaseScheduleViewModel.AddFcmCode(fcmToken);
+                appPreferences.AddFcm(fcmToken);
                 appPreferences.AddClassId(class_Id);
                 appPreferences.AddJoinAs("Cr");
                 firebaseScheduleViewModel.AddClassJoinAs("Cr");

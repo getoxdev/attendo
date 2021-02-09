@@ -76,7 +76,9 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
 
     int found = 0;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private logininterface.Presenter presenter;
+    private AppPreferences appPreferences;
     private FragmentSignup fragmentSignup;
     private FragmentForgetPassword fragmentForgetpassword;
     private GoogleSignInClient mGoogleSignInClient;
@@ -104,6 +106,9 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         fragmentForgetpassword = new FragmentForgetPassword();
         fragmentProfile = new FragmentProfile();
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule_Member");
+        firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
+        appPreferences = AppPreferences.getInstance(getContext());
+
 
         /*//stay logged in code
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -322,6 +327,8 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     @Override
     public void onLogin() {
         progress.setVisibility(View.INVISIBLE);
+        String Current_Fcm_Code = firebaseScheduleViewModel.RetrieveFCM();
+        appPreferences.AddFcm(Current_Fcm_Code);
         Toast.makeText(getActivity(),"Login Successful by " + email.getText().toString().trim(),Toast.LENGTH_SHORT).show();
         Intent intent=new Intent(getActivity(),BottomNavMainActivity.class);
         startActivity(intent);

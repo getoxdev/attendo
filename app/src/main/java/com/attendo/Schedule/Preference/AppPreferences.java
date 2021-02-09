@@ -65,6 +65,13 @@ public class AppPreferences implements SharedPreferencesHelper {
         editor.apply();
     }
 
+    @Override
+    public void AddFcm(String fcm) {
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putString("FCM", fcm);
+        editor.apply();
+    }
+
 
     @Override
     public String RetrieveClassId() {
@@ -84,6 +91,11 @@ public class AppPreferences implements SharedPreferencesHelper {
     @Override
     public String retrieveScheduleId() {
         return sharedPrefs.getString("ClassScheduleId" , null);
+    }
+
+    @Override
+    public String RetrieveFcm() {
+        return sharedPrefs.getString("FCM" , null);
     }
 
 }
