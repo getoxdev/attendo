@@ -32,6 +32,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.ajts.androidmads.library.SQLiteToExcel;
+import com.attendo.NewFeatureReleaseFragment;
 import com.attendo.R;
 import com.attendo.Schedule.CrFragment;
 import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
@@ -374,6 +375,13 @@ public class BottomNavMainActivity extends AppCompatActivity {
             case R.id.privacypolicy:
                 Uri uri = Uri.parse("https://attendo.flycricket.io/privacy.html");
                 startActivity(new Intent(Intent.ACTION_VIEW, uri));
+                break;
+
+            case R.id.whatsNew:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container_frame, new NewFeatureReleaseFragment())
+                        .addToBackStack(null)
+                        .commit();
                 break;
 
 

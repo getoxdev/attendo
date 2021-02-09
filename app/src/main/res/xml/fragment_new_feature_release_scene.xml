@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000"
+        motion:motionInterpolator="easeInOut">
+       <KeyFrameSet>
+           <KeyAttribute
+               motion:motionTarget="@+id/cardView"
+               motion:framePosition="100"
+               android:rotationY="180" />
+           <KeyAttribute
+               motion:motionTarget="@+id/whats_new_help"
+               motion:framePosition="100"
+               android:rotationY="180" />
+           <KeyAttribute
+               motion:motionTarget="@+id/imageView3"
+               motion:framePosition="100"
+               android:rotationY="180" />
+           <KeyAttribute
+               motion:motionTarget="@+id/imageView3"
+               motion:framePosition="100"
+               android:rotationY="5" />
+           <KeyAttribute
+               motion:motionTarget="@+id/textView11"
+               motion:framePosition="100"
+               android:rotationY="180" />
+           <KeyAttribute
+               motion:motionTarget="@+id/textView13"
+               motion:framePosition="100"
+               android:rotationY="180" />
+       </KeyFrameSet>
+        <OnClick motion:targetId="@+id/cardView" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/whats_new_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            motion:layout_constraintTop_toTopOf="@id/cardView"
+            motion:layout_constraintStart_toStartOf="@id/cardView"
+            android:layout_marginTop="20dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/imageView3"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            motion:layout_constraintTop_toBottomOf="@id/whats_new_help"
+            motion:layout_constraintHorizontal_bias="0.497"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="88dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/textView11"
+            motion:layout_constraintEnd_toEndOf="@id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@+id/imageView3"
+            android:layout_marginStart="24dp"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintStart_toStartOf="@id/cardView"
+            android:layout_marginTop="60dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/textView13"
+            motion:layout_constraintEnd_toEndOf="@id/cardView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            motion:layout_constraintTop_toBottomOf="@+id/textView11"
+            android:layout_marginStart="24dp"
+            motion:layout_constraintStart_toStartOf="@id/cardView"
+            android:layout_marginTop="16dp"
+            android:visibility="invisible" />
+    </ConstraintSet>
+</MotionScene>

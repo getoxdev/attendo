@@ -7,6 +7,9 @@
     <item
         android:id="@+id/privacypolicy"
         android:title="Privacy Policy"/>
+    <item
+        android:id="@+id/whatsNew"
+        android:title="What's New"/>
 
 
 
