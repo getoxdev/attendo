@@ -108,7 +108,7 @@ public class FragmentAbout extends Fragment {
             @Override
             public void onClick(View v) {
 
-                bottomSheetFunction("https://www.facebook.com/jyotimoy.kashyap.33", "https://www.instagram.com/captured.memories12/",
+                bottomSheetFunction("https://www.facebook.com/jyotimoy.kashyap.33", "https://www.instagram.com/jyotimoy_kashyap06/",
                         "https://www.linkedin.com/in/jyotimoy-kashyap-62a792190/", "https://github.com/JyotimoyKashyap");
             }
         });
