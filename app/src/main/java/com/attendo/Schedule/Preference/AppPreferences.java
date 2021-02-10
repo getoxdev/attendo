@@ -12,7 +12,6 @@ public class AppPreferences implements SharedPreferencesHelper {
     private  static AppPreferences instance;
 
     public static final String Class_ID_KEY = null;
-    public static final String Class_Schedule_Class_Id_KEY = null;
     public static final String Class_Schedule_ID_KEY = null;
 
     private SharedPreferences sharedPrefs;
@@ -21,7 +20,6 @@ public class AppPreferences implements SharedPreferencesHelper {
         this.context=context;
         sharedPrefs= PreferenceManager.getDefaultSharedPreferences(context);
     }
-
 
     public static AppPreferences getInstance(Context context){
         if(instance == null){

@@ -25,11 +25,6 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
 import com.attendo.Schedule.Adapters.WeekDayAdapter;
-import com.attendo.Schedule.AddSubjectDetailsFragment;
-import com.attendo.Schedule.BatchmatesDetailsFragment;
-import com.attendo.Schedule.Delete_fragment;
-import com.attendo.Schedule.Edit_schedule_fragment;
-import com.attendo.Schedule.NoticeFragment;
 import com.attendo.data.model.schedule.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
@@ -388,7 +383,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
     @Override
     public void onDeleteClick(int position, SubjectDetails subjectDetails) {
-        Delete_fragment delete_fragment = Delete_fragment.newInstance(subjectDetails.get_id(), positionDay, this);
+        DeleteFragment delete_fragment = DeleteFragment.newInstance(subjectDetails.get_id(), positionDay, this);
         delete_fragment.show(getParentFragmentManager(), "Delete");
     }
 

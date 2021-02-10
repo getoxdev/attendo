@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
-import com.attendo.Schedule.Delete_fragment;
+import com.attendo.Schedule.DeleteFragment;
 import com.attendo.Schedule.Edit_schedule_fragment;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.data.model.schedule.SubjectDetails;
@@ -37,7 +37,7 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
     private Context mContext;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private ScheduleViewModel scheduleViewModel;
-    private Delete_fragment delete_fragment;
+    private DeleteFragment delete_fragment;
     private Edit_schedule_fragment edit_schedule_fragment;
     String timePickerTime;
     Activity activity;

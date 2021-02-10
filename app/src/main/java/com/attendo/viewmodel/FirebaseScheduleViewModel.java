@@ -146,7 +146,8 @@ public class FirebaseScheduleViewModel extends AndroidViewModel {
         return class_code;
     }
 
-    public String RetrieveSchdeuleId(){
+    public String RetrieveSchdeuleId()
+    {
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
         databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {

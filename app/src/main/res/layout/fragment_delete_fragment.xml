@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Schedule.Delete_fragment">
+    tools:context=".Schedule.DeleteFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

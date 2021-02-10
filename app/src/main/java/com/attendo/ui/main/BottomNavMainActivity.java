@@ -80,42 +80,36 @@ public class BottomNavMainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar_bottom_nav)
     Toolbar toolbar;
 
-    SubDatabase subDatabase;
-    String fcm = "";
+    private String fcm;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private CrFragment crFragment;
     private StudentFragment studentFragment;
-    private EditText joinas;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private ScheduleViewModel scheduleViewModel;
 
-    private String joinasData = null;
+    private String joinasData;
     private AppPreferences appPreferences;
     private DatabaseReference classIdReference;
     private String class_id;
+    private Fragment selectedFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         getWindow().setEnterTransition(new MaterialFade().setDuration(300));
         getWindow().setExitTransition(new MaterialFade().setDuration(300));
         setContentView(R.layout.activity_bottom_nav_main);
         ButterKnife.bind(this);
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-
-
         mAuth = FirebaseAuth.getInstance();
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
         appPreferences = AppPreferences.getInstance(this);
-        getJoinAsData();getClassId();
+        getJoinAsData();
+        getClassId();
         firebaseScheduleViewModel.RetrieveClassJoinAs();
         firebaseScheduleViewModel.RetrieveClassId();
         crFragment = new CrFragment();
@@ -128,7 +122,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.container_frame, new Fragment_Subject()).commit();
 
         try {
-
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 // this will request for permission from the user if not yet granted
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
@@ -139,14 +132,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
         }catch (Exception e){
             System.out.println(e);
         }
-
     }
-
-
-
-    private Fragment selectedFragment = null;
-
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -158,8 +144,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
             enter.setInterpolator(new AccelerateDecelerateInterpolator());
             exit.setDuration(400);
             exit.setInterpolator(new AccelerateDecelerateInterpolator());
-
-
 
 
             switch (item.getItemId()){
@@ -175,7 +159,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             .replace(R.id.container_frame, subject, "subject_fragment")
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             .commit();
-
                     break;
 
                 case R.id.reminder_bottom_nav:
@@ -190,51 +173,33 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.schedule_bottom_nav:
-                    if(!isConnected()){
+                    if(!isConnected())
                         showCustomDialog();
-                    }else {
-                        //TODO: temporary code
-                        if(RetrieveSharedPreferenceData()){
-                            String type = firebaseScheduleViewModel.RetrieveClassJoinAs();
-                            if(type == null){
-                                Toast.makeText(BottomNavMainActivity.this, "Please wait !", Toast.LENGTH_SHORT).show();
-                            }
-                        else {
-                            //TODO: temporary code
-                            switch (joinasData) {
+                    else
+                    {
+                        if(RetrieveSharedPreferenceData())
+                        {
+                            joinasData = appPreferences.RetrieveJoinAs();
+                            switch (joinasData)
+                            {
                                 case "Cr":
-                                    String fcmtoken = RetreieveFcmCode();
-                                    if(fcmtoken.equals(appPreferences.RetrieveFcm())) {
-                                        appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
-                                        setFragment(crFragment);
-                                    }
-                                    else{
-                                        Toast.makeText(BottomNavMainActivity.this,"wait a second!",Toast.LENGTH_SHORT).show();
-                                        UpdateApiFcmCr(fcmtoken);
-                                    }
+                                    setFragment(crFragment);
                                     break;
+
                                 case "Student":
-                                    String Fcmtoken2 = RetreieveFcmCode();
-                                    if(Fcmtoken2.equals(appPreferences.RetrieveFcm())) {
-                                        appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
-                                        setFragment(studentFragment);
-                                    }
-                                    else{
-                                        Toast.makeText(BottomNavMainActivity.this,"wait a second!",Toast.LENGTH_SHORT).show();
-                                        UpdateApiFcmStudent(Fcmtoken2);
-                                    }
+                                    setFragment(studentFragment);
                                     break;
+
                                 case "nothing":
                                     CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
                                     joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
                                     break;
+
                                 default:
-                                    Toast.makeText(BottomNavMainActivity.this, "Please wait !", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(BottomNavMainActivity.this, "Please Wait!", Toast.LENGTH_SHORT).show();
                             }
                         }
-                        }
                     }
-
                    break;
 
                 case R.id.calendar_bottom_nav:
@@ -261,53 +226,48 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     break;
 
             }
-
-
-            return true;
+        return true;
         }
     };
 
-    private void UpdateApiFcmCr(String fcmtoken) {
-        String email = mAuth.getCurrentUser().getEmail();
-        FcmToken fcmToken = new FcmToken(email,fcmtoken);
-        scheduleViewModel.updateFcm(fcmToken);
-        scheduleViewModel.updateFcmResponse().observe(BottomNavMainActivity.this, data -> {
-            if (data == null) {
-                Toast.makeText(BottomNavMainActivity.this,"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
-                Log.i("ApiCall", "Failed");
-            } else {
-                Log.i("ApiCall", "successFull");
-                UpdateFirebaseAndSharedPreference();
-                setFragment(crFragment);
-            }
-        });
-    }
-
-    private void UpdateFirebaseAndSharedPreference(){
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(BottomNavMainActivity.this, new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String FCM = instanceIdResult.getToken();
-                firebaseScheduleViewModel.AddFcmCode(FCM);
-                appPreferences.AddFcm(FCM);
-            }
-        });
-    }
-
-    private void UpdateApiFcmStudent(String FCM) {
+    private void UpdateApiFcmCr(String FCM)
+    {
         String email = mAuth.getCurrentUser().getEmail();
         FcmToken fcmToken = new FcmToken(email,FCM);
         scheduleViewModel.updateFcm(fcmToken);
         scheduleViewModel.updateFcmResponse().observe(BottomNavMainActivity.this, data -> {
             if (data == null) {
                 Toast.makeText(BottomNavMainActivity.this,"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
-                Log.i("ApiCall", "Failed");
+                Log.e("FCMApiCall", "Failed");
             } else {
-                Log.i("ApiCall", "successFull");
-                UpdateFirebaseAndSharedPreference();
+                Log.e("FCMApiCall", "successFull");
+                UpdateFirebaseAndSharedPreference(FCM);
+                setFragment(crFragment);
+            }
+        });
+    }
+
+    private void UpdateApiFcmStudent(String FCM)
+    {
+        String email = mAuth.getCurrentUser().getEmail();
+        FcmToken fcmToken = new FcmToken(email,FCM);
+        scheduleViewModel.updateFcm(fcmToken);
+        scheduleViewModel.updateFcmResponse().observe(BottomNavMainActivity.this, data -> {
+            if (data == null) {
+                Toast.makeText(BottomNavMainActivity.this,"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
+                Log.i("FCMApiCall", "Failed");
+            } else {
+                Log.i("FCMApiCall", "successFull");
+                UpdateFirebaseAndSharedPreference(FCM);
                 setFragment(studentFragment);
             }
         });
+    }
+
+    private void UpdateFirebaseAndSharedPreference(String FCM)
+    {
+        firebaseScheduleViewModel.AddFcmCode(FCM);
+        appPreferences.AddFcm(FCM);
     }
 
     private String RetreieveFcmCode() {
@@ -320,19 +280,12 @@ public class BottomNavMainActivity extends AppCompatActivity {
         return fcm;
     }
 
-    private boolean RetrieveSharedPreferenceData() {
+    private boolean RetrieveSharedPreferenceData()
+    {
         String JOIN = appPreferences.RetrieveJoinAs();
-        if(JOIN == null || JOIN.equals("nothing"))
-            return true;
-        switch (JOIN) {
-            case "Cr":
-                setFragment(crFragment);
-                break;
-            case "Student":
-                setFragment(studentFragment);
-                break;
-        }
-        return false;
+        if(JOIN == null)
+            return false;
+        return true;
     }
 
 
@@ -345,7 +298,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item)
     {
-
         String directory_path = Environment.getExternalStorageDirectory().getPath() + "/Attendo/";
         File file = new File(directory_path);
         if (!file.exists()) {
@@ -381,18 +333,15 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 newFeature.setExitTransition(new MaterialSharedAxis(MaterialSharedAxis.Z, false));
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container_frame, newFeature)
-                        .addToBackStack(null)
                         .commit();
                 break;
-
-
         }
 
-        return true;
-
+    return true;
     }
 
-    private void setFragment(Fragment fragment) {
+    private void setFragment(Fragment fragment)
+    {
         MaterialSharedAxis enter = new MaterialSharedAxis(MaterialSharedAxis.Z, true);
         MaterialSharedAxis exit = new MaterialSharedAxis(MaterialSharedAxis.Z, false);
         enter.setDuration(400);
@@ -420,7 +369,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
         }
     }
 
-    private void showCustomDialog(){
+    private void showCustomDialog()
+    {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Please connect to internet to get access to routine");
         builder.setTitle("No Data Connection");
@@ -440,28 +390,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
         builder.show();
     }
 
-    public void ExportToExcel(String path)
+    public void getJoinAsData()
     {
-        SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(getApplicationContext(),subDatabase.DATABASE_NAME,path);
-
-        sqLiteToExcel.exportSingleTable("SubjectName", "student.xls", new SQLiteToExcel.ExportListener() {
-            @Override
-            public void onStart() {
-            }
-            @Override
-            public void onCompleted(String filePath) {
-                Toast.makeText(getApplicationContext(),"Successfully Exported",Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onError(Exception e) {
-                Toast.makeText(getApplicationContext(),"ERROR",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
-    public void getJoinAsData(){
-
         databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -472,7 +402,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                     appPreferences.AddJoinAs(d);
                     appPreferences.AddScheduleId(dd);
                     joinasData = d;
-                     }
+                }
                 else{
                     joinasData = "nothing";
                 }
@@ -484,7 +414,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
         });
     }
 
-    public void getClassId(){
+    public void getClassId()
+    {
         classIdReference = FirebaseDatabase.getInstance().getReference("Schedule");
         classIdReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override

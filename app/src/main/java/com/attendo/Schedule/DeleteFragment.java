@@ -22,7 +22,7 @@ import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 
-public class Delete_fragment extends BottomSheetDialogFragment  {
+public class DeleteFragment extends BottomSheetDialogFragment  {
 
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private ScheduleViewModel scheduleViewModel;
@@ -34,12 +34,12 @@ public class Delete_fragment extends BottomSheetDialogFragment  {
     private String ScheduleClassId,class_id,day;
     private int mPositionDay;
 
-    public Delete_fragment(UpdateRecyclerView updateRecyclerView){
+    public DeleteFragment(UpdateRecyclerView updateRecyclerView){
         this.updateRecyclerView = updateRecyclerView;
     }
 
-    public static Delete_fragment newInstance(String scheduleClassId, int positionDay, UpdateRecyclerView mUpdateRecyclerView) {
-        Delete_fragment delete_fragment = new Delete_fragment(mUpdateRecyclerView);
+    public static DeleteFragment newInstance(String scheduleClassId, int positionDay, UpdateRecyclerView mUpdateRecyclerView) {
+        DeleteFragment delete_fragment = new DeleteFragment(mUpdateRecyclerView);
         Bundle args = new Bundle();
         args.putString("SCHEDULE_CLASS_ID",scheduleClassId);
         args.putInt("RVPosition", positionDay);

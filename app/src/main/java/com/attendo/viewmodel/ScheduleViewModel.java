@@ -131,7 +131,7 @@ public class ScheduleViewModel extends AndroidViewModel
              public void onResponse(Call<ResponseUser> call, Response<ResponseUser> response) {
                  if(response.code()<300){
                      updateFcm.postValue(response.body());
-                 }else if(response.code()>400){
+                 }else if(response.code()>=400){
                      Log.i("Response code: ",String.valueOf(response.code()));
                      updateFcm.postValue(null);
                  }
@@ -143,6 +143,7 @@ public class ScheduleViewModel extends AndroidViewModel
              }
          });
      }
+
     //CREATE CLASS
     public void setClassResponse(CreateClass createClass){
         apiHelper.createclass(createClass).enqueue(new Callback<ResponseCreateClass>() {
