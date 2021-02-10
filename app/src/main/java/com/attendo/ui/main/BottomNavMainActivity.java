@@ -283,6 +283,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
                 newFeature.setExitTransition(new MaterialSharedAxis(MaterialSharedAxis.Z, false));
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container_frame, newFeature)
+                        .addToBackStack(null)
                         .commit();
                 break;
         }
