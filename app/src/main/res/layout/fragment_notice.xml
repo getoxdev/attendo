@@ -39,6 +39,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:transitionName="@string/container_transform_for_notice"
         app:backgroundTint="#9657F1"
         app:fabCustomSize="60dp"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"

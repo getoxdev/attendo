@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +28,8 @@ import com.attendo.viewmodel.NoticeViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.transition.MaterialArcMotion;
+import com.google.android.material.transition.MaterialContainerTransform;
 import com.google.android.material.transition.MaterialSharedAxis;
 
 import java.util.List;
@@ -82,8 +85,12 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
         ButterKnife.bind(this,view);
 
 
+        MaterialContainerTransform transform = new MaterialContainerTransform();
+        transform.setPathMotion(new MaterialArcMotion());
+        transform.setDuration(400);
 
         addNoticeFragment = new AddNoticeFragment(this);
+        addNoticeFragment.setSharedElementReturnTransition(transform);
 
         fb = view.findViewById(R.id.Add_Notice);
 
@@ -155,6 +162,7 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
 
 
     private void setFragment(Fragment fragment) {
+        fragment.setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.Z, true));
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container_frame,fragment);
         fragmentTransaction.addToBackStack(null);

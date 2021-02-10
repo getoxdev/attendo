@@ -3,6 +3,7 @@ package com.attendo.Schedule;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.SharedElementCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,6 +25,10 @@ import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.NoticeViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
+import com.google.android.material.transition.MaterialArcMotion;
+import com.google.android.material.transition.MaterialContainerTransform;
+import com.google.android.material.transition.MaterialSharedAxis;
+import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
 
 public class AddNoticeFragment extends Fragment {
 
@@ -44,6 +49,9 @@ public class AddNoticeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_notice, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Add Notice");
+
+        setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.Z, true));
+
 
         noticeFragment = new NoticeFragment();
         title = view.findViewById(R.id.Title);
