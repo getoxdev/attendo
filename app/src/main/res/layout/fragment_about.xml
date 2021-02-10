@@ -269,7 +269,7 @@
                   <ImageView
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:src="@drawable/shristi"
+                      android:src="@drawable/shristi_new"
                       android:scaleType="centerCrop"/>
 
                </androidx.cardview.widget.CardView>
@@ -366,7 +366,7 @@
                    android:id="@+id/mentor1"
                    android:layout_width="match_parent"
                    android:layout_height="100dp"
-                   android:layout_below="@id/learner4"
+                   android:layout_below="@id/mentor2"
                    app:cardBackgroundColor="@color/about_card_bg"
                    app:cardCornerRadius="20dp"
                    android:layout_marginLeft="50dp"
@@ -433,7 +433,7 @@
                   <ImageView
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:src="@drawable/mentor"
+                      android:src="@drawable/rishiraj_dada_new"
                       android:scaleType="centerCrop"/>
 
                </androidx.cardview.widget.CardView>
@@ -444,7 +444,7 @@
                    android:id="@+id/mentor2"
                    android:layout_width="match_parent"
                    android:layout_height="100dp"
-                   android:layout_below="@id/mentor1"
+                   android:layout_below="@id/learner5"
                    app:cardBackgroundColor="@color/about_card_bg"
                    app:cardCornerRadius="20dp"
                    android:layout_marginLeft="20dp"
@@ -528,7 +528,7 @@
                    android:id="@+id/learner5"
                    android:layout_width="match_parent"
                    android:layout_height="100dp"
-                   android:layout_below="@id/mentor2"
+                   android:layout_below="@id/learner4"
                    app:cardBackgroundColor="@color/about_card_bg"
                    app:cardCornerRadius="20dp"
                    android:layout_marginLeft="50dp"
@@ -600,7 +600,7 @@
                   <ImageView
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:src="@drawable/gaurav_new_profile"
+                      android:src="@drawable/gaurav"
                       android:scaleType="centerCrop"/>
 
                </androidx.cardview.widget.CardView>
