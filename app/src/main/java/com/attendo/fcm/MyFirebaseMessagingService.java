@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.attendo.R;
+import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.firebase.client.annotations.NotNull;
 import com.google.android.gms.tasks.OnCompleteListener;

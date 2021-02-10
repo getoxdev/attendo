@@ -230,56 +230,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
         }
     };
 
-    private void UpdateApiFcmCr(String FCM)
-    {
-        String email = mAuth.getCurrentUser().getEmail();
-        FcmToken fcmToken = new FcmToken(email,FCM);
-        scheduleViewModel.updateFcm(fcmToken);
-        scheduleViewModel.updateFcmResponse().observe(BottomNavMainActivity.this, data -> {
-            if (data == null) {
-                Toast.makeText(BottomNavMainActivity.this,"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
-                Log.e("FCMApiCall", "Failed");
-            } else {
-                Log.e("FCMApiCall", "successFull");
-                UpdateFirebaseAndSharedPreference(FCM);
-                setFragment(crFragment);
-            }
-        });
-    }
-
-    private void UpdateApiFcmStudent(String FCM)
-    {
-        String email = mAuth.getCurrentUser().getEmail();
-        FcmToken fcmToken = new FcmToken(email,FCM);
-        scheduleViewModel.updateFcm(fcmToken);
-        scheduleViewModel.updateFcmResponse().observe(BottomNavMainActivity.this, data -> {
-            if (data == null) {
-                Toast.makeText(BottomNavMainActivity.this,"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
-                Log.i("FCMApiCall", "Failed");
-            } else {
-                Log.i("FCMApiCall", "successFull");
-                UpdateFirebaseAndSharedPreference(FCM);
-                setFragment(studentFragment);
-            }
-        });
-    }
-
-    private void UpdateFirebaseAndSharedPreference(String FCM)
-    {
-        firebaseScheduleViewModel.AddFcmCode(FCM);
-        appPreferences.AddFcm(FCM);
-    }
-
-    private String RetreieveFcmCode() {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(BottomNavMainActivity.this, new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                fcm = instanceIdResult.getToken();
-            }
-        });
-        return fcm;
-    }
-
     private boolean RetrieveSharedPreferenceData()
     {
         String JOIN = appPreferences.RetrieveJoinAs();

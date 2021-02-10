@@ -9,7 +9,7 @@ public class FcmToken {
     @Expose
     String email;
 
-    @SerializedName("fcmtoken")
+    @SerializedName("fcmToken")
     @Expose
     String fcm_token;
 

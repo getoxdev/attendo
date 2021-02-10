@@ -129,7 +129,8 @@ public class ScheduleViewModel extends AndroidViewModel
          apiHelper.updateFcmToken(fcmToken).enqueue(new Callback<ResponseUser>() {
              @Override
              public void onResponse(Call<ResponseUser> call, Response<ResponseUser> response) {
-                 if(response.code()<300){
+                 if(response.code()<300)
+                 {
                      updateFcm.postValue(response.body());
                  }else if(response.code()>=400){
                      Log.i("Response code: ",String.valueOf(response.code()));
@@ -215,10 +216,9 @@ public class ScheduleViewModel extends AndroidViewModel
         apiHelper.createschedule(schedule).enqueue(new Callback<ResponseSchedule>() {
             @Override
             public void onResponse(Call<ResponseSchedule> call, Response<ResponseSchedule> response) {
-                if(response.code()==200 || response.code()==201){
+                if(response.code()<300){
                     scheduleResponse.postValue(response.body());
-                    Log.e("onResponse: ", ""+response.code());
-                }else if(response.code()==400 || response.code()==404){
+                }else if(response.code()>=400){
                     Log.e("onResponse: ", ""+response.code());
                     scheduleResponse.postValue(null);
                 }

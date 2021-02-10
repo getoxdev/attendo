@@ -3,6 +3,7 @@ package com.attendo.Schedule;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
@@ -28,8 +29,14 @@ import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.data.model.schedule.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.data.model.schedule.SubjectDetails;
+import com.attendo.ui.main.BottomNavMainActivity;
+import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.transition.MaterialSharedAxis;
@@ -39,9 +46,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
@@ -50,11 +60,10 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
     private WeekDayAdapter weekDayAdapter;
     private List<DayOfWeek> dayList;
     private RoutineItemAdapter routineItemAdapter;
-    private ArrayList<SubjectDetails> subjectRoutines  = new ArrayList();
     private FirebaseAuth mAuth;
     private DatabaseReference mReference;
-    private String class_id;
     private ScheduleViewModel getScheduleViewModel;
+    private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private AppPreferences preferences;
     private LottieAnimationView searchingLottie;
 
@@ -67,12 +76,14 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
     private LottieAnimationView noClassLottieAnim;
     private TextView noClassTv;
+    private  String class_id;
 
     @Override
     public void onStart() {
         super.onStart();
         getClassId();
         getScheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+        firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
     }
 
     @Override
@@ -107,15 +118,13 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
             }
         });
 
-
+        getClassId();
+        getScheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+        firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         mAuth = FirebaseAuth.getInstance();
-
         subjectrecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        routineItemAdapter = new RoutineItemAdapter(subjectRoutines);
-//        subjectrecyclerView.setAdapter(routineItemAdapter);
 
         dayList = new ArrayList<>();
-
         dayList.add(new DayOfWeek("SUN"));
         dayList.add(new DayOfWeek("MON"));
         dayList.add(new DayOfWeek("TUE"));
@@ -168,32 +177,94 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         return view;
     }
 
-    private void onSwipeDownToRefresh(int positionDay) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-                Log.d("Student", String.valueOf(positionDay) + "  : onSwipe");
-                switch (positionDay){
-                    case 0:
-                        setAdapterAccordingToPosition("sunday");
-                        break;
-                    case 1:
-                        setAdapterAccordingToPosition("monday");
-                        break;
-                    case 2:
-                        setAdapterAccordingToPosition("tuesday");
-                        break;
-                    case 3:
-                        setAdapterAccordingToPosition("wednesday");
-                        break;
-                    case 4:
-                        setAdapterAccordingToPosition("thursday");
-                        break;
-                    case 5:
-                        setAdapterAccordingToPosition("friday");
-                        break;
-                    case 6:
-                        setAdapterAccordingToPosition("saturday");
-                        break;
+        checkFCM();
+    }
+
+    private void checkFCM()
+    {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if (!task.isSuccessful()) {
+                    return;
                 }
+
+                String studentFCM = task.getResult().getToken();
+                Log.e("New FCM",studentFCM);
+
+                if(studentFCM!=null)
+                {
+                    if(preferences.RetrieveFcm()!=null)
+                    {
+                        if(preferences.RetrieveFcm().equals(studentFCM))
+                            Log.e("checkFCM: ", "Old");
+                        else
+                        {
+                            Log.e("checkFCM: ", "New");
+                            UpdateApiFcmStudent(studentFCM);
+                        }
+                    }
+                    else
+                    {
+                        Log.e("checkFCM: ", "New");
+                        UpdateApiFcmStudent(studentFCM);
+                    }
+                }
+                else
+                {
+                    Log.e("FCM is","null");
+                }
+            }
+        });
+    }
+
+    private void UpdateApiFcmStudent(String FCM)
+    {
+        String email = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+        FcmToken fcmToken = new FcmToken(email,FCM);
+        getScheduleViewModel.updateFcm(fcmToken);
+        getScheduleViewModel.updateFcmResponse().observe(getActivity(), data -> {
+            if (data == null) {
+                Log.e("FCMApiCall", "Failed");
+            } else {
+                Log.e("FCMApiCall", "successFull");
+                firebaseScheduleViewModel.AddFcmCode(FCM);
+                preferences.AddFcm(FCM);
+            }
+        });
+    }
+
+    private void onSwipeDownToRefresh(int positionDay)
+    {
+        Log.d("Student", String.valueOf(positionDay) + "  : onSwipe");
+        switch (positionDay){
+            case 0:
+                setAdapterAccordingToPosition("sunday");
+                break;
+            case 1:
+                setAdapterAccordingToPosition("monday");
+                break;
+            case 2:
+                setAdapterAccordingToPosition("tuesday");
+                break;
+            case 3:
+                setAdapterAccordingToPosition("wednesday");
+                break;
+            case 4:
+                setAdapterAccordingToPosition("thursday");
+                break;
+            case 5:
+                setAdapterAccordingToPosition("friday");
+                break;
+            case 6:
+                setAdapterAccordingToPosition("saturday");
+                break;
+        }
 
     }
 
@@ -341,15 +412,8 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                //Toast.makeText(getActivity(), "Database Error", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container_frame,fragment);
-        fragmentTransaction.addToBackStack(null).commit();
     }
 
 }

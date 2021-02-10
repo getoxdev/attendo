@@ -3,6 +3,7 @@ package com.attendo.Schedule;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
@@ -28,10 +29,15 @@ import com.attendo.Schedule.Adapters.WeekDayAdapter;
 import com.attendo.data.model.schedule.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.data.model.schedule.SubjectDetails;
+import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 //import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,9 +46,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineItemAdapterCr.OnCardClick{
 
@@ -69,12 +78,8 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     //position
     private int positionDay = 0;
 
-
-
     LottieAnimationView noClassRoutineLottie;
     TextView noClassTextView;
-
-
 
     @Override
     public void onStart() {
@@ -82,9 +87,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         getClassId();
         getScheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -191,7 +194,71 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         return view;
     }
 
-    private void onSwipeDownToRefresh(int positionDay) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        checkFCM();
+    }
+
+    private void checkFCM()
+    {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if (!task.isSuccessful()) {
+                    return;
+                }
+
+                String crFCM = task.getResult().getToken();
+                Log.e("New FCM",crFCM);
+
+                if(crFCM!=null)
+                {
+                    if(appPreferences.RetrieveFcm()!=null)
+                    {
+                        if(appPreferences.RetrieveFcm().equals(crFCM))
+                            Log.e("checkFCM: ", "Old");
+                        else
+                        {
+                            Log.e("checkFCM: ", "New");
+                            UpdateApiFcmCr(crFCM);
+                        }
+                    }
+                    else
+                    {
+                        Log.e("checkFCM: ", "New");
+                        UpdateApiFcmCr(crFCM);
+                    }
+                }
+                else
+                {
+                    Log.e("FCM is","null");
+                }
+            }
+        });
+    }
+
+    private void UpdateApiFcmCr(String FCM)
+    {
+        String email = Objects.requireNonNull(mAuth.getCurrentUser()).getEmail();
+        FcmToken fcmToken = new FcmToken(email,FCM);
+        getScheduleViewModel.updateFcm(fcmToken);
+        getScheduleViewModel.updateFcmResponse().observe(getActivity(), data -> {
+            if (data == null) {
+                Toast.makeText(getActivity(),"Something went wrong please try again later",Toast.LENGTH_SHORT).show();
+                Log.e("FCMApiCall", "Failed");
+            } else {
+                Log.e("FCMApiCall", "successFull");
+                firebaseScheduleViewModel.AddFcmCode(FCM);
+                appPreferences.AddFcm(FCM);
+            }
+        });
+    }
+
+    private void onSwipeDownToRefresh(int positionDay)
+    {
                 switch (positionDay){
                     case 0:
                         setAdapterAccordingToPosition("sunday");
