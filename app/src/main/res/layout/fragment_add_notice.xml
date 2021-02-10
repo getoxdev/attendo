@@ -35,10 +35,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="start"
-            android:textSize="20dp"
+            android:textSize="17dp"
+            android:textStyle="bold"
             android:hint="Title"
-            android:fontFamily="@font/poppins_light"
-            android:padding="10dp" />
+            android:fontFamily="@font/poppins_regular" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="start"
-            android:padding="10dp"
+            android:textSize="17dp"
             android:hint="Notice"
             android:fontFamily="@font/poppins_light"/>
 

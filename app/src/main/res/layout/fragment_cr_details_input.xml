@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
             android:hint="Your name"
+            android:fontFamily="@font/poppins_light"
             android:elevation="0dp"
             android:inputType="text" />
 
@@ -52,6 +53,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
             android:hint="Scholar ID"
+            android:fontFamily="@font/poppins_light"
             android:elevation="0dp"
             android:inputType="text" />
 
@@ -79,6 +81,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
             android:hint="Class name"
+            android:fontFamily="@font/poppins_light"
             android:elevation="0dp"
             android:inputType="text" />
 
@@ -92,6 +95,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create"
+        android:textAllCaps="false"
+        android:fontFamily="@font/poppins_regular"
+        android:elevation="0dp"
+        app:rippleColor="#AF91F4"
+        app:strokeWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="20dp"/>
