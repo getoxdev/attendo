@@ -3,11 +3,11 @@ package com.attendo.data.model.schedule;
 public class ResponseFcm {
 
     private String status;
-    private String Fcm;
+    private String fcmToken;
 
     public ResponseFcm(String status, String fcm) {
         this.status = status;
-        Fcm = fcm;
+        fcmToken = fcm;
     }
 
     public String getStatus() {
@@ -19,10 +19,10 @@ public class ResponseFcm {
     }
 
     public String getFcm() {
-        return Fcm;
+        return fcmToken;
     }
 
     public void setFcm(String fcm) {
-        Fcm = fcm;
+        fcmToken = fcm;
     }
 }
