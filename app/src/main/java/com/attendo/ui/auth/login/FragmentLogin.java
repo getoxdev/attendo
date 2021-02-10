@@ -38,6 +38,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
@@ -51,6 +52,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -327,12 +330,33 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     @Override
     public void onLogin() {
         progress.setVisibility(View.INVISIBLE);
-        String Current_Fcm_Code = firebaseScheduleViewModel.RetrieveFCM();
-        appPreferences.AddFcm(Current_Fcm_Code);
-        Toast.makeText(getActivity(),"Login Successful",Toast.LENGTH_SHORT).show();
+        RetrieveFcm();
+        Toast.makeText(getActivity(),"Login Successful ",Toast.LENGTH_SHORT).show();
         Intent intent=new Intent(getActivity(),BottomNavMainActivity.class);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    private void RetrieveFcm() {
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
+        databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    String code = mAuth.getCurrentUser().getUid();
+                    String fcmcode = snapshot.child(code).child("FCM").getValue(String.class);
+                    appPreferences.AddFcm(fcmcode);
+                    Log.i("Fcm:",""+appPreferences.RetrieveFcm());
+                     }else{
+                    // schedule_id = "nothing";
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
     }
 
 

@@ -2,6 +2,7 @@ package com.attendo.viewmodel;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -27,7 +28,7 @@ public class FirebaseScheduleViewModel extends AndroidViewModel {
     private String class_id = null;
     private String schedule_id = null;
     private String class_code = null;
-    private String fcmcode = null;
+    private String fcmcode = "nothing";
 
     private AppPreferences appPreferences;
 

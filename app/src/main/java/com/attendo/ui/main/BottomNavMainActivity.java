@@ -278,7 +278,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
             } else {
                 Log.i("ApiCall", "successFull");
                 UpdateFirebaseAndSharedPreference();
-                appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
                 setFragment(crFragment);
             }
         });
@@ -306,7 +305,6 @@ public class BottomNavMainActivity extends AppCompatActivity {
             } else {
                 Log.i("ApiCall", "successFull");
                 UpdateFirebaseAndSharedPreference();
-                appPreferences.AddClassScheduleId(firebaseScheduleViewModel.RetrieveSchdeuleId());
                 setFragment(studentFragment);
             }
         });
