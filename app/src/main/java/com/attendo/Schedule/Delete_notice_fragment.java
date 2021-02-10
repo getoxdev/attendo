@@ -94,7 +94,6 @@ public class Delete_notice_fragment extends BottomSheetDialogFragment {
                 Log.i("ApiCall", "Failed");
                 dismiss();
             } else {
-                Toast.makeText(getActivity(),"Notice deleted successfully",Toast.LENGTH_SHORT).show();
                 Log.i("ApiCall", "delete successFull");
                 cardClick.refreshOnUpdateAndDelete();
                 new Handler().postDelayed(new Runnable() {

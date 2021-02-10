@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="400dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bottom_sheet_background"
     android:backgroundTint="@color/bottom_sheet_bg"
     android:layout_gravity="bottom"
     android:id="@+id/delete_schedule_bottom_sheet">
@@ -23,13 +22,15 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="90dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/delete_notice"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/delete_animation"/>
+        app:lottie_rawRes="@raw/delete_animation" />
 
     <TextView
         android:id="@+id/textView7"
