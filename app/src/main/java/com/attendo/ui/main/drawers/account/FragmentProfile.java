@@ -149,7 +149,7 @@ public class FragmentProfile extends Fragment {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     databaseReference.child("images/" + user_id.toString()).removeValue();
-                                    Toast.makeText(getContext(), "Account Updated " + name.getText().toString(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Account Updated " + name.getText().toString(), Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getActivity(), BottomNavMainActivity.class);
                                     startActivity(intent);
                                     getActivity().finish();
@@ -157,7 +157,7 @@ public class FragmentProfile extends Fragment {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getContext(), "Account Updated", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Account Updated", Toast.LENGTH_SHORT).show();
                                     Log.d("Execption got", e.toString());
                                     Intent intent = new Intent(getActivity(), BottomNavMainActivity.class);
                                     startActivity(intent);
@@ -176,7 +176,7 @@ public class FragmentProfile extends Fragment {
                               @Override
                               public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                   pB.setVisibility(View.INVISIBLE);
-                                  Toast.makeText(getContext(),"Account Updated "+name.getText().toString(),Toast.LENGTH_SHORT).show();
+                                  Toast.makeText(getActivity(),"Account Updated "+name.getText().toString(),Toast.LENGTH_SHORT).show();
                                   Intent intent=new Intent(getActivity(), BottomNavMainActivity.class);
                                   startActivity(intent);
                                   getActivity().finish();

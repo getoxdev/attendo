@@ -48,7 +48,6 @@ public class SplashFragment extends Fragment {
 
         Animation animation  = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.bounce);
 
-
         //hooks
         appIcon = (ImageView) view.findViewById(R.id.splash_screen_app_icon);
 
@@ -56,7 +55,6 @@ public class SplashFragment extends Fragment {
 
         //stay logged in code
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -79,9 +77,17 @@ public class SplashFragment extends Fragment {
         return view;
     }
 
-    private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.start_frame,fragment);
-        fragmentTransaction.commit();
+    private void setFragment(Fragment fragment)
+    {
+        try
+        {
+            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.start_frame,fragment);
+            fragmentTransaction.commit();
+        }
+        catch (Exception e)
+        {
+            Log.e("Exception",e.getMessage());
+        }
     }
 }

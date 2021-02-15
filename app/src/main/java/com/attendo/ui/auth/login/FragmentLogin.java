@@ -1,6 +1,8 @@
 package com.attendo.ui.auth.login;
 
+import android.app.Activity;
 import android.content.ContentProvider;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -26,6 +29,7 @@ import android.widget.Toast;
 
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.ui.CustomLoadingDialog;
+import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.auth.FragmentForgetPassword;
 import com.attendo.R;
 import com.attendo.ui.auth.signup.FragmentSignup;
@@ -89,7 +93,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
     private FragmentProfile fragmentProfile;
-
+    FragmentActivity mActivity;
     private static final String EMAIL = "email";
 
 
@@ -108,10 +112,9 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         fragmentSignup = new FragmentSignup();
         fragmentForgetpassword = new FragmentForgetPassword();
         fragmentProfile = new FragmentProfile();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule_Member");
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
         appPreferences = AppPreferences.getInstance(getContext());
-
+        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
 
         /*//stay logged in code
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -185,6 +188,14 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         return view;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof FragmentActivity){
+            mActivity = (FragmentActivity) context;
+        }
+    }
 
     public void setInputs(boolean enable){
         email.setEnabled(enable);
@@ -230,8 +241,8 @@ public class FragmentLogin extends Fragment implements logininterface.View {
             }
     }
 
-    private void firebaseAuthWithGoogle(String idToken) {
-        //TODO: Add the loadin animation dialog here
+    private void firebaseAuthWithGoogle(String idToken)
+    {
         CustomLoadingDialog loadingDialog = new CustomLoadingDialog(getActivity());
         loadingDialog.startDialog(false);
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -262,10 +273,10 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                 });
     }
 
-    private void setNextFragment(Fragment fragment) {
+    private void setNextFragment(Fragment fragment)
+    {
         FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.start_frame, fragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -299,12 +310,12 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     public void handleLogin() {
         if(!isValidEmail()){
             progress.setVisibility(View.INVISIBLE);
-            Toast.makeText(getActivity(),"please enter a valid email",Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity,"please enter a valid email",Toast.LENGTH_SHORT).show();
             email.setError("InValid email");
         }
         else if(!isValidPassword()){
             progress.setVisibility(View.INVISIBLE);
-            Toast.makeText(getActivity(),"please enter a valid password",Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity,"please enter a valid password",Toast.LENGTH_SHORT).show();
         }
         else {
             presenter.toLogin(email.getText().toString().trim(),password.getText().toString().trim());
@@ -339,7 +350,6 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
     private void RetrieveFcm() {
         mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Schedule");
         databaseReference.orderByKey().equalTo(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -356,9 +366,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
     }
-
 
     @Override
     public void onError(String message) {
@@ -368,26 +376,22 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.start_frame,fragment);
-        fragmentTransaction.addToBackStack(null).commit();
+        fragmentTransaction.commit();
     }
 
     private void checkUser(){
 
         if(mAuth.getCurrentUser() != null) {
-            final String id = mAuth.getCurrentUser().getUid();
             DatabaseReference mData = FirebaseDatabase.getInstance().getReference("data");
 
             mData.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.hasChild(mAuth.getCurrentUser().getUid())) {
-                        Intent newIntent = new Intent(getActivity(), BottomNavMainActivity.class);
-                        startActivity(newIntent);
-                        getActivity().finish();
+                        Intent newIntent = new Intent(mActivity, BottomNavMainActivity.class);
+                        mActivity.startActivity(newIntent);
+                        mActivity.finish();
                     } else {
-                        String userId = mAuth.getCurrentUser().getUid();
-                        databaseReference.child(userId).child("Schedule_Code").setValue("");
-                        databaseReference.child(userId).child("Schedule_Join_As").setValue("");
                         setNextFragment(fragmentProfile);
                         setDataGoogleSignIn(fragmentProfile);
                     }
