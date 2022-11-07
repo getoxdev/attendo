@@ -27,7 +27,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.apache.poi.ss.formula.functions.T;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
