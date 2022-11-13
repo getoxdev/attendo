@@ -7,9 +7,9 @@ import android.util.Log;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.attendo.data.database.SubDatabase;
 import com.attendo.data.sub.SubDao;
 import com.attendo.data.sub.SubEntity;
-import com.attendo.data.database.SubDatabase;
 
 import java.util.List;
 import java.util.concurrent.Executor;

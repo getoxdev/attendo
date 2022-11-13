@@ -19,27 +19,20 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.NewFeatureReleaseFragment;
 import com.attendo.R;
 import com.attendo.Schedule.CrFragment;
 import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.Schedule.StudentFragment;
-import com.attendo.data.database.SubDatabase;
-import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.ui.calendar.FragmentCalender;
 import com.attendo.ui.main.drawers.reminder.FragmentReminder;
 
@@ -48,10 +41,6 @@ import com.attendo.ui.main.menu.FragmentAbout;
 import com.attendo.ui.sub.Fragment_Subject;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.android.material.transition.platform.MaterialFade;
@@ -61,8 +50,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 import java.io.File;
 

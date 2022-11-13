@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.attendo"
         manifestPlaceholders = [bootPriority:"999"]
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 7
         versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -28,6 +29,8 @@ android {
 dependencies {
 
     implementation "androidx.room:room-runtime:2.4.0-alpha03"
+    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     annotationProcessor "androidx.room:room-compiler:2.4.0-alpha03"
     implementation 'androidx.work:work-runtime:2.2.0'
     implementation 'com.google.firebase:firebase-database:19.3.1'
