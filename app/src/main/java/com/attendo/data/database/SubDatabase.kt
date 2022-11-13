@@ -17,8 +17,6 @@ import com.attendo.data.sub.SubEntity
 
 public abstract class SubDatabase: RoomDatabase() {
 
-
-
     abstract fun SubDao(): SubDao?
     abstract fun calendarDao(): CalendarDao?
 
@@ -45,6 +43,4 @@ public abstract class SubDatabase: RoomDatabase() {
             return instance
         }
     }
-
-
 }
