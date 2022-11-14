@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 
 android {
     compileSdkVersion 33
@@ -27,6 +30,7 @@ android {
 }
 
 dependencies {
+
 
     implementation "androidx.room:room-runtime:2.4.0-alpha03"
     implementation 'androidx.core:core-ktx:+'
@@ -62,6 +66,10 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
 
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.6.0-alpha03"
+    implementation "androidx.room:room-runtime:2.5.0-beta01"
+    kapt "androidx.room:room-compiler:2.5.0-beta01"
     //Facebook login
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 
