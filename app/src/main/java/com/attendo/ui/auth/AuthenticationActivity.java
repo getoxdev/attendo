@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.Window;
 
 import com.attendo.R;
-import com.attendo.ui.auth.login.FragmentLogin;
 import com.attendo.ui.splash.SplashFragment;
 import com.google.android.material.transition.platform.MaterialFade;
 

@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import android.renderscript.ScriptGroup;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.databinding.FragmentLoginBinding;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.auth.FragmentForgetPassword;
@@ -59,27 +61,18 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.airbnb.lottie.L.TAG;
 
 public class FragmentLogin extends Fragment implements logininterface.View {
+
+ FragmentLoginBinding binding;
+
+
+
+
+
     
-    @BindView(R.id.editTextTextPersonName)
-    EditText email;
-    @BindView(R.id.editTextTextPassword)
-    EditText password;
-    @BindView(R.id.button)
-    Button loginbtn;
-    @BindView(R.id.other_signIn_options_btn)
-    Button otherWaysbtn;
-    @BindView(R.id.textViewforgot)
-    TextView forgotpassword;
-    @BindView(R.id.textViewregister)
-    TextView register;
-    @BindView(R.id.progress_circular)
-    ProgressBar progress;
 
 
     int found = 0;
@@ -100,11 +93,10 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentLoginBinding.inflate(inflater,container,false);
         View view= inflater.inflate(R.layout.fragment_login, container, false);
 
         setAllowEnterTransitionOverlap(false);
-
-        ButterKnife.bind(this, view);
 
         presenter = new loginPresenter(this);
 
@@ -139,24 +131,24 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         fragmentForgetpassword.setEnterTransition(enter);
         fragmentForgetpassword.setExitTransition(exit);
 
-        forgotpassword.setOnClickListener(new View.OnClickListener() {
+        binding.textViewforgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentForgetpassword);
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
+        binding.textViewregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentSignup);
             }
         });
 
-        loginbtn.setOnClickListener(new View.OnClickListener() {
+        binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progress.setVisibility(View.VISIBLE);
+                binding.progressCircular.setVisibility(View.VISIBLE);
                 handleLogin();
 
             }
@@ -175,8 +167,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
         //****************create google sign  in request************************
         createRequest();
-
-        otherWaysbtn.setOnClickListener(new View.OnClickListener() {
+         binding.otherSignInOptionsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //
@@ -185,7 +176,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         });
 
 
-        return view;
+        return binding.getRoot();
     }
 
     @Override
@@ -198,9 +189,9 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     }
 
     public void setInputs(boolean enable){
-        email.setEnabled(enable);
-        password.setEnabled(enable);
-        loginbtn.setEnabled(enable);
+        binding.editTextTextPersonName.setEnabled(enable);
+        binding.editTextTextPassword.setEnabled(enable);
+        binding.button.setEnabled(enable);
     }
 
     //method for google signIn
@@ -309,29 +300,29 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     @Override
     public void handleLogin() {
         if(!isValidEmail()){
-            progress.setVisibility(View.INVISIBLE);
+            binding.progressCircular.setVisibility(View.INVISIBLE);
             Toast.makeText(mActivity,"please enter a valid email",Toast.LENGTH_SHORT).show();
-            email.setError("InValid email");
+            binding.editTextTextPersonName.setError("InValid email");
         }
         else if(!isValidPassword()){
-            progress.setVisibility(View.INVISIBLE);
+            binding.progressCircular.setVisibility(View.INVISIBLE);
             Toast.makeText(mActivity,"please enter a valid password",Toast.LENGTH_SHORT).show();
         }
         else {
-            presenter.toLogin(email.getText().toString().trim(),password.getText().toString().trim());
+            presenter.toLogin(binding.editTextTextPersonName.getText().toString().trim(),binding.editTextTextPassword.getText().toString().trim());
         }
     }
 
     @Override
     public boolean isValidEmail() {
-        return Patterns.EMAIL_ADDRESS.matcher(email.getText().toString().trim()).matches();
+        return Patterns.EMAIL_ADDRESS.matcher(binding.editTextTextPersonName.getText().toString().trim()).matches();
     }
 
     @Override
     public boolean isValidPassword() {
-        if(TextUtils.isEmpty(password.getText().toString().trim()) || password.getText().toString().trim().length()<6){
+        if(TextUtils.isEmpty(binding.editTextTextPassword.getText().toString().trim()) || binding.editTextTextPassword.getText().toString().trim().length()<6){
             Toast.makeText(getActivity(),"please enter a valid password",Toast.LENGTH_SHORT).show();
-            password.setError("Invalid data");
+            binding.editTextTextPassword.setError("Invalid data");
             return false;
         }
         else
@@ -340,7 +331,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
     @Override
     public void onLogin() {
-        progress.setVisibility(View.INVISIBLE);
+        binding.progressCircular.setVisibility(View.INVISIBLE);
         RetrieveFcm();
         Toast.makeText(getActivity(),"Login Successful ",Toast.LENGTH_SHORT).show();
         Intent intent=new Intent(getActivity(),BottomNavMainActivity.class);
@@ -370,7 +361,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
     @Override
     public void onError(String message) {
-        progress.setVisibility(View.INVISIBLE);
+        binding.progressCircular.setVisibility(View.INVISIBLE);
         Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
     }
     private void setFragment(Fragment fragment) {

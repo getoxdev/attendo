@@ -27,8 +27,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapterCr.RoutineItemAdapterCrHolder> {
 
@@ -142,22 +141,24 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
 
     public class RoutineItemAdapterCrHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.subjectname)
-        TextView subject;
-        @BindView(R.id.instructor)
-        TextView faculty;
-        @BindView(R.id.time)
-        TextView time;
 
-        @BindView(R.id.subjectCard)
+        TextView subject;
+        TextView faculty;
+        TextView time;
         CardView subjectCard;
 
         View mview;
 
         public RoutineItemAdapterCrHolder(@NonNull View itemView) {
             super(itemView);
-           ButterKnife.bind(this,itemView);
-            mview = itemView;
+            subjectCard = itemView.findViewById(R.id.subjectCard);
+            time = itemView.findViewById(R.id.time);
+            faculty = itemView.findViewById(R.id.instructor);
+            subject = itemView.findViewById(R.id.subjectname);
+
+
+
+
         }
 
 

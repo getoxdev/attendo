@@ -15,8 +15,6 @@ import com.attendo.data.model.schedule.NoticeDetails;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class NoticeAdapterStudent extends RecyclerView.Adapter<NoticeAdapterStudent.MyViewHolder> {
 
@@ -59,15 +57,14 @@ public class NoticeAdapterStudent extends RecyclerView.Adapter<NoticeAdapterStud
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.Title)
         TextView sub;
-
-        @BindView(R.id.NoticeCard)
         CardView notice_card;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            notice_card = itemView.findViewById(R.id.NoticeCard);
+            sub = itemView.findViewById(R.id.Title);
+
         }
     }
 

@@ -11,19 +11,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.attendo.R;
+import com.attendo.databinding.FragmentNoticeBodyBottomSheetBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 public class NoticeBodyBottomSheetFragment extends BottomSheetDialogFragment {
+    FragmentNoticeBodyBottomSheetBinding binding;
 
 
-    @BindView(R.id.title_notice)
-    TextView title;
-
-    @BindView(R.id.body_notice)
-    TextView body;
+    TextView title = binding.titleNotice;
+    TextView body = binding.bodyNotice;
 
 
     private static final String TITLE = "title_notice";
@@ -60,13 +58,12 @@ public class NoticeBodyBottomSheetFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_notice_body_bottom_sheet, container, false);
-        ButterKnife.bind(this, view);
+        binding = FragmentNoticeBodyBottomSheetBinding.inflate(inflater,container,false);        // Inflate the layout for this fragment
+
 
         title.setText(mTitle);
         body.setText(mBody);
 
-        return view;
+        return binding.getRoot();
     }
 }

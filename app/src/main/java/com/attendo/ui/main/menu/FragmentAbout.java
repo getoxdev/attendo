@@ -26,7 +26,10 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 
-public class FragmentAbout extends Fragment {
+public class FragmentAbout extends Fragment
+{
+
+
 
     @BindView(R.id.mentor1)
     CardView mentorCard;

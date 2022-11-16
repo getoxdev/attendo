@@ -22,6 +22,7 @@ import com.attendo.R;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.ScheduleEdit;
+import com.attendo.databinding.FragmentEditScheduleFragmentBinding;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
@@ -33,8 +34,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public  class Edit_schedule_fragment extends BottomSheetDialogFragment implements AdapterView.OnItemSelectedListener{
@@ -63,21 +62,20 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
 
     String timePickerTime;
     String scheduleId;
+  FragmentEditScheduleFragmentBinding binding;
 
-    @BindView(R.id.edit_sub_BottomSheet)
-    EditText subjectName;
 
-    @BindView(R.id.update_faculty)
-    EditText faculty;
 
-    @BindView(R.id.spinner_schedule)
-    Spinner spinner;
+    EditText faculty = binding.updateFaculty;
 
-    @BindView(R.id.edit_sub_details_time_picker)
-    TimePicker timePicker;
 
-    @BindView(R.id.edit_subject_btn)
-    Button update;
+    Spinner spinner = binding.spinnerSchedule;
+
+
+    TimePicker timePicker = binding.editSubDetailsTimePicker;
+
+
+    Button update = binding.editSubjectBtn;
 
     public Edit_schedule_fragment(UpdateRecyclerView updateRecyclerView){
         this.updateRecyclerView = updateRecyclerView;
@@ -116,8 +114,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_edit_schedule_fragment, container, false);
-        ButterKnife.bind(this,view);
+        binding = FragmentEditScheduleFragmentBinding.inflate(inflater,container,false);
 
         scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
@@ -127,7 +124,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
 
         customLoadingDialog = new CustomLoadingDialog(getActivity());
 
-        subjectName.setText(subject_name);
+        binding.editSubBottomSheet.setText(subject_name);
         faculty.setText(prof);
 
 
@@ -160,7 +157,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sub = subjectName.getText().toString();
+                String sub = binding.editSubBottomSheet.getText().toString();
                 String teacher = faculty.getText().toString();
                 String clock = timePickerTime;
                 if (sub.length() > 0 && teacher.length() > 0 && clock.length() > 0 && day.length() > 0) {
@@ -179,7 +176,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
 
 
 
-        return view;
+        return binding.getRoot();
     }
 
 
@@ -199,7 +196,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
     public void edit_schedule(String scheduleClassId)
     {
         if(appPreferences.RetrieveClassId() != null){
-            ScheduleEdit scheduleEdit = new ScheduleEdit(appPreferences.retrieveScheduleId(),scheduleClassId,day,timePickerTime,subjectName.getText().toString(),faculty.getText().toString());
+            ScheduleEdit scheduleEdit = new ScheduleEdit(appPreferences.retrieveScheduleId(),scheduleClassId,day,timePickerTime,binding.editSubBottomSheet.getText().toString(),faculty.getText().toString());
             scheduleViewModel.editScheduleResponse(scheduleEdit);
             scheduleViewModel.scheduleResponseEdit().observe(getActivity(), data -> {
                 if (data == null) {
