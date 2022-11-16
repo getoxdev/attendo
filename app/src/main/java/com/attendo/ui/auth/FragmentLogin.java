@@ -1,4 +1,4 @@
-package com.attendo.ui.auth.login;
+package com.attendo.ui.auth;
 
 import android.app.Activity;
 import android.content.ContentProvider;
@@ -32,6 +32,8 @@ import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.auth.FragmentForgetPassword;
 import com.attendo.R;
+import com.attendo.ui.auth.login.loginPresenter;
+import com.attendo.ui.auth.login.logininterface;
 import com.attendo.ui.auth.signup.FragmentSignup;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.ui.main.drawers.account.FragmentProfile;
@@ -74,9 +76,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     Button loginbtn;
     @BindView(R.id.other_signIn_options_btn)
     Button otherWaysbtn;
-    @BindView(R.id.textViewforgot)
-    TextView forgotpassword;
-    @BindView(R.id.textViewregister)
+       TextView forgotpassword;
     TextView register;
     @BindView(R.id.progress_circular)
     ProgressBar progress;
@@ -107,8 +107,8 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         ButterKnife.bind(this, view);
 
         presenter = new loginPresenter(this);
-
-
+    forgotpassword = view.findViewById(R.id.textViewforgot);
+  register = view.findViewById(R.id.textViewregister);
         fragmentSignup = new FragmentSignup();
         fragmentForgetpassword = new FragmentForgetPassword();
         fragmentProfile = new FragmentProfile();
@@ -153,7 +153,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
             }
         });
 
-        loginbtn.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progress.setVisibility(View.VISIBLE);
@@ -176,7 +176,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         //****************create google sign  in request************************
         createRequest();
 
-        otherWaysbtn.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.other_signIn_options_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //

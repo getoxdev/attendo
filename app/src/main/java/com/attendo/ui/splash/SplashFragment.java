@@ -1,7 +1,6 @@
 package com.attendo.ui.splash;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,9 +17,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.attendo.R;
-import com.attendo.ui.auth.login.FragmentLogin;
+import com.attendo.ui.auth.FragmentLogin;
 import com.attendo.ui.main.BottomNavMainActivity;
-import com.google.android.material.transition.MaterialFade;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,7 +26,6 @@ import com.google.firebase.auth.FirebaseUser;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.airbnb.lottie.L.TAG;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class SplashFragment extends Fragment {
