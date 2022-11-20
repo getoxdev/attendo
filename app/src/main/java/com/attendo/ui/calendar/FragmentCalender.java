@@ -24,6 +24,8 @@ import android.widget.TextView;
 
 import com.attendo.R;
 import com.attendo.data.DateConverter;
+import com.attendo.databinding.FragmentCalenderBinding;
+import com.attendo.databinding.FragmentExamReminderBinding;
 import com.attendo.viewmodel.CalViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -41,17 +43,19 @@ import butterknife.ButterKnife;
 public class FragmentCalender extends Fragment {
 
 
-    @BindView(R.id.CalRecyclerview)
-    RecyclerView recyclerView;
+//    @BindView(R.id.CalRecyclerview)
+//    RecyclerView recyclerView;
+//
+//    @BindView(R.id.selected_date)
+//    TextView selectedDate;
+//
+//    @BindView(R.id.calendar_fragment)
+//    CalendarView calendar;
+//
+//    @BindView(R.id.my_bottom_sheet_calendar)
+//    RelativeLayout calendarRecycler;
 
-    @BindView(R.id.selected_date)
-    TextView selectedDate;
-
-    @BindView(R.id.calendar_fragment)
-    CalendarView calendar;
-
-    @BindView(R.id.my_bottom_sheet_calendar)
-    RelativeLayout calendarRecycler;
+    private FragmentCalenderBinding binding;
 
     private CalAdapter calAdapter;
     private CalViewModel calViewModel;
@@ -63,39 +67,40 @@ public class FragmentCalender extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_calender, container, false);
+        binding=FragmentCalenderBinding.inflate(getLayoutInflater(),container,false);
+        View view = binding.getRoot();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Calendar");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.VISIBLE);
-        ButterKnife.bind(this, view);
+        //ButterKnife.bind(this, view);
 
         dateConverter = new DateConverter();
 
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.recycler_view_layout_anim);
 
-        subDate = formatter(dateConverter.fromTimestamp(calendar.getDate()));
-        selectedDate.setText(subDate);
+        subDate = formatter(dateConverter.fromTimestamp(binding.calendarFragment.getDate()));
+        binding.selectedDate.setText(subDate);
 
         //bottomnavigationbehaviour
-        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(calendarRecycler);
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(binding.myBottomSheetCalendar);
         bottomSheetBehavior.setFitToContents(false);
         bottomSheetBehavior.setHalfExpandedRatio(0.5f);
 
         Animation bototmSheetPeek = AnimationUtils.loadAnimation(getContext(), R.anim.calendar_bottom_sheet_peek);
-        calendarRecycler.setAnimation(bototmSheetPeek);
+        binding.myBottomSheetCalendar.setAnimation(bototmSheetPeek);
 
 
 
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        binding.calendarFragment.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                recyclerView.setLayoutAnimation(controller);
+                binding.CalRecyclerview.setLayoutAnimation(controller);
 
                 if(month<9)
                 {
                     if(dayOfMonth<=9)
                     {
-                        selectedDate.setText("0"+dayOfMonth+"-"+"0"+(month+1)+"-"+year);
+                        binding.selectedDate.setText("0"+dayOfMonth+"-"+"0"+(month+1)+"-"+year);
                         calAdapter = new CalAdapter(getActivity(),mDataList);
                         calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
                         calViewModel.getSub("0"+dayOfMonth+"-"+"0"+(month+1)+"-"+year).observe(getActivity(), new Observer<List<String>>() {
@@ -106,13 +111,13 @@ public class FragmentCalender extends Fragment {
 
                             }
                         });
-                        recyclerView.setAdapter(calAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        binding.CalRecyclerview.setAdapter(calAdapter);
+                        binding.CalRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
                     }
                     else {
-                        selectedDate.setText(dayOfMonth + "-" + "0" + (month + 1) + "-" + year);
+                        binding.selectedDate.setText(dayOfMonth + "-" + "0" + (month + 1) + "-" + year);
                         calAdapter = new CalAdapter(getActivity(), mDataList);
                         calViewModel = new ViewModelProvider(getActivity()).get(CalViewModel.class);
                         calViewModel.getSub(dayOfMonth + "-" + "0" + (month + 1) + "-" + year).observe(getActivity(), new Observer<List<String>>() {
@@ -122,14 +127,14 @@ public class FragmentCalender extends Fragment {
 
                             }
                         });
-                        recyclerView.setAdapter(calAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        binding.CalRecyclerview.setAdapter(calAdapter);
+                        binding.CalRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
                     }
 
                 }
                 else {
                     if (dayOfMonth <= 9) {
-                        selectedDate.setText("0"+dayOfMonth + "-" + (month + 1) + "-" + year);
+                        binding.selectedDate.setText("0"+dayOfMonth + "-" + (month + 1) + "-" + year);
 
                         Log.e("date", subDate);
                         calAdapter = new CalAdapter(getActivity(), mDataList);
@@ -141,12 +146,12 @@ public class FragmentCalender extends Fragment {
 
                             }
                         });
-                        recyclerView.setAdapter(calAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        binding.CalRecyclerview.setAdapter(calAdapter);
+                        binding.CalRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
                     }
                     else
                     {
-                        selectedDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+                        binding.selectedDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
 
                         Log.e("date", subDate);
                         calAdapter = new CalAdapter(getActivity(), mDataList);
@@ -158,8 +163,8 @@ public class FragmentCalender extends Fragment {
 
                             }
                         });
-                        recyclerView.setAdapter(calAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        binding.CalRecyclerview.setAdapter(calAdapter);
+                        binding.CalRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
 
                     }
                 }
@@ -176,8 +181,8 @@ public class FragmentCalender extends Fragment {
             }
         });
 
-        recyclerView.setAdapter(calAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.CalRecyclerview.setAdapter(calAdapter);
+        binding.CalRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
     }
