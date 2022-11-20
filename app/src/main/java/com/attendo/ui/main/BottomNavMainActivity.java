@@ -33,6 +33,7 @@ import com.attendo.Schedule.CrFragment;
 import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.Schedule.StudentFragment;
+import com.attendo.databinding.ActivityBottomNavMainBinding;
 import com.attendo.ui.calendar.FragmentCalender;
 import com.attendo.ui.main.drawers.reminder.FragmentReminder;
 
@@ -58,15 +59,16 @@ import butterknife.ButterKnife;
 
 public class BottomNavMainActivity extends AppCompatActivity {
 
-    @BindView(R.id.bottom_nav_bar)
-    BottomNavigationView bottomNavigationView;
+//    @BindView(R.id.bottom_nav_bar)
+//    BottomNavigationView bottomNavigationView;
 
-    @BindView(R.id.container_frame)
-    FrameLayout frameLayout;
+//    @BindView(R.id.container_frame)
+//    FrameLayout frameLayout;
 
-    @BindView(R.id.toolbar_bottom_nav)
-    Toolbar toolbar;
+//    @BindView(R.id.toolbar_bottom_nav)
+//    Toolbar toolbar;
 
+    private ActivityBottomNavMainBinding binding;
     private String fcm;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
@@ -84,12 +86,13 @@ public class BottomNavMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding=ActivityBottomNavMainBinding.inflate(getLayoutInflater());
 
         getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         getWindow().setEnterTransition(new MaterialFade().setDuration(300));
         getWindow().setExitTransition(new MaterialFade().setDuration(300));
-        setContentView(R.layout.activity_bottom_nav_main);
-        ButterKnife.bind(this);
+        setContentView(binding.getRoot());
+        //ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
@@ -103,8 +106,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
         studentFragment = new StudentFragment();
         scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
-        setSupportActionBar(toolbar);
+        binding.bottomNavBar.setOnNavigationItemSelectedListener(selectedListener);
+        setSupportActionBar(binding.toolbarBottomNav);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_frame, new Fragment_Subject()).commit();
 
