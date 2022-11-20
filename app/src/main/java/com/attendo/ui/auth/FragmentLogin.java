@@ -1,4 +1,4 @@
-package com.attendo.ui.auth;
+package com.attendo.ui.auth.login;
 
 import android.app.Activity;
 import android.content.ContentProvider;
@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.databinding.FragmentLoginBinding;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.auth.FragmentForgetPassword;
@@ -76,7 +77,9 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     Button loginbtn;
     @BindView(R.id.other_signIn_options_btn)
     Button otherWaysbtn;
-       TextView forgotpassword;
+    @BindView(R.id.textViewforgot)
+    TextView forgotpassword;
+    @BindView(R.id.textViewregister)
     TextView register;
     @BindView(R.id.progress_circular)
     ProgressBar progress;
@@ -107,8 +110,8 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         ButterKnife.bind(this, view);
 
         presenter = new loginPresenter(this);
-    forgotpassword = view.findViewById(R.id.textViewforgot);
-  register = view.findViewById(R.id.textViewregister);
+
+
         fragmentSignup = new FragmentSignup();
         fragmentForgetpassword = new FragmentForgetPassword();
         fragmentProfile = new FragmentProfile();
@@ -153,7 +156,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
             }
         });
 
-        view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+        loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progress.setVisibility(View.VISIBLE);
@@ -176,7 +179,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         //****************create google sign  in request************************
         createRequest();
 
-        view.findViewById(R.id.other_signIn_options_btn).setOnClickListener(new View.OnClickListener() {
+        otherWaysbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //

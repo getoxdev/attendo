@@ -21,6 +21,9 @@ import butterknife.ButterKnife;
 
 public class CreateAndJoinClassBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
+
+
+
     @BindView(R.id.join_class_btn)
     Button joinClass;
 

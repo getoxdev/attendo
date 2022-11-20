@@ -18,13 +18,12 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.data.sub.SubEntity;
+import com.attendo.databinding.FragmentAddSubjectBottomSheetDialogBinding;
 import com.attendo.viewmodel.SubjectViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.textfield.TextInputLayout;
 
-import butterknife.BindInt;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,53 +31,39 @@ import butterknife.ButterKnife;
  * create an instance of this fragment.
  */
 public class AddSubjectBottomSheetDialogFragment extends BottomSheetDialogFragment {
+    
+    FragmentAddSubjectBottomSheetDialogBinding binding;
 
     //hooks for the widgets
-    @BindView(R.id.add_subject_bottomsheet)
-    EditText subjectName;
+   
 
-    @BindView(R.id.add_subject_btn)
-    Button addButton;
 
-    @BindView(R.id.add_subject_id)
-    TextView update;
-
-    @BindView(R.id.lottie_animation_add_subject)
-    LottieAnimationView celebration;
-
-    @BindView(R.id.lottie)
-    LottieAnimationView addsub;
-
-    @BindView(R.id.edittext_input_subject)
-    TextInputLayout addSubLayout;
 
     private SubjectViewModel subViewModel;
-
+  
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_subject_bottom_sheet_dialog, container, false);
-        ButterKnife.bind(this, view);
+        binding = FragmentAddSubjectBottomSheetDialogBinding.inflate(inflater,container,false);
 
-        celebration.setVisibility(View.INVISIBLE);
-        subjectName.setText(null);
-        addsub.setAnimation(R.raw.subject_new);
-        update.setText("Add Subject");
+        binding.lottieAnimationAddSubject.setVisibility(View.INVISIBLE);
+        binding.addSubjectBottomsheet.setText(null);
+        binding.lottie.setAnimation(R.raw.subject_new);
+        binding.addSubjectId.setText("Add Subject");
         subViewModel = new ViewModelProvider(this).get(SubjectViewModel.class);
 
 
 
 
-        addButton.setOnClickListener(new View.OnClickListener() {
+        binding.addSubjectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addSubLayout.setErrorEnabled(false);
-                if(subjectName.getText().toString().trim().length()>0){
-                    celebration.setVisibility(View.VISIBLE);
-                    celebration.playAnimation();
-                    SubEntity subEntity = new SubEntity(subjectName.getText().toString().trim(), 0, 0, 0);
+                binding.edittextInputSubject.setErrorEnabled(false);
+                if(binding.addSubjectBottomsheet.getText().toString().trim().length()>0){
+                    binding.lottieAnimationAddSubject.setVisibility(View.VISIBLE);
+                    binding.lottieAnimationAddSubject.playAnimation();
+                    SubEntity subEntity = new SubEntity(binding.addSubjectBottomsheet.getText().toString().trim(), 0, 0, 0);
                     subViewModel.insertSubject(subEntity);
                     Handler mhandler = new Handler();
                     mhandler.postDelayed(new Runnable() {
@@ -91,7 +76,7 @@ public class AddSubjectBottomSheetDialogFragment extends BottomSheetDialogFragme
 
                 }
                 else{
-                    addSubLayout.setError("Please enter the subject");
+                    binding.edittextInputSubject.setError("Please enter the subject");
 
                 }
 
@@ -104,7 +89,7 @@ public class AddSubjectBottomSheetDialogFragment extends BottomSheetDialogFragme
 
 
 
-        return view;
+        return binding.getRoot();
     }
 
 

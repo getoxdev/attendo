@@ -16,6 +16,9 @@ android {
         versionCode 7
         versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildFeatures {
+            viewBinding true
+        }
     }
     buildTypes {
         release {
@@ -30,7 +33,6 @@ android {
 }
 
 dependencies {
-
 
     implementation "androidx.room:room-runtime:2.4.0-alpha03"
     implementation 'androidx.core:core-ktx:+'

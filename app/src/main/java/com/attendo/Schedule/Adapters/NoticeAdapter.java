@@ -18,8 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHolder> {
 
@@ -106,16 +105,15 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.Title)
-        TextView sub;
 
-        @BindView(R.id.NoticeCard)
+        TextView sub;
         CardView notice_card;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            sub = itemView.findViewById(R.id.Title);
+            notice_card = itemView.findViewById(R.id.NoticeCard);
         }
     }
 
