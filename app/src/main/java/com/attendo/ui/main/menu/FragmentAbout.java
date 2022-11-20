@@ -16,54 +16,40 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.databinding.FragmentAboutBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 
-import java.util.List;
 
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
+
+
 
 public class FragmentAbout extends Fragment
 {
+    FragmentAboutBinding binding;
 
 
 
-    @BindView(R.id.mentor1)
     CardView mentorCard;
-
-    @BindView(R.id.mentor2)
     CardView mentor2;
-
-    @BindView(R.id.learner1)
     CardView learner1;
-
-    @BindView(R.id.learner2)
     CardView learner2;
-
-    @BindView(R.id.learner3)
     CardView learner3;
-
-    @BindView(R.id.learner4)
     CardView learner4;
-
-    @BindView(R.id.learner5)
     CardView learner5;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_about, container, false);
-        ButterKnife.bind(this, view);
+        binding = FragmentAboutBinding.inflate(inflater,container,false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("About Us");
 
 
         //setting on click listener for all the cards
 
-        mentorCard.setOnClickListener(new View.OnClickListener() {
+        binding.mentor1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -73,7 +59,7 @@ public class FragmentAbout extends Fragment
             }
         });
 
-        learner1.setOnClickListener(new View.OnClickListener() {
+        binding.learner1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -84,7 +70,7 @@ public class FragmentAbout extends Fragment
         });
 
 
-        learner2.setOnClickListener(new View.OnClickListener() {
+        binding.learner2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -95,7 +81,7 @@ public class FragmentAbout extends Fragment
 
 
         //----------------  learner 3 card on click  ----------------------------
-        learner3.setOnClickListener(new View.OnClickListener() {
+        binding.learner3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -107,7 +93,7 @@ public class FragmentAbout extends Fragment
         //----------------------------------------------------------------------
 
         //----------------  learner 4 card on click  ----------------------------
-        learner4.setOnClickListener(new View.OnClickListener() {
+        binding.learner4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -118,7 +104,7 @@ public class FragmentAbout extends Fragment
         //----------------------------------------------------------------------
 
         //----------------  Mentor 2 card on click  ----------------------------
-        mentor2.setOnClickListener(new View.OnClickListener() {
+        binding.mentor2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -128,7 +114,7 @@ public class FragmentAbout extends Fragment
         });
 
         //------------------- Learner 5 card ---------------------------------------------------
-        learner5.setOnClickListener(new View.OnClickListener() {
+        binding.learner5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -139,7 +125,7 @@ public class FragmentAbout extends Fragment
         });
 
 
-        return view;
+        return binding.getRoot();
     }
 
     private void gotoUrl(String url) {

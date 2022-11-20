@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.data.sub.SubEntity;
+import com.attendo.databinding.FragmentSubjectBinding;
 import com.attendo.viewmodel.SubjectViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -44,12 +45,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 
 public class Fragment_Subject extends Fragment {
 
+    FragmentSubjectBinding binding;
     private static final int NEW_SUBJECT_ACTIVITY_REQUEST_CODE = 1;
     public static final int UPDATE_SUBJECT_ACTIVITY_REQUEST_CODE = 2;
     private SubjectViewModel subViewModel;
@@ -57,16 +58,11 @@ public class Fragment_Subject extends Fragment {
     private List<SubEntity> mSubjects=new ArrayList<>();
 
 
-    @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
 
-    @BindView(R.id.fab)
     FloatingActionButton fab;
-
-    @BindView(R.id.subject_lottie_animation_unique)
     LottieAnimationView subjectanim;
 
-    @BindView(R.id.help_text_subject)
     TextView helpText;
 
 
@@ -102,19 +98,19 @@ public class Fragment_Subject extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentSubjectBinding.inflate(inflater,container,false);
+
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment__subject, container, false);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Subjects");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.VISIBLE);
 
 
-        ButterKnife.bind(this,view);
 
 
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                AddSubjectBottomSheetDialogFragment bottomSheetDialogFragment = new AddSubjectBottomSheetDialogFragment();
@@ -140,28 +136,28 @@ public class Fragment_Subject extends Fragment {
                 //recyclerView.setLayoutAnimation(animationController);
 
                 if(subjects.isEmpty()){
-                    helpText.setAnimation(fadeIN);
-                    subjectanim.setAnimation(fadeIN);
-                    helpText.setVisibility(View.VISIBLE);
-                    subjectanim.setVisibility(View.VISIBLE);
+                    binding.helpTextSubject.setAnimation(fadeIN);
+                    binding.subjectLottieAnimationUnique.setAnimation(fadeIN);
+                    binding.helpTextSubject.setVisibility(View.VISIBLE);
+                    binding.subjectLottieAnimationUnique.setVisibility(View.VISIBLE);
                 }
                 else{
-                    helpText.setVisibility(View.GONE);
-                    subjectanim.setVisibility(View.GONE);
+                    binding.helpTextSubject.setVisibility(View.GONE);
+                    binding.subjectLottieAnimationUnique.setVisibility(View.GONE);
                 }
             }
         });
 
 
-        recyclerView.setAdapter(subListAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerview.setAdapter(subListAdapter);
+        binding.recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         Animation scale = AnimationUtils.loadAnimation(getContext(), R.anim.scale_fab);
-        fab.setAnimation(scale);
+        binding.fab.setAnimation(scale);
 
 
 //
-     return  view;
+     return  binding.getRoot();
     }
 
     private void setFragment(Fragment fragment) {
