@@ -24,6 +24,7 @@ public class CreateAndJoinClassBottomSheetDialogFragment extends BottomSheetDial
 
 
 
+
     @BindView(R.id.join_class_btn)
     Button joinClass;
 

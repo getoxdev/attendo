@@ -17,14 +17,14 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.databinding.FragmentDeleteNoticeBinding;
 import com.attendo.viewmodel.NoticeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class Delete_notice_fragment extends BottomSheetDialogFragment {
+    FragmentDeleteNoticeBinding binding;
 
     private String Notice_ID;
     NoticeViewModel noticeViewModel;
@@ -32,10 +32,7 @@ public class Delete_notice_fragment extends BottomSheetDialogFragment {
 
     private NoticeAdapter.On_CardClick cardClick;
 
-    @BindView(R.id.delete_notice)
     Button delete_btn;
-
-    @BindView(R.id.lottieAnimationViewDelete)
     LottieAnimationView deleteAnim;
 
 
@@ -69,14 +66,12 @@ public class Delete_notice_fragment extends BottomSheetDialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_delete_notice, container, false);
-        ButterKnife.bind(this,view);
-
-        delete_btn.setOnClickListener(new View.OnClickListener() {
+        binding.deleteNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteAnim.pauseAnimation();
-                deleteAnim.setAnimation(R.raw.done_lottie_anim);
-                deleteAnim.playAnimation();
+                binding.lottieAnimationViewDelete.pauseAnimation();
+                binding.lottieAnimationViewDelete.setAnimation(R.raw.done_lottie_anim);
+                binding.lottieAnimationViewDelete.playAnimation();
                 delete_notice(Notice_ID);
             }
         });
@@ -84,7 +79,7 @@ public class Delete_notice_fragment extends BottomSheetDialogFragment {
 
 
 
-        return  view;
+        return  binding.getRoot();
     }
     public  void delete_notice(String notice_ID){
         noticeViewModel.Delete_notice(notice_ID,appPreferences.RetrieveClassId());

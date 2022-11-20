@@ -31,6 +31,7 @@ import com.attendo.R;
 import com.attendo.data.api.ApiHelper;
 import com.attendo.data.model.reminder.Reminder;
 import com.attendo.data.rem.RemEntity;
+import com.attendo.databinding.FragmentExamReminderBinding;
 import com.attendo.viewmodel.ReminderViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -47,21 +48,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class FragmentReminder extends Fragment {
 
-    @BindView(R.id.add_rem)
-    FloatingActionButton mFloatingActionButton;
-    @BindView(R.id.rem_recycler)
-    RecyclerView recyclerView;
+    FragmentExamReminderBinding binding;
 
-    @BindView(R.id.no_reminder_lottie)
+    FloatingActionButton mFloatingActionButton;
+    RecyclerView recyclerView;
     LottieAnimationView lottieAnimationView;
 
-    @BindView(R.id.no_reminder_txtview)
     TextView noReminder;
 
     TimePicker timePicker;
@@ -77,13 +73,16 @@ public class FragmentReminder extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_exam_reminder, container, false);
+         binding = FragmentExamReminderBinding.inflate(inflater,container,false);
+          recyclerView = binding.remRecycler;
+          lottieAnimationView = binding.noReminderLottie;
+          noReminder = binding.noReminderTxtview;
+
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Reminder");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.VISIBLE);
 
-        ButterKnife.bind(this, view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
@@ -116,7 +115,7 @@ public class FragmentReminder extends Fragment {
 
         //set fab icon animation
         Animation scale = AnimationUtils.loadAnimation(getContext(), R.anim.scale_fab);
-        mFloatingActionButton.setAnimation(scale);
+        binding.addRem.setAnimation(scale);
 
 
         //deletePreviousReminders(adapter);
@@ -143,11 +142,11 @@ public class FragmentReminder extends Fragment {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
 
         View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet,
-                (ConstraintLayout) view.findViewById(R.id.time_picker_container));
+                (ConstraintLayout) binding.getRoot().findViewById(R.id.time_picker_container));
         bottomSheetDialog.setContentView(bottomSheet);
         bottomSheetDialog.setDismissWithAnimation(true);
 
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+        binding.addRem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bottomSheetDialog.show();
@@ -195,6 +194,6 @@ public class FragmentReminder extends Fragment {
             }
         });
 
-        return view;
+        return binding.getRoot();
     }
 }

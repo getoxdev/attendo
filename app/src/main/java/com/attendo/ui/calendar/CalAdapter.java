@@ -47,19 +47,21 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder> {
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         if (mDatalist != null)
             return mDatalist.size();
         else return 0;
     }
 
-    public class CalViewHolder extends RecyclerView.ViewHolder{
+    public class CalViewHolder extends RecyclerView.ViewHolder
+    {
 
-        @BindView(R.id.cal_textview)
         TextView caltextView;
 
         public CalViewHolder(@NonNull View itemView) {
             super(itemView);
+            caltextView = itemView.findViewById(R.id.cal_textview);
             ButterKnife.bind(this,itemView);
         }
     }

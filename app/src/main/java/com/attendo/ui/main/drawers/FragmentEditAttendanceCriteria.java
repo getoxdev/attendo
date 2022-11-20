@@ -15,32 +15,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.databinding.FragmentEditAttendanceCriteriaBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FragmentEditAttendanceCriteria extends Fragment {
-
-    @BindView(R.id.button2)
+    FragmentEditAttendanceCriteriaBinding binding;
     Button change;
-
-    @BindView(R.id.editText)
     EditText criteria;
-
-    @BindView(R.id.textView10)
     TextView percentage;
     private String text;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_edit_attendance_criteria, container, false);
+        binding = FragmentEditAttendanceCriteriaBinding.inflate(inflater,container,false);
+        change = binding.button2;
+        criteria = binding.editText;
+        percentage = binding.textView9;
+        // Inflate the layout for this fragmen
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Attendance Criterion");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.GONE);
-        ButterKnife.bind(this,view);
         loadData();
         updateDate();
         change.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +62,7 @@ public class FragmentEditAttendanceCriteria extends Fragment {
             }
         });
 
-        return view;
+        return binding.getRoot();
     }
 
     public void SaveDate()
