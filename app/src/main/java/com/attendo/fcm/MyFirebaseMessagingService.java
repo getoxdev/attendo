@@ -14,13 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.attendo.R;
-import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.ui.main.BottomNavMainActivity;
-import com.firebase.client.annotations.NotNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -30,15 +27,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(@NonNull String s) {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
-        {
+//        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
+//        {
+//            @Override
+//            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                if (!task.isSuccessful()) {
+//                    return;
+//                }
+//
+//                String token = task.getResult().getToken();
+//            }
+//        });
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                if (!task.isSuccessful()) {
-                    return;
-                }
+            public void onComplete(@NonNull Task<String> task) {
+                if(!task.isSuccessful()) return;
 
-                String token = task.getResult().getToken();
+                String token = task.getResult();
             }
         });
     }
