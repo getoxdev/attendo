@@ -26,6 +26,7 @@ import com.attendo.data.calendar.CalendarEntity;
 import com.attendo.data.DateConverter;
 import com.attendo.data.sub.SubEntity;
 import com.attendo.R;
+import com.attendo.databinding.SubCardNewBinding;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.attendo.viewmodel.CalViewModel;
@@ -66,6 +67,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     @NonNull
     @Override
     public SubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(mContext).inflate(R.layout.sub_card_new, parent, false);
         dateConverter = new DateConverter();
 
@@ -351,6 +353,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     }
 
     public class SubViewHolder extends RecyclerView.ViewHolder {
+
 
         @BindView(R.id.card_subject_name)
         TextView subItemView;

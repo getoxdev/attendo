@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.attendo.R;
+import com.attendo.databinding.CreateJoinClassBottomSheetBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.transition.MaterialSharedAxis;
 
@@ -25,21 +26,24 @@ public class CreateAndJoinClassBottomSheetDialogFragment extends BottomSheetDial
 
 
 
-    @BindView(R.id.join_class_btn)
-    Button joinClass;
+//    @BindView(R.id.join_class_btn)
+//    Button joinClass;
+//
+//    @BindView(R.id.create_class_btn)
+//    Button createClass;
 
-    @BindView(R.id.create_class_btn)
-    Button createClass;
-
+    private CreateJoinClassBottomSheetBinding binding;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.create_join_class_bottom_sheet, container, false);
-        ButterKnife.bind(this, view);
+        binding = CreateJoinClassBottomSheetBinding.inflate(getLayoutInflater(),container,false);
+        //View view = inflater.inflate(R.layout.create_join_class_bottom_sheet, container, false);
+        View view=binding.getRoot();
+        //ButterKnife.bind(this, view);
 
-        joinClass.setOnClickListener(new View.OnClickListener() {
+        binding.joinClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Fragment studentFragment = new StudentDetailsInputFragment();
@@ -49,7 +53,7 @@ public class CreateAndJoinClassBottomSheetDialogFragment extends BottomSheetDial
             }
         });
 
-        createClass.setOnClickListener(new View.OnClickListener() {
+        binding.createClassBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //create class fragment for data collection
