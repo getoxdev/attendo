@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.databinding.FragmentBugBinding;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,13 +34,14 @@ import butterknife.ButterKnife;
 
 
 public class FragmentBug extends Fragment{
-    @BindView(R.id.msgData)
-    EditText TextMsg;
-    @BindView(R.id.btn_send)
-    Button send;
-    @BindView(R.id.btn_details)
-    Button details;
+//    @BindView(R.id.msgData)
+//    EditText TextMsg;
+//    @BindView(R.id.btn_send)
+//    Button send;
+//    @BindView(R.id.btn_details)
+//    Button details;
 
+    private FragmentBugBinding binding;
     DatabaseReference databaseReference;
     FirebaseAuth mAuth;
     ProgressBar Pb;
@@ -49,18 +51,20 @@ public class FragmentBug extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_bug, container, false);
+        binding=FragmentBugBinding.inflate(getLayoutInflater(),container,false);
+        View view=binding.getRoot();
+        //View view =  inflater.inflate(R.layout.fragment_bug, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Report Bug");
-        ButterKnife.bind(this,view);
+        //ButterKnife.bind(this,view);
 
         mAuth=FirebaseAuth.getInstance();
         databaseReference= FirebaseDatabase.getInstance().getReference("Bugs");
         Pb = view.findViewById(R.id.detail_progress);
 
-        send.setOnClickListener(new View.OnClickListener() {
+        binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = TextMsg.getText().toString().trim();
+                String text = binding.msgData.getText().toString().trim();
                 if(text.length()>0){
                     databaseReference.child(mAuth.getCurrentUser().getUid()).child("Bug").setValue(text).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -80,7 +84,7 @@ public class FragmentBug extends Fragment{
             }
         });
 
-        details.setOnClickListener(new View.OnClickListener() {
+        binding.btnDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Pb.setVisibility(View.VISIBLE);
