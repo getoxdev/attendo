@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.attendo.R;
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.databinding.FragmentUserProfileBinding;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
@@ -50,22 +51,24 @@ import butterknife.ButterKnife;
 
 public class FragmentUserProfile extends Fragment {
 
-    @BindView(R.id.USER_NAME)
-     TextView name;
-    @BindView(R.id.USER_COLLEGE)
-    TextView college;
-    @BindView(R.id.USER_CITY)
-    TextView city;
-    @BindView(R.id.USER_PHONE)
-    TextView contact;
-    @BindView(R.id.edit_profile)
-    Button btn;
-    @BindView(R.id.progressbar)
-    ProgressBar pgb;
-    @BindView(R.id.USER_IMAGE)
-    ImageView profile;
-    @BindView(R.id.Delete_Account_Btn)
-    Button delete_btn;
+//    @BindView(R.id.USER_NAME)
+//     TextView name;
+//    @BindView(R.id.USER_COLLEGE)
+//    TextView college;
+//    @BindView(R.id.USER_CITY)
+//    TextView city;
+//    @BindView(R.id.USER_PHONE)
+//    TextView contact;
+//    @BindView(R.id.edit_profile)
+//    Button btn;
+//    @BindView(R.id.progressbar)
+//    ProgressBar pgb;
+//    @BindView(R.id.USER_IMAGE)
+//    ImageView profile;
+//    @BindView(R.id.Delete_Account_Btn)
+//    Button delete_btn;
+
+    private FragmentUserProfileBinding binding;
 
     private ScheduleViewModel scheduleViewModel;
     private FragmentProfile fragment_profile;
@@ -87,7 +90,9 @@ public class FragmentUserProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
+        binding=FragmentUserProfileBinding.inflate(getLayoutInflater(),container,false);
+        //View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
+        View view=binding.getRoot();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Account Profile");
 
         usercode = view.findViewById(R.id.USER_CLASS_CODE);
@@ -96,9 +101,9 @@ public class FragmentUserProfile extends Fragment {
         scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
 
 
-        ButterKnife.bind(this,view);
+        //ButterKnife.bind(this,view);
 
-        delete_btn.setOnClickListener(new View.OnClickListener() {
+        binding.DeleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DeleteAccount();
@@ -121,15 +126,15 @@ public class FragmentUserProfile extends Fragment {
             @Override
             public void onSuccess(Uri uri)
             {
-                Picasso.with(getActivity()).load(uri).into(profile);
-                pgb.setVisibility(View.INVISIBLE);
+                Picasso.with(getActivity()).load(uri).into(binding.USERIMAGE);
+                binding.progressbar.setVisibility(View.INVISIBLE);
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                         // Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
-                        pgb.setVisibility(View.INVISIBLE);
+                        binding.progressbar.setVisibility(View.INVISIBLE);
                     }
                 });
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -137,14 +142,14 @@ public class FragmentUserProfile extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if(snapshot.exists()) {
-                    name.setText(snapshot.child(user_id).child("username").getValue(String.class));
-                    college.setText(snapshot.child(user_id).child("college").getValue(String.class));
-                    city.setText(snapshot.child(user_id).child("city").getValue(String.class));
-                    contact.setText(snapshot.child(user_id).child("contact").getValue(String.class));
+                    binding.USERNAME.setText(snapshot.child(user_id).child("username").getValue(String.class));
+                    binding.USERCOLLEGE.setText(snapshot.child(user_id).child("college").getValue(String.class));
+                    binding.USERCITY.setText(snapshot.child(user_id).child("city").getValue(String.class));
+                    binding.USERPHONE.setText(snapshot.child(user_id).child("contact").getValue(String.class));
                 }
                 else{
                     Toast.makeText(getActivity(),"No Account is Created",Toast.LENGTH_SHORT).show();
-                    pgb.setVisibility(View.INVISIBLE);
+                    binding.progressbar.setVisibility(View.INVISIBLE);
                 }
             }
             @Override
@@ -160,15 +165,15 @@ public class FragmentUserProfile extends Fragment {
         fragment_profile.setExitTransition(exit);
 
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        binding.editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Passing empty data
                 Bundle bundle = new Bundle();
-                bundle.putString("name",name.getText().toString());
-                bundle.putString("institution",college.getText().toString());
-                bundle.putString("city",city.getText().toString());
-                bundle.putString("phone",contact.getText().toString());
+                bundle.putString("name",binding.USERNAME.getText().toString());
+                bundle.putString("institution",binding.USERCOLLEGE.getText().toString());
+                bundle.putString("city",binding.USERCITY.getText().toString());
+                bundle.putString("phone",binding.USERPHONE.getText().toString());
                 fragment_profile.setArguments(bundle);
                 Toast.makeText(getActivity(),"Edit Your Profile",Toast.LENGTH_SHORT).show();
 
@@ -222,7 +227,7 @@ public class FragmentUserProfile extends Fragment {
         dialog.setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        pgb.setVisibility(View.VISIBLE);
+                        binding.progressbar.setVisibility(View.VISIBLE);
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("data").child(user_Id);
                         DatabaseReference refbugs = FirebaseDatabase.getInstance().getReference("Bugs").child(user_Id);
                         ref.removeValue();
@@ -242,7 +247,7 @@ public class FragmentUserProfile extends Fragment {
                                //LETS SEE
                             }
                         });
-                        pgb.setVisibility(View.INVISIBLE);
+                        binding.progressbar.setVisibility(View.INVISIBLE);
                         firebaseUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -257,7 +262,7 @@ public class FragmentUserProfile extends Fragment {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(getActivity(),"Please Login again to delete account",Toast.LENGTH_LONG).show();
-                                pgb.setVisibility(View.INVISIBLE);
+                                binding.progressbar.setVisibility(View.INVISIBLE);
                                 mAuth.signOut();
                                 Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -269,7 +274,7 @@ public class FragmentUserProfile extends Fragment {
                 dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        pgb.setVisibility(View.INVISIBLE);
+                        binding.progressbar.setVisibility(View.INVISIBLE);
                         dialog.dismiss();
                     }
                 });
