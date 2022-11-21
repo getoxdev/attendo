@@ -18,6 +18,7 @@ import com.attendo.R;
 import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.Notice;
+import com.attendo.databinding.FragmentAddNoticeBinding;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.NoticeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -29,14 +30,16 @@ public class Edit_notice_fragment extends Fragment {
 
     String title,body,Notice_id;
 
-    @BindView(R.id.Title)
-    EditText Title;
+//    @BindView(R.id.Title)
+//    EditText Title;
+//
+//    @BindView(R.id.body)
+//    EditText Body;
+//
+//    @BindView(R.id.btn_send)
+//    Button notify;
 
-    @BindView(R.id.body)
-    EditText Body;
-
-    @BindView(R.id.btn_send)
-    Button notify;
+    private FragmentAddNoticeBinding binding;
     NoticeViewModel noticeViewModel;
     AppPreferences appPreferences;
     private NoticeFragment noticeFragment;
@@ -81,14 +84,16 @@ public class Edit_notice_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View view = inflater.inflate(R.layout.fragment_add_notice, container, false);
-        ButterKnife.bind(this, view);
-        Title.setText(title);
-        Body.setText(body);
+        binding=FragmentAddNoticeBinding.inflate(getLayoutInflater(),container,false);
+       //View view = inflater.inflate(R.layout.fragment_add_notice, container, false);
+        View view=binding.getRoot();
+        //ButterKnife.bind(this, view);
+        binding.Title.setText(title);
+        binding.body.setText(body);
 
         noticeFragment = new NoticeFragment();
 
-        notify.setOnClickListener(new View.OnClickListener() {
+        binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 customLoadingDialog.startDialog(false);
@@ -103,7 +108,7 @@ public class Edit_notice_fragment extends Fragment {
 
     public void edit_notice(String notice_id)
     {
-        Notice notice = new Notice(Title.getText().toString(),Body.getText().toString());
+        Notice notice = new Notice(binding.Title.getText().toString(),binding.body.getText().toString());
         noticeViewModel.edit_notice(notice_id,notice);
         noticeViewModel.get_Notice_Response().observe(getViewLifecycleOwner(),data->{
             if (data == null) {

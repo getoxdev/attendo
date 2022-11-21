@@ -31,6 +31,7 @@ import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.data.model.schedule.SubjectDetails;
+import com.attendo.databinding.FragmentCrBinding;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
@@ -80,6 +81,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
     LottieAnimationView noClassRoutineLottie;
     TextView noClassTextView;
+    private FragmentCrBinding binding;
 
     @Override
     public void onStart() {
@@ -93,7 +95,9 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view  =inflater.inflate(R.layout.fragment_cr, container, false);
+        binding=FragmentCrBinding.inflate(getLayoutInflater(),container,false);
+        //View view  =inflater.inflate(R.layout.fragment_cr, container, false);
+        View view=binding.getRoot();
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Routine");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.VISIBLE);
