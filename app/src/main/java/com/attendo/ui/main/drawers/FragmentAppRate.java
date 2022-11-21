@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.databinding.FragmentAppRateBinding;
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,10 +26,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FragmentAppRate extends Fragment {
-    @BindView(R.id.feedback)
-    EditText feedback;
-    @BindView(R.id.btnFeedback)
-    Button btnFeedback;
+//    @BindView(R.id.feedback)
+//    EditText feedback;
+//    @BindView(R.id.btnFeedback)
+//    Button btnFeedback;
+
+    private FragmentAppRateBinding binding;
 
     DatabaseReference databaseReference;
     FirebaseAuth mAuth;
@@ -39,28 +42,30 @@ public class FragmentAppRate extends Fragment {
 
         Firebase firebase;
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_app_rate, container, false);
+        binding=FragmentAppRateBinding.inflate(getLayoutInflater(),container,false);
+        View view=binding.getRoot();
+        //View view =  inflater.inflate(R.layout.fragment_app_rate, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Rate our App");
-        ButterKnife.bind(this,view);
+        //ButterKnife.bind(this,view);
 
         mAuth=FirebaseAuth.getInstance();
         String user=mAuth.getCurrentUser().getUid();
         databaseReference= FirebaseDatabase.getInstance().getReference().child(user);
 
 
-        btnFeedback.setOnClickListener(new View.OnClickListener() {
+        binding.btnFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnFeedback.setEnabled(true);
-                final String msg = feedback.getText().toString().trim();
+                binding.btnFeedback.setEnabled(true);
+                final String msg = binding.feedback.getText().toString().trim();
 
 
                 if (msg.isEmpty()) {
-                    feedback.setError("this is a required field");
+                    binding.feedback.setError("this is a required field");
                     //btnFeedback.setEnabled(false);
                 } else {
-                    feedback.setError(null);
-                    btnFeedback.setEnabled(true);
+                    binding.feedback.setError(null);
+                    binding.btnFeedback.setEnabled(true);
                     databaseReference.child("Feedback").setValue(msg).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
