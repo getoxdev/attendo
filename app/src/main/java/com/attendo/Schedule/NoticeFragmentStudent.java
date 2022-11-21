@@ -21,6 +21,7 @@ import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Adapters.NoticeAdapterStudent;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.NoticeDetails;
+import com.attendo.databinding.FragmentNoticeStudentBinding;
 import com.attendo.viewmodel.NoticeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
@@ -37,14 +38,15 @@ public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStud
     AppPreferences preferences;
     private ContentLoadingProgressBar progressBar;
 
-    @BindView(R.id.no_notice_student_lottie)
-    LottieAnimationView lottieAnimationView;
-
-    @BindView(R.id.no_notice_student_txtview)
-    TextView noNoticeTextView;
-
-    @BindView(R.id.searching_notice_lottie_student)
-    LottieAnimationView searchingLottie;
+//    @BindView(R.id.no_notice_student_lottie)
+//    LottieAnimationView lottieAnimationView;
+//
+//    @BindView(R.id.no_notice_student_txtview)
+//    TextView noNoticeTextView;
+//
+//    @BindView(R.id.searching_notice_lottie_student)
+//    LottieAnimationView searchingLottie;
+    private FragmentNoticeStudentBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,11 +58,13 @@ public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStud
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notice_student, container, false);
+        binding=FragmentNoticeStudentBinding.inflate(getLayoutInflater(),container,false);
+        View view=binding.getRoot();
+        //View view = inflater.inflate(R.layout.fragment_notice_student, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Notice");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.GONE);
-        ButterKnife.bind(this, view);
+        //ButterKnife.bind(this, view);
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
 
@@ -71,14 +75,15 @@ public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStud
         noticeViewModel.get_all_noticeResponse().observe(getViewLifecycleOwner(),data->{
             if(data!=null)
             {
-                searchingLottie.setVisibility(View.INVISIBLE);
+
+                binding.searchingNoticeLottieStudent.setVisibility(View.INVISIBLE);
                 progressBar.hide();
                 if(data.getNoticeDetailsList().size() == 0){
-                    lottieAnimationView.setVisibility(View.VISIBLE);
-                    noNoticeTextView.setVisibility(View.VISIBLE);
+                    binding.noNoticeStudentLottie.setVisibility(View.VISIBLE);
+                    binding.noNoticeStudentTxtview.setVisibility(View.VISIBLE);
                 }else{
-                    lottieAnimationView.setVisibility(View.INVISIBLE);
-                    noNoticeTextView.setVisibility(View.INVISIBLE);
+                    binding.noNoticeStudentLottie.setVisibility(View.INVISIBLE);
+                    binding.noNoticeStudentTxtview.setVisibility(View.INVISIBLE);
                 }
 
                 noticeAdapterStudent = new NoticeAdapterStudent(getContext(),data.getNoticeDetailsList(), this::onCardClick);
@@ -86,8 +91,8 @@ public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStud
             }
             else{
                 progressBar.hide();
-                lottieAnimationView.setVisibility(View.VISIBLE);
-                noNoticeTextView.setVisibility(View.VISIBLE);
+                binding.noNoticeStudentLottie.setVisibility(View.VISIBLE);
+                binding.noNoticeStudentTxtview.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(),"Something went wrong. Try again !",Toast.LENGTH_SHORT).show();
             }
 
