@@ -41,6 +41,7 @@ import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.Schedule.StudetntSettingsFragment;
 import com.attendo.data.database.SubDatabase;
+import com.attendo.databinding.FragmentAccountAndSettingsBinding;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.main.drawers.FragmentAppRate;
 import com.attendo.ui.main.drawers.FragmentBug;
@@ -94,14 +95,16 @@ public class FragmentAccountAndSettings extends Fragment {
     LottieAnimationView profileLottie;
     private AppPreferences appPreferences;
 
-
+    private FragmentAccountAndSettingsBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_account_and_settings, container, false);
-        ButterKnife.bind(this, view);
+        binding=FragmentAccountAndSettingsBinding.inflate(getLayoutInflater(),container,false);
+        View view=binding.getRoot();
+        //View view = inflater.inflate(R.layout.fragment_account_and_settings, container, false);
+        //ButterKnife.bind(this, view);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Settings");
 
 
