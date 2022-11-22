@@ -81,7 +81,7 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
 
     LottieAnimationView noClassRoutineLottie;
     TextView noClassTextView;
-    private FragmentCrBinding binding;
+
 
     @Override
     public void onStart() {
@@ -95,9 +95,9 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding=FragmentCrBinding.inflate(getLayoutInflater(),container,false);
-        //View view  =inflater.inflate(R.layout.fragment_cr, container, false);
-        View view=binding.getRoot();
+
+        View view  =inflater.inflate(R.layout.fragment_cr, container, false);
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Routine");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.VISIBLE);

@@ -66,6 +66,7 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
 
 
 
+
     EditText faculty = binding.updateFaculty;
 
 
@@ -93,7 +94,6 @@ public  class Edit_schedule_fragment extends BottomSheetDialogFragment implement
         args.putInt("RVPosition", positionDay);
         Log.d("Update" ,String.valueOf(positionDay)+"  : inside edit bottom sheet new instance function  ");
         edit_schedule_fragment.setArguments(args);
-
 
         return edit_schedule_fragment;
     }

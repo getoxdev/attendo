@@ -109,7 +109,7 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
         });
     }
 
-    @NonNull
+//    @NonNull
     @Override
     public WeekDayAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)  {
 

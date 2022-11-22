@@ -26,6 +26,7 @@ import com.attendo.data.calendar.CalendarEntity;
 import com.attendo.data.DateConverter;
 import com.attendo.data.sub.SubEntity;
 import com.attendo.R;
+import com.attendo.databinding.FragmentBottomSheetAddSubjectBinding;
 import com.attendo.databinding.SubCardNewBinding;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
@@ -67,11 +68,13 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     @NonNull
     @Override
     public SubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(mContext).inflate(R.layout.sub_card_new, parent, false);
+        LayoutInflater layoutInflater=LayoutInflater.from(mContext);
+        SubCardNewBinding binding=SubCardNewBinding.inflate(layoutInflater,parent,false);
+        //View view=binding.getRoot();
+        //View view = LayoutInflater.from(mContext).inflate(R.layout.sub_card_new, parent, false);
         dateConverter = new DateConverter();
 
-        return new SubViewHolder(view);
+        return new SubViewHolder(binding);
     }
 
     @Override
@@ -80,12 +83,12 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
         final SubEntity subEntity = mSubjects.get(position);
         int id = mSubjects.get(position).getId();
-        holder.subItemView.setText(subEntity.getSubject());
-        holder.tvPres.setText(String.valueOf(subEntity.getPresent()));
-        holder.tvTotal.setText(String.valueOf(subEntity.getTotal()));
-        holder.percent.setText(getPercentage(subEntity.getPresent(), subEntity.getTotal()) + "%");
+        holder.binding.cardSubjectName.setText(subEntity.getSubject());
+        holder.binding.presentTxt.setText(String.valueOf(subEntity.getPresent()));
+        holder.binding.totalTextSubjectCard.setText(String.valueOf(subEntity.getTotal()));
+        holder.binding.percentageSubjectCardItem.setText(getPercentage(subEntity.getPresent(), subEntity.getTotal()) + "%");
 
-        holder.status.setText(Status(key,getPercentage(subEntity
+        holder.binding.statusCounterTxt.setText(Status(key,getPercentage(subEntity
                 .getPresent(),subEntity.getTotal()),subEntity.getPresent(),subEntity.getAbsent()));
 
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
@@ -95,47 +98,47 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
 
         if(cardPerent < cardCriterion){
-            holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
+            holder.binding.subjectItemCard.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
         }
         else{
-            holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+            holder.binding.subjectItemCard.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
         }
 
 
-        holder.btnPres.setOnClickListener(new View.OnClickListener() {
+        holder.binding.presentBtnCardItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id = mSubjects.get(position).getId();
 
-                int pre = Integer.parseInt((String) holder.tvPres.getText());
-                int total = Integer.parseInt((String) holder.tvTotal.getText());
+                int pre = Integer.parseInt((String) holder.binding.presentTxt.getText());
+                int total = Integer.parseInt((String) holder.binding.totalTextSubjectCard.getText());
                 pre++;
                 total++;
 
                 Date date = new Date();
                 String subDate = formatter(dateConverter.fromTimestamp(date.getTime()));
-                String subject = String.valueOf(holder.subItemView.getText());
+                String subject = String.valueOf(holder.binding.cardSubjectName.getText());
                 CalendarEntity calendarEntity = new CalendarEntity(subDate, subject);
                 calViewModel.insertDate(calendarEntity);
                 subjectViewModel.updatePresent(pre, id);
                 subjectViewModel.updateTotal(total, id);
 
                 if(cardPerent < cardCriterion){
-                    holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
+                    holder.binding.subjectItemCard.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
                 }
                 else{
-                    holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+                    holder.binding.subjectItemCard.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
                 }
             }
         });
 
-        holder.btnAbs.setOnClickListener(new View.OnClickListener() {
+        holder.binding.absentBtnCardItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id = mSubjects.get(position).getId();
 
-                int total = Integer.parseInt((String) holder.tvTotal.getText());
-                int pre = Integer.parseInt((String) holder.tvPres.getText());
+                int total = Integer.parseInt((String) holder.binding.totalTextSubjectCard.getText());
+                int pre = Integer.parseInt((String) holder.binding.presentTxt.getText());
                 int ab = total - pre;
                 ab++;
                 total++;
@@ -145,16 +148,16 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 subjectViewModel.updateTotal(total, id);
 
                 if(cardPerent < cardCriterion){
-                    holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
+                    holder.binding.subjectItemCard.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
                 }
                 else{
-                    holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+                    holder.binding.subjectItemCard.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
                 }
 
             }
         });
 
-        holder.card.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.binding.subjectItemCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 //vibrator
@@ -308,8 +311,8 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                                     }
                                     else
                                     {
-                                    holder.tvPres.setText(String.valueOf(pre));
-                                    holder.tvTotal.setText(String.valueOf(tot));
+                                    holder.binding.presentTxt.setText(String.valueOf(pre));
+                                    holder.binding.totalTextSubjectCard.setText(String.valueOf(tot));
                                     subjectViewModel.updatePresent(pre,id);
                                     subjectViewModel.updateTotal(tot,id);
                                         editAttend.dismiss();
@@ -355,40 +358,46 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     public class SubViewHolder extends RecyclerView.ViewHolder {
 
 
-        @BindView(R.id.card_subject_name)
-        TextView subItemView;
+//        @BindView(R.id.card_subject_name)
+//        TextView subItemView;
+//
+//        @BindView(R.id.total_text_subject_card)
+//        TextView tvTotal;
+//
+//        @BindView(R.id.present_txt)
+//        TextView tvPres;
+//
+//        @BindView(R.id.percentage_subject_card_item)
+//        TextView percent;
+//
+//        @BindView(R.id.status_counter_txt)
+//        TextView status;
+//
+//        @BindView(R.id.textView10) @Nullable
+//        TextView criteria2;
+//
+//        @BindView(R.id.absent_btn_card_item)
+//        Button btnAbs;
+//
+//        @BindView(R.id.present_btn_card_item)
+//        Button btnPres;
+//
+//        @BindView(R.id.updateAttendance) @Nullable
+//        Button upadt;
+//
+//        @BindView(R.id.subject_item_card)
+//        CardView card;
+        SubCardNewBinding binding;
 
-        @BindView(R.id.total_text_subject_card)
-        TextView tvTotal;
+//        public SubViewHolder(View itemView) {
+//            super(itemView);
+//            ButterKnife.bind(this,itemView);
+//
+//        }
 
-        @BindView(R.id.present_txt)
-        TextView tvPres;
-
-        @BindView(R.id.percentage_subject_card_item)
-        TextView percent;
-
-        @BindView(R.id.status_counter_txt)
-        TextView status;
-
-        @BindView(R.id.textView10) @Nullable
-        TextView criteria2;
-
-        @BindView(R.id.absent_btn_card_item)
-        Button btnAbs;
-
-        @BindView(R.id.present_btn_card_item)
-        Button btnPres;
-
-        @BindView(R.id.updateAttendance) @Nullable
-        Button upadt;
-
-        @BindView(R.id.subject_item_card)
-        CardView card;
-
-        public SubViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this,itemView);
-
+        public SubViewHolder(SubCardNewBinding binding){
+            super(binding.getRoot());
+            this.binding=binding;
         }
     }
 
