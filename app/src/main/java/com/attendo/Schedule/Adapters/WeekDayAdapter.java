@@ -18,6 +18,7 @@ import com.attendo.R;
 import com.attendo.data.model.schedule.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.databinding.WeekdayCardBinding;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
@@ -51,19 +52,27 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
     private AppPreferences appPreferences;
 
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.weekday_card)
-        MaterialCardView daycard;
-        @BindView(R.id.day)
-        TextView dayTextView;
 
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            //finding the items and storing them in view holder
-            ButterKnife.bind(this,itemView);
+//        @BindView(R.id.weekday_card)
+//        MaterialCardView daycard;
+//        @BindView(R.id.day)
+//        TextView dayTextView;
 
+
+
+//        public MyViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            //finding the items and storing them in view holder
+//            ButterKnife.bind(this,itemView);
+//
+//        }
+
+        WeekdayCardBinding binding;
+        public MyViewHolder(@NonNull WeekdayCardBinding binding){
+            super(binding.getRoot());
+            this.binding=binding;
         }
     }
 
@@ -102,17 +111,21 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
 
     @NonNull
     @Override
-    public WeekDayAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.weekday_card, parent, false);
-        return new MyViewHolder(view);
+    public WeekDayAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)  {
+
+        LayoutInflater layoutInflater=LayoutInflater.from(parent.getContext());
+        WeekdayCardBinding binding =WeekdayCardBinding.inflate(layoutInflater,parent,false);
+        //View view = binding.getRoot();
+        return new MyViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull WeekDayAdapter.MyViewHolder holder, int position) {
-        holder.dayTextView.setText(day.get(position).getDayofWeek());
+
+        holder.binding.day.setText(day.get(position).getDayofWeek());
         DayOfWeek dayOfWeek = day.get(position);
 
-        holder.daycard.setOnClickListener(new View.OnClickListener() {
+        holder.binding.weekdayCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 index = position;
@@ -124,10 +137,10 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
 
         if(index == position){
 
-            holder.daycard.setStrokeWidth((int) 5f);
+            holder.binding.weekdayCard.setStrokeWidth((int) 5f);
         }else{
 
-            holder.daycard.setStrokeWidth((int) 0f);
+            holder.binding.weekdayCard.setStrokeWidth((int) 0f);
         }
 
         if(check){
