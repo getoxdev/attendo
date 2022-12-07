@@ -17,7 +17,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.attendo.R;
-import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,26 +52,28 @@ public class FragmentBug extends Fragment{
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Report Bug");
         ButterKnife.bind(this,view);
 
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         databaseReference= FirebaseDatabase.getInstance().getReference("Bugs");
         Pb = view.findViewById(R.id.detail_progress);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text = TextMsg.getText().toString().trim();
-                if(text.length()>0){
-                    databaseReference.child(mAuth.getCurrentUser().getUid()).child("Bug").setValue(text).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                           if(task.isSuccessful()){
-                               Toast.makeText(getActivity(),"Your response send",Toast.LENGTH_SHORT).show();
-                           }
-                           else{
-                               Toast.makeText(getActivity(),"something went wrong!",Toast.LENGTH_SHORT).show();
-                           }
-                        }
-                    });
+                if(mAuth.getCurrentUser() != null) {
+                    String text = TextMsg.getText().toString().trim();
+                    if(text.length()>0){
+                        databaseReference.child(mAuth.getCurrentUser().getUid()).child("Bug").push().setValue(text).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(getActivity(),"Your response send",Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(getActivity(),"something went wrong!",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
                 }
                 else{
                     Toast.makeText(getActivity(),"Please enter your Message",Toast.LENGTH_SHORT).show();
