@@ -46,8 +46,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -184,17 +183,54 @@ public class StudentFragment extends Fragment implements UpdateRecyclerView {
         checkFCM();
     }
 
-    private void checkFCM()
-    {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
-        {
+//    private void checkFCM()
+//    {
+//        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
+//        {
+//            @Override
+//            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                if (!task.isSuccessful()) {
+//                    return;
+//                }
+//
+//                String studentFCM = task.getResult().getToken();
+//                Log.e("New FCM",studentFCM);
+//
+//                if(studentFCM!=null)
+//                {
+//                    if(preferences.RetrieveFcm()!=null)
+//                    {
+//                        if(preferences.RetrieveFcm().equals(studentFCM))
+//                            Log.e("checkFCM: ", "Old");
+//                        else
+//                        {
+//                            Log.e("checkFCM: ", "New");
+//                            UpdateApiFcmStudent(studentFCM);
+//                        }
+//                    }
+//                    else
+//                    {
+//                        Log.e("checkFCM: ", "New");
+//                        UpdateApiFcmStudent(studentFCM);
+//                    }
+//                }
+//                else
+//                {
+//                    Log.e("FCM is","null");
+//                }
+//            }
+//        });
+//    }
+
+    private void checkFCM() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(getActivity(), new OnCompleteListener<String>() {
             @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+            public void onComplete(@NonNull Task<String> task) {
                 if (!task.isSuccessful()) {
                     return;
                 }
 
-                String studentFCM = task.getResult().getToken();
+                String studentFCM = task.getResult();
                 Log.e("New FCM",studentFCM);
 
                 if(studentFCM!=null)
