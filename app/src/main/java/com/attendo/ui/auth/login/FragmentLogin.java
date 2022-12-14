@@ -56,8 +56,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -95,6 +93,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private FragmentProfile fragmentProfile;
     FragmentActivity mActivity;
     private static final String EMAIL = "email";
+    private static final String TAG = FragmentLogin.class.getSimpleName();
 
 
     @Override

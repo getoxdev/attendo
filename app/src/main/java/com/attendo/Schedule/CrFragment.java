@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.RoutineItemAdapterCr;
@@ -31,12 +29,9 @@ import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.FcmToken;
 import com.attendo.data.model.schedule.SubjectDetails;
-import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
-//import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,8 +41,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,17 +195,54 @@ public class CrFragment extends Fragment implements UpdateRecyclerView,RoutineIt
         checkFCM();
     }
 
-    private void checkFCM()
-    {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
-        {
+//    private void checkFCM()
+//    {
+//        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>()
+//        {
+//            @Override
+//            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                if (!task.isSuccessful()) {
+//                    return;
+//                }
+//
+//                String crFCM = task.getResult().getToken();
+//                Log.e("New FCM",crFCM);
+//
+//                if(crFCM!=null)
+//                {
+//                    if(appPreferences.RetrieveFcm()!=null)
+//                    {
+//                        if(appPreferences.RetrieveFcm().equals(crFCM))
+//                            Log.e("checkFCM: ", "Old");
+//                        else
+//                        {
+//                            Log.e("checkFCM: ", "New");
+//                            UpdateApiFcmCr(crFCM);
+//                        }
+//                    }
+//                    else
+//                    {
+//                        Log.e("checkFCM: ", "New");
+//                        UpdateApiFcmCr(crFCM);
+//                    }
+//                }
+//                else
+//                {
+//                    Log.e("FCM is","null");
+//                }
+//            }
+//        });
+//    }
+
+    private void checkFCM() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(getActivity(), new OnCompleteListener<String>() {
             @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+            public void onComplete(@NonNull Task<String> task) {
                 if (!task.isSuccessful()) {
                     return;
                 }
 
-                String crFCM = task.getResult().getToken();
+                String crFCM = task.getResult();
                 Log.e("New FCM",crFCM);
 
                 if(crFCM!=null)
