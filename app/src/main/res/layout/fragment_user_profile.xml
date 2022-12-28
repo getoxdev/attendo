@@ -255,7 +255,7 @@
 
                 <Button
                     android:id="@+id/edit_profile"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="260dp"
                     android:layout_height="60dp"
                     android:layout_centerHorizontal="true"
@@ -276,7 +276,7 @@
 
                 <Button
                     android:id="@+id/Delete_Account_Btn"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="260dp"
                     android:layout_height="60dp"
                     android:layout_centerHorizontal="true"

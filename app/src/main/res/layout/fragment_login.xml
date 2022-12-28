@@ -117,7 +117,7 @@
 
     <Button
         android:id="@+id/button"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/Widget.Material3.Button.TonalButton.Icon"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="110dp"
@@ -173,7 +173,7 @@
 
     <Button
         android:id="@+id/other_signIn_options_btn"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/Widget.Material3.Button.TonalButton.Icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="0dp"
