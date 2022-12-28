@@ -189,7 +189,7 @@
         android:clickable="true"
         android:elevation="0dp"
         android:enabled="true"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/poppins_regular"
         android:stateListAnimator="@animator/button_pressed_animator"
         android:text="Add"
         android:textAllCaps="false"

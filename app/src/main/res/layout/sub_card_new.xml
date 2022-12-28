@@ -154,7 +154,7 @@
 
             <Button
                 android:id="@+id/present_btn_card_item"
-                style="@style/Widget.MaterialComponents.Button"
+                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="30dp"
@@ -177,7 +177,7 @@
 
             <Button
                 android:id="@+id/absent_btn_card_item"
-                style="@style/Widget.MaterialComponents.Button"
+                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"

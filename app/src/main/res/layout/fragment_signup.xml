@@ -136,7 +136,7 @@
 
     <Button
         android:id="@+id/button"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="172dp"
         android:layout_height="60dp"
         android:layout_marginBottom="70dp"
@@ -154,7 +154,7 @@
         app:strokeColor="#6333D3"
         app:strokeWidth="1dp" />
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

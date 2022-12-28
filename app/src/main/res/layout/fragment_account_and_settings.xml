@@ -27,7 +27,7 @@
             android:background="@color/bg_login"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/view_account"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
@@ -81,7 +81,7 @@
                     android:layout_gravity="end|center_vertical"
                     android:layout_marginEnd="20dp"/>
 
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/edit_attendance_criterion"

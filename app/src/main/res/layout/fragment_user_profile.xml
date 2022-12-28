@@ -51,7 +51,7 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <ProgressBar
+                <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/progressbar"
                     android:layout_width="31dp"
                     android:layout_height="39dp"

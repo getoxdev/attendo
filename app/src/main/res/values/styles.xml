@@ -21,7 +21,7 @@
         <item name="bottomSheetDialogTheme">@style/CustomModalBottomSheet</item>
     </style>
 
-    <style name="AppThemeCustom" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="AppThemeCustom" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">#CAC9C9</item>
