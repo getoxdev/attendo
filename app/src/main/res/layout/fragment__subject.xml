@@ -30,6 +30,7 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/fab_margin"
         android:transitionName="add_subject_transition"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/fabi_icon_add_drawable"
@@ -37,7 +38,7 @@
         app:fabCustomSize="60dp"
         app:tint="@color/bg_login"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-        app:backgroundTint="#9657F1"/>
+        app:backgroundTint="?attr/color"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/subject_lottie_animation_unique"
