@@ -157,35 +157,35 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             .commit();
                     break;
 
-                case R.id.schedule_bottom_nav:
-                    if(!isConnected())
-                        showCustomDialog();
-                    else
-                    {
-                        if(RetrieveSharedPreferenceData())
-                        {
-                            joinasData = appPreferences.RetrieveJoinAs();
-                            switch (joinasData)
-                            {
-                                case "Cr":
-                                    setFragment(crFragment);
-                                    break;
-
-                                case "Student":
-                                    setFragment(studentFragment);
-                                    break;
-
-                                case "nothing":
-                                    CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
-                                    joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
-                                    break;
-
-                                default:
-                                    Toast.makeText(BottomNavMainActivity.this, "Please Wait!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                   break;
+//                case R.id.schedule_bottom_nav:
+//                    if(!isConnected())
+//                        showCustomDialog();
+//                    else
+//                    {
+//                        if(RetrieveSharedPreferenceData())
+//                        {
+//                            joinasData = appPreferences.RetrieveJoinAs();
+//                            switch (joinasData)
+//                            {
+//                                case "Cr":
+//                                    setFragment(crFragment);
+//                                    break;
+//
+//                                case "Student":
+//                                    setFragment(studentFragment);
+//                                    break;
+//
+//                                case "nothing":
+//                                    CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
+//                                    joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
+//                                    break;
+//
+//                                default:
+//                                    Toast.makeText(BottomNavMainActivity.this, "Please Wait!", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    }
+//                   break;
 
                 case R.id.calendar_bottom_nav:
                     Fragment calendar = new FragmentCalender();
