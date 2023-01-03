@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true">
-        <receiver android:name=".NotificationBroadcast"
+        <receiver android:name=".fcm.NotificationBroadcast"
             android:enabled="true"/>
 
         <activity
