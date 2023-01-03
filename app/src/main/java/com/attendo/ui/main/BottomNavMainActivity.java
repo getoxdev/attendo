@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -12,8 +11,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.Manifest;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,7 +30,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import com.attendo.NewFeatureReleaseFragment;
-import com.attendo.NotificationBroadcast;
+import com.attendo.fcm.NotificationBroadcast;
 import com.attendo.R;
 import com.attendo.Schedule.CrFragment;
 import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
@@ -103,8 +100,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
         appPreferences = AppPreferences.getInstance(this);
         getJoinAsData();
         getClassId();
-        createnotificationchannel();
-        setnotification();
+        NotificationBroadcast obj = new NotificationBroadcast();
+          obj.setnotification(BottomNavMainActivity.this);
         firebaseScheduleViewModel.RetrieveClassJoinAs();
         firebaseScheduleViewModel.RetrieveClassId();
         crFragment = new CrFragment();
@@ -129,33 +126,11 @@ public class BottomNavMainActivity extends AppCompatActivity {
         }
     }
 
-    private void setnotification() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 22);
-        calendar.set(Calendar.MINUTE,30);
-        Intent intent = new Intent(BottomNavMainActivity.this, NotificationBroadcast.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(BottomNavMainActivity.this,0,intent,0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(
-                AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),1000*86400,pendingIntent
-        );
-    }
 
-    private void createnotificationchannel() {
 
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
-        {
-            CharSequence name = "Attedance Reminder";
-            String desctiption = "Reminder";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("channel",name,importance);
-            channel.setDescription(desctiption);
 
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
