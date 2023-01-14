@@ -69,6 +69,7 @@ dependencies {
 
     //lottie animations
     implementation 'com.airbnb.android:lottie:5.0.3'
+    implementation 'com.google.android.play:core:1.6.4'
 
     //rate app library
     implementation 'com.codemybrainsout.rating:ratingdialog:1.0.8'
