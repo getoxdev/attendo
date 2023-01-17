@@ -141,8 +141,9 @@ public class FragmentReminder extends Fragment {
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
 
-        View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet,
-                (ConstraintLayout) view.findViewById(R.id.time_picker_container));
+
+        View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet,(ConstraintLayout)view.findViewById(R.id.time_picker_container));
+        //ConstraintLayout cc=bottomSheet.findViewById(R.id.time_picker_container);
         bottomSheetDialog.setContentView(bottomSheet);
         bottomSheetDialog.setDismissWithAnimation(true);
 

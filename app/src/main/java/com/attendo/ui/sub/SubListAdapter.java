@@ -275,6 +275,11 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                         editAttend.show();
 
                         bottomSheetDialog.dismiss();
+                        EditText edittext=editAttend.findViewById(R.id.preset_update);
+                        assert edittext != null;
+                        edittext.setText(String.valueOf(subEntity.getPresent()));
+                        edittext=editAttend.findViewById(R.id.total_update);
+                        edittext.setText(String.valueOf(subEntity.getTotal()));
 
                         EditText presentEditText = editAttend.findViewById(R.id.preset_update);
                         EditText totalEditText = editAttend.findViewById(R.id.total_update);
