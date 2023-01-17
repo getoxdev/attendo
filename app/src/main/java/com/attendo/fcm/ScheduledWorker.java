@@ -33,9 +33,9 @@ public  class ScheduledWorker extends Worker
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pi;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            pi = PendingIntent.getActivity(getApplicationContext(), 102, intent, 0);
+            pi = PendingIntent.getActivity(getApplicationContext(), 102, intent,  PendingIntent.FLAG_IMMUTABLE);
         }else{
-            pi = PendingIntent.getActivity(getApplicationContext(), 102, intent, PendingIntent.FLAG_MUTABLE);
+            pi = PendingIntent.getActivity(getApplicationContext(), 102, intent, PendingIntent.FLAG_IMMUTABLE);
         }
 
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
