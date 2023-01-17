@@ -72,7 +72,6 @@ import java.io.File;
 
 import butterknife.ButterKnife;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class FragmentAccountAndSettings extends Fragment {
     private ReviewManager manager;
