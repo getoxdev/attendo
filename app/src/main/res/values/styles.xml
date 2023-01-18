@@ -97,8 +97,6 @@
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
 
-
-
     </style>
 
     <style name="DeleteAlarmDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
