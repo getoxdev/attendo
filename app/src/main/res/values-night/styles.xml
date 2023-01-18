@@ -3,99 +3,121 @@
 
 
         <!-- Base application theme. -->
-        <style name="AppTheme" parent="Theme.Material3.DayNight">
-            <!-- Customize your theme here. -->
-            <item name="colorPrimary">#8630DC</item>
-            <item name="colorPrimaryDark">#8630DC</item>
-            <item name="colorAccent">#8630DC</item>
-            <item name="android:windowContentTransitions">true</item>
-            <item name="android:statusBarColor">#000000</item>
-            <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
-            <item name="textInputStyle">@style/CustomEditText</item>
-        </style>
+    <style name="AppTheme" parent="Theme.Material3.DayNight">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#8630DC</item>
+        <item name="colorPrimaryDark">#8630DC</item>
+        <item name="colorAccent">#8630DC</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:statusBarColor">#000000</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="textInputStyle">@style/CustomEditText</item>
 
-        <style name="AppThemeCustom" parent="Theme.Material3.DayNight.NoActionBar">
-            <item name="windowActionBar">false</item>
-            <item name="windowNoTitle">true</item>
-            <item name="android:statusBarColor">#000000</item>
-            <item name="colorPrimary">#8630DC</item>
-            <item name="colorPrimaryDark">#8630DC</item>
-            <item name="colorAccent">#8630DC</item>
-            <item name="android:windowContentTransitions">true</item>
-            <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
-            <item name="textInputStyle">@style/CustomEditText</item>
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_image_transform</item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_image_transform</item>
 
+        <!-- specifying the style for bottom sheet -->
+        <item name="bottomSheetDialogTheme">@style/CustomModalBottomSheet</item>
+    </style>
 
-            <!-- specifying the style for bottom sheet -->
-            <item name="bottomSheetDialogTheme">@style/CustomModalBottomSheet</item>
+    <style name="AppThemeCustom" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">#000000</item>
+        <item name="colorPrimary">#8630DC</item>
+        <item name="colorPrimaryDark">#8630DC</item>
+        <item name="colorAccent">#8630DC</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="textInputStyle">@style/CustomEditText</item>
 
-        </style>
-        <style name="CustomChipStyle" parent="Widget.Material3.Chip.Filter">
-            <item name="chipBackgroundColor">@color/chip_background_color</item>
-            <item name="android:textColor">@color/chip_text_color</item>
-            <item name="chipIconTint">@color/colorPrimary</item>
-        </style>
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_image_transform</item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_image_transform</item>
 
-        <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
-            <item name="cornerFamily">rounded</item>
-            <item name="cornerSize">12dp</item>
-        </style>
+        <!-- specifying the style for bottom sheet -->
+        <item name="bottomSheetDialogTheme">@style/CustomModalBottomSheet</item>
 
-        <style name="CustomEditText" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-            <item name="colorPrimaryDark">#8630DC</item>
-            <item name="colorPrimary">#8630DC</item>
-        </style>
+    </style>
+    <style name="CustomChipStyle" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="chipIconTint">@color/colorPrimary</item>
+    </style>
 
-        <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.Material3.Button.OutlinedButton">
-            <item name="iconPadding">0dp</item>
-            <item name="android:insetTop">0dp</item>
-            <item name="android:insetBottom">0dp</item>
-            <item name="android:paddingLeft">12dp</item>
-            <item name="android:paddingRight">12dp</item>
-            <item name="android:minWidth">48dp</item>
-            <item name="android:minHeight">48dp</item>
-            <item name="iconTint">#000</item>
-        </style>
+    <style name="CustomAlertDialog" parent="ThemeOverlay.Material3.Dialog">
+        <item name="cornerRadius">24dp</item>
+    </style>
 
-        <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
 
-        <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="CustomIconButton" parent="Widget.Material3.Button.Icon">
+        <item name="cornerRadius">3dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
 
-        <style name="AppBarTitleTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-            <item name="android:textSize">30dp</item>
-            <item name="fontFamily">@font/poppins_regular</item>
-        </style>
+    </style>
 
-        <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
-            <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    <style name="CustomEditText" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="colorPrimaryDark">#8630DC</item>
+        <item name="colorPrimary">#8630DC</item>
+    </style>
 
-        </style>
+    <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="iconTint">#000</item>
+    </style>
 
-        <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
-            <item name="android:background">@android:color/transparent</item>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppBarTitleTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">30dp</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
 
-        </style>
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
 
-        <style name="DeleteAlarmDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-            <item name="colorAccent">@color/accent</item>
-        </style>
+    </style>
 
-        <style name="AlertLandingPageTheme" parent="Theme.AppCompat.NoActionBar">
-            <item name="colorPrimary">@color/colorPrimary</item>
-            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-            <item name="colorAccent">@color/accent</item>
-        </style>
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
 
+    </style>
+
+    <style name="DeleteAlarmDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
+    <style name="AlertLandingPageTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
 
 
     <!-- Bottom sheet dialog fragment shape -->
-    <style name="CustomModalBottomSheet" parent="@style/ThemeOverlay.Material3">
+    <style name="CustomModalBottomSheet" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
     </style>
 
-    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+    <style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
     </style>
 
@@ -104,10 +126,6 @@
         <item name="cornerSizeTopLeft">15dp</item>
         <item name="cornerSizeTopRight">15dp</item>
     </style>
-
-
-
-
 
 
 </resources>
