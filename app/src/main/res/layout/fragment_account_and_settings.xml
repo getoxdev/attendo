@@ -124,6 +124,7 @@
                 android:id="@+id/routine_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="Routine Settings"
                 android:drawableLeft="@drawable/ic_baseline_school_focused"
                 android:textAlignment="textStart"
