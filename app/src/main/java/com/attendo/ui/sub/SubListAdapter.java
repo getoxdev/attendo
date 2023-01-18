@@ -393,6 +393,9 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     //--------------------------------------------------------------------------------------
 
     private String getPercentage(int present, int total) {
+
+
+
         double presentdouble, totaldouble;
         presentdouble = Double.valueOf(present);
         totaldouble = Double.valueOf(total);
@@ -407,6 +410,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
     private String Status(String criteria,String percentage,int present,int absent)
     {
+
         String status;
         double presentdouble, absentdouble,percentagedouble,criteriadouble;
         presentdouble = Double.valueOf(present);
@@ -415,51 +419,79 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         criteriadouble = Double.valueOf(criteria);
 
 
-
         if(percentagedouble>criteriadouble)
         {
-            double value;
-            value=floor(presentdouble - (criteriadouble*(presentdouble + absentdouble))/100);
-            value = value;
-            if(value==0.0)
-                status="Dont't miss next 1 lecture";
-            else
-                if(value==1)
-                {status="You can skip next "+String.format("%.0f",Math.abs(value))+" lecture";}
-                else
-                {status="You can skip next "+String.format("%.0f",Math.abs(value))+" lectures";}
-        }
-        else if(percentagedouble<criteriadouble)
-        {
-            if(criteriadouble==100)
-            {
-                if(presentdouble==0.0)
-                {
-                    status = "You must attend next 1 lecture";
-                }
-                else
-                {
-                    status = "Impossible";
-                }
-            }
-           else {
-                double value;
-                value = ceil(((criteriadouble * (presentdouble + absentdouble)) / 100 - presentdouble));
-                value = value + 1;
-                if (value == 1) {
-                    status = "You must attend next " + String.format("%.0f", Math.abs(value)) + " lecture";
-                } else {
-                    status = "You must attend next " + String.format("%.0f", Math.abs(value)) + " lectures";
-                }
-            }
+            int ucanmiss = (int) (((100*presentdouble)/criteriadouble)-absentdouble-presentdouble);
+            if(ucanmiss==0)
+                status = "You must attend next 1 lecture";
+
+             else
+            status = "You can miss next "+ ucanmiss+" lecture";
+            return  status;
 
         }
-
         else
         {
-            status="Don't miss next 1 lecture";
+            int umustattend = (int) ((criteriadouble*(absentdouble+presentdouble) - 100*presentdouble)/(100-criteriadouble));
+            if(umustattend==0)
+            status = "You must attend next 1 lecture";
+            else
+                status = "You must attend next "+ umustattend+" lecture";
+            return  status;
+
+
         }
-        return status;
+
+
+
+
+
+
+
+//        if(percentagedouble>criteriadouble)
+//        {
+//            double value;
+//            value=floor(presentdouble - (criteriadouble*(presentdouble + absentdouble))/100);
+//            value = value;
+//            if(value==0.0)
+//                status="Dont't miss next 1 lecture";
+//            else
+//                if(value==1)
+//                {status="You can skip next "+String.format("%.0f",Math.abs(value))+" lecture";}
+//                else
+//                {status="You can skip next "+String.format("%.0f",Math.abs(value))+" lectures";}
+//        }
+//        else if(percentagedouble<criteriadouble)
+//        {
+//            if(criteriadouble==100)
+//            {
+//                if(presentdouble==0.0)
+//                {
+//                    status = "You must attend next 1 lecture";
+//                }
+//                else
+//                {
+//                    status = "Impossible";
+//                }
+//            }
+//           else {
+//                double value;
+//                value = ceil(((criteriadouble * (presentdouble + absentdouble)) / 100 - presentdouble));
+//                value = value + 1;
+//                if (value == 1) {
+//                    status = "You must attend next " + String.format("%.0f", Math.abs(value)) + " lecture";
+//                } else {
+//                    status = "You must attend next " + String.format("%.0f", Math.abs(value)) + " lectures";
+//                }
+//            }
+//
+//        }
+//
+//        else
+//        {
+//            status="Don't miss next 1 lecture";
+//        }
+//        return status;
     }
 
 
