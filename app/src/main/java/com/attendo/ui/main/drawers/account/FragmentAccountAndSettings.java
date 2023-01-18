@@ -1,5 +1,7 @@
 package com.attendo.ui.main.drawers.account;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
