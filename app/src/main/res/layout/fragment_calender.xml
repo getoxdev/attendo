@@ -33,7 +33,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_sheet_background"
-        android:backgroundTint="@color/calendar_bottom_sheet"
+        android:backgroundTint="?attr/colorSurface"
+        android:elevation="3dp"
         app:behavior_peekHeight="80dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
@@ -44,7 +45,7 @@
             android:layout_marginStart="12dp"
             android:padding="14dp"
             android:text="date_selected"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:fontFamily="@font/poppins_regular"
             android:textStyle="bold"
             android:layout_marginTop="15dp"
@@ -69,7 +70,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/sepatator"
             android:layout_centerHorizontal="true"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:contentDescription="Separator"/>
 
 
 
