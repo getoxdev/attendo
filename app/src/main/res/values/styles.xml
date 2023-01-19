@@ -21,7 +21,7 @@
         <item name="bottomSheetDialogTheme">@style/CustomModalBottomSheet</item>
     </style>
 
-    <style name="AppThemeCustom" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="AppThemeCustom" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">#CAC9C9</item>
@@ -42,13 +42,13 @@
         <item name="bottomSheetDialogTheme">@style/CustomModalBottomSheet</item>
 
     </style>
-    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Filter">
+    <style name="CustomChipStyle" parent="Widget.Material3.Chip.Filter">
         <item name="chipBackgroundColor">@color/chip_background_color</item>
         <item name="android:textColor">@color/chip_text_color</item>
         <item name="chipIconTint">@color/colorPrimary</item>
     </style>
 
-    <style name="CustomAlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+    <style name="CustomAlertDialog" parent="ThemeOverlay.Material3.Dialog">
         <item name="cornerRadius">24dp</item>
     </style>
 
@@ -57,19 +57,19 @@
         <item name="cornerSize">12dp</item>
     </style>
 
-    <style name="CustomIconButton" parent="Widget.MaterialComponents.Button.Icon">
+    <style name="CustomIconButton" parent="Widget.Material3.Button.Icon">
         <item name="cornerRadius">3dp</item>
         <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingRight">4dp</item>
 
     </style>
 
-    <style name="CustomEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="CustomEditText" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="colorPrimaryDark">#8630DC</item>
         <item name="colorPrimary">#8630DC</item>
     </style>
 
-    <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.Material3.Button.OutlinedButton">
         <item name="iconPadding">0dp</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
@@ -85,8 +85,8 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppBarTitleTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textSize">30dp</item>
-        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">24dp</item>
+        <item name="fontFamily">@font/poppins_bold</item>
     </style>
 
     <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
@@ -96,8 +96,6 @@
 
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
-
-
 
     </style>
 
@@ -113,15 +111,15 @@
 
 
     <!-- Bottom sheet dialog fragment shape -->
-    <style name="CustomModalBottomSheet" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <style name="CustomModalBottomSheet" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
     </style>
 
-    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+    <style name="CustomBottomSheet" parent="Widget.Material3.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
     </style>
 
-    <style name="CustomShapeAppearanceBottomSheetDialog" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="ShapeAppearance.Material3.LargeComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">15dp</item>
         <item name="cornerSizeTopRight">15dp</item>

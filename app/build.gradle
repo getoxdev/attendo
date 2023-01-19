@@ -19,6 +19,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures{
+        viewBinding true
+    }
+
     compileOptions {
         targetCompatibility = 1.8
         sourceCompatibility = 1.8
@@ -69,7 +73,6 @@ dependencies {
 
     //lottie animations
     implementation 'com.airbnb.android:lottie:5.0.3'
-    implementation 'com.google.android.play:core:1.6.4'
 
     //rate app library
     implementation 'com.codemybrainsout.rating:ratingdialog:1.0.8'
@@ -93,6 +96,15 @@ dependencies {
 
     //facebook shimmer animation
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    implementation 'androidx.work:work-runtime:2.7.1'
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    implementation 'com.google.android.play:review:2.0.1'
+
+    // For Kotlin users also add the Kotlin extensions library for Play In-App Review:
+    implementation 'com.google.android.play:review-ktx:2.0.1'
+    implementation 'com.google.android.play:app-update:2.0.1'
+
 
 
 }

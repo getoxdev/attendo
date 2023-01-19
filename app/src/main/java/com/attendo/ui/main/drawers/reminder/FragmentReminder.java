@@ -32,13 +32,11 @@ import com.attendo.data.api.ApiHelper;
 import com.attendo.data.model.reminder.Reminder;
 import com.attendo.data.rem.RemEntity;
 import com.attendo.viewmodel.ReminderViewModel;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.messaging.FirebaseMessaging;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -139,25 +137,13 @@ public class FragmentReminder extends Fragment {
 //            }
 //        });
 
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(getActivity(), new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if(task.isComplete()) {
-                    fcmToken = task.getResult();
-                    editor.putString("fcmToken", fcmToken);
-                    editor.commit();
-                    retreiveFcmToken = retrieve.getString("fcmToken", "");
-                    Log.i("My FCM Token", retreiveFcmToken);
-                }
-            }
-        });
-
         bundle = new Bundle();
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
 
-        View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet,
-                (ConstraintLayout) view.findViewById(R.id.time_picker_container));
+
+        View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet,(ConstraintLayout)view.findViewById(R.id.time_picker_container));
+        //ConstraintLayout cc=bottomSheet.findViewById(R.id.time_picker_container);
         bottomSheetDialog.setContentView(bottomSheet);
         bottomSheetDialog.setDismissWithAnimation(true);
 

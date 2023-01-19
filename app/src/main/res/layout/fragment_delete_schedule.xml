@@ -57,7 +57,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="40dp"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/Widget.Material3.Button.TonalButton.Icon"
         app:strokeWidth="0dp"
         app:backgroundTint="@color/btn_tint_2"
         app:rippleColor="#AF91F4"

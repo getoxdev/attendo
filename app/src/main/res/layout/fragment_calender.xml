@@ -10,20 +10,27 @@
     tools:context=".ui.calendar.FragmentCalender"
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-
-    <CalendarView
-        android:id="@+id/calendar_fragment"
-        android:layout_width="match_parent"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/bg_login"
-        android:background="@color/colorPrimaryDark"
-        android:padding="2dp"
-        android:animateLayoutChanges="true"
-        android:splitMotionEvents="true"
+        android:layout_marginTop="10dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+        android:layout_gravity="center|top">
+
+        <CalendarView
+            android:id="@+id/calendar_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:animateLayoutChanges="true"
+            android:splitMotionEvents="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+
+
+    </com.google.android.material.card.MaterialCardView>
 
 
 
@@ -33,7 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_sheet_background"
-        android:backgroundTint="@color/calendar_bottom_sheet"
+        android:backgroundTint="?attr/colorSurface"
+        android:elevation="3dp"
         app:behavior_peekHeight="80dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
@@ -44,7 +52,7 @@
             android:layout_marginStart="12dp"
             android:padding="14dp"
             android:text="date_selected"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:fontFamily="@font/poppins_regular"
             android:textStyle="bold"
             android:layout_marginTop="15dp"
@@ -69,7 +77,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/sepatator"
             android:layout_centerHorizontal="true"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:contentDescription="Separator"/>
 
 
 
