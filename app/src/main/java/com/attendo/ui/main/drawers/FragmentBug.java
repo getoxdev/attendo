@@ -91,7 +91,7 @@ public class FragmentBug extends Fragment{
                         if(snapshot.exists()){
                             Pb.setVisibility(View.INVISIBLE);
                             found = 1;
-                            value = snapshot.child(mAuth.getCurrentUser().getUid()).child("Bug").getValue(String.class);
+                            value = snapshot.child(mAuth.getCurrentUser().getUid()).child("Bug").getValue().toString();
                         }
                         else{
 

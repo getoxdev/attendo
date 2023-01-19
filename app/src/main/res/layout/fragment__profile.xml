@@ -185,7 +185,7 @@
 
 
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/user_progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -198,7 +198,7 @@
 
     <Button
         android:id="@+id/save_profile"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="140dp"
         android:layout_height="60dp"
         android:layout_below="@+id/phone_input_layout"
@@ -206,7 +206,7 @@
         android:layout_marginBottom="54dp"
         android:elevation="0dp"
         android:stateListAnimator="@animator/button_pressed_animator"
-        android:text="update"
+        android:text="Update"
         android:textColor="@color/btn_positive_text_color"
         android:textSize="18dp"
         app:backgroundTint="@color/btn_tint_2"

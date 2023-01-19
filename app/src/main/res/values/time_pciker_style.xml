@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TimePickerStyle">
+    <style name="TimePickerStyle" parent="Widget.Material3.MaterialTimePicker">>
         <item name="android:textSize">23dp</item>
         <item name="android:textColor">#A6A4A4</item>
     </style>

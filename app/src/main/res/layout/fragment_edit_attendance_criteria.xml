@@ -15,7 +15,7 @@
        android:layout_marginStart="24dp"
        android:layout_marginEnd="24dp"
        android:layout_marginBottom="16dp"
-       style="@style/Widget.MaterialComponents.Button"
+       style="@style/Widget.Material3.Button.TonalButton.Icon"
        app:strokeWidth="0dp"
        android:paddingTop="10dp"
        android:paddingBottom="10dp"

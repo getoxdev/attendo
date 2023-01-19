@@ -23,6 +23,7 @@
             android:text="Edit Subject"
             android:padding="15dp"
             android:textSize="18dp"
+
             android:layout_marginTop="10dp"
             android:drawableStart="@drawable/ic_baseline_book_bottom_nav"
             android:drawablePadding="10dp"
