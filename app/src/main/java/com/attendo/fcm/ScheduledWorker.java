@@ -35,7 +35,7 @@ public  class ScheduledWorker extends Worker
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             pi = PendingIntent.getActivity(getApplicationContext(), 102, intent,  PendingIntent.FLAG_IMMUTABLE);
         }else{
-            pi = PendingIntent.getActivity(getApplicationContext(), 102, intent, PendingIntent.FLAG_IMMUTABLE);
+            pi = PendingIntent.getActivity(getApplicationContext(), 102, intent, PendingIntent.FLAG_MUTABLE);
         }
 
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);

@@ -18,6 +18,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -36,6 +39,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 
 import java.text.DateFormat;
@@ -126,16 +130,16 @@ public class FragmentReminder extends Fragment {
         SharedPreferences retrieve = getContext().getSharedPreferences("MYPREF", 0);
 
 
-//        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), new OnSuccessListener<InstanceIdResult>() {
-//            @Override
-//            public void onSuccess(InstanceIdResult instanceIdResult) {
-//                fcmToken = instanceIdResult.getToken();
-//                editor.putString("fcmToken", fcmToken);
-//                editor.commit();
-//                retreiveFcmToken = retrieve.getString("fcmToken", "");
-//                Log.i("My FCM Token", retreiveFcmToken);
-//            }
-//        });
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                fcmToken = task.getResult();
+                editor.putString("fcmToken", fcmToken);
+                editor.commit();
+                retreiveFcmToken = retrieve.getString("fcmToken", "");
+                Log.i("My FCM Token", retreiveFcmToken);
+            }
+        });
 
         bundle = new Bundle();
 
