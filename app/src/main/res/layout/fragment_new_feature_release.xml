@@ -52,7 +52,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Routine feature added"
+                android:text="Material 3 Update"
                 android:textSize="20dp"
                 android:textColor="@color/btn_positive_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -68,8 +68,7 @@
                 android:layout_marginEnd="16dp"
                 android:textSize="15dp"
                 android:fontFamily="@font/poppins_light"
-                android:text="New routine feature is added which wil enable user to create classroom and then manage the schedule in real time  \n\n
-Ask your class monitor to make a classroom and then share the code with all its classmates and enjoy the new way of managing the routine."
+                android:text="Added a fresh coat of paint to make it look more modern with the current design trends"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView14" />
