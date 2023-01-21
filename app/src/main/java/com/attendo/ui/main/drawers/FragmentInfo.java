@@ -21,7 +21,6 @@ public class FragmentInfo extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     public FragmentInfo() {
-        // Required empty public constructor
     }
 
     public static FragmentInfo newInstance(String param1, String param2) {
