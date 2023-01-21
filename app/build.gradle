@@ -9,8 +9,8 @@ android {
         manifestPlaceholders = [bootPriority:"999"]
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 7
-        versionName "2.0"
+        versionCode 9
+        versionName "2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
