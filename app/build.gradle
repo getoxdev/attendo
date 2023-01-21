@@ -86,6 +86,7 @@ dependencies {
 
     //firebase
     implementation 'com.google.firebase:firebase-messaging:23.1.0'
+    implementation 'com.google.firebase:firebase-core:19.0.0'
 
     //AdMob dependencies ----> Ads to be shown
     implementation 'com.google.android.gms:play-services-ads:19.5.0'
