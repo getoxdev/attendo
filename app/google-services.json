@@ -15,11 +15,51 @@
       },
       "oauth_client": [
         {
-          "client_id": "697432111739-4v7v0d4mpov083qqv7sp9vd71cmet19i.apps.googleusercontent.com",
+          "client_id": "697432111739-50s6dhhhqqee75mski5vr98ifa3c1ig3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.attendo",
-            "certificate_hash": "0d114f9c3e6cc9bf62af2c675c8eae54ccde8a77"
+            "certificate_hash": "e535a62330a4ff123ce0665be98884d4085fb67a"
+          }
+        },
+        {
+          "client_id": "697432111739-ac9ct6vl32p62ni8ghjdsguqapnh03c8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.attendo",
+            "certificate_hash": "ec669d74c3979780b7e69e87d15d3b01a9a8c592"
+          }
+        },
+        {
+          "client_id": "697432111739-drqh41fn18m35e6g5jrhprv8c15jp1mi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.attendo",
+            "certificate_hash": "b307dfd7ed5cd98cfd52cb9289e839c7dc62c2c9"
+          }
+        },
+        {
+          "client_id": "697432111739-kk1d261hb4bk3hfts0adcp2fsmsogjqm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.attendo",
+            "certificate_hash": "ad880e4f5baa29faa001ba795a4bba2c077ebb45"
+          }
+        },
+        {
+          "client_id": "697432111739-p2eu5t2cej42e0l7bin9g5or6r7tjiri.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.attendo",
+            "certificate_hash": "0806cae3f6b59af31c681936db2d33c8587c2bd2"
+          }
+        },
+        {
+          "client_id": "697432111739-q8krhn9tg4go8cqj1hpjlnh9fdhk6s4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.attendo",
+            "certificate_hash": "ca4b6cbde409a8237b8e38066042cfc616bdb71d"
           }
         },
         {
