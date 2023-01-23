@@ -2,6 +2,8 @@ package com.attendo.fcm;
 
 import static android.content.Context.ALARM_SERVICE;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -73,6 +75,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
         calendar.set(Calendar.HOUR_OF_DAY,22);
       //  WorkManager.getInstance(context).cancelAllWork();
         calendar.set(Calendar.MINUTE,30);
+        PendingIntent pendingIntent;
         Intent intent = new Intent(context, NotificationBroadcast.class);
         PendingIntent pendingIntent;
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
