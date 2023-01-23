@@ -1,6 +1,5 @@
 package com.attendo.ui.main.drawers.account;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +10,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.transition.Explode;
 import android.transition.Fade;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -33,7 +31,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
@@ -220,7 +217,6 @@ public class FragmentAccountAndSettings extends Fragment {
             @Override
             public void onClick(View v) {
                 startReviewFlow();
-
             }
         });
 
@@ -435,29 +431,11 @@ public class FragmentAccountAndSettings extends Fragment {
                 ExportToExcel(directory_path);
             }
         });
-
-
-
-
-        //mobile ads
-
-//        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
-//            @Override
-//            public void onInitializationComplete(InitializationStatus initializationStatus) {
-//
-//            }
-//        });
-//
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        adView.loadAd(adRequest);
-
-
-
         return view;
     }
 
     void activateReviewInfo(){
-        manager=ReviewManagerFactory.create(getActivity());
+        manager=ReviewManagerFactory.create(requireActivity());
         Task<ReviewInfo> request = manager.requestReviewFlow();
         request.addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -465,13 +443,13 @@ public class FragmentAccountAndSettings extends Fragment {
                  reviewInfo = task.getResult();
             } else {
                 // There was some problem, log or handle the error code.
-                Toast.makeText(getActivity(),"Review Failed To Start",Toast.LENGTH_SHORT).show();
+                Log.i("reviewteam" , task.getException().getLocalizedMessage());
             }
         });
     }
     void startReviewFlow(){
         if(reviewInfo!=null){
-            Task<Void> flow = manager.launchReviewFlow(getActivity(), reviewInfo);
+            Task<Void> flow = manager.launchReviewFlow(requireActivity(), reviewInfo);
             flow.addOnCompleteListener(task -> {
                 Toast.makeText(getActivity(),"Thank's For Your Valuable Ratings",Toast.LENGTH_SHORT).show();
             });
@@ -509,7 +487,7 @@ public class FragmentAccountAndSettings extends Fragment {
 
     public void ExportToExcel(String path)
     {
-        SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(getApplicationContext(),subDatabase.DATABASE_NAME,path);
+        SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(requireActivity(), SubDatabase.DATABASE_NAME,path);
 
         sqLiteToExcel.exportSingleTable("SubjectName", "student.xls", new SQLiteToExcel.ExportListener() {
             @Override
