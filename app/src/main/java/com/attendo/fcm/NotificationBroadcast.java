@@ -38,7 +38,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
       //  String body=intent.getStringExtra("body");
 
                
-        if(!isWorkScheduled("Notify") ){
+        if(!isWorkScheduled("Notify", context) ){
             Data notificationData= new Data.Builder()
                     .putString("body","test")
                     .build();
@@ -53,8 +53,8 @@ public class NotificationBroadcast extends BroadcastReceiver {
 
 
     }
-    private boolean isWorkScheduled(String tag) {
-        WorkManager instance = WorkManager.getInstance();
+    private boolean isWorkScheduled(String tag, Context context) {
+        WorkManager instance = WorkManager.getInstance(context);
         ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosForUniqueWork(tag);
         try {
             boolean running = false;
@@ -64,10 +64,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
                 running = state == WorkInfo.State.RUNNING | state == WorkInfo.State.ENQUEUED;
             }
             return running;
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            return false;
-        } catch (InterruptedException e) {
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             return false;
         }
@@ -80,12 +77,12 @@ public class NotificationBroadcast extends BroadcastReceiver {
         calendar.set(Calendar.MINUTE,30);
         PendingIntent pendingIntent;
         Intent intent = new Intent(context, NotificationBroadcast.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-             pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent,  PendingIntent.FLAG_IMMUTABLE);
-        }else{
-            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_MUTABLE);
+        } else {
+            pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         }
-        // pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
             calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);

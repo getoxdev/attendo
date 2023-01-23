@@ -133,11 +133,15 @@ public class FragmentReminder extends Fragment {
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
-                fcmToken = task.getResult();
-                editor.putString("fcmToken", fcmToken);
-                editor.commit();
-                retreiveFcmToken = retrieve.getString("fcmToken", "");
-                Log.i("My FCM Token", retreiveFcmToken);
+                try {
+                    fcmToken = task.getResult();
+                    editor.putString("fcmToken", fcmToken);
+                    editor.commit();
+                    retreiveFcmToken = retrieve.getString("fcmToken", "");
+                    Log.i("My FCM Token", retreiveFcmToken);
+                } catch (Exception e) {
+                    Log.i("reminder", e.getLocalizedMessage());
+                }
             }
         });
 
@@ -147,7 +151,6 @@ public class FragmentReminder extends Fragment {
 
 
         View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet,(ConstraintLayout)view.findViewById(R.id.time_picker_container));
-        //ConstraintLayout cc=bottomSheet.findViewById(R.id.time_picker_container);
         bottomSheetDialog.setContentView(bottomSheet);
         bottomSheetDialog.setDismissWithAnimation(true);
 
