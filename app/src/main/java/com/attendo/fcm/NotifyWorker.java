@@ -1,5 +1,7 @@
 package com.attendo.fcm;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -8,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -30,7 +33,13 @@ public  class NotifyWorker extends Worker
 
         Intent intent = new Intent(getApplicationContext(), BottomNavMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 102, intent, 0);
+        PendingIntent pi;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            pi = PendingIntent.getBroadcast(getApplicationContext(), 102, intent,  PendingIntent.FLAG_IMMUTABLE);
+        }else{
+           pi= PendingIntent.getBroadcast(getApplicationContext(), 102, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+        //PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 102, intent, 0);
 
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
