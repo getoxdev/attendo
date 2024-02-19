@@ -44,8 +44,7 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.gms:play-services-ads:17.2.1'
-    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    // implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.firebase:firebase-client-android:2.5.2'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.mediarouter:mediarouter:1.0.0'
@@ -86,7 +85,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.3.0'
 
     //AdMob dependencies ----> Ads to be shown
-    implementation 'com.google.android.gms:play-services-ads:19.5.0'
+    // implementation 'com.google.android.gms:play-services-ads:19.5.0'
 
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
