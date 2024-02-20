@@ -1,34 +1,28 @@
 package com.attendo.Schedule.Adapters;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.attendo.R;
 import com.attendo.Schedule.DeleteFragment;
 import com.attendo.Schedule.Edit_schedule_fragment;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.data.model.schedule.SubjectDetails;
+import com.attendo.databinding.SubjectCardBinding;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapterCr.RoutineItemAdapterCrHolder> {
 
@@ -42,16 +36,7 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
     String timePickerTime;
     Activity activity;
     OnCardClick onCardClick;
-
-
-
-
     UpdateRecyclerView updateRecyclerView;
-
-
-
-
-
 
     public RoutineItemAdapterCr(Context mContext,List<SubjectDetails> items,Activity activity,UpdateRecyclerView updateRecyclerView,OnCardClick onCardClick)
     {
@@ -60,40 +45,35 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
         this.activity = activity;
         this.updateRecyclerView = updateRecyclerView;
         this.onCardClick = onCardClick;
-
         firebaseScheduleViewModel = new ViewModelProvider((BottomNavMainActivity) mContext).get(FirebaseScheduleViewModel.class);
         scheduleViewModel = new ViewModelProvider((BottomNavMainActivity) mContext).get(ScheduleViewModel.class);
-
-
     }
 
 
     @NonNull
     @Override
     public RoutineItemAdapterCrHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.subject_card,parent,false);
-        RoutineItemAdapterCrHolder routineItemAdapterCrHolder = new RoutineItemAdapterCrHolder(view);
-        return routineItemAdapterCrHolder;
+        SubjectCardBinding binding = SubjectCardBinding.inflate(LayoutInflater.from(parent.getContext()));
+        return new RoutineItemAdapterCrHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RoutineItemAdapterCrHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RoutineItemAdapterCrHolder holder, @SuppressLint("RecyclerView") int position) {
         SubjectDetails currentItem = items.get(position);
-        holder.subject.setText(currentItem.getSubject());
-        holder.faculty.setText(currentItem.getFaculty());
-        holder.time.setText(currentItem.getTime());
-        String scheduleclassid = currentItem.get_id();
-        Log.e("scheduleclassid11",scheduleclassid);
+        holder.binding.subjectname.setText(currentItem.getSubject());
+        holder.binding.instructor.setText(currentItem.getFaculty());
+        holder.binding.time.setText(currentItem.getTime());
+        // String scheduleclassid = currentItem.get_id();
+
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
 
-        holder.subjectCard.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.binding.subjectCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
 
                 index = position;
 
-                String sclassid = currentItem.get_id();
-                Log.e("scheduleclassid22",sclassid);
+                // String sclassid = currentItem.get_id();
 
                 vibrator.vibrate(100);
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
@@ -139,28 +119,12 @@ public class RoutineItemAdapterCr extends RecyclerView.Adapter<RoutineItemAdapte
 
     }
 
-
     public class RoutineItemAdapterCrHolder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.subjectname)
-        TextView subject;
-        @BindView(R.id.instructor)
-        TextView faculty;
-        @BindView(R.id.time)
-        TextView time;
-
-        @BindView(R.id.subjectCard)
-        CardView subjectCard;
-
-        View mview;
-
-        public RoutineItemAdapterCrHolder(@NonNull View itemView) {
-            super(itemView);
-           ButterKnife.bind(this,itemView);
-            mview = itemView;
+        SubjectCardBinding binding;
+        public RoutineItemAdapterCrHolder(@NonNull SubjectCardBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
-
-
     }
 
     public interface OnCardClick
