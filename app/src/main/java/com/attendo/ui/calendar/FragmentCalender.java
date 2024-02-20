@@ -1,16 +1,13 @@
 package com.attendo.ui.calendar;
 
-import android.content.Context;
-import android.os.Bundle;
 
+import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,25 +16,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.CalendarView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.attendo.R;
 import com.attendo.data.DateConverter;
 import com.attendo.databinding.FragmentCalenderBinding;
 import com.attendo.viewmodel.CalViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-
-import org.xmlpull.v1.XmlPullParser;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import butterknife.BindString;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class FragmentCalender extends Fragment {
     private CalAdapter calAdapter;
