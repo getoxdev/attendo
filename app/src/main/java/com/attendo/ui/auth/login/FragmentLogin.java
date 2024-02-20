@@ -17,8 +17,6 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.databinding.FragmentLoginBinding;
@@ -48,7 +46,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import butterknife.BindView;
 
 public class FragmentLogin extends Fragment implements logininterface.View {
     private FragmentLoginBinding binding;

@@ -3,13 +3,10 @@ package com.attendo.ui.auth;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Bundle;
 import android.view.Window;
-
 import com.attendo.R;
 import com.attendo.databinding.ActivityAuthenticationBinding;
-import com.attendo.ui.auth.login.FragmentLogin;
 import com.attendo.ui.splash.SplashFragment;
 import com.google.android.material.transition.platform.MaterialFade;
 
