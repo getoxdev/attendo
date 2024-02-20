@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.attendo.databinding.FragmentSignupBinding;
 import com.attendo.ui.main.drawers.account.FragmentProfile;
 import com.attendo.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,52 +27,39 @@ import butterknife.ButterKnife;
 
 public class FragmentSignup extends Fragment implements SignupInterface.View {
 
-    @BindView(R.id.editTextEmail)
-    EditText email;
-    @BindView(R.id.editTextTextPassword)
-    EditText password;
-    @BindView(R.id.editTextTextPassword2)
-    EditText confpassword;
-    @BindView(R.id.button)
-    Button SignUp;
-    @BindView(R.id.progressbar)
-    ProgressBar progress;
-
-
     private SignupInterface.Presenter presenter;
     private FragmentProfile fragment_profile;
     FirebaseAuth mAuth;
+    private FragmentSignupBinding binding;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_signup, container, false);
-
-        ButterKnife.bind(this, view);
+        binding = FragmentSignupBinding.inflate(inflater, container, false);
 
         presenter = new SignupPresenter(this);
         fragment_profile = new FragmentProfile();
         mAuth = FirebaseAuth.getInstance();
 
-        SignUp.setOnClickListener(new View.OnClickListener() {
+        binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progress.setVisibility(View.VISIBLE);
+                binding.progressbar.setVisibility(View.VISIBLE);
                 handleSignup();
             }
         });
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
 
-        return view;
+        return binding.getRoot();
     }
 
     public void setInputs(boolean enable){
-        email.setEnabled(enable);
-        password.setEnabled(enable);
-        confpassword.setEnabled(enable);
-        SignUp.setEnabled(enable);
+        binding.editTextEmail.setEnabled(enable);
+        binding.editTextTextPassword.setEnabled(enable);
+        binding.editTextTextPassword2.setEnabled(enable);
+        binding.button.setEnabled(enable);
     }
 
     @Override
@@ -87,22 +75,22 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
     @Override
     public void handleSignup() {
         if(!isValidEmail()){
-            progress.setVisibility(View.INVISIBLE);
+            binding.progressbar.setVisibility(View.INVISIBLE);
             Toast.makeText(getActivity(),"please enter a valid email",Toast.LENGTH_SHORT).show();
-            email.setError("InValid");
+            binding.editTextEmail.setError("InValid");
         }
         else if(!isValidPassword()){
-            progress.setVisibility(View.INVISIBLE);
+            binding.progressbar.setVisibility(View.INVISIBLE);
             Toast.makeText(getActivity(),"Password length must be greater than 5",Toast.LENGTH_SHORT).show();
         }
         else if(!isValidConfPassword()){
-            progress.setVisibility(View.INVISIBLE);
+            binding.progressbar.setVisibility(View.INVISIBLE);
             Toast.makeText(getActivity(),"password ans confirm-password doen't match",Toast.LENGTH_SHORT).show();
-            confpassword.setError("Error");
+            binding.editTextTextPassword2.setError("Error");
         }
 
         else{
-            presenter.toLogin(email.getText().toString().trim(),password.getText().toString().trim(),confpassword.getText().toString().trim());
+            presenter.toLogin(binding.editTextEmail.getText().toString().trim(),binding.editTextTextPassword.getText().toString().trim(),binding.editTextTextPassword2.getText().toString().trim());
         }
     }
 
@@ -110,13 +98,13 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
 
     @Override
     public boolean isValidEmail() {
-        return Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches();
+        return Patterns.EMAIL_ADDRESS.matcher(binding.editTextEmail.getText().toString()).matches();
     }
 
     @Override
     public boolean isValidPassword() {
-        if(TextUtils.isEmpty(password.getText().toString()) || password.getText().toString().length()<6){
-            password.setError("Invalid data");
+        if(TextUtils.isEmpty(binding.editTextTextPassword.getText().toString()) || binding.editTextTextPassword.getText().toString().length()<6){
+            binding.editTextTextPassword.setError("Invalid data");
             return false;
         }
         else
@@ -125,7 +113,7 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
 
     @Override
     public boolean isValidConfPassword() {
-       if(password.getText().toString().equals(confpassword.getText().toString()))
+       if(binding.editTextTextPassword.getText().toString().equals(binding.editTextTextPassword2.getText().toString()))
            return true;
        else
            return false;
@@ -133,7 +121,7 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
 
     @Override
     public void onSignup() {
-        progress.setVisibility(View.INVISIBLE);
+        binding.progressbar.setVisibility(View.INVISIBLE);
         Toast.makeText(getActivity(),"Signup Successful",Toast.LENGTH_SHORT).show();
         //Passing empty data
         Bundle bundle = new Bundle();
@@ -150,7 +138,7 @@ public class FragmentSignup extends Fragment implements SignupInterface.View {
 
     @Override
     public void onError(String message) {
-        progress.setVisibility(View.INVISIBLE);
+        binding.progressbar.setVisibility(View.INVISIBLE);
         Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
     }
 

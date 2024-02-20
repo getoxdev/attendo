@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Window;
 
 import com.attendo.R;
+import com.attendo.databinding.ActivityAuthenticationBinding;
 import com.attendo.ui.auth.login.FragmentLogin;
 import com.attendo.ui.splash.SplashFragment;
 import com.google.android.material.transition.platform.MaterialFade;
@@ -15,14 +16,16 @@ import com.google.android.material.transition.platform.MaterialFade;
 public class AuthenticationActivity extends AppCompatActivity
 {
 
+    private ActivityAuthenticationBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         getWindow().setEnterTransition(new MaterialFade().setDuration(300));
         getWindow().setExitTransition(new MaterialFade().setDuration(300));
-        setContentView(R.layout.activity_authentication);
-
+        binding = ActivityAuthenticationBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         setFragment(new SplashFragment());
     }
 

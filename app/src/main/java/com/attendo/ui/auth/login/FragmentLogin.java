@@ -1,11 +1,9 @@
 package com.attendo.ui.auth.login;
 
-import android.app.Activity;
-import android.content.ContentProvider;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,8 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -23,13 +19,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.databinding.FragmentLoginBinding;
 import com.attendo.ui.CustomLoadingDialog;
-import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.auth.FragmentForgetPassword;
 import com.attendo.R;
 import com.attendo.ui.auth.signup.FragmentSignup;
@@ -42,7 +35,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
@@ -56,32 +48,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import static com.airbnb.lottie.L.TAG;
 
 public class FragmentLogin extends Fragment implements logininterface.View {
-    
-    @BindView(R.id.editTextTextPersonName)
-    EditText email;
-    @BindView(R.id.editTextTextPassword)
-    EditText password;
-    @BindView(R.id.button)
-    Button loginbtn;
-    @BindView(R.id.other_signIn_options_btn)
-    Button otherWaysbtn;
-    @BindView(R.id.textViewforgot)
-    TextView forgotpassword;
-    @BindView(R.id.textViewregister)
-    TextView register;
-    @BindView(R.id.progress_circular)
-    ProgressBar progress;
-
-
+    private FragmentLoginBinding binding;
     int found = 0;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private logininterface.Presenter presenter;
@@ -100,15 +70,9 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_login, container, false);
-
+        binding = FragmentLoginBinding.inflate(inflater, container, false);
         setAllowEnterTransitionOverlap(false);
-
-        ButterKnife.bind(this, view);
-
         presenter = new loginPresenter(this);
-
-
         fragmentSignup = new FragmentSignup();
         fragmentForgetpassword = new FragmentForgetPassword();
         fragmentProfile = new FragmentProfile();
@@ -139,24 +103,24 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         fragmentForgetpassword.setEnterTransition(enter);
         fragmentForgetpassword.setExitTransition(exit);
 
-        forgotpassword.setOnClickListener(new View.OnClickListener() {
+        binding.textViewforgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentForgetpassword);
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
+        binding.textViewregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setFragment(fragmentSignup);
             }
         });
 
-        loginbtn.setOnClickListener(new View.OnClickListener() {
+        binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progress.setVisibility(View.VISIBLE);
+                binding.progressCircular.setVisibility(View.VISIBLE);
                 handleLogin();
 
             }
@@ -168,7 +132,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
         //google sign in option:
         View otherWaysToSignIn = LayoutInflater.from(getContext()).inflate(R.layout.bottom_sheet_sign_in,
-                (ConstraintLayout) view.findViewById(R.id.sign_in_bottom_sheet));
+                (ConstraintLayout) binding.getRoot().findViewById(R.id.sign_in_bottom_sheet));
         BottomSheetDialog signInBottomSheet = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
         signInBottomSheet.setContentView(otherWaysToSignIn);
         signInBottomSheet.setDismissWithAnimation(true);
@@ -176,16 +140,15 @@ public class FragmentLogin extends Fragment implements logininterface.View {
         //****************create google sign  in request************************
         createRequest();
 
-        otherWaysbtn.setOnClickListener(new View.OnClickListener() {
+        binding.otherSignInOptionsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//
                 signIn();
             }
         });
 
 
-        return view;
+        return binding.getRoot();
     }
 
     @Override
@@ -198,9 +161,9 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     }
 
     public void setInputs(boolean enable){
-        email.setEnabled(enable);
-        password.setEnabled(enable);
-        loginbtn.setEnabled(enable);
+        binding.editTextTextPersonName.setEnabled(enable);
+        binding.editTextTextPassword.setEnabled(enable);
+        binding.button.setEnabled(enable);
     }
 
     //method for google signIn
@@ -231,11 +194,11 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                 try {
                     // Google Sign In was successful, authenticate with Firebase
                     GoogleSignInAccount account = task.getResult(ApiException.class);
-                    Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+                    // Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                     firebaseAuthWithGoogle(account.getIdToken());
                 } catch (ApiException e) {
                     // Google Sign In failed, update UI appropriately
-                    Log.w(TAG, "Google sign in failed", e);
+                    // Log.w(TAG, "Google sign in failed", e);
                     // ...
                 }
             }
@@ -253,7 +216,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                         if (task.isSuccessful()) {
                             loadingDialog.dismissDialog();
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
+                            // Log.d(TAG, "signInWithCredential:success");
                             Toast.makeText(getActivity(), "Sign In succesful" ,Toast.LENGTH_SHORT).show();
 
                             checkUser();
@@ -263,7 +226,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
                         else {
                             loadingDialog.dismissDialog();
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            // Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Snackbar.make(getView(), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
 
                         }
@@ -309,29 +272,29 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     @Override
     public void handleLogin() {
         if(!isValidEmail()){
-            progress.setVisibility(View.INVISIBLE);
+            binding.progressCircular.setVisibility(View.INVISIBLE);
             Toast.makeText(mActivity,"please enter a valid email",Toast.LENGTH_SHORT).show();
-            email.setError("InValid email");
+            binding.editTextTextPersonName.setError("InValid email");
         }
         else if(!isValidPassword()){
-            progress.setVisibility(View.INVISIBLE);
+            binding.progressCircular.setVisibility(View.INVISIBLE);
             Toast.makeText(mActivity,"please enter a valid password",Toast.LENGTH_SHORT).show();
         }
         else {
-            presenter.toLogin(email.getText().toString().trim(),password.getText().toString().trim());
+            presenter.toLogin(binding.editTextTextPersonName.getText().toString().trim(),binding.editTextTextPassword.getText().toString().trim());
         }
     }
 
     @Override
     public boolean isValidEmail() {
-        return Patterns.EMAIL_ADDRESS.matcher(email.getText().toString().trim()).matches();
+        return Patterns.EMAIL_ADDRESS.matcher(binding.editTextTextPersonName.getText().toString().trim()).matches();
     }
 
     @Override
     public boolean isValidPassword() {
-        if(TextUtils.isEmpty(password.getText().toString().trim()) || password.getText().toString().trim().length()<6){
+        if(TextUtils.isEmpty(binding.editTextTextPassword.getText().toString().trim()) || binding.editTextTextPassword.getText().toString().trim().length()<6){
             Toast.makeText(getActivity(),"please enter a valid password",Toast.LENGTH_SHORT).show();
-            password.setError("Invalid data");
+            binding.editTextTextPassword.setError("Invalid data");
             return false;
         }
         else
@@ -340,7 +303,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
     @Override
     public void onLogin() {
-        progress.setVisibility(View.INVISIBLE);
+        binding.progressCircular.setVisibility(View.INVISIBLE);
         RetrieveFcm();
         Toast.makeText(getActivity(),"Login Successful ",Toast.LENGTH_SHORT).show();
         Intent intent=new Intent(getActivity(),BottomNavMainActivity.class);
@@ -370,7 +333,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
 
     @Override
     public void onError(String message) {
-        progress.setVisibility(View.INVISIBLE);
+        binding.progressCircular.setVisibility(View.INVISIBLE);
         Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
     }
     private void setFragment(Fragment fragment) {

@@ -18,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.attendo.R;
+import com.attendo.databinding.FragmentSplashBinding;
 import com.attendo.ui.auth.login.FragmentLogin;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.google.android.material.transition.MaterialFade;
@@ -33,25 +34,17 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class SplashFragment extends Fragment {
 
-    @BindView(R.id.splash_screen_app_icon)
-    ImageView appIcon;
-
+    private FragmentSplashBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setExitTransition(new MaterialSharedAxis(MaterialSharedAxis.Z, false));
+        binding = FragmentSplashBinding.inflate(inflater, container, false);
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_splash, container, false);
-        ButterKnife.bind(this, view);
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-
         Animation animation  = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.bounce);
-
-        //hooks
-        appIcon = (ImageView) view.findViewById(R.id.splash_screen_app_icon);
-
-        appIcon.setAnimation(animation);
+        binding.splashScreenAppIcon.setAnimation(animation);
 
         //stay logged in code
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -74,7 +67,7 @@ public class SplashFragment extends Fragment {
         },1000);
 
 
-        return view;
+        return binding.getRoot();
     }
 
     private void setFragment(Fragment fragment)

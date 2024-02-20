@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
+import com.attendo.databinding.CalendarCardListitemBinding;
+import com.attendo.databinding.FragmentCalenderBinding;
 
 import java.util.List;
 
@@ -36,14 +38,14 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder> {
     @Override
     public CalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.calendar_card_listitem,parent,false);
-        return new CalViewHolder(view);
+        CalendarCardListitemBinding binding = CalendarCardListitemBinding.inflate(LayoutInflater.from(mContext), parent, false);
+        return new CalViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CalViewHolder holder, int position) {
         final String data = mDatalist.get(position);
-        holder.caltextView.setText(data);
+        holder.binding.calTextview.setText(data);
     }
 
     @Override
@@ -53,14 +55,11 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder> {
         else return 0;
     }
 
-    public class CalViewHolder extends RecyclerView.ViewHolder{
-
-        @BindView(R.id.cal_textview)
-        TextView caltextView;
-
-        public CalViewHolder(@NonNull View itemView) {
-            super(itemView);
-            ButterKnife.bind(this,itemView);
+    public static class CalViewHolder extends RecyclerView.ViewHolder{
+        CalendarCardListitemBinding binding;
+        public CalViewHolder(@NonNull CalendarCardListitemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
