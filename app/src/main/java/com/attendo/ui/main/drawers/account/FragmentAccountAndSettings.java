@@ -40,6 +40,8 @@ import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.Schedule.StudetntSettingsFragment;
 import com.attendo.data.database.SubDatabase;
+import com.attendo.databinding.FragmentAccountAndSettingsBinding;
+import com.attendo.databinding.FragmentCalenderBinding;
 import com.attendo.ui.auth.AuthenticationActivity;
 import com.attendo.ui.main.drawers.FragmentAppRate;
 import com.attendo.ui.main.drawers.FragmentBug;
@@ -69,13 +71,12 @@ import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.File;
 
-import butterknife.ButterKnife;
-
-
 public class FragmentAccountAndSettings extends Fragment {
-    private ReviewManager manager;
-    private ReviewInfo reviewInfo ;
 
+    private FragmentAccountAndSettingsBinding binding;
+
+    private ReviewManager manager;
+    private ReviewInfo reviewInfo;
 
     private NoticeFragment noticeFragment;
     private FragmentUserProfile fragmentUserProfile;
@@ -105,8 +106,7 @@ public class FragmentAccountAndSettings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_account_and_settings, container, false);
-        ButterKnife.bind(this, view);
+        binding = FragmentAccountAndSettingsBinding.inflate(inflater, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Settings");
 
 

@@ -1,14 +1,21 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext {
+        kotlin_version = '1.8.10'
+    }
     repositories {
         google()
         mavenCentral()
+        maven { url "https://www.jitpack.io" }
+        maven { url "https://jitpack.io" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.3.0'
         classpath 'com.google.gms:google-services:4.4.1'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
+        classpath 'com.google.firebase:perf-plugin:1.4.2'
+        classpath 'com.google.firebase:firebase-appdistribution-gradle:4.2.0'
     }
 }
 
@@ -17,7 +24,6 @@ allprojects {
         mavenCentral()
         google()
     }
-
 }
 
 tasks.register('clean', Delete) {

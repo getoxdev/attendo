@@ -1,6 +1,9 @@
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.appdistribution'
+}
 
 android {
     compileSdk 34
@@ -18,9 +21,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-    buildFeatures{
-        viewBinding true
     }
 
     compileOptions {
@@ -59,8 +59,6 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.mediarouter:mediarouter:1.0.0'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
-    implementation 'com.jakewharton:butterknife:10.2.3'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.5.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
@@ -110,7 +108,4 @@ dependencies {
     // For Kotlin users also add the Kotlin extensions library for Play In-App Review:
     implementation 'com.google.android.play:review-ktx:2.0.1'
     implementation 'com.google.android.play:app-update:2.0.1'
-
-
-
 }
