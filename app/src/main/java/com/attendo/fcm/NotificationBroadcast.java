@@ -77,7 +77,6 @@ public class NotificationBroadcast extends BroadcastReceiver {
         calendar.set(Calendar.MINUTE,30);
         PendingIntent pendingIntent;
         Intent intent = new Intent(context, NotificationBroadcast.class);
-        PendingIntent pendingIntent;
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_MUTABLE);
         } else {
