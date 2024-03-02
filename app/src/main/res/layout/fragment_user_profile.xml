@@ -51,7 +51,7 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <ProgressBar
+                <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/progressbar"
                     android:layout_width="31dp"
                     android:layout_height="39dp"
@@ -253,9 +253,9 @@
 
                 </RelativeLayout>
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/edit_profile"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="260dp"
                     android:layout_height="60dp"
                     android:layout_centerHorizontal="true"
@@ -274,9 +274,9 @@
                     app:rippleColor="#AF91F4"
                     app:strokeWidth="0dp" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/Delete_Account_Btn"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    style="@style/Widget.Material3.Button.TonalButton"
                     android:layout_width="260dp"
                     android:layout_height="60dp"
                     android:layout_centerHorizontal="true"

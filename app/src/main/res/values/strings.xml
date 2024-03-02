@@ -169,4 +169,5 @@
     <string name="time_set">Set Your Alarm</string>
     <string name="subject_set">Alarm Name</string>
     <string name="container_transform_for_notice">material_container_transform</string>
+    <string name="network_error">Something went wrong!</string>
 </resources>

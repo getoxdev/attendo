@@ -18,6 +18,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -36,8 +39,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -127,14 +130,18 @@ public class FragmentReminder extends Fragment {
         SharedPreferences retrieve = getContext().getSharedPreferences("MYPREF", 0);
 
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(getActivity(), new OnSuccessListener<InstanceIdResult>() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                fcmToken = instanceIdResult.getToken();
-                editor.putString("fcmToken", fcmToken);
-                editor.commit();
-                retreiveFcmToken = retrieve.getString("fcmToken", "");
-                Log.i("My FCM Token", retreiveFcmToken);
+            public void onComplete(@NonNull Task<String> task) {
+                try {
+                    fcmToken = task.getResult();
+                    editor.putString("fcmToken", fcmToken);
+                    editor.commit();
+                    retreiveFcmToken = retrieve.getString("fcmToken", "");
+                    Log.i("My FCM Token", retreiveFcmToken);
+                } catch (Exception e) {
+                    Log.i("reminder", e.getLocalizedMessage());
+                }
             }
         });
 
@@ -142,8 +149,8 @@ public class FragmentReminder extends Fragment {
 
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
 
-        View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet,
-                (ConstraintLayout) view.findViewById(R.id.time_picker_container));
+
+        View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet,(ConstraintLayout)view.findViewById(R.id.time_picker_container));
         bottomSheetDialog.setContentView(bottomSheet);
         bottomSheetDialog.setDismissWithAnimation(true);
 

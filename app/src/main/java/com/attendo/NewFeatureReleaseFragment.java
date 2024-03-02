@@ -13,15 +13,18 @@ import com.attendo.databinding.FragmentNewFeatureReleaseBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 
+import java.util.Objects;
+
 public class NewFeatureReleaseFragment extends Fragment
 {
     private FragmentNewFeatureReleaseBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         binding = FragmentNewFeatureReleaseBinding.inflate(inflater, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("What's New");
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("What's New");
+
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.GONE);
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.Z, true));

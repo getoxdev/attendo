@@ -44,11 +44,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:src="@drawable/ic_baseline_access_alarm_24"
-                android:tint="@color/btn_positive_text_color"
                 app:layout_constraintBottom_toBottomOf="@+id/time_show"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/time_show"
-                app:layout_constraintVertical_bias="0.36" />
+                app:layout_constraintVertical_bias="0.36"
+                app:tint="@color/btn_positive_text_color" />
 
 
 
@@ -123,7 +123,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/alarm_delete"
-                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                style="?attr/materialIconButtonFilledTonalStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"

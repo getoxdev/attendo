@@ -24,10 +24,13 @@ import com.attendo.R;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.Schedule;
+import com.attendo.databinding.FragmentAddSubjectDetailsBinding;
 import com.attendo.ui.CustomLoadingDialog;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -58,7 +61,13 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     //check if data is sent to server
     private boolean check = false;
 
+    private FragmentAddSubjectDetailsBinding binding;
+
     TimePicker timePicker;
+    MaterialTimePicker picker= new MaterialTimePicker.Builder().setInputMode(MaterialTimePicker.INPUT_MODE_KEYBOARD).setTimeFormat(TimeFormat.CLOCK_12H).setHour(12).setMinute(10).setTitleText("").build();
+
+
+
     String timePickerTime;
 
     public AddSubjectDetailsFragment(UpdateRecyclerView updateRecyclerView){
@@ -96,7 +105,9 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_subject_details, container, false);
+        binding=FragmentAddSubjectDetailsBinding.inflate(getLayoutInflater(),container,false);
+        View view=binding.getRoot();
+        //View view = inflater.inflate(R.layout.fragment_add_subject_details, container, false);
 
 
 
@@ -124,11 +135,14 @@ public class AddSubjectDetailsFragment extends BottomSheetDialogFragment impleme
         submit = view.findViewById(R.id.add_subject_btn);
         timePicker = view.findViewById(R.id.add_sub_details_time_picker);
 
+
+
+
         Calendar calendar = Calendar.getInstance();
         Date time = calendar.getTime();
         timePickerTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(time);
 
-
+        
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hourOfTheDay, int minute) {

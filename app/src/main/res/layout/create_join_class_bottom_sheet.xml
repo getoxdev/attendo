@@ -5,20 +5,21 @@
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     style="@style/CustomModalBottomSheet"
-    app:layout_behavior="@string/bottom_sheet_behavior"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     app:layout_scrollInterpolator="@android:anim/accelerate_decelerate_interpolator"
     android:backgroundTint="@color/bottom_sheet_bg">
 
+
     <Button
         android:id="@+id/join_class_btn"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginBottom="32dp"
         android:clickable="true"
         android:elevation="0dp"
         android:enabled="true"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/poppins_regular"
         android:stateListAnimator="@animator/button_pressed_animator"
         android:text="Join Class"
         android:textAllCaps="false"
@@ -35,14 +36,15 @@
 
     <Button
         android:id="@+id/create_class_btn"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginBottom="2dp"
         android:clickable="true"
         android:elevation="0dp"
         android:enabled="true"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/poppins_regular"
+
         android:stateListAnimator="@animator/button_pressed_animator"
         android:text="Create Class"
         android:textAllCaps="false"

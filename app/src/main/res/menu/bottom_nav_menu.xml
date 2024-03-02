@@ -10,10 +10,10 @@
         android:id="@+id/calendar_bottom_nav"
         android:title="Calendar"
         android:icon="@drawable/calendar_state_selector"/>
-    <item
-        android:id="@+id/schedule_bottom_nav"
-        android:title="Schedule"
-        android:icon="@drawable/routine_state_selector"/>
+<!--    <item-->
+<!--        android:id="@+id/schedule_bottom_nav"-->
+<!--        android:title="Schedule"-->
+<!--        android:icon="@drawable/routine_state_selector"/>-->
     <item
         android:id="@+id/reminder_bottom_nav"
         android:title="Reminder"

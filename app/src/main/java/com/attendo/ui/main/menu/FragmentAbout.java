@@ -48,6 +48,12 @@ public class FragmentAbout extends Fragment {
 
     @BindView(R.id.learner5)
     CardView learner5;
+    @BindView(R.id.junior_learner01)
+    CardView learner6;
+    @BindView(R.id.junior_learner02)
+    CardView learner7;
+    @BindView(R.id.junior_learner03)
+    CardView learner8;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -132,6 +138,25 @@ public class FragmentAbout extends Fragment {
                 bottomSheetFunction("https://www.facebook.com/gaurav.das.338211", "https://www.instagram.com/gaurav_das__/",
                         "https://www.linkedin.com/in/gauravdas014/", "https://github.com/gauravdas014");
 
+            }
+        });
+
+        learner6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetFunction("https://www.facebook.com/SyedSameerZaidi123/","https://www.instagram.com/_interstellar07_/","https://www.linkedin.com/in/sameer-zaidi-541261226/","https://github.com/Interstellar07");
+            }
+        });
+        learner7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetFunction("https://www.facebook.com/profile.php?id=100080411300265","https://www.instagram.com/navneetrajkarn/","https://www.linkedin.com/in/navneet-raj-08a720228/","https://github.com/navneet098");
+            }
+        });
+        learner8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetFunction("https://www.facebook.com/zhang.jike.311/","https://www.instagram.com/jugya__kamal07/?hl=en","https://www.linkedin.com/in/jugya-kamal-gogoi-5ab594229/","https://github.com/jugya07");
             }
         });
 

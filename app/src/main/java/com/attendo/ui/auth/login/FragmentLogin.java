@@ -62,6 +62,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private FragmentProfile fragmentProfile;
     FragmentActivity mActivity;
     private static final String EMAIL = "email";
+    private static final String TAG = FragmentLogin.class.getSimpleName();
 
 
     @Override
@@ -167,7 +168,7 @@ public class FragmentLogin extends Fragment implements logininterface.View {
     private void createRequest(){
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("")
                 .requestEmail()
                 .build();
 

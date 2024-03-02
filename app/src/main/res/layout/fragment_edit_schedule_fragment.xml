@@ -147,7 +147,7 @@
     </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/edit_subject_btn"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/Widget.Material3.Button.TonalButton.Icon"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="24dp"

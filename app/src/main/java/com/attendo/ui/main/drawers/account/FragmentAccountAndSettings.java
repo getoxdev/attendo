@@ -1,5 +1,6 @@
 package com.attendo.ui.main.drawers.account;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,9 +10,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.transition.Explode;
 import android.transition.Fade;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -31,7 +31,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.ajts.androidmads.library.SQLiteToExcel;
 import com.attendo.R;
@@ -51,10 +50,15 @@ import com.attendo.ui.main.drawers.FragmentInfo;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.codemybrainsout.ratingdialog.RatingDialog;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.transition.MaterialSharedAxis;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.review.model.ReviewErrorCode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -67,9 +71,10 @@ import java.io.File;
 
 import butterknife.ButterKnife;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class FragmentAccountAndSettings extends Fragment {
+    private ReviewManager manager;
+    private ReviewInfo reviewInfo ;
 
 
     private NoticeFragment noticeFragment;
@@ -131,6 +136,9 @@ public class FragmentAccountAndSettings extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference("data");
 
         scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
+
+
+        activateReviewInfo();
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -205,45 +213,53 @@ public class FragmentAccountAndSettings extends Fragment {
 
 
         Drawable drawable = getActivity().getDrawable(R.drawable.app_icon_middle_portion_removed);
-
         AppRate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                setFragment(fragmentAppRate);
-//                bottomNavigationView.setVisibility(View.GONE);
-                final RatingDialog ratingDialog = new RatingDialog.Builder(getContext())
-                        .icon(drawable)
-                        .threshold(2)
-                        .title("How was your experience with us?")
-                        .titleTextColor(R.color.text_color_primary)
-                        .ratingBarColor(R.color.btn_positive_text_color)
-                        .playstoreUrl("https://play.google.com/store/apps/details?id=com.attendo")
-                        .onThresholdCleared(new RatingDialog.Builder.RatingThresholdClearedListener() {
-                            @Override
-                            public void onThresholdCleared(RatingDialog ratingDialog, float rating, boolean thresholdCleared) {
-                                Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if(thresholdCleared && rating>3){
-                                            Toast.makeText(getContext(), "Thank You So Much", Toast.LENGTH_SHORT).show();
-                                            gotoUrl("https://play.google.com/store/apps/details?id=com.attendo");
-                                            ratingDialog.dismiss();
-                                        }
-                                        else if(thresholdCleared && rating<=3){
-                                            Toast.makeText(getContext(), "Please Suggest Us", Toast.LENGTH_SHORT).show();
-                                            gotoUrl("https://play.google.com/store/apps/details?id=com.attendo");
-                                            ratingDialog.dismiss();
-                                        }
-                                    }
-                                },600);
-                            }
-                        })
-                        .build();
-                ratingDialog.show();
-
+                startReviewFlow();
             }
         });
+
+
+
+//        AppRate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                setFragment(fragmentAppRate);
+////                bottomNavigationView.setVisibility(View.GONE);
+//                final RatingDialog ratingDialog = new RatingDialog.Builder(getContext())
+//                        .icon(drawable)
+//                        .threshold(2)
+//                        .title("How was your experience with us?")
+//                        .titleTextColor(R.color.text_color_primary)
+//                        .ratingBarColor(R.color.btn_positive_text_color)
+//                        .playstoreUrl("https://play.google.com/store/apps/details?id=com.attendo")
+//                        .onThresholdCleared(new RatingDialog.Builder.RatingThresholdClearedListener() {
+//                            @Override
+//                            public void onThresholdCleared(RatingDialog ratingDialog, float rating, boolean thresholdCleared) {
+//                                Handler handler = new Handler();
+//                                handler.postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        if(thresholdCleared && rating>3){
+//                                            Toast.makeText(getContext(), "Thank You So Much", Toast.LENGTH_SHORT).show();
+//                                            gotoUrl("https://play.google.com/store/apps/details?id=com.attendo");
+//                                            ratingDialog.dismiss();
+//                                        }
+//                                        else if(thresholdCleared && rating<=3){
+//                                            Toast.makeText(getContext(), "Please Suggest Us", Toast.LENGTH_SHORT).show();
+//                                            gotoUrl("https://play.google.com/store/apps/details?id=com.attendo");
+//                                            ratingDialog.dismiss();
+//                                        }
+//                                    }
+//                                },600);
+//                            }
+//                        })
+//                        .build();
+//                ratingDialog.show();
+//
+//            }
+//        });
 
         Bug.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -297,7 +313,7 @@ public class FragmentAccountAndSettings extends Fragment {
                 NullSharedPreferenceDataNUll();
                 Toast.makeText(getActivity(),"Logout",Toast.LENGTH_SHORT).show();
                 if(mAuth.getCurrentUser().getUid() != null)
-                mAuth.signOut();
+                    mAuth.signOut();
                 Intent intent = new Intent(getActivity(), AuthenticationActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -415,25 +431,29 @@ public class FragmentAccountAndSettings extends Fragment {
                 ExportToExcel(directory_path);
             }
         });
-
-
-
-
-        //mobile ads
-
-//        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
-//            @Override
-//            public void onInitializationComplete(InitializationStatus initializationStatus) {
-//
-//            }
-//        });
-//
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        adView.loadAd(adRequest);
-
-
-
         return view;
+    }
+
+    void activateReviewInfo(){
+        manager=ReviewManagerFactory.create(requireActivity());
+        Task<ReviewInfo> request = manager.requestReviewFlow();
+        request.addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                // We can get the ReviewInfo object
+                 reviewInfo = task.getResult();
+            } else {
+                // There was some problem, log or handle the error code.
+                Log.i("reviewteam" , task.getException().getLocalizedMessage());
+            }
+        });
+    }
+    void startReviewFlow(){
+        if(reviewInfo!=null){
+            Task<Void> flow = manager.launchReviewFlow(requireActivity(), reviewInfo);
+            flow.addOnCompleteListener(task -> {
+                Toast.makeText(getActivity(),"Thank's For Your Valuable Ratings",Toast.LENGTH_SHORT).show();
+            });
+        }
     }
 
     private boolean RetrieveSharedPreferenceData() {
@@ -467,7 +487,7 @@ public class FragmentAccountAndSettings extends Fragment {
 
     public void ExportToExcel(String path)
     {
-        SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(getApplicationContext(),subDatabase.DATABASE_NAME,path);
+        SQLiteToExcel sqLiteToExcel = new SQLiteToExcel(requireActivity(), SubDatabase.DATABASE_NAME,path);
 
         sqLiteToExcel.exportSingleTable("SubjectName", "student.xls", new SQLiteToExcel.ExportListener() {
             @Override

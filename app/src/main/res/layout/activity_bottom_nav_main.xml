@@ -41,26 +41,12 @@
 
     </FrameLayout>
 
-
-
-
-
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_bar"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"
         app:menu="@menu/bottom_nav_menu"
-        android:background="@color/bg_bottom_nav"
         android:animateLayoutChanges="true"
-        android:fitsSystemWindows="true"
-        app:itemIconTint="#9059E8"
-        app:itemTextColor="#9059E8"
-        app:itemRippleColor="#AF8AEA"
-        app:elevation="6dp"
-        app:labelVisibilityMode="selected"
-        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

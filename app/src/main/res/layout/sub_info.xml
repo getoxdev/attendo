@@ -142,6 +142,7 @@
 
             <Button
                 android:id="@+id/bPresent"
+                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:layout_below="@id/question"
@@ -150,7 +151,6 @@
                 android:layout_marginTop="7dp"
                 android:text="Yes"
                 android:clickable="true"
-                style="@style/Widget.MaterialComponents.Button"
                 app:strokeWidth="0dp"
                 app:backgroundTint="@color/btn_tint_color"
                 app:rippleColor="#AF91F4"
@@ -169,7 +169,7 @@
                 android:textAllCaps="false"
                 android:clickable="true"
                 android:layout_marginStart="10dp"
-                style="@style/Widget.MaterialComponents.Button"
+                style="@style/Widget.Material3.Button.TonalButton"
                 app:strokeWidth="0dp"
                 app:backgroundTint="@color/btn_tint_color"
                 app:rippleColor="#AF91F4"

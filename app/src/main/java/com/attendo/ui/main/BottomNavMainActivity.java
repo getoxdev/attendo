@@ -1,6 +1,7 @@
 package com.attendo.ui.main;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -12,6 +13,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -26,9 +28,9 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import com.attendo.NewFeatureReleaseFragment;
+import com.attendo.fcm.NotificationBroadcast;
 import com.attendo.R;
 import com.attendo.Schedule.CrFragment;
-import com.attendo.Schedule.CreateAndJoinClassBottomSheetDialogFragment;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.Schedule.StudentFragment;
 import com.attendo.ui.calendar.FragmentCalender;
@@ -38,9 +40,16 @@ import com.attendo.ui.main.menu.FragmentAbout;
 import com.attendo.ui.sub.Fragment_Subject;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 import com.google.android.material.transition.platform.MaterialFade;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -69,6 +78,7 @@ public class BottomNavMainActivity extends AppCompatActivity {
     private StudentFragment studentFragment;
     private FirebaseScheduleViewModel firebaseScheduleViewModel;
     private ScheduleViewModel scheduleViewModel;
+    private int REQUEST_CODE = 69;
 
     private String joinasData;
     private AppPreferences appPreferences;
@@ -92,6 +102,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
         appPreferences = AppPreferences.getInstance(this);
         getJoinAsData();
         getClassId();
+        NotificationBroadcast obj = new NotificationBroadcast();
+          obj.setnotification(BottomNavMainActivity.this);
         firebaseScheduleViewModel.RetrieveClassJoinAs();
         firebaseScheduleViewModel.RetrieveClassId();
         crFragment = new CrFragment();
@@ -114,6 +126,33 @@ public class BottomNavMainActivity extends AppCompatActivity {
         }catch (Exception e){
             System.out.println(e);
         }
+
+        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+        appUpdateInfoTask.addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
+            @Override
+            public void onSuccess(AppUpdateInfo result) {
+                if(result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE))
+                {
+                    try {
+                        appUpdateManager.startUpdateFlowForResult(result,AppUpdateType.FLEXIBLE,BottomNavMainActivity.this,REQUEST_CODE);
+                    } catch (IntentSender.SendIntentException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(REQUEST_CODE==requestCode)
+            Toast.makeText(this,"Start Download",Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -154,35 +193,35 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             .commit();
                     break;
 
-                case R.id.schedule_bottom_nav:
-                    if(!isConnected())
-                        showCustomDialog();
-                    else
-                    {
-                        if(RetrieveSharedPreferenceData())
-                        {
-                            joinasData = appPreferences.RetrieveJoinAs();
-                            switch (joinasData)
-                            {
-                                case "Cr":
-                                    setFragment(crFragment);
-                                    break;
-
-                                case "Student":
-                                    setFragment(studentFragment);
-                                    break;
-
-                                case "nothing":
-                                    CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
-                                    joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
-                                    break;
-
-                                default:
-                                    Toast.makeText(BottomNavMainActivity.this, "Please Wait!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                   break;
+//                case R.id.schedule_bottom_nav:
+//                    if(!isConnected())
+//                        showCustomDialog();
+//                    else
+//                    {
+//                        if(RetrieveSharedPreferenceData())
+//                        {
+//                            joinasData = appPreferences.RetrieveJoinAs();
+//                            switch (joinasData)
+//                            {
+//                                case "Cr":
+//                                    setFragment(crFragment);
+//                                    break;
+//
+//                                case "Student":
+//                                    setFragment(studentFragment);
+//                                    break;
+//
+//                                case "nothing":
+//                                    CreateAndJoinClassBottomSheetDialogFragment joinClassBottomSheetDialogFragment = new CreateAndJoinClassBottomSheetDialogFragment();
+//                                    joinClassBottomSheetDialogFragment.show(getSupportFragmentManager(), "Create Class and Join Class");
+//                                    break;
+//
+//                                default:
+//                                    Toast.makeText(BottomNavMainActivity.this, "Please Wait!", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    }
+//                   break;
 
                 case R.id.calendar_bottom_nav:
                     Fragment calendar = new FragmentCalender();

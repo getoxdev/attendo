@@ -17,6 +17,7 @@
 
     <Button
         android:id="@+id/CrSchedule"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -27,6 +28,7 @@
 
     <Button
         android:id="@+id/StudentSchedule"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="180dp"
         android:layout_below="@+id/CrSchedule"
         android:layout_height="wrap_content"
