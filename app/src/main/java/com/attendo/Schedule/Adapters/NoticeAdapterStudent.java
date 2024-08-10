@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
 import com.attendo.data.model.schedule.NoticeDetails;
+import com.attendo.databinding.CalendarCardListitemBinding;
+import com.attendo.databinding.NoticeBinding;
+import com.attendo.ui.calendar.CalAdapter;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class NoticeAdapterStudent extends RecyclerView.Adapter<NoticeAdapterStudent.MyViewHolder> {
 
@@ -34,17 +34,16 @@ public class NoticeAdapterStudent extends RecyclerView.Adapter<NoticeAdapterStud
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notice,parent,false);
-        MyViewHolder myViewHolder = new MyViewHolder(view);
-        return myViewHolder;
+        NoticeBinding binding = NoticeBinding.inflate(LayoutInflater.from(mContext), parent, false);
+        return new NoticeAdapterStudent.MyViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         NoticeDetails currentItem = items.get(position);
-        holder.sub.setText(currentItem.getTitle());
+        holder.binding.Title.setText(currentItem.getTitle());
 
-        holder.notice_card.setOnClickListener(new View.OnClickListener() {
+        holder.binding.NoticeCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 callBack.onCardClick(position, currentItem);
@@ -58,16 +57,11 @@ public class NoticeAdapterStudent extends RecyclerView.Adapter<NoticeAdapterStud
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        NoticeBinding binding;
 
-        @BindView(R.id.Title)
-        TextView sub;
-
-        @BindView(R.id.NoticeCard)
-        CardView notice_card;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            ButterKnife.bind(this,itemView);
+        public MyViewHolder(@NonNull NoticeBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 

@@ -17,26 +17,16 @@ import android.widget.TextView;
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.BatchmatesListAdapter;
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.databinding.FragmentBatchmatesDetailsBinding;
+import com.attendo.databinding.FragmentBugBinding;
 import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 
-import org.w3c.dom.Text;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 
 public class BatchmatesDetailsFragment extends Fragment {
 
-    @BindView(R.id.batchmates_list_RV)
-    RecyclerView batchmatesRV;
-
-    @BindView(R.id.no_of_students_int)
-    TextView noOfStudents;
-
-    @BindView(R.id.batchmates_swipe_refresh)
-    SwipeRefreshLayout refreshLayout;
+    private FragmentBatchmatesDetailsBinding binding;
 
     private BatchmatesListAdapter adapter;
     private ScheduleViewModel scheduleViewModel;
@@ -78,9 +68,8 @@ public class BatchmatesDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_batchmates_details, container, false);
-        ButterKnife.bind(this, view);
+        binding = FragmentBatchmatesDetailsBinding.inflate(inflater, container, false);
+
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Classmates");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.GONE);
@@ -93,38 +82,35 @@ public class BatchmatesDetailsFragment extends Fragment {
         scheduleViewModel.getStudentListResponse().observe(getViewLifecycleOwner(), data->{
             if(data != null){
                 adapter = new BatchmatesListAdapter(getContext(), data.getStudents());
-                batchmatesRV.setAdapter(adapter);
+                binding.batchmatesListRV.setAdapter(adapter);
 
                 //set text for total number of students enrolled
-                noOfStudents.setText(String.valueOf(data.getStudents().size()));
+                binding.noOfStudentsInt.setText(String.valueOf(data.getStudents().size()));
             }
         });
 
-
         //on refresh listener
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        binding.batchmatesSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 updateOnRefresh();
             }
         });
 
-
-
-        return view;
+        return binding.getRoot();
     }
 
     private void updateOnRefresh() {
         scheduleViewModel.GetStudentList(preferences.RetrieveClassId());
         scheduleViewModel.getStudentListResponse().observe(getViewLifecycleOwner(), data->{
             if(data != null){
-                refreshLayout.setRefreshing(false);
+                binding.batchmatesSwipeRefresh.setRefreshing(false);
                 adapter = new BatchmatesListAdapter(getContext(), data.getStudents());
                 adapter.notifyDataSetChanged();
-                batchmatesRV.setAdapter(adapter);
+                binding.batchmatesListRV.setAdapter(adapter);
 
                 // set text for total number of students enrolled
-                noOfStudents.setText(String.valueOf(data.getStudents().size()));
+                binding.noOfStudentsInt.setText(String.valueOf(data.getStudents().size()));
             }
         });
     }

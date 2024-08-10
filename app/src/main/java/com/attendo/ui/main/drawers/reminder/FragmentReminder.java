@@ -1,48 +1,35 @@
 package com.attendo.ui.main.drawers.reminder;
 
-import android.app.PendingIntent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.attendo.R;
 import com.attendo.data.api.ApiHelper;
-import com.attendo.data.model.reminder.Reminder;
 import com.attendo.data.rem.RemEntity;
+import com.attendo.databinding.FragmentExamReminderBinding;
 import com.attendo.viewmodel.ReminderViewModel;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -50,23 +37,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-
 public class FragmentReminder extends Fragment {
 
-    @BindView(R.id.add_rem)
-    FloatingActionButton mFloatingActionButton;
-    @BindView(R.id.rem_recycler)
-    RecyclerView recyclerView;
-
-    @BindView(R.id.no_reminder_lottie)
-    LottieAnimationView lottieAnimationView;
-
-    @BindView(R.id.no_reminder_txtview)
-    TextView noReminder;
-
+    private FragmentExamReminderBinding binding;
     TimePicker timePicker;
     EditText label;
 
@@ -80,21 +53,20 @@ public class FragmentReminder extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_exam_reminder, container, false);
+        binding = FragmentExamReminderBinding.inflate(inflater, container, false);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Reminder");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.VISIBLE);
 
-        ButterKnife.bind(this, view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
+        binding.remRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.remRecycler.setHasFixedSize(true);
 
         //set animation for the lottie anim
         Animation fadeIN = AnimationUtils.loadAnimation(getContext(), R.anim.fade_card);
 
         ReminderAdapter adapter = new ReminderAdapter(getContext());
-        recyclerView.setAdapter(adapter);
+        binding.remRecycler.setAdapter(adapter);
 
         viewModel = ViewModelProviders.of(getActivity()).get(ReminderViewModel.class);
         apiHelper = ApiHelper.getInstance(getContext());
@@ -102,16 +74,16 @@ public class FragmentReminder extends Fragment {
         viewModel.getAllReminders().observe(getActivity(), new Observer<List<RemEntity>>() {
             @Override
             public void onChanged(List<RemEntity> remEntities) {
-                if(remEntities.isEmpty()){
+                if (remEntities.isEmpty()) {
                     //code to show no data sign
-                    lottieAnimationView.setAnimation(fadeIN);
-                    noReminder.setAnimation(fadeIN);
-                    lottieAnimationView.setVisibility(View.VISIBLE);
-                    noReminder.setVisibility(View.VISIBLE);
-                }else{
+                    binding.noReminderLottie.setAnimation(fadeIN);
+                    binding.noReminderTxtview.setAnimation(fadeIN);
+                    binding.noReminderLottie.setVisibility(View.VISIBLE);
+                    binding.noReminderTxtview.setVisibility(View.VISIBLE);
+                } else {
                     //code to hide no data sign
-                    lottieAnimationView.setVisibility(View.INVISIBLE);
-                    noReminder.setVisibility(View.INVISIBLE);
+                    binding.noReminderLottie.setVisibility(View.INVISIBLE);
+                    binding.noReminderTxtview.setVisibility(View.INVISIBLE);
                 }
                 adapter.setReminders(remEntities);
             }
@@ -119,7 +91,7 @@ public class FragmentReminder extends Fragment {
 
         //set fab icon animation
         Animation scale = AnimationUtils.loadAnimation(getContext(), R.anim.scale_fab);
-        mFloatingActionButton.setAnimation(scale);
+        binding.addRem.setAnimation(scale);
 
 
         //deletePreviousReminders(adapter);
@@ -150,11 +122,11 @@ public class FragmentReminder extends Fragment {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialog);
 
 
-        View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet,(ConstraintLayout)view.findViewById(R.id.time_picker_container));
+        View bottomSheet = LayoutInflater.from(getContext()).inflate(R.layout.time_picker_spinner_bottom_sheet, binding.getRoot().findViewById(R.id.time_picker_container));
         bottomSheetDialog.setContentView(bottomSheet);
         bottomSheetDialog.setDismissWithAnimation(true);
 
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+        binding.addRem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bottomSheetDialog.show();
@@ -202,6 +174,6 @@ public class FragmentReminder extends Fragment {
             }
         });
 
-        return view;
+        return binding.getRoot();
     }
 }

@@ -1,5 +1,6 @@
 package com.attendo.ui.sub;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Vibrator;
@@ -14,35 +15,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.attendo.data.calendar.CalendarEntity;
-import com.attendo.data.DateConverter;
-import com.attendo.data.sub.SubEntity;
 import com.attendo.R;
+import com.attendo.data.DateConverter;
+import com.attendo.data.calendar.CalendarEntity;
+import com.attendo.data.sub.SubEntity;
+import com.attendo.databinding.SubCardNewBinding;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.ui.main.drawers.FragmentEditAttendanceCriteria;
 import com.attendo.viewmodel.CalViewModel;
 import com.attendo.viewmodel.SubjectViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import static java.lang.Math.ceil;
-import static java.lang.Math.floor;
 
 
 public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewHolder> {
@@ -54,7 +49,7 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
     private FragmentEditAttendanceCriteria fragmentEditAttendanceCriteria;
     private String key;
 
-    public SubListAdapter(Context mContext, List<SubEntity> mSubjects,String key) {
+    public SubListAdapter(Context mContext, List<SubEntity> mSubjects, String key) {
         this.mContext = mContext;
         this.mSubjects = mSubjects;
         this.key = key;
@@ -65,75 +60,83 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
     @NonNull
     @Override
-    public SubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.sub_card_new, parent, false);
+    public SubListAdapter.SubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        SubCardNewBinding binding = SubCardNewBinding.inflate(LayoutInflater.from(mContext), parent, false);
         dateConverter = new DateConverter();
 
-        return new SubViewHolder(view);
+        return new SubViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SubViewHolder holder, int position) {
-
-
+    public void onBindViewHolder(@NonNull SubListAdapter.SubViewHolder holder, @SuppressLint("RecyclerView") int position) {
         final SubEntity subEntity = mSubjects.get(position);
         int id = mSubjects.get(position).getId();
-        holder.subItemView.setText(subEntity.getSubject());
-        holder.tvPres.setText(String.valueOf(subEntity.getPresent()));
-        holder.tvTotal.setText(String.valueOf(subEntity.getTotal()));
-        holder.percent.setText(getPercentage(subEntity.getPresent(), subEntity.getTotal()) + "%");
 
-        holder.status.setText(Status(key,getPercentage(subEntity
-                .getPresent(),subEntity.getTotal()),subEntity.getPresent(),subEntity.getAbsent()));
+        TextView tvSubjectName = holder.itemView.findViewById(R.id.card_subject_name);
+        TextView tvPresentCount = holder.itemView.findViewById(R.id.present_txt);
+        TextView tvTotalCount = holder.itemView.findViewById(R.id.total_text_subject_card);
+        TextView tvPercentage = holder.itemView.findViewById(R.id.percentage_subject_card_item);
+        TextView tvStatus = holder.itemView.findViewById(R.id.status_counter_txt);
+
+        MaterialCardView cvSubject = holder.itemView.findViewById(R.id.subject_item_card);
+
+        Button btnPresent = holder.itemView.findViewById(R.id.present_btn_card_item);
+        Button btnAbsent = holder.itemView.findViewById(R.id.absent_btn_card_item);
+
+
+        tvSubjectName.setText(subEntity.getSubject());
+        tvPresentCount.setText(String.valueOf(subEntity.getPresent()));
+        tvTotalCount.setText(String.valueOf(subEntity.getTotal()));
+        tvPercentage.setText(getPercentage(subEntity.getPresent(), subEntity.getTotal()) + "%");
+
+        tvStatus.setText(Status(key, getPercentage(subEntity
+                .getPresent(), subEntity.getTotal()), subEntity.getPresent(), subEntity.getAbsent()));
 
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
 
         Double cardPerent = Double.valueOf(getPercentage(subEntity.getPresent(), subEntity.getTotal()));
         Double cardCriterion = Double.valueOf(key);
 
-
-        if(cardPerent < cardCriterion){
-            holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
-        }
-        else{
-            holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+        if (cardPerent < cardCriterion) {
+            cvSubject.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
+        } else {
+            cvSubject.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
         }
 
-
-        holder.btnPres.setOnClickListener(new View.OnClickListener() {
+        btnPresent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id = mSubjects.get(position).getId();
 
-                int pre = Integer.parseInt((String) holder.tvPres.getText());
-                int total = Integer.parseInt((String) holder.tvTotal.getText());
+                int pre = Integer.parseInt((String) tvPresentCount.getText());
+                int total = Integer.parseInt((String) tvTotalCount.getText());
                 pre++;
                 total++;
 
                 Date date = new Date();
                 String subDate = formatter(dateConverter.fromTimestamp(date.getTime()));
-                String subject = String.valueOf(holder.subItemView.getText());
+                String subject = String.valueOf(tvSubjectName.getText());
                 CalendarEntity calendarEntity = new CalendarEntity(subDate, subject);
                 calViewModel.insertDate(calendarEntity);
                 subjectViewModel.updatePresent(pre, id);
                 subjectViewModel.updateTotal(total, id);
 
                 if(cardPerent < cardCriterion){
-                    holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
+                    cvSubject.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
                 }
                 else{
-                    holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+                    cvSubject.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
                 }
             }
         });
 
-        holder.btnAbs.setOnClickListener(new View.OnClickListener() {
+        btnPresent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id = mSubjects.get(position).getId();
 
-                int total = Integer.parseInt((String) holder.tvTotal.getText());
-                int pre = Integer.parseInt((String) holder.tvPres.getText());
+                int total = Integer.parseInt((String) tvTotalCount.getText());
+                int pre = Integer.parseInt((String) tvPresentCount.getText());
                 int ab = total - pre;
                 ab++;
                 total++;
@@ -142,17 +145,16 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                 subjectViewModel.updateAbsent(ab, id);
                 subjectViewModel.updateTotal(total, id);
 
-                if(cardPerent < cardCriterion){
-                    holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
-                }
-                else{
-                    holder.card.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
+                if (cardPerent < cardCriterion) {
+                    cvSubject.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.below_criterion_color));
+                } else {
+                    cvSubject.setCardBackgroundColor(ContextCompat.getColor(mContext, R.color.white));
                 }
 
             }
         });
 
-        holder.card.setOnLongClickListener(new View.OnLongClickListener() {
+        cvSubject.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 //vibrator
@@ -206,7 +208,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
                                     }
                                 }, 900);
-
                             }
                         });
                     }
@@ -242,12 +243,9 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                         subjectName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                             @Override
                             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                                switch (i){
-                                    case EditorInfo.IME_ACTION_DONE:
-                                        subjectViewModel.updateSubject(subjectName.getText().toString().trim(), subEntity.getId());
-                                        bottomSheetDialogedit.dismiss();
-                                        break;
-
+                                if (i == EditorInfo.IME_ACTION_DONE) {
+                                    subjectViewModel.updateSubject(subjectName.getText().toString().trim(), subEntity.getId());
+                                    bottomSheetDialogedit.dismiss();
                                 }
                                 return false;
                             }
@@ -267,18 +265,16 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                     @Override
                     public void onClick(View view) {
                         BottomSheetDialog editAttend = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
-                        View editattendbottomsheet = LayoutInflater.from(mContext).inflate(R.layout.bottom_sheet_edit_attendance,
-                                (ConstraintLayout) holder.itemView.findViewById(R.id.edit_attendance_bottom_sheet_container));
+                        View editattendbottomsheet = LayoutInflater.from(mContext).inflate(R.layout.bottom_sheet_edit_attendance, holder.itemView.findViewById(R.id.edit_attendance_bottom_sheet_container));
 
                         editAttend.setContentView(editattendbottomsheet);
                         editAttend.setDismissWithAnimation(true);
                         editAttend.show();
 
                         bottomSheetDialog.dismiss();
-                        EditText edittext=editAttend.findViewById(R.id.preset_update);
-                        assert edittext != null;
+                        EditText edittext = editAttend.findViewById(R.id.preset_update);
                         edittext.setText(String.valueOf(subEntity.getPresent()));
-                        edittext=editAttend.findViewById(R.id.total_update);
+                        edittext = editAttend.findViewById(R.id.total_update);
                         edittext.setText(String.valueOf(subEntity.getTotal()));
 
                         EditText presentEditText = editAttend.findViewById(R.id.preset_update);
@@ -286,9 +282,6 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                         Button updateAttendance =  editAttend.findViewById(R.id.updateAttendance);
                         TextInputLayout presetnEditTextInputlayout = editAttend.findViewById(R.id.present_editText_field);
                         TextInputLayout totalEditTextInputLayout = editAttend.findViewById(R.id.total_editText_field);
-
-
-
 
                         updateAttendance.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -304,43 +297,24 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
                                 {
                                     int pre = Integer.parseInt(presentEditText.getText().toString());
                                     int tot = Integer.parseInt(totalEditText.getText().toString());
-                                    if(pre>tot)
-                                    {
-                                        Toast.makeText(mContext,"Present classes should be less than total classes",Toast.LENGTH_SHORT).show();
+                                    if (pre > tot) {
+                                        Toast.makeText(mContext, "Present classes should be less than total classes", Toast.LENGTH_SHORT).show();
 
-                                    }
-                                    else
-                                    {
-                                    holder.tvPres.setText(String.valueOf(pre));
-                                    holder.tvTotal.setText(String.valueOf(tot));
-                                    subjectViewModel.updatePresent(pre,id);
-                                    subjectViewModel.updateTotal(tot,id);
+                                    } else {
+                                        tvPresentCount.setText(String.valueOf(pre));
+                                        tvTotalCount.setText(String.valueOf(tot));
+                                        subjectViewModel.updatePresent(pre, id);
+                                        subjectViewModel.updateTotal(tot, id);
                                         editAttend.dismiss();
                                     }
                                 }
-
-
-
                             }
                         });
-
-
-
-
-
-
-
-
                     }
                 });
-
-
-
                 return false;
-
             }
         });
-
     }
 
     @Override
@@ -357,50 +331,12 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 
     public class SubViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.card_subject_name)
-        TextView subItemView;
-
-        @BindView(R.id.total_text_subject_card)
-        TextView tvTotal;
-
-        @BindView(R.id.present_txt)
-        TextView tvPres;
-
-        @BindView(R.id.percentage_subject_card_item)
-        TextView percent;
-
-        @BindView(R.id.status_counter_txt)
-        TextView status;
-
-        @BindView(R.id.textView10) @Nullable
-        TextView criteria2;
-
-        @BindView(R.id.absent_btn_card_item)
-        Button btnAbs;
-
-        @BindView(R.id.present_btn_card_item)
-        Button btnPres;
-
-        @BindView(R.id.updateAttendance) @Nullable
-        Button upadt;
-
-        @BindView(R.id.subject_item_card)
-        CardView card;
-
-        public SubViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this,itemView);
-
+        public SubViewHolder(SubCardNewBinding binding) {
+            super(binding.getRoot());
         }
     }
 
-    // Method to get percentage of attendance from the present and total data provided
-    //--------------------------------------------------------------------------------------
-
     private String getPercentage(int present, int total) {
-
-
-
         double presentdouble, totaldouble;
         presentdouble = Double.valueOf(present);
         totaldouble = Double.valueOf(total);
@@ -413,45 +349,34 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
         return df.format(percentage);
     }
 
-    private String Status(String criteria,String percentage,int present,int absent)
-    {
-
+    private String Status(String criteria, String percentage, int present, int absent) {
         String status;
-        double presentdouble, absentdouble,percentagedouble,criteriadouble;
+        double presentdouble, absentdouble, percentagedouble, criteriadouble;
         presentdouble = Double.valueOf(present);
         absentdouble = Double.valueOf(absent);
         percentagedouble = Double.valueOf(percentage);
         criteriadouble = Double.valueOf(criteria);
 
 
-        if(percentagedouble>criteriadouble)
-        {
-            int ucanmiss = (int) (((100*presentdouble)/criteriadouble)-absentdouble-presentdouble);
-            if(ucanmiss==0)
+        if (percentagedouble > criteriadouble) {
+            int ucanmiss = (int) (((100 * presentdouble) / criteriadouble) - absentdouble - presentdouble);
+            if (ucanmiss == 0) {
                 status = "You must attend next 1 lecture";
+            } else {
+                status = "You can miss next " + ucanmiss + " lecture";
+            }
 
-             else
-            status = "You can miss next "+ ucanmiss+" lecture";
-            return  status;
-
-        }
-        else
-        {
-            int umustattend = (int) ((criteriadouble*(absentdouble+presentdouble) - 100*presentdouble)/(100-criteriadouble));
-            if(umustattend==0)
-            status = "You must attend next 1 lecture";
+            return status;
+        } else {
+            int umustattend = (int) ((criteriadouble * (absentdouble + presentdouble) - 100 * presentdouble) / (100 - criteriadouble));
+            if (umustattend == 0)
+                status = "You must attend next 1 lecture";
             else
-                status = "You must attend next "+ umustattend+" lecture";
-            return  status;
+                status = "You must attend next " + umustattend + " lecture";
+            return status;
 
 
         }
-
-
-
-
-
-
 
 //        if(percentagedouble>criteriadouble)
 //        {
@@ -499,20 +424,10 @@ public class SubListAdapter extends RecyclerView.Adapter<SubListAdapter.SubViewH
 //        return status;
     }
 
-
-
-
-
-
-    //----------------------------------------------------------------------------------------
-
     public static String formatter(Date date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String subDate = dateFormat.format(date);
 
         return subDate;
     }
-
-
-
 }

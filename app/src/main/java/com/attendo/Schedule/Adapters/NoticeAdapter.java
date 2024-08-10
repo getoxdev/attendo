@@ -8,18 +8,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.attendo.R;
 import com.attendo.data.model.schedule.NoticeDetails;
+import com.attendo.databinding.NoticeBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHolder> {
 
@@ -38,18 +35,17 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notice,parent,false);
-        MyViewHolder myViewHolder = new MyViewHolder(view);
-        return myViewHolder;
+        NoticeBinding binding = NoticeBinding.inflate(LayoutInflater.from(mContext), parent, false);
+        return new NoticeAdapter.MyViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         NoticeDetails currentItem = items.get(position);
-        holder.sub.setText(currentItem.getTitle());
+        holder.binding.Title.setText(currentItem.getTitle());
 
-        holder.notice_card.setOnClickListener(new View.OnClickListener() {
+        holder.binding.NoticeCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 on_cardClick.CardSingleClick(position, currentItem);
@@ -57,7 +53,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
         });
 
         final Vibrator vibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
-        holder.notice_card.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.binding.NoticeCard.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
 
@@ -105,17 +101,11 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        NoticeBinding binding;
 
-        @BindView(R.id.Title)
-        TextView sub;
-
-        @BindView(R.id.NoticeCard)
-        CardView notice_card;
-
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            ButterKnife.bind(this,itemView);
+        public MyViewHolder(@NonNull NoticeBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 

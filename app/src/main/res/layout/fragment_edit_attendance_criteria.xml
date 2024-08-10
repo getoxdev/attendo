@@ -9,7 +9,7 @@
 
 
    <Button
-       android:id="@+id/button2"
+       android:id="@+id/btn_change"
        android:layout_width="0dp"
        android:layout_height="wrap_content"
        android:layout_marginStart="24dp"
@@ -36,7 +36,7 @@
        android:id="@+id/edit_attendance_criterion_editText"
        android:layout_width="0dp"
        android:layout_height="wrap_content"
-       app:layout_constraintBottom_toTopOf="@+id/button2"
+       app:layout_constraintBottom_toTopOf="@+id/btn_change"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintHorizontal_bias="1.0"
        app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +45,7 @@
        android:layout_marginBottom="56dp">
 
       <EditText
-          android:id="@+id/editText"
+          android:id="@+id/et_criteria"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:inputType="number"
@@ -82,10 +82,8 @@
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintVertical_bias="0.09" />
 
-
-
    <TextView
-       android:id="@+id/textView10"
+       android:id="@+id/tv_percentage"
        android:layout_width="0dp"
        android:layout_height="0dp"
        android:elevation="8dp"

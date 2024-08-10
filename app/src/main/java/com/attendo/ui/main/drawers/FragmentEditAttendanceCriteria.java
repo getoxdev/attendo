@@ -15,38 +15,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.databinding.FragmentEditAttendanceCriteriaBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class FragmentEditAttendanceCriteria extends Fragment {
 
-    @BindView(R.id.button2)
-    Button change;
-
-    @BindView(R.id.editText)
-    EditText criteria;
-
-    @BindView(R.id.textView10)
-    TextView percentage;
+    private FragmentEditAttendanceCriteriaBinding binding;
     private String text;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_edit_attendance_criteria, container, false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Attendance Criterion");
+        binding =  FragmentEditAttendanceCriteriaBinding.inflate(inflater, container, false);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("Attendance Criterion");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.GONE);
-        ButterKnife.bind(this,view);
         loadData();
         updateDate();
-        change.setOnClickListener(new View.OnClickListener() {
+        binding.btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String limit = criteria.getText().toString();
+                String limit = binding.etCriteria.getText().toString();
                 if(limit.length() >= 3 && !(limit.equals("100"))){
                     Toast.makeText(getActivity(),"Out Of Range Criteria!",Toast.LENGTH_SHORT).show();
                 }
@@ -55,7 +45,7 @@ public class FragmentEditAttendanceCriteria extends Fragment {
                     Toast.makeText(getActivity(), "Please enter the Criteria", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    percentage.setText(criteria.getText().toString());
+                    binding.tvPercentage.setText(binding.etCriteria.getText().toString());
                     SaveDate();
                     loadData();
                     updateDate();
@@ -64,7 +54,7 @@ public class FragmentEditAttendanceCriteria extends Fragment {
             }
         });
 
-        return view;
+        return binding.getRoot();
     }
 
     public void SaveDate()
@@ -72,7 +62,7 @@ public class FragmentEditAttendanceCriteria extends Fragment {
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("Mypref",getContext().MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString("Criterion",percentage.getText().toString());
+        editor.putString("Criterion",binding.tvPercentage.getText().toString());
         editor.apply();
     }
 
@@ -84,6 +74,6 @@ public class FragmentEditAttendanceCriteria extends Fragment {
 
     public void updateDate()
     {
-        percentage.setText(text + "%");
+        binding.tvPercentage.setText(text + "%");
     }
 }

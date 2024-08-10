@@ -28,6 +28,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import com.attendo.NewFeatureReleaseFragment;
+import com.attendo.databinding.ActivityBottomNavMainBinding;
 import com.attendo.fcm.NotificationBroadcast;
 import com.attendo.R;
 import com.attendo.Schedule.CrFragment;
@@ -57,19 +58,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.io.File;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class BottomNavMainActivity extends AppCompatActivity {
 
-    @BindView(R.id.bottom_nav_bar)
-    BottomNavigationView bottomNavigationView;
-
-    @BindView(R.id.container_frame)
-    FrameLayout frameLayout;
-
-    @BindView(R.id.toolbar_bottom_nav)
-    Toolbar toolbar;
+    private ActivityBottomNavMainBinding binding;
 
     private String fcm;
     private FirebaseAuth mAuth;
@@ -93,8 +85,9 @@ public class BottomNavMainActivity extends AppCompatActivity {
         getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         getWindow().setEnterTransition(new MaterialFade().setDuration(300));
         getWindow().setExitTransition(new MaterialFade().setDuration(300));
-        setContentView(R.layout.activity_bottom_nav_main);
-        ButterKnife.bind(this);
+
+        binding = ActivityBottomNavMainBinding.inflate(this.getLayoutInflater());
+        setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
         firebaseScheduleViewModel = new ViewModelProvider(this).get(FirebaseScheduleViewModel.class);
@@ -110,8 +103,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
         studentFragment = new StudentFragment();
         scheduleViewModel = new ViewModelProvider(this).get(ScheduleViewModel.class);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(selectedListener);
-        setSupportActionBar(toolbar);
+        binding.bottomNavBar.setOnNavigationItemSelectedListener(selectedListener);
+        setSupportActionBar(binding.toolbarBottomNav);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container_frame, new Fragment_Subject()).commit();
 

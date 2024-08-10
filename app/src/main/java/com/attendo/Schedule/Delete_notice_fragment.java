@@ -1,30 +1,26 @@
 package com.attendo.Schedule;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.databinding.FragmentDeleteNoticeBinding;
 import com.attendo.viewmodel.NoticeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 
 public class Delete_notice_fragment extends BottomSheetDialogFragment {
+
+    private FragmentDeleteNoticeBinding binding;
 
     private String Notice_ID;
     NoticeViewModel noticeViewModel;
@@ -32,18 +28,9 @@ public class Delete_notice_fragment extends BottomSheetDialogFragment {
 
     private NoticeAdapter.On_CardClick cardClick;
 
-    @BindView(R.id.delete_notice)
-    Button delete_btn;
-
-    @BindView(R.id.lottieAnimationViewDelete)
-    LottieAnimationView deleteAnim;
-
-
-
     public Delete_notice_fragment(NoticeAdapter.On_CardClick cardClick) {
         this.cardClick = cardClick;
     }
-
 
     public static Delete_notice_fragment newInstance(String Notice_id, NoticeAdapter.On_CardClick cardClick) {
         Delete_notice_fragment fragment = new Delete_notice_fragment(cardClick);
@@ -67,24 +54,19 @@ public class Delete_notice_fragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_delete_notice, container, false);
-        ButterKnife.bind(this,view);
+        binding = FragmentDeleteNoticeBinding.inflate(inflater, container, false);
 
-        delete_btn.setOnClickListener(new View.OnClickListener() {
+        binding.deleteNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteAnim.pauseAnimation();
-                deleteAnim.setAnimation(R.raw.done_lottie_anim);
-                deleteAnim.playAnimation();
+                binding.lottieAnimationViewDelete.pauseAnimation();
+                binding.lottieAnimationViewDelete.setAnimation(R.raw.done_lottie_anim);
+                binding.lottieAnimationViewDelete.playAnimation();
                 delete_notice(Notice_ID);
             }
         });
 
-
-
-
-        return  view;
+        return binding.getRoot();
     }
     public  void delete_notice(String notice_ID){
         noticeViewModel.Delete_notice(notice_ID,appPreferences.RetrieveClassId());

@@ -1,68 +1,55 @@
 package com.attendo.Schedule;
 
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.ContentLoadingProgressBar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.attendo.R;
 import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.NoticeDetails;
+import com.attendo.databinding.FragmentNoticeBinding;
 import com.attendo.viewmodel.NoticeViewModel;
-import com.attendo.viewmodel.ScheduleViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.transition.MaterialArcMotion;
 import com.google.android.material.transition.MaterialContainerTransform;
 import com.google.android.material.transition.MaterialSharedAxis;
 
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardClick{
 
+    private FragmentNoticeBinding binding;
 
     private NoticeAdapter noticeAdapter;
-    private FloatingActionButton fb;
     NoticeViewModel noticeViewModel;
     private AddNoticeFragment addNoticeFragment;
     AppPreferences preferences;
 
-    @BindView(R.id.notice_recyclerview)
-    RecyclerView notice_recyclerview;
-
-    @BindView(R.id.notice_swipe_refresh)
-    SwipeRefreshLayout refreshLayout;
-
-    @BindView(R.id.notice_progress_bar_cr)
-    ContentLoadingProgressBar ProgressBar;
-
-    @BindView(R.id.no_notice_lottie)
-    LottieAnimationView lottieAnimationView;
-
-    @BindView(R.id.no_notice_txtview)
-    TextView noNoticeTextView;
-
-    @BindView(R.id.searching_notice_lottie_cr)
-    LottieAnimationView searchingLottie;
+//    @BindView(R.id.notice_recyclerview)
+//    RecyclerView notice_recyclerview;
+//
+//    @BindView(R.id.notice_swipe_refresh)
+//    SwipeRefreshLayout refreshLayout;
+//
+//    @BindView(R.id.notice_progress_bar_cr)
+//    ContentLoadingProgressBar ProgressBar;
+//
+//    @BindView(R.id.no_notice_lottie)
+//    LottieAnimationView lottieAnimationView;
+//
+//    @BindView(R.id.no_notice_txtview)
+//    TextView noNoticeTextView;
+//
+//    @BindView(R.id.searching_notice_lottie_cr)
+//    LottieAnimationView searchingLottie;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,16 +61,12 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_notice, container, false);
+        binding = FragmentNoticeBinding.inflate(inflater, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Notice");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.GONE);
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
-
-        ButterKnife.bind(this,view);
-
 
         MaterialContainerTransform transform = new MaterialContainerTransform();
         transform.setPathMotion(new MaterialArcMotion());
@@ -92,53 +75,48 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
         addNoticeFragment = new AddNoticeFragment(this);
         addNoticeFragment.setSharedElementReturnTransition(transform);
 
-        fb = view.findViewById(R.id.Add_Notice);
-
         noticeViewModel.get_All_notice(preferences.RetrieveClassId());
         noticeViewModel.get_all_noticeResponse().observe(getViewLifecycleOwner(),data->{
             if(data!=null)
             {
-                searchingLottie.setVisibility(View.INVISIBLE);
-                ProgressBar.hide();
+                binding.searchingNoticeLottieCr.setVisibility(View.INVISIBLE);
+                binding.noticeProgressBarCr.hide();
                 if(data.getNoticeDetailsList().size() == 0){
-                    lottieAnimationView.setVisibility(View.VISIBLE);
-                    noNoticeTextView.setVisibility(View.VISIBLE);
+                    binding.searchingNoticeLottieCr.setVisibility(View.VISIBLE);
+                    binding.noNoticeTxtview.setVisibility(View.VISIBLE);
                 }else{
-                    lottieAnimationView.setVisibility(View.INVISIBLE);
-                    noNoticeTextView.setVisibility(View.INVISIBLE);
+                    binding.searchingNoticeLottieCr.setVisibility(View.INVISIBLE);
+                    binding.noNoticeTxtview.setVisibility(View.INVISIBLE);
                 }
                 noticeAdapter = new NoticeAdapter(getContext(),data.getNoticeDetailsList(),this);
-                notice_recyclerview.setAdapter(noticeAdapter);
+                binding.noticeRecyclerview.setAdapter(noticeAdapter);
             }
             else{
-                ProgressBar.hide();
-                lottieAnimationView.setVisibility(View.VISIBLE);
-                noNoticeTextView.setVisibility(View.VISIBLE);
+                binding.noticeProgressBarCr.hide();
+                binding.searchingNoticeLottieCr.setVisibility(View.VISIBLE);
+                binding.noNoticeTxtview.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(),"No notice",Toast.LENGTH_SHORT).show();
             }
 
         });
-        notice_recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        binding.noticeRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        binding.noticeSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 update_OnRefresh();
             }
         });
 
-
-        fb.setOnClickListener(new View.OnClickListener() {
+        binding.AddNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setFragment(addNoticeFragment);
-
             }
         });
 
-
-
-    return view;
+        return binding.getRoot();
     }
 
     public  void update_OnRefresh()
@@ -146,14 +124,14 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
         noticeViewModel.get_All_notice(preferences.RetrieveClassId());
         noticeViewModel.get_all_noticeResponse().observe(getViewLifecycleOwner(),data->{
             if(data!=null) {
-                ProgressBar.hide();
-                refreshLayout.setRefreshing(false);
+                binding.noticeProgressBarCr.hide();
+                binding.noticeSwipeRefresh.setRefreshing(false);
                 noticeAdapter = new NoticeAdapter(getContext(), data.getNoticeDetailsList(), this);
                 noticeAdapter.notifyDataSetChanged();
-                notice_recyclerview.setAdapter(noticeAdapter);
+                binding.noticeRecyclerview.setAdapter(noticeAdapter);
             }
             else{
-                ProgressBar.hide();
+                binding.noticeProgressBarCr.hide();
                 Toast.makeText(getActivity(),"Something went wrong! please try again",Toast.LENGTH_SHORT).show();
             }
         });
@@ -186,15 +164,15 @@ public class NoticeFragment extends Fragment implements NoticeAdapter.On_CardCli
 
     @Override
     public void refreshOnUpdateAndDelete() {
-        refreshLayout.setRefreshing(true);
+        binding.noticeSwipeRefresh.setRefreshing(true);
         noticeViewModel.get_All_notice(preferences.RetrieveClassId());
         noticeViewModel.get_all_noticeResponse().observe(getViewLifecycleOwner(),data->{
             if(data!=null)
             {
-                refreshLayout.setRefreshing(false);
+                binding.noticeSwipeRefresh.setRefreshing(false);
                 noticeAdapter = new NoticeAdapter(getContext(),data.getNoticeDetailsList(),this);
                 noticeAdapter.notifyDataSetChanged();
-                notice_recyclerview.setAdapter(noticeAdapter);
+                binding.noticeRecyclerview.setAdapter(noticeAdapter);
             }
 
         });

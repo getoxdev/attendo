@@ -16,57 +16,26 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.attendo.R;
+import com.attendo.databinding.FragmentAboutBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.BindViews;
-import butterknife.ButterKnife;
-
 public class FragmentAbout extends Fragment {
 
-    @BindView(R.id.mentor1)
-    CardView mentorCard;
-
-    @BindView(R.id.mentor2)
-    CardView mentor2;
-
-    @BindView(R.id.learner1)
-    CardView learner1;
-
-    @BindView(R.id.learner2)
-    CardView learner2;
-
-    @BindView(R.id.learner3)
-    CardView learner3;
-
-    @BindView(R.id.learner4)
-    CardView learner4;
-
-    @BindView(R.id.learner5)
-    CardView learner5;
-    @BindView(R.id.junior_learner01)
-    CardView learner6;
-    @BindView(R.id.junior_learner02)
-    CardView learner7;
-    @BindView(R.id.junior_learner03)
-    CardView learner8;
+    private FragmentAboutBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_about, container, false);
-        ButterKnife.bind(this, view);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("About Us");
+        binding = FragmentAboutBinding.inflate(inflater, container, false);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setTitle("About Us");
 
 
         //setting on click listener for all the cards
 
-        mentorCard.setOnClickListener(new View.OnClickListener() {
+        binding.mentor1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -76,7 +45,7 @@ public class FragmentAbout extends Fragment {
             }
         });
 
-        learner1.setOnClickListener(new View.OnClickListener() {
+        binding.learner1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -86,8 +55,7 @@ public class FragmentAbout extends Fragment {
             }
         });
 
-
-        learner2.setOnClickListener(new View.OnClickListener() {
+        binding.learner2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -96,9 +64,7 @@ public class FragmentAbout extends Fragment {
             }
         });
 
-
-        //----------------  learner 3 card on click  ----------------------------
-        learner3.setOnClickListener(new View.OnClickListener() {
+        binding.learner3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -110,7 +76,7 @@ public class FragmentAbout extends Fragment {
         //----------------------------------------------------------------------
 
         //----------------  learner 4 card on click  ----------------------------
-        learner4.setOnClickListener(new View.OnClickListener() {
+        binding.learner4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -118,10 +84,8 @@ public class FragmentAbout extends Fragment {
                         "https://www.linkedin.com/in/jyotimoy-kashyap-62a792190/", "https://github.com/JyotimoyKashyap");
             }
         });
-        //----------------------------------------------------------------------
 
-        //----------------  Mentor 2 card on click  ----------------------------
-        mentor2.setOnClickListener(new View.OnClickListener() {
+        binding.mentor2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -130,8 +94,7 @@ public class FragmentAbout extends Fragment {
             }
         });
 
-        //------------------- Learner 5 card ---------------------------------------------------
-        learner5.setOnClickListener(new View.OnClickListener() {
+        binding.learner5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -141,19 +104,21 @@ public class FragmentAbout extends Fragment {
             }
         });
 
-        learner6.setOnClickListener(new View.OnClickListener() {
+        binding.juniorLearner01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetFunction("https://www.facebook.com/SyedSameerZaidi123/","https://www.instagram.com/_interstellar07_/","https://www.linkedin.com/in/sameer-zaidi-541261226/","https://github.com/Interstellar07");
             }
         });
-        learner7.setOnClickListener(new View.OnClickListener() {
+
+        binding.juniorLearner02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetFunction("https://www.facebook.com/profile.php?id=100080411300265","https://www.instagram.com/navneetrajkarn/","https://www.linkedin.com/in/navneet-raj-08a720228/","https://github.com/navneet098");
             }
         });
-        learner8.setOnClickListener(new View.OnClickListener() {
+
+        binding.juniorLearner03.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetFunction("https://www.facebook.com/zhang.jike.311/","https://www.instagram.com/jugya__kamal07/?hl=en","https://www.linkedin.com/in/jugya-kamal-gogoi-5ab594229/","https://github.com/jugya07");
@@ -161,7 +126,7 @@ public class FragmentAbout extends Fragment {
         });
 
 
-        return view;
+        return binding.getRoot();
     }
 
     private void gotoUrl(String url) {

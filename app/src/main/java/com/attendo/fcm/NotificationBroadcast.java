@@ -76,6 +76,8 @@ public class NotificationBroadcast extends BroadcastReceiver {
       //  WorkManager.getInstance(context).cancelAllWork();
         calendar.set(Calendar.MINUTE,30);
         Intent intent = new Intent(context, NotificationBroadcast.class);
+
+        PendingIntent pendingIntent;
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_MUTABLE);
         } else {
@@ -90,8 +92,7 @@ public class NotificationBroadcast extends BroadcastReceiver {
                     AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent
             );
         }
-        else
-        {
+        else {
             alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent
             );

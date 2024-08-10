@@ -6,22 +6,19 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.attendo.R;
-import com.attendo.data.model.schedule.DayOfWeek;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.Schedule.Preference.AppPreferences;
+import com.attendo.data.model.schedule.DayOfWeek;
+import com.attendo.databinding.WeekdayCardBinding;
 import com.attendo.ui.main.BottomNavMainActivity;
 import com.attendo.viewmodel.FirebaseScheduleViewModel;
 import com.attendo.viewmodel.ScheduleViewModel;
-import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,9 +27,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHolder> {
 
@@ -53,17 +47,11 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
+        WeekdayCardBinding binding;
 
-        @BindView(R.id.weekday_card)
-        MaterialCardView daycard;
-        @BindView(R.id.day)
-        TextView dayTextView;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            //finding the items and storing them in view holder
-            ButterKnife.bind(this,itemView);
-
+        public MyViewHolder(@NonNull WeekdayCardBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 
@@ -86,10 +74,8 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     class_id = snapshot.child("Class_Id").getValue(String.class);
-                    //Log.d("ClassIDMINE" , class_id);
                 }else {
                     class_id = null;
-                    //Log.d("ClassIDMINE" , class_id);
                 }
             }
 
@@ -103,16 +89,15 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
     @NonNull
     @Override
     public WeekDayAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.weekday_card, parent, false);
-        return new MyViewHolder(view);
+        WeekdayCardBinding binding = WeekdayCardBinding.inflate(LayoutInflater.from(context), parent, false);
+        return new WeekDayAdapter.MyViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull WeekDayAdapter.MyViewHolder holder, int position) {
-        holder.dayTextView.setText(day.get(position).getDayofWeek());
-        DayOfWeek dayOfWeek = day.get(position);
+        holder.binding.day.setText(day.get(position).getDayofWeek());
 
-        holder.daycard.setOnClickListener(new View.OnClickListener() {
+        holder.binding.weekdayCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 index = position;
@@ -123,27 +108,13 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
 
 
         if(index == position){
-
-            holder.daycard.setStrokeWidth((int) 5f);
+            holder.binding.weekdayCard.setStrokeWidth((int) 5f);
         }else{
-
-            holder.daycard.setStrokeWidth((int) 0f);
+            holder.binding.weekdayCard.setStrokeWidth((int) 0f);
         }
 
         if(check){
             updateRecyclerView.sendPosition(0);
-//            getScheduleViewModel.setScheduleGetResponse(appPreferences.RetrieveClassId(),"sunday");
-//            getScheduleViewModel.getScheduleGetResponse().observe((LifecycleOwner) activity, data->
-//            {
-//                if(data==null)
-//                {
-//                    Toast.makeText(context,"No data",Toast.LENGTH_SHORT).show();
-//                }
-//                else
-//                {
-//                    updateRecyclerView.callback(0,data.getRequiredSchedule());
-//                }
-//            });
             check = false;
         }
     }
@@ -152,10 +123,4 @@ public class WeekDayAdapter extends RecyclerView.Adapter<WeekDayAdapter.MyViewHo
     public int getItemCount() {
         return day.size();
     }
-
-
-
-
-
-
 }

@@ -2,21 +2,16 @@ package com.attendo.Schedule.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.attendo.R;
 import com.attendo.Schedule.Interface.UpdateRecyclerView;
 import com.attendo.data.model.schedule.SubjectDetails;
+import com.attendo.databinding.SubjectCardBinding;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class RoutineItemAdapter extends RecyclerView.Adapter<RoutineItemAdapter.RoutineItemAdapterHolder>{
 
@@ -29,24 +24,21 @@ public class RoutineItemAdapter extends RecyclerView.Adapter<RoutineItemAdapter.
         this.items = items;
         this.context = context;
         this.updateRecyclerView = updateRecyclerView;
-
-
     }
 
     @NonNull
     @Override
     public RoutineItemAdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.subject_card,parent,false);
-        RoutineItemAdapterHolder routineItemAdapterHolder= new RoutineItemAdapterHolder(view);
-        return routineItemAdapterHolder;
+        SubjectCardBinding binding = SubjectCardBinding.inflate(LayoutInflater.from(context), parent, false);
+        return new RoutineItemAdapter.RoutineItemAdapterHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RoutineItemAdapterHolder holder, int position) {
         SubjectDetails currentItem = items.get(position);
-        holder.subject.setText(currentItem.getSubject());
-        holder.faculty.setText(currentItem.getFaculty());
-        holder.time.setText(currentItem.getTime());
+        holder.binding.subjectname.setText(currentItem.getSubject());
+        holder.binding.instructor.setText(currentItem.getFaculty());
+        holder.binding.time.setText(currentItem.getTime());
 
     }
 
@@ -57,16 +49,11 @@ public class RoutineItemAdapter extends RecyclerView.Adapter<RoutineItemAdapter.
 
     public static class RoutineItemAdapterHolder extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.subjectname)
-        TextView subject;
-        @BindView(R.id.instructor)
-        TextView faculty;
-        @BindView(R.id.time)
-        TextView time;
+        SubjectCardBinding binding;
 
-        public RoutineItemAdapterHolder(@NonNull View itemView) {
-            super(itemView);
-            ButterKnife.bind(this,itemView);
+        public RoutineItemAdapterHolder(@NonNull SubjectCardBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 

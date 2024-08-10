@@ -19,8 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true">
-        <receiver android:name=".fcm.NotificationBroadcast"
-            android:enabled="true"/>
+
+        <receiver
+            android:name=".fcm.NotificationBroadcast"
+            android:exported="true" />
 
         <activity
             android:name=".ui.main.BottomNavMainActivity"
@@ -42,13 +44,14 @@
 
         <service
             android:name=".fcm.MyFirebaseMessagingService"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <receiver android:name=".fcm.ReminderBroadcastReceiver"
+        <receiver
+            android:name=".fcm.ReminderBroadcastReceiver"
             android:exported="true"/>
 
         <meta-data

@@ -47,6 +47,7 @@ public class CalAdapter extends RecyclerView.Adapter<CalAdapter.CalViewHolder> {
 
     public static class CalViewHolder extends RecyclerView.ViewHolder{
         CalendarCardListitemBinding binding;
+
         public CalViewHolder(@NonNull CalendarCardListitemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

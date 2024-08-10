@@ -21,30 +21,18 @@ import com.attendo.Schedule.Adapters.NoticeAdapter;
 import com.attendo.Schedule.Adapters.NoticeAdapterStudent;
 import com.attendo.Schedule.Preference.AppPreferences;
 import com.attendo.data.model.schedule.NoticeDetails;
+import com.attendo.databinding.FragmentNoticeStudentBinding;
 import com.attendo.viewmodel.NoticeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.transition.MaterialSharedAxis;
 
-import butterknife.BindInt;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStudent.CallBack {
 
-    private RecyclerView recyclerView;
+    private FragmentNoticeStudentBinding binding;
+
     private NoticeAdapterStudent noticeAdapterStudent;
     NoticeViewModel noticeViewModel;
     AppPreferences preferences;
-    private ContentLoadingProgressBar progressBar;
-
-    @BindView(R.id.no_notice_student_lottie)
-    LottieAnimationView lottieAnimationView;
-
-    @BindView(R.id.no_notice_student_txtview)
-    TextView noNoticeTextView;
-
-    @BindView(R.id.searching_notice_lottie_student)
-    LottieAnimationView searchingLottie;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,45 +44,41 @@ public class NoticeFragmentStudent extends Fragment implements NoticeAdapterStud
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_notice_student, container, false);
+        binding = FragmentNoticeStudentBinding.inflate(inflater,container,false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Notice");
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
         bottomNavigationView.setVisibility(View.GONE);
-        ButterKnife.bind(this, view);
 
         setEnterTransition(new MaterialSharedAxis(MaterialSharedAxis.X, true));
-
-        recyclerView = view.findViewById(R.id.notice_student_recyclerview);
-        progressBar = view.findViewById(R.id.notice_progress_bar_student);
 
         noticeViewModel.get_All_notice(preferences.RetrieveClassId());
         noticeViewModel.get_all_noticeResponse().observe(getViewLifecycleOwner(),data->{
             if(data!=null)
             {
-                searchingLottie.setVisibility(View.INVISIBLE);
-                progressBar.hide();
+                binding.searchingNoticeLottieStudent.setVisibility(View.INVISIBLE);
+                binding.noticeProgressBarStudent.hide();
                 if(data.getNoticeDetailsList().size() == 0){
-                    lottieAnimationView.setVisibility(View.VISIBLE);
-                    noNoticeTextView.setVisibility(View.VISIBLE);
+                    binding.noNoticeStudentLottie.setVisibility(View.VISIBLE);
+                    binding.noNoticeStudentTxtview.setVisibility(View.VISIBLE);
                 }else{
-                    lottieAnimationView.setVisibility(View.INVISIBLE);
-                    noNoticeTextView.setVisibility(View.INVISIBLE);
+                    binding.noNoticeStudentLottie.setVisibility(View.INVISIBLE);
+                    binding.noNoticeStudentTxtview.setVisibility(View.INVISIBLE);
                 }
 
                 noticeAdapterStudent = new NoticeAdapterStudent(getContext(),data.getNoticeDetailsList(), this::onCardClick);
-                recyclerView.setAdapter(noticeAdapterStudent);
+                binding.noticeStudentRecyclerview.setAdapter(noticeAdapterStudent);
             }
             else{
-                progressBar.hide();
-                lottieAnimationView.setVisibility(View.VISIBLE);
-                noNoticeTextView.setVisibility(View.VISIBLE);
+                binding.noticeProgressBarStudent.hide();
+                binding.noNoticeStudentLottie.setVisibility(View.VISIBLE);
+                binding.noNoticeStudentTxtview.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(),"Something went wrong. Try again !",Toast.LENGTH_SHORT).show();
             }
 
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.noticeStudentRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        return view;
+        return binding.getRoot();
     }
 
     @Override

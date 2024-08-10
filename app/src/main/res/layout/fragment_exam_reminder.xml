@@ -11,8 +11,6 @@
     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
     tools:context=".ui.main.drawers.reminder.FragmentReminder">
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rem_recycler"
         android:layout_width="match_parent"
@@ -50,7 +48,6 @@
         app:lottie_rawRes="@raw/no_reminder_lottie"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"/>
-
 
     <TextView
         android:id="@+id/no_reminder_txtview"

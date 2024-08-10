@@ -1,19 +1,18 @@
 package com.attendo.ui.main.drawers;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.attendo.R;
+import com.attendo.databinding.FragmentBugBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -24,33 +23,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Iterator;
 import java.util.Objects;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
+public class FragmentBug extends Fragment {
 
-public class FragmentBug extends Fragment{
-    @BindView(R.id.msgData)
-    EditText TextMsg;
-    @BindView(R.id.btn_send)
-    Button send;
-    @BindView(R.id.btn_details)
-    Button details;
+    private FragmentBugBinding binding;
 
     DatabaseReference databaseReference;
     FirebaseAuth mAuth;
-    ProgressBar Pb;
     int found = 0;
     String value = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_bug, container, false);
+        binding = FragmentBugBinding.inflate(inflater, container, false);
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).setTitle("Report Bug");
-        ButterKnife.bind(this,view);
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference= FirebaseDatabase.getInstance().getReference("Bugs").child(mAuth.getCurrentUser().getUid()).child("Bug");
@@ -68,19 +57,18 @@ public class FragmentBug extends Fragment{
                 Log.i("bugreport" , "Error: " + error);
             }
         });
-        Pb = view.findViewById(R.id.detail_progress);
 
-        send.setOnClickListener(new View.OnClickListener() {
+        binding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mAuth.getCurrentUser() != null) {
-                    String text = TextMsg.getText().toString().trim();
-                    if(text.length()>0){
+                if (mAuth.getCurrentUser() != null) {
+                    String text = binding.msgData.getText().toString().trim();
+                    if (text.length() > 0) {
                         databaseReference.child(mAuth.getCurrentUser().getUid()).child("Bug").push().setValue(text).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    Toast.makeText(getActivity(),"Your response send",Toast.LENGTH_SHORT).show();
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getActivity(), "Your response send", Toast.LENGTH_SHORT).show();
                                 }
                                 else{
                                     Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
@@ -95,10 +83,10 @@ public class FragmentBug extends Fragment{
             }
         });
 
-        details.setOnClickListener(new View.OnClickListener() {
+        binding.btnDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(found <= 0)  {
+                if (found <= 0) {
                     new MaterialAlertDialogBuilder(requireContext())
                             .setTitle("Sent Details :")
                             .setMessage("No bugs reported by you")
@@ -111,8 +99,7 @@ public class FragmentBug extends Fragment{
                 }
             }
         });
-        return view;
+
+        return binding.getRoot();
     }
-
-
 }

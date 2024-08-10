@@ -56,7 +56,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Intent intent = new Intent(getApplicationContext(), BottomNavMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 101, intent, 0);
+        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 101, intent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 

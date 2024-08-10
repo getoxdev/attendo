@@ -103,22 +103,22 @@
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"/>
 
-            <TextView
-                android:id="@+id/excel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Export Attendance as Excel"
-                android:drawableLeft="@drawable/ic_baseline_import_export_24"
-                android:textAlignment="textStart"
-                android:paddingTop="15dp"
-                android:drawablePadding="15dp"
-                android:paddingLeft="25dp"
-                android:textSize="18dp"
-                android:paddingBottom="15dp"
-                android:backgroundTint="#E3E1E1"
-                android:clickable="true"
-                android:fontFamily="@font/poppins_light"
-                android:foreground="?android:attr/selectableItemBackground"/>
+<!--            <TextView-->
+<!--                android:id="@+id/excel"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Export Attendance as Excel"-->
+<!--                android:drawableLeft="@drawable/ic_baseline_import_export_24"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:paddingTop="15dp"-->
+<!--                android:drawablePadding="15dp"-->
+<!--                android:paddingLeft="25dp"-->
+<!--                android:textSize="18dp"-->
+<!--                android:paddingBottom="15dp"-->
+<!--                android:backgroundTint="#E3E1E1"-->
+<!--                android:clickable="true"-->
+<!--                android:fontFamily="@font/poppins_light"-->
+<!--                android:foreground="?android:attr/selectableItemBackground"/>-->
 
             <TextView
                 android:id="@+id/routine_settings"
