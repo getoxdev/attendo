@@ -35,24 +35,25 @@ import java.util.concurrent.TimeUnit;
 public class NotificationBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-      //  String body=intent.getStringExtra("body");
+        //  String body=intent.getStringExtra("body");
 
-               
-        if(!isWorkScheduled("Notify", context) ){
-            Data notificationData= new Data.Builder()
-                    .putString("body","test")
+
+        if (!isWorkScheduled("Notify", context)) {
+            Data notificationData = new Data.Builder()
+                    .putString("body", "test")
                     .build();
-                  System.out.println("Not Scehduled");
-            PeriodicWorkRequest work= new PeriodicWorkRequest.Builder(NotifyWorker.class,24, TimeUnit.HOURS)
+            System.out.println("Not Scehduled");
+            PeriodicWorkRequest work = new PeriodicWorkRequest.Builder(NotifyWorker.class, 24, TimeUnit.HOURS)
                     .setInputData(notificationData).build();
 
 
-            WorkManager.getInstance(context).enqueueUniquePeriodicWork("Notify",ExistingPeriodicWorkPolicy.REPLACE,work);
+            WorkManager.getInstance(context).enqueueUniquePeriodicWork("Notify", ExistingPeriodicWorkPolicy.REPLACE, work);
 
         }
 
 
     }
+
     private boolean isWorkScheduled(String tag, Context context) {
         WorkManager instance = WorkManager.getInstance(context);
         ListenableFuture<List<WorkInfo>> statuses = instance.getWorkInfosForUniqueWork(tag);
@@ -69,32 +70,36 @@ public class NotificationBroadcast extends BroadcastReceiver {
             return false;
         }
     }
-    public void setnotification(Context context) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY,22);
-      //  WorkManager.getInstance(context).cancelAllWork();
-        calendar.set(Calendar.MINUTE,30);
-        Intent intent = new Intent(context, NotificationBroadcast.class);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_MUTABLE);
-        } else {
-            pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-        }
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
-            calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent
-            );
-        }
-        else
-        {
-            alarmManager.setExact(
-                    AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent
-            );
 
-        }        }
+    public void setnotification(Context context) {
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.set(Calendar.HOUR_OF_DAY,22);
+//      //  WorkManager.getInstance(context).cancelAllWork();
+//        calendar.set(Calendar.MINUTE,30);
+//        Intent intent = new Intent(context, NotificationBroadcast.class);
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+//            pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_MUTABLE);
+//        } else {
+//            pendingIntent = PendingIntent.getBroadcast(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+//        }
+//        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+//        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+//            calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + 1);
+//        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            alarmManager.setExactAndAllowWhileIdle(
+//                    AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent
+//            );
+//        }
+//        else
+//        {
+//            alarmManager.setExact(
+//                    AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent
+//            );
+//
+//        }
+//        }
+//}
+    }
 }

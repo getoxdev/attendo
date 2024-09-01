@@ -103,8 +103,8 @@ public class BottomNavMainActivity extends AppCompatActivity {
         appPreferences = AppPreferences.getInstance(this);
         getJoinAsData();
         getClassId();
-        NotificationBroadcast obj = new NotificationBroadcast();
-          obj.setnotification(BottomNavMainActivity.this);
+//        NotificationBroadcast obj = new NotificationBroadcast();
+//          obj.setnotification(BottomNavMainActivity.this);
         firebaseScheduleViewModel.RetrieveClassJoinAs();
         firebaseScheduleViewModel.RetrieveClassId();
         crFragment = new CrFragment();
@@ -183,16 +183,16 @@ public class BottomNavMainActivity extends AppCompatActivity {
                             .commit();
                     break;
 
-                case R.id.reminder_bottom_nav:
-                    Fragment reminder = new FragmentReminder();
-                    selectedFragment = reminder;
-                    reminder.setEnterTransition(enter);
-                    reminder.setExitTransition(exit);
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container_frame, reminder, "reminder_fragment")
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            .commit();
-                    break;
+//                case R.id.reminder_bottom_nav:
+//                    Fragment reminder = new FragmentReminder();
+//                    selectedFragment = reminder;
+//                    reminder.setEnterTransition(enter);
+//                    reminder.setExitTransition(exit);
+//                    getSupportFragmentManager().beginTransaction()
+//                            .replace(R.id.container_frame, reminder, "reminder_fragment")
+//                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+//                            .commit();
+//                    break;
 
 //                case R.id.schedule_bottom_nav:
 //                    if(!isConnected())
